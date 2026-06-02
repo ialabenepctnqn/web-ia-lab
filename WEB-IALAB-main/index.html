@@ -520,6 +520,29 @@
             gap: 22px;
         }
 
+        .vertical-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vertical-referente {
+            text-align: center;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin: 0;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .vertical-referente i {
+            color: var(--cyan-electric);
+            font-size: 0.70rem;
+        }
+
         /* Tarjeta con overlay deslizante — sin 3D, 100% compatible móvil */
         .vertical-card-container {
             position: relative;
@@ -1503,54 +1526,78 @@
                 <p class="section-subtitle">Explora los sectores clave donde la IA de ENEIALAB generará alto impacto.</p>
 
                 <div class="verticals-grid">
-                    <a href="verticales/energia.html" class="vertical-card-container" style="transition-delay: 0s;">
-                        <div class="vertical-card-front">
-                            <i class="fas fa-industry"></i>
-                            <h4>Energía</h4>
-                        </div>
-                    </a>
-                    <a href="verticales/recursos-humanos.html" class="vertical-card-container" style="transition-delay: 0.1s;">
-                        <div class="vertical-card-front">
-                            <i class="fas fa-users"></i>
-                            <h4>Recursos Humanos</h4>
-                        </div>
-                    </a>
-                    <a href="verticales/salud.html" class="vertical-card-container" style="transition-delay: 0.2s;">
-                        <div class="vertical-card-front">
-                            <i class="fas fa-heartbeat"></i>
-                            <h4>Salud</h4>
-                        </div>
-                    </a>
-                    <a href="verticales/marketing.html" class="vertical-card-container" style="transition-delay: 0.3s;">
-                        <div class="vertical-card-front">
-                            <i class="fas fa-chart-line"></i>
-                            <h4>Marketing y Comercialización</h4>
-                        </div>
-                    </a>
-                    <a href="verticales/ciencias-economicas.html" class="vertical-card-container" style="transition-delay: 0.4s;">
-                        <div class="vertical-card-front">
-                            <i class="fas fa-calculator"></i>
-                            <h4>Ciencias Económicas</h4>
-                        </div>
-                    </a>
-                    <a href="verticales/arquitectura.html" class="vertical-card-container" style="transition-delay: 0.5s;">
-                        <div class="vertical-card-front">
-                            <i class="fas fa-building"></i>
-                            <h4>Arquitectura</h4>
-                        </div>
-                    </a>
-                    <a href="verticales/derecho.html" class="vertical-card-container" style="transition-delay: 0.6s;">
-                        <div class="vertical-card-front">
-                            <i class="fas fa-gavel"></i>
-                            <h4>Derecho</h4>
-                        </div>
-                    </a>
-                    <a href="verticales/seguridad-higiene.html" class="vertical-card-container" style="transition-delay: 0.7s;">
-                        <div class="vertical-card-front">
-                            <i class="fas fa-shield-alt"></i>
-                            <h4>Seguridad e Higiene</h4>
-                        </div>
-                    </a>
+                    <div class="vertical-item">
+                        <a href="verticales/energia.html" class="vertical-card-container" style="transition-delay: 0s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-industry"></i>
+                                <h4>Energía</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Diego Manfio</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/recursos-humanos.html" class="vertical-card-container" style="transition-delay: 0.1s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-users"></i>
+                                <h4>Recursos Humanos</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Mariana Sobisch</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/salud.html" class="vertical-card-container" style="transition-delay: 0.2s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-heartbeat"></i>
+                                <h4>Salud</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Vanesa Scholl</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/marketing.html" class="vertical-card-container" style="transition-delay: 0.3s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-chart-line"></i>
+                                <h4>Marketing y Comercialización</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Rodrigo Bustos</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/ciencias-economicas.html" class="vertical-card-container" style="transition-delay: 0.4s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-calculator"></i>
+                                <h4>Ciencias Económicas</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Matias Bacci</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/arquitectura.html" class="vertical-card-container" style="transition-delay: 0.5s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-building"></i>
+                                <h4>Arquitectura</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Pablo Coronato</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/derecho.html" class="vertical-card-container" style="transition-delay: 0.6s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-gavel"></i>
+                                <h4>Derecho</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Incorporando referente</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/seguridad-higiene.html" class="vertical-card-container" style="transition-delay: 0.7s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-shield-alt"></i>
+                                <h4>Seguridad e Higiene</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Cristian Sanz</p>
+                    </div>
                 </div>
             </div>
         </div>
