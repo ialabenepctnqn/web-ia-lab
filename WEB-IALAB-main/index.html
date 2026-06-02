@@ -1092,6 +1092,174 @@
 
         .paper-callout-text strong { color: var(--text-main); }
 
+        /* ── Comunidad / Membresía preview ── */
+        .membership-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 52px;
+            margin-bottom: 52px;
+            align-items: start;
+        }
+
+        .membership-card {
+            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
+            border: 1px solid var(--line-soft);
+            border-radius: var(--radius-lg);
+            padding: 32px 28px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.65s ease, transform 0.65s ease, border-color 0.25s ease, box-shadow 0.35s ease;
+        }
+
+        .membership-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .membership-card:hover {
+            border-color: rgba(6,182,212,0.32);
+            box-shadow: 0 0 20px rgba(6,182,212,0.13), var(--shadow-soft);
+        }
+
+        .membership-card::before {
+            content: '';
+            position: absolute;
+            left: 24px; right: 24px; top: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.05));
+            border-radius: 0 0 8px 8px;
+        }
+
+        .membership-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0, transparent 28%);
+            pointer-events: none;
+        }
+
+        .membership-card-featured {
+            border-color: rgba(6,182,212,0.32);
+            box-shadow: 0 0 32px rgba(6,182,212,0.15), var(--shadow-strong);
+            background: linear-gradient(180deg, rgba(6,182,212,0.08) 0%, rgba(22,25,29,0.96) 18%, rgba(14,16,19,0.98) 100%);
+        }
+
+        .membership-card-featured::before {
+            background: linear-gradient(to right, var(--accent-cyan), var(--accent-violet));
+            height: 5px;
+        }
+
+        .membership-card-featured:hover {
+            box-shadow: 0 0 44px rgba(6,182,212,0.24), var(--shadow-strong);
+        }
+
+        .membership-tier-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(6,182,212,0.08);
+            border: 1px solid rgba(6,182,212,0.22);
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .membership-card-featured .membership-tier-badge {
+            background: rgba(6,182,212,0.14);
+            border-color: rgba(6,182,212,0.42);
+        }
+
+        .membership-card h3 {
+            font-size: 1.6rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .membership-card-tagline {
+            font-size: 0.96rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            margin-top: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .membership-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 28px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .membership-features li {
+            font-size: 0.92rem;
+            color: var(--text-soft);
+            padding: 9px 0;
+            border-bottom: 1px solid var(--line-soft);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        .membership-features li:last-child { border-bottom: none; }
+
+        .membership-features li::before {
+            content: '›';
+            color: var(--cyan-electric);
+            font-weight: 700;
+            font-size: 1.1rem;
+            line-height: 1.4;
+            flex-shrink: 0;
+        }
+
+        .cta-wrap {
+            text-align: center;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 36px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--cyan-electric), var(--violet-electric));
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.94rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: opacity 0.22s ease, transform 0.22s ease, box-shadow 0.28s ease;
+            box-shadow: 0 8px 28px rgba(6,182,212,0.28), 0 4px 12px rgba(139,92,246,0.18);
+        }
+
+        .btn-cta:hover {
+            opacity: 0.88;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 38px rgba(6,182,212,0.40), 0 6px 20px rgba(139,92,246,0.28);
+        }
+
+        .btn-cta i { font-size: 1rem; }
+
         /* ── Footer ── */
         footer {
             border-top: 1px solid var(--line-soft);
@@ -1250,6 +1418,8 @@
             .milestones-grid { grid-template-columns: 1fr; gap: 16px; }
             .gallery-grid { grid-template-columns: 1fr; gap: 12px; }
             .team-grid { grid-template-columns: 1fr; gap: 14px; }
+            .membership-grid { grid-template-columns: 1fr; gap: 16px; }
+            .membership-card-featured { order: -1; }
             .paper-callout { flex-direction: column; gap: 14px; text-align: center; }
             footer { padding: 36px 18px 28px 18px; }
             .footer-links { gap: 10px; }
@@ -1274,6 +1444,7 @@
             <li><a href="#screen3-modelo">Modelo</a></li>
             <li><a href="#screen3-agenda">Agenda</a></li>
             <li><a href="#screen4-equipo">Equipo</a></li>
+            <li><a href="#screen5-comunidad">Comunidad</a></li>
             <li class="nav-divider" aria-hidden="true"></li>
             <li><a href="membresia.html" class="nav-link-page">Membresía</a></li>
             <li><a href="metodologia.html" class="nav-link-page">Metodología</a></li>
@@ -1549,6 +1720,61 @@
         </div>
     </section>
 
+    <section id="screen5-comunidad" class="screen">
+        <div class="content-wrapper">
+            <div class="section-shell">
+                <h2 class="section-title">Comunidad IA LAB</h2>
+                <p class="section-subtitle">Sumate al laboratorio vivo. Tres formas de ser parte de la transformación de la región.</p>
+
+                <div class="membership-grid">
+                    <div class="membership-card" style="transition-delay: 0s;">
+                        <div class="membership-tier-badge"><i class="fas fa-compass"></i> Explorador</div>
+                        <h3>Explorador</h3>
+                        <p class="membership-card-tagline">Conectate con el ecosistema IA de la región.</p>
+                        <ul class="membership-features">
+                            <li>Acceso a los eventos públicos de 2026</li>
+                            <li>Newsletter con hallazgos de los verticales</li>
+                            <li>Acceso a los papers publicados por ENEIALAB</li>
+                            <li>Comunidad online de practicantes de IA</li>
+                        </ul>
+                    </div>
+
+                    <div class="membership-card membership-card-featured" style="transition-delay: 0.15s;">
+                        <div class="membership-tier-badge"><i class="fas fa-bolt"></i> Más elegido</div>
+                        <h3>Innovador</h3>
+                        <p class="membership-card-tagline">Participá activamente en el proceso de innovación.</p>
+                        <ul class="membership-features">
+                            <li>Todo lo del nivel Explorador</li>
+                            <li>Acceso anticipado a workshops y demos por vertical</li>
+                            <li>Sesiones de co-diseño con los equipos</li>
+                            <li>Reconocimiento como colaborador en publicaciones</li>
+                            <li>Red de referentes sectoriales de Neuquén</li>
+                        </ul>
+                    </div>
+
+                    <div class="membership-card" style="transition-delay: 0.30s;">
+                        <div class="membership-tier-badge"><i class="fas fa-rocket"></i> Estratégico</div>
+                        <h3>Estratégico</h3>
+                        <p class="membership-card-tagline">Co-creá soluciones con visibilidad institucional.</p>
+                        <ul class="membership-features">
+                            <li>Todo lo del nivel Innovador</li>
+                            <li>Visibilidad de marca en eventos y publicaciones</li>
+                            <li>Participación directa en el desarrollo de verticales</li>
+                            <li>Sesiones privadas con el equipo ENEIALAB</li>
+                            <li>Reporte ejecutivo trimestral con insights del laboratorio</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="cta-wrap">
+                    <a href="membresia.html" class="btn-cta">
+                        <i class="fas fa-arrow-right"></i> Ver detalle de membresías
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="footer-logo"><img src="imagenes/LOGOIALAB.png" alt="IA LAB Logo" style="height:38px;width:auto;object-fit:contain;filter:invert(1);"><span>2026</span></div>
             <div class="footer-links">
@@ -1567,7 +1793,7 @@
                 });
             }, { threshold: 0.1 });
 
-            document.querySelectorAll('.screen, .section-title, .section-subtitle, .mission-box, .vertical-card-container, .timeline-item, .sharing-methods li, .milestone-card, .closing-statement, .team-card, .gallery-item, .paper-callout').forEach(el => {
+            document.querySelectorAll('.screen, .section-title, .section-subtitle, .mission-box, .vertical-card-container, .timeline-item, .sharing-methods li, .milestone-card, .closing-statement, .team-card, .gallery-item, .paper-callout, .membership-card').forEach(el => {
                 observer.observe(el);
             });
 
