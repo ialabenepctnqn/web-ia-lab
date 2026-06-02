@@ -247,17 +247,15 @@
             white-space: nowrap;
             flex-shrink: 0;
             transition: opacity 0.22s ease, transform 0.22s ease, box-shadow 0.28s ease;
-            box-shadow: 0 4px 18px rgba(6,182,212,0.24), 0 2px 8px rgba(139,92,246,0.14);
+            box-shadow: 0 4px 18px rgba(6,182,212,0.28), 0 2px 8px rgba(139,92,246,0.18),
+                        0 0 0 1px rgba(6,182,212,0.20);
         }
 
         .nav-cta-btn:hover {
             opacity: 0.88;
             transform: translateY(-1px);
-            box-shadow: 0 7px 26px rgba(6,182,212,0.36), 0 3px 14px rgba(139,92,246,0.22);
-        }
-
-        .nav-cta-btn.nav-cta-active {
-            box-shadow: 0 0 0 2px rgba(6,182,212,0.40), 0 4px 18px rgba(6,182,212,0.25);
+            box-shadow: 0 7px 26px rgba(6,182,212,0.40), 0 3px 14px rgba(139,92,246,0.26),
+                        0 0 0 1px rgba(6,182,212,0.30);
         }
 
         /* ── Floating menu ── */
