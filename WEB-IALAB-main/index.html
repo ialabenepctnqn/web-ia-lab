@@ -1260,6 +1260,33 @@
 
         .btn-cta i { font-size: 1rem; }
 
+        /* ── Price display (preview en home) ── */
+        .price-display {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 900;
+            color: var(--accent-cyan);
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .membership-card-featured .price-display {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price-period {
+            display: block;
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 4px;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0;
+        }
+
         /* ── Footer ── */
         footer {
             border-top: 1px solid var(--line-soft);
@@ -1723,47 +1750,43 @@
     <section id="screen5-comunidad" class="screen">
         <div class="content-wrapper">
             <div class="section-shell">
-                <h2 class="section-title">Comunidad IA LAB</h2>
-                <p class="section-subtitle">Sumate al laboratorio vivo. Tres formas de ser parte de la transformación de la región.</p>
+                <h2 class="section-title">Comunidad ENE IA LAB</h2>
+                <p class="section-subtitle">Dos modalidades para ser parte del ecosistema de IA más importante de la Patagonia.</p>
 
-                <div class="membership-grid">
+                <div class="membership-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 860px; margin-left: auto; margin-right: auto;">
+
                     <div class="membership-card" style="transition-delay: 0s;">
-                        <div class="membership-tier-badge"><i class="fas fa-compass"></i> Explorador</div>
-                        <h3>Explorador</h3>
-                        <p class="membership-card-tagline">Conectate con el ecosistema IA de la región.</p>
+                        <div class="membership-tier-badge"><i class="fas fa-user"></i> Individual</div>
+                        <div style="margin-bottom: 16px; position: relative; z-index: 1;">
+                            <div class="price-display">$85.000</div>
+                            <span class="price-period">por mes · ciclo 2026</span>
+                        </div>
+                        <h3>Membresía Individual</h3>
+                        <p class="membership-card-tagline">Para profesionales, emprendedores y referentes del sector.</p>
                         <ul class="membership-features">
-                            <li>Acceso a los eventos públicos de 2026</li>
-                            <li>Newsletter con hallazgos de los verticales</li>
-                            <li>Acceso a los papers publicados por ENEIALAB</li>
-                            <li>Comunidad online de practicantes de IA</li>
+                            <li>Participación en verticales de IA aplicada</li>
+                            <li>Charlas y encuentros exclusivos</li>
+                            <li>Networking con el ecosistema regional</li>
+                            <li>Coworking ENE hasta 2 veces por semana</li>
                         </ul>
                     </div>
 
                     <div class="membership-card membership-card-featured" style="transition-delay: 0.15s;">
-                        <div class="membership-tier-badge"><i class="fas fa-bolt"></i> Más elegido</div>
-                        <h3>Innovador</h3>
-                        <p class="membership-card-tagline">Participá activamente en el proceso de innovación.</p>
+                        <div class="membership-tier-badge"><i class="fas fa-building"></i> Corporativa</div>
+                        <div style="margin-bottom: 16px; position: relative; z-index: 1;">
+                            <div class="price-display">$150.000</div>
+                            <span class="price-period">por mes · ciclo 2026</span>
+                        </div>
+                        <h3>Membresía Corporativa</h3>
+                        <p class="membership-card-tagline">Para empresas e instituciones. Hasta 3 personas simultáneas.</p>
                         <ul class="membership-features">
-                            <li>Todo lo del nivel Explorador</li>
-                            <li>Acceso anticipado a workshops y demos por vertical</li>
-                            <li>Sesiones de co-diseño con los equipos</li>
-                            <li>Reconocimiento como colaborador en publicaciones</li>
-                            <li>Red de referentes sectoriales de Neuquén</li>
+                            <li>Todos los beneficios del nivel Individual</li>
+                            <li>Hasta 3 personas de la organización</li>
+                            <li>Mayor visibilidad en eventos del laboratorio</li>
+                            <li>Vinculación directa con verticales y referentes</li>
                         </ul>
                     </div>
 
-                    <div class="membership-card" style="transition-delay: 0.30s;">
-                        <div class="membership-tier-badge"><i class="fas fa-rocket"></i> Estratégico</div>
-                        <h3>Estratégico</h3>
-                        <p class="membership-card-tagline">Co-creá soluciones con visibilidad institucional.</p>
-                        <ul class="membership-features">
-                            <li>Todo lo del nivel Innovador</li>
-                            <li>Visibilidad de marca en eventos y publicaciones</li>
-                            <li>Participación directa en el desarrollo de verticales</li>
-                            <li>Sesiones privadas con el equipo ENEIALAB</li>
-                            <li>Reporte ejecutivo trimestral con insights del laboratorio</li>
-                        </ul>
-                    </div>
                 </div>
 
                 <div class="cta-wrap">
