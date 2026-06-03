@@ -1,5 +1,6 @@
 # Excluir todo excepto WEB-IALAB-main
 *
 !.gitignore
+!CLAUDE.md
 !WEB-IALAB-main/
 !WEB-IALAB-main/**
