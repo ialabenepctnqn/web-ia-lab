@@ -367,6 +367,7 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
+            border-radius: inherit;
             background:
                 radial-gradient(circle at top left, rgba(6,182,212,0.18) 0, transparent 36%),
                 radial-gradient(circle at bottom right, rgba(139,92,246,0.12) 0, transparent 32%);
