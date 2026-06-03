@@ -87,7 +87,7 @@
         #bg-photo {
             position: fixed;
             inset: 0;
-            z-index: -10;
+            z-index: 0;
             background:
                 rgba(5, 6, 7, 0.68),
                 url('../fotos/POLO2.png') center / cover no-repeat;
@@ -302,6 +302,7 @@
             justify-content: center;
             padding: 110px 52px;
             position: relative;
+            z-index: 1;
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.75s ease, transform 0.75s ease;
@@ -1381,6 +1382,8 @@
 
         /* ── Footer ── */
         footer {
+            position: relative;
+            z-index: 1;
             border-top: 1px solid var(--line-soft);
             padding: 52px 52px 40px 52px;
             display: flex;
