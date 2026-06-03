@@ -185,6 +185,13 @@
             color: var(--accent-cyan);
         }
 
+        /* ── Right: links + CTA ── */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         /* ── Center: page links ── */
         .nav-links {
             list-style: none;
