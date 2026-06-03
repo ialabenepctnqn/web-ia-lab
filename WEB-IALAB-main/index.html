@@ -603,15 +603,17 @@
         }
 
         .verticals-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 22px;
+            justify-content: center;
         }
 
         .vertical-item {
             display: flex;
             flex-direction: column;
             gap: 8px;
+            flex: 0 0 calc((100% - 66px) / 4);
         }
 
         .vertical-referente {
@@ -1462,7 +1464,7 @@
             nav { padding: 12px 24px; }
             .nav-floating-menu { left: 24px; }
             .screen { padding: 100px 28px; }
-            .verticals-grid { grid-template-columns: repeat(2, 1fr); }
+            .vertical-item { flex-basis: calc((100% - 22px) / 2); }
             .timeline { flex-direction: column; align-items: center; }
             .timeline-item { width: 82%; }
         }
@@ -1520,7 +1522,8 @@
             .mission-box { padding: 26px; }
             .mission-box p { font-size: 1rem; }
 
-            .verticals-grid { grid-template-columns: 1fr; gap: 16px; }
+            .verticals-grid { gap: 16px; }
+            .vertical-item { flex-basis: 100%; }
             .vertical-card-container { height: 170px; }
             .vertical-card-front i { font-size: 2.05rem; }
             .vertical-card-front h4 { font-size: 1.06rem; }
