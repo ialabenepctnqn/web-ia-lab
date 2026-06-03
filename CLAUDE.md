@@ -36,3 +36,9 @@ Todo el trabajo de desarrollo debe hacerse en la rama `develop`.
 - Rama de producción (Netlify): `main`
 - **Nunca** hacer cambios directamente sobre `main`
 - **Siempre** usar PR para pasar cambios de `develop` a `main`
+
+## Instrucción para Claude
+
+1. Antes de cualquier cambio, asegurate de estar en `develop` (`git checkout develop`).
+2. Hacé commits y pusheá a `origin/develop`.
+3. **Nunca** hagas push directo a `main`. Para llevar cambios a producción, abrí un PR de `develop` → `main` con `gh pr create`.
