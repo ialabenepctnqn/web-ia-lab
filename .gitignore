@@ -1,0 +1,5 @@
+# Excluir todo excepto WEB-IALAB-main
+*
+!.gitignore
+!WEB-IALAB-main/
+!WEB-IALAB-main/**
