@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ENEIALAB 2026 - Dark Impact</title>
+    <title>ENEIALAB</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -164,6 +164,13 @@
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(6,182,212,0.22);
             box-shadow: 0 1px 0 rgba(6,182,212,0.08), 0 4px 24px rgba(0,0,0,0.28);
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        nav.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .nav-logo {
@@ -253,6 +260,13 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 2px;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .side-nav.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .side-nav-item {
@@ -603,15 +617,17 @@
         }
 
         .verticals-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 22px;
+            justify-content: center;
         }
 
         .vertical-item {
             display: flex;
             flex-direction: column;
             gap: 8px;
+            flex: 0 0 calc((100% - 66px) / 4);
         }
 
         .vertical-referente {
@@ -1462,7 +1478,7 @@
             nav { padding: 12px 24px; }
             .nav-floating-menu { left: 24px; }
             .screen { padding: 100px 28px; }
-            .verticals-grid { grid-template-columns: repeat(2, 1fr); }
+            .vertical-item { flex-basis: calc((100% - 22px) / 2); }
             .timeline { flex-direction: column; align-items: center; }
             .timeline-item { width: 82%; }
         }
@@ -1520,7 +1536,8 @@
             .mission-box { padding: 26px; }
             .mission-box p { font-size: 1rem; }
 
-            .verticals-grid { grid-template-columns: 1fr; gap: 16px; }
+            .verticals-grid { gap: 16px; }
+            .vertical-item { flex-basis: 100%; }
             .vertical-card-container { height: 170px; }
             .vertical-card-front i { font-size: 2.05rem; }
             .vertical-card-front h4 { font-size: 1.06rem; }
@@ -1546,6 +1563,95 @@
 
             .closing-statement h3 { font-size: 1.72rem; }
             .closing-statement p { font-size: 0.97rem; }
+        }
+
+        /* ── Floating nav menu (oculto por defecto; shared.css no se carga en index) ── */
+        .nav-floating-menu {
+            position: fixed;
+            top: 64px;
+            left: 40px;
+            z-index: 999;
+            background: rgba(8,10,13,0.94);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(6,182,212,0.18);
+            border-radius: 18px;
+            padding: 8px 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 192px;
+            opacity: 0;
+            transform: translateY(-8px) scale(0.96);
+            pointer-events: none;
+            transition: opacity 0.20s ease, transform 0.20s ease;
+        }
+
+        .nav-floating-menu.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        /* ── Video intro ── */
+        #video-intro {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #intro-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #skip-intro-btn {
+            position: absolute;
+            bottom: 32px;
+            right: 32px;
+            z-index: 10;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.22);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 10px 22px;
+            border-radius: 999px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s ease;
+        }
+
+        #skip-intro-btn:hover { background: rgba(255,255,255,0.22); }
+
+        @keyframes hint-bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            50%       { transform: translateX(-50%) translateY(7px); opacity: 0.75; }
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,1);
+            font-size: 0.8rem;
+            letter-spacing: 0.06em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            pointer-events: none;
+            animation: hint-bounce 1.8s ease-in-out infinite;
         }
     </style>
 </head>
@@ -1586,6 +1692,19 @@
         <a href="#screen4-equipo"><i class="fas fa-users"></i> Equipo</a>
         <a href="#screen5-comunidad"><i class="fas fa-handshake"></i> Comunidad</a>
     </div>
+
+    <section id="video-intro">
+        <video id="intro-video" autoplay muted playsinline>
+            <source src="imagenes/poloTetris.mp4" type="video/mp4">
+        </video>
+        <button id="skip-intro-btn">
+            Saltar <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="scroll-hint">
+            <span>Scroll para continuar</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
 
     <section id="screen1" class="screen">
         <div class="content-wrapper">
@@ -1692,6 +1811,33 @@
                             </div>
                         </a>
                         <p class="vertical-referente"><i class="fas fa-user-circle"></i> Cristian Sanz</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/real-estate.html" class="vertical-card-container" style="transition-delay: 0.8s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-home"></i>
+                                <h4>Real Estate</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Incorporando referente</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/coaching.html" class="vertical-card-container" style="transition-delay: 0.9s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-comments"></i>
+                                <h4>Coaching</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Incorporando referente</p>
+                    </div>
+                    <div class="vertical-item">
+                        <a href="verticales/rrii.html" class="vertical-card-container" style="transition-delay: 1.0s;">
+                            <div class="vertical-card-front">
+                                <i class="fas fa-globe-americas"></i>
+                                <h4>Relaciones Internacionales</h4>
+                            </div>
+                        </a>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Incorporando referente</p>
                     </div>
                 </div>
             </div>
@@ -1918,6 +2064,21 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Video intro
+            const introVideo = document.getElementById('intro-video');
+            const skipBtn    = document.getElementById('skip-intro-btn');
+
+            function scrollToMain() {
+                const navHeight = document.querySelector('nav').offsetHeight;
+                const screen1   = document.getElementById('screen1');
+                window.scrollTo({ top: screen1.offsetTop - navHeight, behavior: 'smooth' });
+            }
+
+            if (introVideo) {
+                introVideo.addEventListener('ended', scrollToMain);
+                skipBtn.addEventListener('click', scrollToMain);
+            }
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -1978,10 +2139,20 @@
             });
 
             // Side-nav scroll-spy
+            const sideNavEl = document.querySelector('.side-nav');
+            const mainNavEl = document.querySelector('nav');
+            const videoIntroEl = document.getElementById('video-intro');
             const sideNavSections = ['screen1','screen2','screen3','screen4-equipo','screen5-comunidad'];
             function updateSideNav() {
                 const scrollY = window.scrollY;
-                const navH = document.querySelector('nav').offsetHeight;
+                const navH = mainNavEl ? mainNavEl.offsetHeight : 0;
+
+                // Ocultar nav y side-nav mientras se está en la intro del video
+                const inVideo = videoIntroEl && scrollY < videoIntroEl.offsetHeight * 0.8;
+                if (sideNavEl) sideNavEl.classList.toggle('hidden', inVideo);
+                if (mainNavEl) mainNavEl.classList.toggle('hidden', inVideo);
+
+
                 let current = sideNavSections[0];
                 sideNavSections.forEach(id => {
                     const el = document.getElementById(id);
