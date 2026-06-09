@@ -17,7 +17,7 @@
     return path.includes('/verticales/') ? '../' : '';
   })();
 
-  const MASCOT_SRC = BASE + 'imagenes/mascota.png';
+  const MASCOT_SRC = BASE + 'imagenes/NeoCabezaPng.png';
 
   /* ------------------------------------------------------------------ */
   /* Respuestas hardcodeadas (reemplazar por llamada a API cuando        */
