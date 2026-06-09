@@ -87,19 +87,19 @@
     launcher.setAttribute('role', 'button');
     launcher.setAttribute('aria-label', 'Abrir asistente IA LAB');
     launcher.innerHTML = `
-      <div class="cb-bubble" id="cb-bubble">¿Tenés alguna pregunta?</div>
+      <div class="cb-bubble" id="cb-bubble">¿Cómo puedo ayudarte?</div>
       ${mascotHTML('cb-mascot-img-wrap')}
     `;
 
     // Ventana del chat
     const win = el('div', 'cb-window');
     win.setAttribute('role', 'dialog');
-    win.setAttribute('aria-label', 'Asistente IA LAB');
+    win.setAttribute('aria-label', 'Neo');
     win.innerHTML = `
       <div class="cb-header">
         ${mascotHTML('cb-header-mascot')}
         <div class="cb-header-info">
-          <div class="cb-header-title">Asistente IA LAB</div>
+          <div class="cb-header-title">Neo</div>
           <div class="cb-header-status">En línea</div>
         </div>
         <button class="cb-close-btn" id="cb-close-btn" aria-label="Cerrar chat">✕</button>
@@ -188,7 +188,7 @@
   /* Mensaje de bienvenida y quick replies                               */
   /* ------------------------------------------------------------------ */
   function showWelcome(msgContainer, quickContainer) {
-    const welcome = `¡Hola! Soy el asistente de IA LAB.<br><br>
+    const welcome = `¡Hola! Soy Neo, el asistente de IA LAB.<br><br>
       Puedo ayudarte con información sobre el laboratorio, eventos, membresías y nuestras verticales.<br><br>
       En el futuro estaré conectado a una inteligencia artificial para responder tus consultas.`;
     appendBotMessage(msgContainer, `<p style="margin:0">${welcome}</p>`);
