@@ -42,6 +42,25 @@ WEB-IALAB-main/
 | `eventos.html` | Agenda de eventos del año 2026 |
 | `membresia.html` | Planes Individual ($85k) y Corporativa ($150k) |
 
+### Flujo de registro de membresías (`membresia.html`)
+
+Reemplaza los antiguos enlaces `mailto:` por un flujo guiado de cuatro pasos:
+
+1. **Selector de tipo** — el usuario elige entre Membresía Individual ($85.000/mes) y Corporativa ($150.000/mes).
+2. **Beneficios** — se muestran los beneficios completos del tipo elegido antes de continuar.
+3. **Formulario dinámico** — campos comunes (nombre, email, teléfono, vertical de interés, fuente de referido, consentimiento) más campos condicionales según el tipo: profesión y organización para Individual; empresa, cargo, cantidad de personas y sector para Corporativa.
+4. **Confirmación** — mensaje de éxito al completar el envío.
+
+**Arquitectura:**
+- Estado centralizado en el objeto `state` (`type`, `formData`).
+- Datos de membresías (precios, beneficios, textos) centralizados en la constante `MEMBERSHIPS` — un único lugar para actualizarlos.
+- Los grupos de campos condicionales se muestran/ocultan con la clase `.active` según `state.type`; no hay duplicación de formularios.
+- Validación del lado del cliente con errores inline y foco automático en el primer campo inválido.
+- Atributos `required`, `autocomplete` y `aria-live="polite"` en los errores para compatibilidad con lectores de pantalla.
+- Función `submitMembershipForm(data)` preparada para futura integración con Google Forms (actualmente stub con `// TODO`).
+
+---
+
 ### Verticales (sectores de trabajo)
 
 | Página | Sector | Referente |
