@@ -8,7 +8,7 @@
 :root {
   --cb-width: 360px;
   --cb-height: 520px;
-  --cb-mascot-size: 56px;
+  --cb-mascot-size: 80px;
   --cb-bubble-offset: 70px;
   --cb-z: 9000;
 }
@@ -167,8 +167,8 @@
 }
 
 .cb-header-mascot {
-  width: 38px;
-  height: 38px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background: linear-gradient(135deg, rgba(6,182,212,0.30) 0%, rgba(139,92,246,0.22) 100%),
               rgba(16,18,21,0.9);
@@ -267,8 +267,8 @@
 }
 
 .cb-msg-avatar {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: linear-gradient(135deg, rgba(6,182,212,0.30) 0%, rgba(139,92,246,0.22) 100%);
   border: 1px solid rgba(34,211,238,0.25);
