@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Bash(git config *)",
-      "PowerShell(scoop *)"
+      "PowerShell(scoop *)",
+      "Bash(git fetch *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(gh pr create --title 'feat\\(index\\): intro de video con auto-scroll y mejoras de UI' --body ' *)"
     ]
   }
 }
