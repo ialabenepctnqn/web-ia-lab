@@ -296,6 +296,21 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && isOpen) closeChat();
     });
+
+    // Ocultar durante el video intro (solo index.html)
+    const videoIntro = document.getElementById('video-intro');
+    if (videoIntro) {
+      launcher.style.opacity = '0';
+      launcher.style.pointerEvents = 'none';
+      const obs = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) {
+          launcher.style.opacity = '';
+          launcher.style.pointerEvents = '';
+          obs.disconnect();
+        }
+      }, { threshold: 0.2 });
+      obs.observe(videoIntro);
+    }
   }
 
   if (document.readyState === 'loading') {
