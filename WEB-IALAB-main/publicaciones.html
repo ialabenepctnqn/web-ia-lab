@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publicaciones – ENE IA LAB</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared.css">
+
+    <style>
+        /* ── Hero ── */
+        .page-hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 110px 52px 60px;
+        }
+
+        .page-hero .section-shell {
+            text-align: center;
+            padding: 64px 60px;
+            background:
+                radial-gradient(ellipse 65% 50% at 50% 5%, rgba(6,182,212,0.22) 0, transparent 65%),
+                radial-gradient(ellipse 35% 28% at 90% 85%, rgba(139,92,246,0.16) 0, transparent 60%),
+                linear-gradient(180deg, rgba(16,18,22,0.93) 0%, rgba(8,9,11,0.98) 100%);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .page-kicker {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: rgba(6,182,212,0.08);
+            border: 1px solid rgba(6,182,212,0.28);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            margin-bottom: 28px;
+            animation: kicker-glow 3s ease-in-out infinite;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+            line-height: 1.0;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 0 50px rgba(6,182,212,0.14);
+        }
+
+        .page-hero h1 span {
+            display: inline-block;
+            background: linear-gradient(90deg, #ffffff 0%, #22d3ee 28%, #a78bfa 55%, #22d3ee 78%, #ffffff 100%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: hero-text-shimmer 4s linear infinite;
+        }
+
+        .page-hero-desc {
+            font-size: 1.08rem;
+            color: var(--text-soft);
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        .page-hero-desc strong { color: var(--text-main); font-weight: 800; }
+
+        .inner-section { padding: 60px 52px; }
+
+        /* ── Filter bar ── */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 44px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 0.80rem;
+            font-weight: 700;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-right: 4px;
+        }
+
+        .filter-btn {
+            padding: 9px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--line-soft);
+            background: transparent;
+            color: var(--text-soft);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            letter-spacing: 0.04em;
+        }
+
+        .filter-btn:hover {
+            border-color: rgba(6,182,212,0.35);
+            color: var(--accent-cyan);
+            background: rgba(6,182,212,0.06);
+        }
+
+        .filter-btn-active {
+            border-color: rgba(6,182,212,0.50);
+            color: var(--accent-cyan);
+            background: rgba(6,182,212,0.10);
+            box-shadow: 0 0 12px rgba(6,182,212,0.14);
+        }
+
+        /* ── Publications grid ── */
+        .pub-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        /* ── Publication card ── */
+        .pub-card {
+            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
+            border: 1px solid var(--line-soft);
+            border-radius: var(--radius-lg);
+            padding: 28px 26px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.65s ease, transform 0.65s ease, border-color 0.25s ease, box-shadow 0.35s ease;
+        }
+
+        .pub-card.visible { opacity: 1; transform: translateY(0); }
+
+        .pub-card:hover {
+            border-color: rgba(6,182,212,0.30);
+            box-shadow: 0 0 22px rgba(6,182,212,0.12), var(--shadow-soft);
+        }
+
+        .pub-card::before {
+            content: '';
+            position: absolute;
+            left: 22px; right: 22px; top: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.04));
+            border-radius: 0 0 8px 8px;
+        }
+
+        .pub-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(6,182,212,0.05) 0, transparent 30%);
+            pointer-events: none;
+        }
+
+        /* ── Card parts ── */
+        .pub-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pub-vertical-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: rgba(139,92,246,0.10);
+            border: 1px solid rgba(139,92,246,0.25);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--accent-violet);
+        }
+
+        .pub-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            letter-spacing: 0.06em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pub-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.14rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.28;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pub-author {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pub-author i { color: var(--cyan-electric); font-size: 0.78rem; width: 14px; }
+
+        .pub-resumen {
+            font-size: 0.92rem;
+            color: var(--text-soft);
+            line-height: 1.6;
+            margin: 0;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pub-card-footer {
+            position: relative;
+            z-index: 1;
+            padding-top: 6px;
+            border-top: 1px solid var(--line-soft);
+        }
+
+        /* ── Loading state ── */
+        .pub-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .pub-loading i {
+            font-size: 2rem;
+            opacity: 0.4;
+            margin-bottom: 14px;
+            display: block;
+            animation: spin 1.2s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Empty / error state ── */
+        .pub-empty {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 1rem;
+            grid-column: 1 / -1;
+        }
+
+        .pub-empty i { font-size: 2.5rem; opacity: 0.3; margin-bottom: 14px; display: block; }
+
+        .pub-error {
+            display: none;
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-muted);
+        }
+
+        .pub-error i { font-size: 2rem; opacity: 0.35; margin-bottom: 12px; display: block; }
+
+        @media (max-width: 1024px) {
+            .inner-section { padding-left: 28px; padding-right: 28px; }
+            .pub-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .page-hero { padding: 86px 18px 48px; }
+            .page-hero .section-shell { padding: 40px 20px; }
+            .inner-section { padding: 44px 18px; }
+            .pub-grid { grid-template-columns: 1fr; gap: 14px; }
+            .filter-bar { gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-left">
+            <a href="index.html" class="nav-logo">
+                <img src="imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:36px;width:auto;object-fit:contain;filter:invert(1);">
+            </a>
+        </div>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="metodologia.html" class="nav-link-page">Metodología</a></li>
+                <li><a href="eventos.html" class="nav-link-page">Eventos</a></li>
+                <li><a href="publicaciones.html" class="nav-link-page nav-link-active">Publicaciones</a></li>
+            </ul>
+            <a href="membresia.html" class="nav-cta-btn">
+                <i class="fas fa-users"></i> Membresía
+            </a>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <div class="page-hero">
+        <div class="content-wrapper">
+            <div class="section-shell">
+                <div class="page-kicker"><i class="fas fa-book-open"></i> Conocimiento aplicado</div>
+                <h1>Publicaciones del <span>Laboratorio</span></h1>
+                <p class="page-hero-desc">
+                    Artículos y papers producidos por los referentes de cada vertical. <strong>Inteligencia artificial aplicada</strong> al mundo real, desde Neuquén y la Patagonia.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── PUBLICACIONES ── -->
+    <div class="inner-section">
+        <div class="content-wrapper">
+
+            <div class="filter-bar">
+                <span class="filter-label">Vertical:</span>
+                <button class="filter-btn filter-btn-active" data-vertical="todos">Todos</button>
+                <button class="filter-btn" data-vertical="energia">Energía</button>
+                <button class="filter-btn" data-vertical="rrhh">RRHH</button>
+                <button class="filter-btn" data-vertical="salud">Salud</button>
+                <button class="filter-btn" data-vertical="marketing">Marketing</button>
+                <button class="filter-btn" data-vertical="arquitectura">Arquitectura</button>
+                <button class="filter-btn" data-vertical="derecho">Derecho</button>
+                <button class="filter-btn" data-vertical="seguridad-higiene">Seg. e Higiene</button>
+                <button class="filter-btn" data-vertical="rrii">RRII</button>
+                <button class="filter-btn" data-vertical="ciencias-economicas">Cs. Económicas</button>
+                <button class="filter-btn" data-vertical="coaching">Coaching</button>
+                <button class="filter-btn" data-vertical="real-estate">Real Estate</button>
+            </div>
+
+            <div class="pub-grid" id="pub-grid">
+                <div class="pub-loading" id="pub-loading">
+                    <i class="fas fa-circle-notch"></i>
+                    Cargando publicaciones...
+                </div>
+                <div class="pub-empty" id="pub-empty">
+                    <i class="fas fa-book"></i>
+                    No hay publicaciones en esta vertical todavía.
+                </div>
+                <div class="pub-error" id="pub-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    No se pudieron cargar las publicaciones. Intentá de nuevo más tarde.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:38px;width:auto;object-fit:contain;filter:invert(1);">
+            <span>2026</span>
+        </div>
+        <div class="footer-links">
+            <a href="mailto:ialab@eneneuquen.com.ar"><i class="fas fa-envelope"></i> ialab@eneneuquen.com.ar</a>
+            <a href="https://www.instagram.com/eneneuquen/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> @eneneuquen</a>
+            <a href="https://www.linkedin.com/company/enepolotecnologico/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> ENE – Polo Tecnológico Neuquén</a>
+        </div>
+        <p class="footer-copy">© 2026 ENE IA LAB · Polo Tecnológico Neuquén · Edificio ENE</p>
+    </footer>
+
+    <script>
+        /*
+         * SHEET_CSV_URL: URL del CSV publicado del Google Sheet.
+         * Para obtenerla: Archivo → Compartir → Publicar en la web → Hoja1 → CSV → Publicar.
+         * Reemplazá el valor de abajo con la URL que te da Google.
+         *
+         * Columnas esperadas (fila 1 = encabezados):
+         *   titulo | autor | vertical | fecha | resumen | url
+         */
+        const SHEET_CSV_URL = 'REEMPLAZAR_CON_URL_DEL_SHEET';
+
+        const VERTICAL_LABELS = {
+            'energia': 'Energía',
+            'rrhh': 'RRHH',
+            'salud': 'Salud',
+            'marketing': 'Marketing',
+            'arquitectura': 'Arquitectura',
+            'derecho': 'Derecho',
+            'seguridad-higiene': 'Seg. e Higiene',
+            'rrii': 'RRII',
+            'ciencias-economicas': 'Cs. Económicas',
+            'coaching': 'Coaching',
+            'real-estate': 'Real Estate'
+        };
+
+        let allPublicaciones = [];
+        let activeVertical = 'todos';
+
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            if (lines.length < 2) return [];
+            const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+            return lines.slice(1).map(line => {
+                const values = [];
+                let current = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    const ch = line[i];
+                    if (ch === '"') { inQuotes = !inQuotes; continue; }
+                    if (ch === ',' && !inQuotes) { values.push(current.trim()); current = ''; continue; }
+                    current += ch;
+                }
+                values.push(current.trim());
+                const obj = {};
+                headers.forEach((h, i) => { obj[h] = values[i] || ''; });
+                return obj;
+            }).filter(row => row.titulo);
+        }
+
+        function buildCard(pub, delay) {
+            const verticalLabel = VERTICAL_LABELS[pub.vertical] || pub.vertical;
+            return `
+                <div class="pub-card" data-vertical="${pub.vertical}" style="transition-delay: ${delay}s;">
+                    <div class="pub-card-header">
+                        <span class="pub-vertical-tag"><i class="fas fa-tag"></i> ${verticalLabel}</span>
+                    </div>
+                    <div class="pub-date"><i class="fas fa-calendar"></i> ${pub.fecha}</div>
+                    <h3 class="pub-title">${pub.titulo}</h3>
+                    <p class="pub-author"><i class="fas fa-user"></i> ${pub.autor}</p>
+                    <p class="pub-resumen">${pub.resumen}</p>
+                    <div class="pub-card-footer">
+                        <a href="${pub.url}" target="_blank" rel="noopener" class="btn-outline" style="font-size:0.82rem; padding: 9px 18px;">
+                            <i class="fas fa-external-link-alt"></i> Leer publicación
+                        </a>
+                    </div>
+                </div>`;
+        }
+
+        function renderCards() {
+            const grid = document.getElementById('pub-grid');
+            const emptyMsg = document.getElementById('pub-empty');
+            const errorMsg = document.getElementById('pub-error');
+
+            const filtered = activeVertical === 'todos'
+                ? allPublicaciones
+                : allPublicaciones.filter(p => p.vertical === activeVertical);
+
+            const existingCards = grid.querySelectorAll('.pub-card');
+            existingCards.forEach(c => c.remove());
+
+            emptyMsg.style.display = filtered.length === 0 ? 'block' : 'none';
+            errorMsg.style.display = 'none';
+
+            filtered.forEach((pub, i) => {
+                grid.insertAdjacentHTML('beforeend', buildCard(pub, i * 0.06));
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.06 });
+            grid.querySelectorAll('.pub-card').forEach(el => observer.observe(el));
+        }
+
+        async function loadPublicaciones() {
+            const loadingEl = document.getElementById('pub-loading');
+            const errorEl = document.getElementById('pub-error');
+
+            if (SHEET_CSV_URL === 'REEMPLAZAR_CON_URL_DEL_SHEET') {
+                loadingEl.style.display = 'none';
+                errorEl.style.display = 'block';
+                errorEl.innerHTML = '<i class="fas fa-tools"></i> Sección en configuración. Próximamente disponible.';
+                return;
+            }
+
+            try {
+                const res = await fetch(SHEET_CSV_URL);
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const csv = await res.text();
+                allPublicaciones = parseCSV(csv);
+                loadingEl.style.display = 'none';
+                renderCards();
+            } catch (e) {
+                loadingEl.style.display = 'none';
+                errorEl.style.display = 'block';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPublicaciones();
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('filter-btn-active'));
+                    btn.classList.add('filter-btn-active');
+                    activeVertical = btn.dataset.vertical;
+                    renderCards();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
