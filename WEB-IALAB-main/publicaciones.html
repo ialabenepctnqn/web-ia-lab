@@ -405,7 +405,7 @@
         };
 
         let allPublicaciones = [];
-        let activeVertical = 'todos';
+        let selectedVerticals = new Set();
 
         function parseCSV(text) {
             const lines = text.trim().split('\n');
@@ -452,9 +452,9 @@
             const emptyMsg = document.getElementById('pub-empty');
             const errorMsg = document.getElementById('pub-error');
 
-            const filtered = activeVertical === 'todos'
+            const filtered = selectedVerticals.size === 0
                 ? allPublicaciones
-                : allPublicaciones.filter(p => p.vertical === activeVertical);
+                : allPublicaciones.filter(p => selectedVerticals.has(p.vertical));
 
             const existingCards = grid.querySelectorAll('.pub-card');
             existingCards.forEach(c => c.remove());
@@ -502,11 +502,31 @@
             loadPublicaciones();
 
             const filterBtns = document.querySelectorAll('.filter-btn');
+            const todosBtn = document.querySelector('.filter-btn[data-vertical="todos"]');
+
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('filter-btn-active'));
-                    btn.classList.add('filter-btn-active');
-                    activeVertical = btn.dataset.vertical;
+                    const v = btn.dataset.vertical;
+
+                    if (v === 'todos') {
+                        selectedVerticals.clear();
+                        filterBtns.forEach(b => b.classList.remove('filter-btn-active'));
+                        todosBtn.classList.add('filter-btn-active');
+                    } else {
+                        todosBtn.classList.remove('filter-btn-active');
+                        if (selectedVerticals.has(v)) {
+                            selectedVerticals.delete(v);
+                            btn.classList.remove('filter-btn-active');
+                        } else {
+                            selectedVerticals.add(v);
+                            btn.classList.add('filter-btn-active');
+                        }
+                        // si se deseleccionaron todos, volver a "Todos"
+                        if (selectedVerticals.size === 0) {
+                            todosBtn.classList.add('filter-btn-active');
+                        }
+                    }
+
                     renderCards();
                 });
             });
