@@ -751,75 +751,40 @@
                             <span class="field-error" aria-live="polite" data-for="phone"></span>
                         </div>
 
-                        <!-- Campos exclusivos Individual -->
-                        <div class="form-fields-conditional" data-show-for="individual">
-                            <div class="form-group">
-                                <label for="profession">Profesión <span class="required-mark">*</span></label>
-                                <input type="text" id="profession" name="profession" placeholder="Ej. Ingeniera, Abogado, Contador...">
-                                <span class="field-error" aria-live="polite" data-for="profession"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="organization">Organización <span class="optional-mark">(opcional)</span></label>
-                                <input type="text" id="organization" name="organization" autocomplete="organization" placeholder="Empresa u organización donde trabajás">
-                            </div>
-                        </div>
-
-                        <!-- Campos exclusivos Corporativa -->
+                        <!-- Empresa: solo Corporativa -->
                         <div class="form-fields-conditional" data-show-for="corporativa">
                             <div class="form-group">
                                 <label for="company">Empresa <span class="required-mark">*</span></label>
                                 <input type="text" id="company" name="company" autocomplete="organization" placeholder="Nombre de la empresa u organización">
                                 <span class="field-error" aria-live="polite" data-for="company"></span>
                             </div>
-                            <div class="form-group">
-                                <label for="position">Cargo <span class="required-mark">*</span></label>
-                                <input type="text" id="position" name="position" autocomplete="organization-title" placeholder="Ej. Gerente de RRHH, CTO, Directora...">
-                                <span class="field-error" aria-live="polite" data-for="position"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="peopleCount">Cantidad de personas interesadas <span class="required-mark">*</span></label>
-                                <input type="number" id="peopleCount" name="peopleCount" min="1" max="999" inputmode="numeric" placeholder="Ej. 3">
-                                <span class="field-error" aria-live="polite" data-for="peopleCount"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="sector">Sector de actividad <span class="required-mark">*</span></label>
-                                <input type="text" id="sector" name="sector" placeholder="Ej. Petróleo y Gas, Salud, Construcción...">
-                                <span class="field-error" aria-live="polite" data-for="sector"></span>
-                            </div>
                         </div>
 
-                        <!-- Campos comunes (continuación) -->
+                        <!-- Campos comunes: Razón Social y CUIT -->
                         <div class="form-group">
-                            <label for="vertical">Vertical de interés <span class="required-mark">*</span></label>
-                            <select id="vertical" name="vertical" required>
-                                <option value="">Seleccioná una vertical</option>
-                                <option value="energia">Energía</option>
-                                <option value="rrhh">RRHH</option>
-                                <option value="salud">Salud</option>
-                                <option value="marketing">Marketing</option>
-                                <option value="arquitectura">Arquitectura</option>
-                                <option value="derecho">Derecho</option>
-                                <option value="seguridad-higiene">Seguridad e Higiene</option>
-                                <option value="rrii">Relaciones Internacionales</option>
-                                <option value="ciencias-economicas">Ciencias Económicas</option>
-                                <option value="coaching">Coaching</option>
-                                <option value="real-estate">Real Estate</option>
-                            </select>
-                            <span class="field-error" aria-live="polite" data-for="vertical"></span>
+                            <label for="razonSocial">Razón social <span class="required-mark">*</span></label>
+                            <input type="text" id="razonSocial" name="razonSocial" required placeholder="Ej. García María Fernanda">
+                            <span class="field-error" aria-live="polite" data-for="razonSocial"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="referralSource">¿Cómo conociste ENE IA LAB? <span class="required-mark">*</span></label>
-                            <select id="referralSource" name="referralSource" required>
-                                <option value="">Seleccioná una opción</option>
-                                <option value="instagram">Instagram</option>
-                                <option value="linkedin">LinkedIn</option>
-                                <option value="evento">Evento</option>
-                                <option value="recomendacion">Recomendación</option>
-                                <option value="empresa">Empresa</option>
-                                <option value="otro">Otro</option>
-                            </select>
-                            <span class="field-error" aria-live="polite" data-for="referralSource"></span>
+                            <label for="cuit">CUIT <span class="required-mark">*</span></label>
+                            <input type="text" id="cuit" name="cuit" required inputmode="numeric" placeholder="20-12345678-9">
+                            <span class="field-error" aria-live="polite" data-for="cuit"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Dirección <span class="optional-mark">(opcional)</span></label>
+                            <input type="text" id="address" name="address" autocomplete="street-address" placeholder="Calle, número, ciudad">
+                        </div>
+
+                        <!-- Cantidad de usuarios: solo Corporativa -->
+                        <div class="form-fields-conditional" data-show-for="corporativa">
+                            <div class="form-group">
+                                <label for="usersCount">Cantidad de usuarios <span class="required-mark">*</span></label>
+                                <input type="number" id="usersCount" name="usersCount" min="1" max="999" inputmode="numeric" placeholder="Ej. 3">
+                                <span class="field-error" aria-live="polite" data-for="usersCount"></span>
+                            </div>
                         </div>
 
                         <div class="form-group form-checkbox-group">
@@ -1082,31 +1047,22 @@
             const err = (id, msg) => { setFieldError(id, msg); valid = false; };
 
             // Campos comunes
-            if (!val('fullName').trim())   err('fullName', 'Ingresá tu nombre y apellido.');
+            if (!val('fullName').trim())    err('fullName',    'Ingresá tu nombre y apellido.');
 
             const email = val('email').trim();
-            if (!email)                    err('email', 'Ingresá tu email.');
+            if (!email)                     err('email', 'Ingresá tu email.');
             else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) err('email', 'Ingresá un email válido.');
 
-            if (!val('phone').trim())      err('phone', 'Ingresá tu teléfono.');
+            if (!val('phone').trim())       err('phone',       'Ingresá tu teléfono.');
+            if (!val('razonSocial').trim()) err('razonSocial', 'Ingresá la razón social.');
+            if (!val('cuit').trim())        err('cuit',        'Ingresá el CUIT.');
 
-            // Campos Individual
-            if (state.type === 'individual') {
-                if (!val('profession').trim()) err('profession', 'Ingresá tu profesión.');
-            }
-
-            // Campos Corporativa
+            // Campos solo Corporativa
             if (state.type === 'corporativa') {
-                if (!val('company').trim())     err('company',     'Ingresá el nombre de la empresa.');
-                if (!val('position').trim())    err('position',    'Ingresá tu cargo.');
-                const count = parseInt(val('peopleCount'), 10);
-                if (!val('peopleCount') || isNaN(count) || count < 1) err('peopleCount', 'Ingresá al menos 1 persona.');
-                if (!val('sector').trim())      err('sector',      'Ingresá el sector de actividad.');
+                if (!val('company').trim()) err('company', 'Ingresá el nombre de la empresa.');
+                const count = parseInt(val('usersCount'), 10);
+                if (!val('usersCount') || isNaN(count) || count < 1) err('usersCount', 'Ingresá al menos 1 usuario.');
             }
-
-            // Campos comunes (continuación)
-            if (!val('vertical'))       err('vertical',       'Seleccioná una vertical.');
-            if (!val('referralSource')) err('referralSource', 'Seleccioná una opción.');
 
             const cb = document.getElementById('privacyAccepted');
             if (cb && !cb.checked) {
@@ -1157,10 +1113,55 @@
         }
 
         // ════════════════════════════════════════════
-        // STUB — futura integración con Google Forms
+        // INTEGRACIÓN GOOGLE FORMS
+        // Reemplazar los FORM_ID y entry.XXXXXXXXX con los
+        // valores reales obtenidos del enlace pre-rellenado
+        // de cada formulario en Google Forms.
         // ════════════════════════════════════════════
+        const GOOGLE_FORMS = {
+            individual: {
+                action: 'https://docs.google.com/forms/d/e/1FAIpQLSdmK_fQqWRwqV6plB_a6qyeIYBf-Cn0KnyccwBXxuAN7408Vg/formResponse',
+                entries: {
+                    'entry.1072526304': 'fullName',
+                    'entry.1338885220': 'email',
+                    'entry.438973991':  'phone',
+                    'entry.1402187841': 'razonSocial',
+                    'entry.1368700299': 'cuit',
+                    'entry.1618702957': 'address',
+                }
+            },
+            corporativa: {
+                action: 'https://docs.google.com/forms/d/e/1FAIpQLSdYJNUBhv_qXy5cYFeU4ZpNMEoucpN7fbGPe6IuGy4Yy2shTQ/formResponse',
+                entries: {
+                    'entry.1072526304': 'fullName',
+                    'entry.1137774266': 'company',
+                    'entry.1338885220': 'email',
+                    'entry.438973991':  'phone',
+                    'entry.1402187841': 'razonSocial',
+                    'entry.1368700299': 'cuit',
+                    'entry.1618702957': 'address',
+                    'entry.1082295503': 'usersCount',
+                }
+            }
+        };
+
         async function submitMembershipForm(data) {
-            // TODO: Integrar con Google Forms
+            const form = GOOGLE_FORMS[data.membershipType];
+            if (!form) return;
+            const params = new URLSearchParams();
+            Object.entries(form.entries).forEach(([entry, key]) => {
+                params.append(entry, data[key] || '');
+            });
+            try {
+                await fetch(form.action, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+            } catch (_) {
+                // no-cors siempre resuelve; errores de red se ignoran silenciosamente
+            }
         }
 
         // ════════════════════════════════════════════
