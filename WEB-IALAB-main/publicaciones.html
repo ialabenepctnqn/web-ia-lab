@@ -407,10 +407,28 @@
         let allPublicaciones = [];
         let selectedVerticals = new Set();
 
+        // Mapa inverso: label del formulario → slug interno
+        const LABEL_TO_SLUG = Object.fromEntries(
+            Object.entries(VERTICAL_LABELS).map(([slug, label]) => [label.toLowerCase(), slug])
+        );
+
+        function normalizeVertical(value) {
+            const v = (value || '').trim();
+            // Si ya es un slug conocido, lo devolvemos tal cual
+            if (VERTICAL_LABELS[v]) return v;
+            // Si es un label del formulario (ej. "Energía"), lo convertimos a slug
+            return LABEL_TO_SLUG[v.toLowerCase()] || v.toLowerCase()
+                .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-');
+        }
+
         function parseCSV(text) {
             const lines = text.trim().split('\n');
             if (lines.length < 2) return [];
-            const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+            const headers = lines[0].split(',').map(h =>
+                h.trim().replace(/^"|"$/g, '')
+                 .toLowerCase()
+                 .normalize('NFD').replace(/[̀-ͯ]/g, '')
+            );
             return lines.slice(1).map(line => {
                 const values = [];
                 let current = '';
@@ -489,7 +507,7 @@
                 const res = await fetch(SHEET_CSV_URL);
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 const csv = await res.text();
-                allPublicaciones = parseCSV(csv);
+                allPublicaciones = parseCSV(csv).map(p => ({ ...p, vertical: normalizeVertical(p.vertical) }));
                 loadingEl.style.display = 'none';
                 renderCards();
             } catch (e) {
