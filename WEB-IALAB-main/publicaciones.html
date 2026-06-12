@@ -421,14 +421,29 @@
                 .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-');
         }
 
+        const HEADER_MAP = {
+            'marca temporal': null, 'timestamp': null,
+            'titulo': 'titulo', 'title': 'titulo',
+            'autor': 'autor', 'author': 'autor',
+            'vertical': 'vertical',
+            'fecha': 'fecha', 'date': 'fecha',
+            'resumen': 'resumen', 'summary': 'resumen', 'descripcion': 'resumen',
+            'url': 'url', 'url publicacion': 'url', 'enlace': 'url', 'link': 'url'
+        };
+
+        function normalizeHeader(h) {
+            return h.trim().replace(/^"|"$/g, '')
+                .toLowerCase()
+                .normalize('NFD').replace(/[̀-ͯ]/g, '');
+        }
+
         function parseCSV(text) {
             const lines = text.trim().split('\n');
             if (lines.length < 2) return [];
-            const headers = lines[0].split(',').map(h =>
-                h.trim().replace(/^"|"$/g, '')
-                 .toLowerCase()
-                 .normalize('NFD').replace(/[̀-ͯ]/g, '')
-            );
+            const headers = lines[0].split(',').map(h => {
+                const norm = normalizeHeader(h);
+                return HEADER_MAP.hasOwnProperty(norm) ? HEADER_MAP[norm] : norm;
+            });
             return lines.slice(1).map(line => {
                 const values = [];
                 let current = '';
