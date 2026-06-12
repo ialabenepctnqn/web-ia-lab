@@ -41,6 +41,21 @@ WEB-IALAB-main/
 | `metodologia.html` | Detalle del enfoque y metodología del laboratorio |
 | `eventos.html` | Agenda de eventos del año 2026 |
 | `membresia.html` | Planes Individual ($85k) y Corporativa ($150k) |
+| `publicaciones.html` | Feed de publicaciones filtrable por vertical, cargado desde Google Sheets vía CSV |
+
+### Publicaciones (`publicaciones.html`)
+
+Feed dinámico que consume un Google Sheet publicado como CSV y renderiza las publicaciones filtradas por vertical.
+
+**Fuente de datos:**
+- URL configurada en la constante `SHEET_CSV_URL` (línea ~391).
+- Para actualizar la fuente: Archivo → Compartir → Publicar en la web → Hoja1 → CSV → copiar URL.
+
+**Parser CSV (`parseCSV` + `HEADER_MAP`):**
+- Soporta encabezados en español e inglés, con o sin acentos, y variantes comunes (ej. `enlace` / `link` / `url publicacion` → campo `url`; `resumen` / `summary` / `descripcion` → campo `resumen`).
+- La función `normalizeHeader()` extrae la lógica de normalización (trim, minúsculas, strip diacríticos) reutilizada tanto en la detección de headers como en los filtros.
+- Las columnas mapeadas a `null` en `HEADER_MAP` (ej. `marca temporal`, `timestamp`) se descartan al parsear.
+- Compatible con exports directos de Google Forms → Google Sheets sin edición manual de encabezados.
 
 ### Flujo de registro de membresías (`membresia.html`)
 
