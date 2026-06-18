@@ -12,11 +12,11 @@
     <style>
         /* ── Hero ── */
         .page-hero {
-            min-height: 100vh;
+            min-height: 50vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 110px 52px;
+            padding: 80px 52px 44px;
             position: relative;
         }
 
@@ -48,7 +48,7 @@
         }
 
         .page-hero h1 {
-            font-size: clamp(2.6rem, 6vw, 5.2rem);
+            font-size: clamp(1.8rem, 4vw, 3.4rem);
             line-height: 1.0;
             font-weight: 900;
             margin-bottom: 24px;
@@ -66,7 +66,7 @@
         }
 
         .page-hero-desc {
-            font-size: 1.12rem;
+            font-size: 0.95rem;
             color: var(--text-soft);
             max-width: 680px;
             margin: 0 auto 40px auto;
@@ -76,9 +76,7 @@
         .page-hero-desc strong { color: var(--text-main); font-weight: 800; }
 
         /* ── Secciones internas ── */
-        .inner-section {
-            padding: 70px 52px;
-        }
+        .inner-section { padding: 70px 52px; }
 
         /* ── Value cards ── */
         .value-grid {
@@ -103,11 +101,7 @@
         }
 
         .value-card.visible { opacity: 1; transform: translateY(0); }
-
-        .value-card:hover {
-            border-color: rgba(6,182,212,0.28);
-            box-shadow: 0 0 20px rgba(6,182,212,0.11), var(--shadow-soft);
-        }
+        .value-card:hover { border-color: rgba(6,182,212,0.28); box-shadow: 0 0 20px rgba(6,182,212,0.11), var(--shadow-soft); }
 
         .value-card::before {
             content: '';
@@ -126,74 +120,9 @@
             pointer-events: none;
         }
 
-        .value-icon {
-            font-size: 2.2rem;
-            color: var(--accent-cyan);
-            margin-bottom: 16px;
-            display: block;
-            position: relative;
-            z-index: 1;
-        }
-
-        .value-card h4 {
-            font-size: 1.08rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .value-card p {
-            font-size: 0.90rem;
-            color: var(--text-muted);
-            margin: 0;
-            line-height: 1.55;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ── Pricing ── */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 28px;
-            margin-top: 52px;
-            margin-bottom: 20px;
-            align-items: start;
-        }
-
-        .price-block {
-            margin-bottom: 22px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .price-display {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(2.4rem, 4vw, 3.4rem);
-            font-weight: 900;
-            color: var(--accent-cyan);
-            letter-spacing: -0.04em;
-            line-height: 1;
-        }
-
-        .membership-card-featured .price-display {
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .price-period {
-            display: block;
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-top: 4px;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0;
-        }
+        .value-icon { font-size: 2.2rem; color: var(--accent-cyan); margin-bottom: 16px; display: block; position: relative; z-index: 1; }
+        .value-card h4 { font-size: 1.08rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px; position: relative; z-index: 1; }
+        .value-card p  { font-size: 0.90rem; color: var(--text-muted); margin: 0; line-height: 1.55; position: relative; z-index: 1; }
 
         /* ── Quote institucional ── */
         .quote-block {
@@ -231,21 +160,11 @@
             pointer-events: none;
         }
 
-        .quote-mark {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 5rem;
-            line-height: 0.6;
-            color: var(--cyan-electric);
-            opacity: 0.25;
-            display: block;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
+        .quote-mark { font-family: 'Montserrat', sans-serif; font-size: 5rem; line-height: 0.6; color: var(--cyan-electric); opacity: 0.25; display: block; margin-bottom: 20px; position: relative; z-index: 1; }
 
         .quote-text {
             font-family: 'Montserrat', sans-serif;
-            font-size: clamp(1.4rem, 3vw, 2.1rem);
+            font-size: clamp(1.05rem, 2.2vw, 1.55rem);
             font-weight: 800;
             color: var(--text-main);
             line-height: 1.3;
@@ -255,24 +174,11 @@
             letter-spacing: -0.02em;
         }
 
-        .quote-sub {
-            font-size: 1.02rem;
-            color: var(--text-soft);
-            max-width: 640px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
+        .quote-sub { font-size: 0.88rem; color: var(--text-soft); max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
         .quote-sub strong { color: var(--text-main); }
 
         /* ── Contact cards ── */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-top: 40px;
-        }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
 
         .contact-card {
             background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
@@ -287,11 +193,7 @@
         }
 
         .contact-card.visible { opacity: 1; transform: translateY(0); }
-
-        .contact-card:hover {
-            border-color: rgba(6,182,212,0.28);
-            box-shadow: 0 0 20px rgba(6,182,212,0.10), var(--shadow-soft);
-        }
+        .contact-card:hover { border-color: rgba(6,182,212,0.28); box-shadow: 0 0 20px rgba(6,182,212,0.10), var(--shadow-soft); }
 
         .contact-card::before {
             content: '';
@@ -302,25 +204,440 @@
             border-radius: 0 0 8px 8px;
         }
 
-        .contact-card::after {
+        .contact-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.04) 0, transparent 28%); pointer-events: none; }
+
+        .contact-icon { font-size: 2rem; color: var(--accent-cyan); margin-bottom: 16px; display: block; position: relative; z-index: 1; }
+        .contact-card h4 { font-size: 0.98rem; color: var(--text-main); margin-bottom: 10px; position: relative; z-index: 1; }
+        .contact-card p  { font-size: 0.84rem; color: var(--text-soft); margin-bottom: 22px; position: relative; z-index: 1; }
+
+        /* ════════════════════════════════════════════
+           REGISTRATION FLOW
+           ════════════════════════════════════════════ */
+
+        button { font-family: inherit; cursor: pointer; }
+
+        /* ── Step visibility ── */
+        .step-hidden { display: none !important; }
+
+        @keyframes step-fade-in {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-entering { animation: step-fade-in 0.42s ease forwards; }
+
+        /* ── Selector grid (paso 1) ── */
+        .selector-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-top: 52px;
+            margin-bottom: 20px;
+            align-items: start;
+        }
+
+        .selector-card {
+            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
+            border: 1px solid var(--line-soft);
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            transition: border-color 0.25s ease, box-shadow 0.35s ease, transform 0.22s ease;
+        }
+
+        .selector-card:hover { border-color: rgba(6,182,212,0.32); box-shadow: 0 0 24px rgba(6,182,212,0.13), var(--shadow-soft); transform: translateY(-3px); }
+
+        .selector-card::before {
+            content: '';
+            position: absolute;
+            left: 24px; right: 24px; top: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.05));
+            border-radius: 0 0 8px 8px;
+        }
+
+        .selector-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.04) 0, transparent 28%); pointer-events: none; }
+
+        .selector-card-featured {
+            border-color: rgba(6,182,212,0.32);
+            box-shadow: 0 0 32px rgba(6,182,212,0.15), var(--shadow-strong);
+            background: linear-gradient(180deg, rgba(6,182,212,0.08) 0%, rgba(22,25,29,0.96) 18%, rgba(14,16,19,0.98) 100%);
+        }
+
+        .selector-card-featured::before { background: linear-gradient(to right, var(--accent-cyan), var(--accent-violet)); height: 5px; }
+        .selector-card-featured:hover { box-shadow: 0 0 44px rgba(6,182,212,0.24), var(--shadow-strong); }
+
+        .selector-card-icon { font-size: 2rem; color: var(--accent-cyan); margin-bottom: 20px; display: block; position: relative; z-index: 1; }
+
+        .selector-card-icon-gradient {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .selector-card h3 { font-size: 1.25rem; color: var(--text-main); margin-bottom: 12px; position: relative; z-index: 1; }
+
+        .selector-card-desc { font-size: 0.96rem; color: var(--text-muted); margin: 8px 0 24px 0; line-height: 1.6; position: relative; z-index: 1; }
+
+        .selector-price { margin-bottom: 28px; position: relative; z-index: 1; }
+
+        .price-display {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 900;
+            color: var(--accent-cyan);
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .price-display-gradient {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price-period { display: block; font-size: 0.88rem; color: var(--text-muted); font-weight: 500; margin-top: 4px; font-family: 'Inter', sans-serif; }
+
+        .selector-btn { width: 100%; justify-content: center; position: relative; z-index: 1; }
+        .btn-outline.selector-btn { background: none; }
+
+        .membership-tier-badge-featured { background: rgba(6,182,212,0.14) !important; border-color: rgba(6,182,212,0.42) !important; }
+
+        /* ── Navegación entre pasos ── */
+        .step-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .step-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--line-soft);
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            transition: all 0.22s ease;
+        }
+
+        .step-back-btn:hover { background: rgba(6,182,212,0.08); border-color: rgba(6,182,212,0.32); color: var(--accent-cyan); }
+
+        .step-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: rgba(6,182,212,0.08);
+            border: 1px solid rgba(6,182,212,0.30);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+        }
+
+        /* ── Glass shell compartido ── */
+        .benefits-shell,
+        .form-shell {
+            background: linear-gradient(180deg, rgba(13,15,18,0.74) 0%, rgba(8,10,12,0.80) 100%);
+            border: 1px solid var(--line-soft);
+            border-radius: var(--radius-lg);
+            padding: 44px 52px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .benefits-shell::before,
+        .form-shell::before {
+            content: '';
+            position: absolute;
+            left: 24px; right: 24px; top: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.06));
+            border-radius: 0 0 8px 8px;
+        }
+
+        .benefits-shell::after,
+        .form-shell::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.04) 0, transparent 28%);
+            background: linear-gradient(135deg, rgba(6,182,212,0.06) 0, transparent 32%);
             pointer-events: none;
         }
 
-        .contact-icon {
-            font-size: 2rem;
-            color: var(--accent-cyan);
-            margin-bottom: 16px;
+        /* ── Paso 2: Beneficios ── */
+        .benefits-header { text-align: center; margin-bottom: 32px; position: relative; z-index: 1; }
+
+        .benefits-icon { font-size: 2rem; color: var(--accent-cyan); display: block; margin-bottom: 14px; }
+
+        .benefits-header h2 { font-size: 1.5rem; margin-bottom: 8px; color: var(--text-main); }
+
+        .benefits-panel .membership-features { position: relative; z-index: 1; margin-bottom: 0; }
+
+        .benefits-cta { text-align: center; margin-top: 36px; }
+
+        /* ── Paso 3: Formulario ── */
+        .form-title { font-size: 1.4rem; color: var(--text-main); margin-bottom: 8px; text-align: center; position: relative; z-index: 1; }
+
+        .form-subtitle { font-size: 0.88rem; color: var(--text-muted); text-align: center; margin-bottom: 36px; position: relative; z-index: 1; }
+
+        .required-mark { color: var(--accent-cyan); font-weight: 700; }
+        .optional-mark { color: var(--text-muted); font-weight: 400; font-size: 0.85em; }
+
+        .form-group { margin-bottom: 20px; position: relative; z-index: 1; }
+
+        .form-group label {
             display: block;
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: var(--text-soft);
+            margin-bottom: 7px;
+            letter-spacing: 0.02em;
+        }
+
+        /* Inputs y selects: propiedades compartidas */
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            border: 1px solid var(--line-soft);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            outline: none;
+            transition: border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        /* Inputs: fondo simple */
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"] {
+            background: rgba(255,255,255,0.04);
+        }
+
+        .form-group input::placeholder { color: var(--text-muted); opacity: 0.55; }
+
+        /* Select: fondo + flecha SVG */
+        .form-group select {
+            background-color: rgba(255,255,255,0.04);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%2398A0A8' fill='none' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .form-group select option { background: #0d0f12; color: var(--text-main); }
+
+        /* Focus */
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group input[type="number"]:focus {
+            background: rgba(6,182,212,0.03);
+            border-color: rgba(6,182,212,0.55);
+            box-shadow: 0 0 0 3px rgba(6,182,212,0.10);
+        }
+
+        .form-group select:focus {
+            background-color: rgba(6,182,212,0.03);
+            border-color: rgba(6,182,212,0.55);
+            box-shadow: 0 0 0 3px rgba(6,182,212,0.10);
+        }
+
+        /* Ocultar spinners en inputs numéricos */
+        .form-group input[type="number"] { -moz-appearance: textfield; }
+        .form-group input[type="number"]::-webkit-outer-spin-button,
+        .form-group input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+        /* Error states */
+        .form-group input.input-error,
+        .form-group select.input-error {
+            border-color: rgba(239,68,68,0.60);
+            box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+        }
+
+        .field-error { display: block; font-size: 0.80rem; color: #f87171; margin-top: 5px; min-height: 16px; line-height: 1.4; }
+
+        /* ── Grupos de campos condicionales ── */
+        .form-fields-conditional { display: none; }
+        .form-fields-conditional.active { display: block; }
+
+        /* ── Checkbox ── */
+        .form-checkbox-group { padding-top: 4px; }
+
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 0.92rem;
+            color: var(--text-soft);
+            line-height: 1.55;
+            user-select: none;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            margin-top: 1px;
+            accent-color: var(--cyan-electric);
+            cursor: pointer;
+            appearance: auto;
+            -webkit-appearance: auto;
+        }
+
+        /* ── Submit ── */
+        .form-submit { text-align: center; margin-top: 8px; padding-top: 24px; border-top: 1px solid var(--line-soft); }
+
+        /* ── Paso 4: Éxito ── */
+        .success-shell {
+            text-align: center;
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 64px 44px;
+            background: linear-gradient(180deg, rgba(6,182,212,0.07) 0%, rgba(13,15,18,0.80) 100%);
+            border: 1px solid rgba(6,182,212,0.22);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-shell::before {
+            content: '';
+            position: absolute;
+            left: 24px; right: 24px; top: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent-cyan), var(--accent-violet));
+            border-radius: 0 0 10px 10px;
+        }
+
+        .success-shell::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(6,182,212,0.12) 0, transparent 50%);
+            pointer-events: none;
+        }
+
+        .success-check {
+            font-size: 3rem;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 0 20px rgba(6,182,212,0.40));
+        }
+
+        .success-shell h2 { font-size: 1.4rem; color: var(--text-main); margin-bottom: 16px; position: relative; z-index: 1; }
+        .success-text { font-size: 0.92rem; color: var(--text-soft); margin-bottom: 32px; position: relative; z-index: 1; }
+
+        /* ── Keyboard focus (accesibilidad) ── */
+        .btn-cta:focus-visible,
+        .btn-outline:focus-visible,
+        .step-back-btn:focus-visible {
+            outline: 2px solid var(--accent-cyan);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 4px rgba(6,182,212,0.20);
+        }
+
+        /* Precio en panel de beneficios: bloque separado del período */
+        .benefits-header .price-display { display: block; margin-bottom: 4px; }
+
+        /* Offset de scroll para nav fija al usar ancla #membresias */
+        #membresias { scroll-margin-top: 80px; }
+
+        /* ── Próximamente ── */
+        .coming-soon-shell {
+            text-align: center;
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 64px 44px;
+            background: linear-gradient(180deg, rgba(6,182,212,0.06) 0%, rgba(13,15,18,0.80) 100%);
+            border: 1px solid rgba(6,182,212,0.20);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon-shell::before {
+            content: '';
+            position: absolute;
+            left: 24px; right: 24px; top: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.06));
+            border-radius: 0 0 8px 8px;
+        }
+
+        .coming-soon-shell::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(6,182,212,0.10) 0, transparent 50%);
+            pointer-events: none;
+        }
+
+        .coming-soon-icon {
+            font-size: 2.8rem;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 22px;
+            position: relative;
+            z-index: 1;
+            opacity: 0.85;
+        }
+
+        .coming-soon-shell h2 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
             position: relative;
             z-index: 1;
         }
 
-        .contact-card h4 { font-size: 1.18rem; color: var(--text-main); margin-bottom: 10px; position: relative; z-index: 1; }
-        .contact-card p  { font-size: 0.95rem; color: var(--text-soft); margin-bottom: 22px; position: relative; z-index: 1; }
+        .coming-soon-text {
+            font-size: 0.92rem;
+            color: var(--text-soft);
+            margin: 0 auto 32px auto;
+            line-height: 1.65;
+            max-width: 480px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coming-soon-shell .btn-cta { position: relative; z-index: 1; }
 
         /* ── Responsive ── */
         @media (max-width: 1024px) {
@@ -329,15 +646,15 @@
         }
 
         @media (max-width: 768px) {
-            .page-hero { padding: 86px 18px; }
+            .page-hero { padding: 70px 18px 36px; }
             .page-hero .section-shell { padding: 44px 22px; }
             .inner-section { padding: 44px 18px; }
             .value-grid { grid-template-columns: 1fr; gap: 14px; }
-            .pricing-grid { grid-template-columns: 1fr; gap: 18px; }
-            .membership-card-featured { order: -1; }
             .contact-grid { grid-template-columns: 1fr; }
             .quote-block { padding: 36px 24px; }
-            .quote-text { font-size: 1.3rem; }
+            .quote-text { font-size: 1rem; }
+            .coming-soon-shell { padding: 44px 24px; }
+            .coming-soon-shell h2 { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -353,6 +670,7 @@
             <ul class="nav-links">
                 <li><a href="metodologia.html" class="nav-link-page">Metodología</a></li>
                 <li><a href="eventos.html" class="nav-link-page">Eventos</a></li>
+                <li><a href="publicaciones.html" class="nav-link-page">Publicaciones</a></li>
             </ul>
             <a href="membresia.html" class="nav-cta-btn">
                 <i class="fas fa-users"></i> Membresía
@@ -419,61 +737,16 @@
         </div>
     </div>
 
-    <!-- ── MEMBRESÍAS ── -->
+    <!-- ── INSCRIPCIONES ── -->
     <div id="membresias" class="inner-section" style="padding-top: 0;">
         <div class="content-wrapper">
-            <h2 class="section-title">Elegí tu acceso</h2>
-            <p class="section-subtitle">Dos modalidades pensadas para distintos perfiles. Ambas incluyen acceso completo al ecosistema ENE IA LAB.</p>
-
-            <div class="pricing-grid">
-
-                <!-- Individual -->
-                <div class="membership-card">
-                    <div class="membership-tier-badge"><i class="fas fa-user"></i> Individual</div>
-                    <div class="price-block">
-                        <div class="price-display">$85.000</div>
-                        <span class="price-period">por mes · ciclo 2026</span>
-                    </div>
-                    <h3>Membresía Individual</h3>
-                    <p class="membership-card-tagline">Para profesionales, emprendedores y referentes que quieren ser parte del ecosistema de IA de la región.</p>
-                    <ul class="membership-features">
-                        <li>Participación en grupos y verticales de IA aplicada</li>
-                        <li>Acceso a charlas y encuentros exclusivos</li>
-                        <li>Networking con empresas y profesionales del ecosistema</li>
-                        <li>Prioridad en actividades organizadas por ENE</li>
-                        <li>Sesiones técnicas sobre desafíos y negocios reales</li>
-                        <li>Beneficios y merchandising institucional</li>
-                        <li>Acceso al coworking ENE hasta 2 veces por semana</li>
-                    </ul>
-                    <div class="cta-wrap">
-                        <a href="mailto:ialab@eneneuquen.com.ar?subject=Membresía Individual - ENE IA LAB 2026" class="btn-outline">
-                            <i class="fas fa-envelope"></i> Quiero asociarme
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Corporativa -->
-                <div class="membership-card membership-card-featured">
-                    <div class="membership-tier-badge"><i class="fas fa-building"></i> Corporativa</div>
-                    <div class="price-block">
-                        <div class="price-display">$150.000</div>
-                        <span class="price-period">por mes · ciclo 2026</span>
-                    </div>
-                    <h3>Membresía Corporativa</h3>
-                    <p class="membership-card-tagline">Para empresas e instituciones que quieren incorporar IA con visibilidad y participación colectiva.</p>
-                    <ul class="membership-features">
-                        <li>Todos los beneficios de la membresía Individual</li>
-                        <li>Hasta <strong>3 personas</strong> de la organización simultáneamente</li>
-                        <li>Mayor visibilidad en eventos y actividades del laboratorio</li>
-                        <li>Vinculación directa con referentes y soluciones por vertical</li>
-                    </ul>
-                    <div class="cta-wrap">
-                        <a href="mailto:ialab@eneneuquen.com.ar?subject=Membresía Corporativa - ENE IA LAB 2026" class="btn-cta">
-                            <i class="fas fa-arrow-right"></i> Quiero asociar mi empresa
-                        </a>
-                    </div>
-                </div>
-
+            <div class="coming-soon-shell">
+                <i class="fas fa-clock coming-soon-icon" aria-hidden="true"></i>
+                <h2>Inscripciones próximamente</h2>
+                <p class="coming-soon-text">Estamos preparando el proceso de inscripción para el ciclo 2026. Si querés sumarte, escribinos y te notificamos cuando estén disponibles.</p>
+                <a href="mailto:ialab@eneneuquen.com.ar?subject=Interés en membresía ENE IA LAB 2026" class="btn-cta">
+                    <i class="fas fa-envelope" aria-hidden="true"></i> Registrá tu interés
+                </a>
             </div>
         </div>
     </div>
@@ -482,7 +755,6 @@
     <div class="inner-section" style="padding-top: 0;">
         <div class="content-wrapper">
             <div class="quote-block">
-                <span class="quote-mark">"</span>
                 <p class="quote-text">Estamos construyendo el ecosistema de Inteligencia Artificial más importante de la Patagonia.</p>
                 <p class="quote-sub">
                     <strong>ENE IA LAB</strong> es un Laboratorio Vivo donde la IA se aplica sobre problemas reales, especialmente vinculados a sectores estratégicos de Neuquén y el ecosistema de <strong>Vaca Muerta</strong>, generando soluciones demostrables y transferibles.
@@ -494,16 +766,16 @@
     <!-- ── CTA FINAL ── -->
     <div class="inner-section" style="padding-top: 0; padding-bottom: 100px;">
         <div class="content-wrapper">
-            <h2 class="section-title">¿Cómo sumarse?</h2>
-            <p class="section-subtitle">El proceso es simple. Escribinos indicando tu perfil y el tipo de membresía. Te contactamos en menos de 48 horas.</p>
+            <h2 class="section-title">¿Tenés dudas antes de registrarte?</h2>
+            <p class="section-subtitle">Si querés conocer más sobre el laboratorio antes de decidir, podés coordinarnos una visita o reunión.</p>
 
             <div class="contact-grid">
                 <div class="contact-card">
-                    <i class="fas fa-paper-plane contact-icon"></i>
-                    <h4>Escribinos ahora</h4>
-                    <p>Enviá un mail con tu nombre, empresa u organización y el tipo de membresía que te interesa. Sin formularios complicados.</p>
-                    <a href="mailto:ialab@eneneuquen.com.ar?subject=Membresía ENE IA LAB 2026" class="btn-cta">
-                        <i class="fas fa-envelope"></i> ialab@eneneuquen.com.ar
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <h4>Registrá tu interés</h4>
+                    <p>Las inscripciones para el ciclo 2026 estarán disponibles próximamente. Escribinos y te avisamos cuando abran.</p>
+                    <a href="mailto:ialab@eneneuquen.com.ar?subject=Interés en membresía ENE IA LAB 2026" class="btn-cta">
+                        <i class="fas fa-envelope"></i> Escribinos
                     </a>
                 </div>
                 <div class="contact-card" style="transition-delay: 0.12s;">
@@ -517,7 +789,7 @@
             </div>
 
             <div class="mission-box" style="margin-top: 48px; margin-bottom: 0;">
-                <p><strong>ENE IA LAB</strong> opera desde el <span class="highlight">Polo Tecnológico Neuquén — Edificio ENE.</span> Las membresías corresponden al ciclo <strong>2026</strong> (mayo–noviembre) y los cupos son limitados. También podés seguirnos en <a href="https://www.instagram.com/eneneuquen/" target="_blank" rel="noopener" style="color:var(--accent-cyan);">@eneneuquen</a> en Instagram.</p>
+                <p><strong>ENE IA LAB</strong> opera desde el <span class="highlight">Polo Tecnológico Neuquén — Edificio ENE.</span> Las membresías corresponden al ciclo <strong>2026</strong> (mayo–noviembre) y los cupos son limitados.</p>
             </div>
         </div>
     </div>
@@ -536,26 +808,29 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                });
-            }, { threshold: 0.08 });
+        'use strict';
 
-            document.querySelectorAll(
-                '.section-title, .section-subtitle, .mission-box, .membership-card, .value-card, .contact-card, .quote-block'
-            ).forEach(el => observer.observe(el));
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.08 });
 
-            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
+        document.querySelectorAll(
+            '.section-title, .section-subtitle, .mission-box, .value-card, .contact-card, .quote-block'
+        ).forEach(el => observer.observe(el));
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
                     e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        const navH = document.querySelector('nav').offsetHeight;
-                        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - navH, behavior: 'smooth' });
-                    }
-                });
+                    const navH = document.querySelector('nav').offsetHeight;
+                    window.scrollTo({
+                        top: target.getBoundingClientRect().top + window.scrollY - navH - 16,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>

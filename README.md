@@ -41,6 +41,40 @@ WEB-IALAB-main/
 | `metodologia.html` | Detalle del enfoque y metodología del laboratorio |
 | `eventos.html` | Agenda de eventos del año 2026 |
 | `membresia.html` | Planes Individual ($85k) y Corporativa ($150k) |
+| `publicaciones.html` | Feed de publicaciones filtrable por vertical, cargado desde Google Sheets vía CSV |
+
+### Publicaciones (`publicaciones.html`)
+
+Feed dinámico que consume un Google Sheet publicado como CSV y renderiza las publicaciones filtradas por vertical.
+
+**Fuente de datos:**
+- URL configurada en la constante `SHEET_CSV_URL` (línea ~391).
+- Para actualizar la fuente: Archivo → Compartir → Publicar en la web → Hoja1 → CSV → copiar URL.
+
+**Parser CSV (`parseCSV` + `HEADER_MAP`):**
+- Soporta encabezados en español e inglés, con o sin acentos, y variantes comunes (ej. `enlace` / `link` / `url publicacion` → campo `url`; `resumen` / `summary` / `descripcion` → campo `resumen`).
+- La función `normalizeHeader()` extrae la lógica de normalización (trim, minúsculas, strip diacríticos) reutilizada tanto en la detección de headers como en los filtros.
+- Las columnas mapeadas a `null` en `HEADER_MAP` (ej. `marca temporal`, `timestamp`) se descartan al parsear.
+- Compatible con exports directos de Google Forms → Google Sheets sin edición manual de encabezados.
+
+### Flujo de registro de membresías (`membresia.html`)
+
+Reemplaza los antiguos enlaces `mailto:` por un flujo guiado de cuatro pasos:
+
+1. **Selector de tipo** — el usuario elige entre Membresía Individual ($85.000/mes) y Corporativa ($150.000/mes).
+2. **Beneficios** — se muestran los beneficios completos del tipo elegido antes de continuar.
+3. **Formulario dinámico** — campos comunes (nombre, email, teléfono, vertical de interés, fuente de referido, consentimiento) más campos condicionales según el tipo: profesión y organización para Individual; empresa, cargo, cantidad de personas y sector para Corporativa.
+4. **Confirmación** — mensaje de éxito al completar el envío.
+
+**Arquitectura:**
+- Estado centralizado en el objeto `state` (`type`, `formData`).
+- Datos de membresías (precios, beneficios, textos) centralizados en la constante `MEMBERSHIPS` — un único lugar para actualizarlos.
+- Los grupos de campos condicionales se muestran/ocultan con la clase `.active` según `state.type`; no hay duplicación de formularios.
+- Validación del lado del cliente con errores inline y foco automático en el primer campo inválido.
+- Atributos `required`, `autocomplete` y `aria-live="polite"` en los errores para compatibilidad con lectores de pantalla.
+- Función `submitMembershipForm(data)` preparada para futura integración con Google Forms (actualmente stub con `// TODO`).
+
+---
 
 ### Verticales (sectores de trabajo)
 

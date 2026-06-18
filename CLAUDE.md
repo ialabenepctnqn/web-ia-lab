@@ -1,44 +1,65 @@
 # web-ia-lab
 
-- **Repositorio:** web-ia-lab
+## 1. Repositorio y flujo Git
+
 - **Remote:** https://github.com/ialabenepctnqn/web-ia-lab.git
-- **Branch principal:** main
+- **Producción:** Netlify, conectado a `main`. Todo push a `main` se despliega automáticamente.
 
+### Regla crítica: nunca pushear directo a `main`
 
-## Control de versiones y ramas
+Rama de trabajo diario: `develop`. Rama de producción: `main`.
 
-Este proyecto está publicado en producción vía **Netlify**, conectado al repositorio de GitHub. Cualquier push a `main` se despliega automáticamente al sitio en vivo.
-
-### ⚠️ Regla crítica: nunca pushear directo a `main`
-
-Todo el trabajo de desarrollo debe hacerse en la rama `develop`.
-
-**Flujo de trabajo obligatorio:**
-
-1. Asegurarse de estar en la rama `develop` antes de cualquier cambio:
 ```bash
-   git checkout develop
-   # Si no existe aún:
-   git checkout -b develop
+git checkout develop          # siempre trabajar acá
+git commit -m "descripción"
+git push origin develop
+# cuando esté listo para producción:
+gh pr create                  # PR de develop → main, nunca merge directo
 ```
 
-2. Hacer commits normalmente en `develop`:
-```bash
-   git add .
-   git commit -m "descripción del cambio"
-   git push origin develop
-```
+---
 
-3. Cuando los cambios estén listos para producción, **abrir un Pull Request** en GitHub de `develop` → `main`. Nunca mergear directo por línea de comandos.
+## 2. Contexto del proyecto
 
-### Resumen
-- Rama de trabajo diario: `develop`
-- Rama de producción (Netlify): `main`
-- **Nunca** hacer cambios directamente sobre `main`
-- **Siempre** usar PR para pasar cambios de `develop` a `main`
+Sitio institucional de IA LAB — comunidad de innovación aplicada en inteligencia artificial.
 
-## Instrucción para Claude
+**Stack:** HTML · CSS · JavaScript Vanilla · Sin frameworks
 
-1. Antes de cualquier cambio, asegurate de estar en `develop` (`git checkout develop`).
-2. Hacé commits y pusheá a `origin/develop`.
-3. **Nunca** hagas push directo a `main`. Para llevar cambios a producción, abrí un PR de `develop` → `main` con `gh pr create`.
+**Diseño:** Dark mode · Glassmorphism · Paleta cyan/violeta · Estilo moderno e institucional
+
+**Estructura del sitio:**
+- Home
+- Metodología
+- Eventos
+- Membresías
+- Verticales: Energía · RRHH · Salud · Marketing · Arquitectura · Derecho · Seguridad e Higiene · Relaciones Internacionales · Ciencias Económicas · Coaching · Real Estate
+
+---
+
+## 3. Componentes especiales
+
+### Chatbot (Neo)
+- Demo funcional del asistente IA LAB. Mascota: **Neo**.
+- Archivos: `css/chatbot.css`, `js/chatbot.js`
+- Interfaz desacoplada del resto del sitio.
+- Preparado para futura integración RAG vía `sendMessage()`.
+
+### Membresías
+- Flujo implementado en `membresia.html` — 4 pasos: selección de plan → beneficios → formulario → éxito.
+- **Formulario conectado a Google Forms** vía fetch POST (`mode: no-cors`). Dos formularios separados:
+  - **Individual** — campos: Nombre Completo, Email, Teléfono, Razón Social, CUIT, Dirección
+  - **Corporativo** — campos: Nombre del Contacto, Empresa, Email, Teléfono, Razón Social, CUIT, Dirección, Cantidad de Usuarios
+- Los entry IDs y Form IDs están hardcodeados en `GOOGLE_FORMS` (objeto JS en `membresia.html`, ~línea 1160).
+- Las respuestas van a un Google Sheet compartido con dos pestañas (Individual / Corporativo).
+- **Migración de miembros previos:** archivo `Miembros_IA_LAB_v3.xlsx` en local (Downloads del usuario) con 18 miembros (10 individual, 8 corporativo), listo para importar al Sheet.
+
+---
+
+## 4. Filosofía de desarrollo
+
+- Código limpio, sin dependencias innecesarias.
+- Mantener coherencia visual en todo el sitio.
+- Reutilizar componentes existentes antes de crear nuevos archivos.
+- Modificar la menor cantidad de archivos posible por cambio.
+- Facilitar el rollback: cambios atómicos y bien delimitados.
+- Ante un cambio importante de arquitectura: explicar el porqué, ventajas y desventajas antes de implementar.
