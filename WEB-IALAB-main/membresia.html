@@ -595,6 +595,12 @@
         /* Offset de scroll para nav fija al usar ancla #membresias */
         #membresias { scroll-margin-top: 80px; }
 
+        /* ── Toggle tipo de membresía ── */
+        .type-toggle { display: flex; gap: 8px; margin-top: 8px; }
+        .type-btn { flex: 1; padding: 12px; border: 1px solid var(--line-soft); border-radius: 10px; background: transparent; color: var(--text-muted); font-size: 0.93rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+        .type-btn.active { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(6,182,212,0.07); }
+        .type-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--text-main); }
+
         /* ── Próximamente ── */
         .coming-soon-shell {
             text-align: center;
@@ -757,13 +763,42 @@
     <!-- ── INSCRIPCIONES ── -->
     <div id="membresias" class="inner-section" style="padding-top: 0;">
         <div class="content-wrapper">
-            <div class="coming-soon-shell">
-                <i class="fas fa-clock coming-soon-icon" aria-hidden="true"></i>
-                <h2>Inscripciones próximamente</h2>
-                <p class="coming-soon-text">Estamos preparando el proceso de inscripción para el ciclo 2026. Si querés sumarte, escribinos y te notificamos cuando estén disponibles.</p>
-                <a href="mailto:ialab@eneneuquen.com.ar?subject=Interés en membresía ENE IA LAB 2026" class="btn-cta">
-                    <i class="fas fa-envelope" aria-hidden="true"></i> Registrá tu interés
-                </a>
+            <div class="form-shell" id="form-inscripcion">
+                <h2 class="form-title">Inscribite al ciclo 2026</h2>
+                <p class="form-subtitle">Completá tus datos y nos ponemos en contacto para confirmar tu membresía.</p>
+
+                <div class="form-group">
+                    <label>Tipo de membresía</label>
+                    <div class="type-toggle">
+                        <button type="button" class="type-btn active" data-type="individual">Individual</button>
+                        <button type="button" class="type-btn" data-type="corporativo">Corporativo</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="insc-nombre">Nombre completo <span class="required-mark">*</span></label>
+                    <input type="text" id="insc-nombre" placeholder="Tu nombre y apellido">
+                </div>
+                <div class="form-group">
+                    <label for="insc-email">Email <span class="required-mark">*</span></label>
+                    <input type="email" id="insc-email" placeholder="tucorreo@ejemplo.com">
+                </div>
+                <div class="form-group">
+                    <label for="insc-telefono">Teléfono <span class="required-mark">*</span></label>
+                    <input type="tel" id="insc-telefono" placeholder="+54 9 299 000 0000">
+                </div>
+
+                <div class="form-submit">
+                    <button type="button" id="insc-submit" class="btn-cta">
+                        <i class="fas fa-arrow-right"></i> Enviar inscripción
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-shell" id="insc-success" style="display:none; text-align:center;">
+                <i class="fas fa-check-circle" style="font-size:2.8rem;color:var(--accent-cyan);margin-bottom:20px;display:block;"></i>
+                <h2 class="form-title">¡Inscripción recibida!</h2>
+                <p class="form-subtitle">Gracias por sumarte. En los próximos días nos ponemos en contacto para confirmar tu membresía al ciclo 2026.</p>
             </div>
         </div>
     </div>
@@ -789,10 +824,10 @@
             <div class="contact-grid">
                 <div class="contact-card">
                     <i class="fas fa-envelope contact-icon"></i>
-                    <h4>Registrá tu interés</h4>
-                    <p>Las inscripciones para el ciclo 2026 estarán disponibles próximamente. Escribinos y te avisamos cuando abran.</p>
-                    <a href="mailto:ialab@eneneuquen.com.ar?subject=Interés en membresía ENE IA LAB 2026" class="btn-cta">
-                        <i class="fas fa-envelope"></i> Escribinos
+                    <h4>Inscribite ahora</h4>
+                    <p>Completá el formulario de inscripción y nos ponemos en contacto para confirmar tu lugar en el ciclo 2026.</p>
+                    <a href="#membresias" class="btn-cta">
+                        <i class="fas fa-arrow-right"></i> Ir al formulario
                     </a>
                 </div>
                 <div class="contact-card" style="transition-delay: 0.12s;">
@@ -836,6 +871,49 @@
         document.querySelectorAll(
             '.section-title, .section-subtitle, .mission-box, .value-card, .contact-card, .quote-block'
         ).forEach(el => observer.observe(el));
+
+        // ── Formulario de inscripción ──
+        const FORM_URLS = {
+            individual:  'https://docs.google.com/forms/d/e/1FAIpQLSdmK_fQqWRwqV6plB_a6qyeIYBf-Cn0KnyccwBXxuAN7408Vg/formResponse',
+            corporativo: 'https://docs.google.com/forms/d/e/1FAIpQLSdYJNUBhv_qXy5cYFeU4ZpNMEoucpN7fbGPe6IuGy4Yy2shTQ/formResponse'
+        };
+        let inscTipo = 'individual';
+
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                inscTipo = btn.dataset.type;
+            });
+        });
+
+        document.getElementById('insc-submit').addEventListener('click', async () => {
+            const nombre   = document.getElementById('insc-nombre').value.trim();
+            const email    = document.getElementById('insc-email').value.trim();
+            const telefono = document.getElementById('insc-telefono').value.trim();
+
+            let valid = true;
+            [['insc-nombre', nombre], ['insc-email', email], ['insc-telefono', telefono]].forEach(([id, val]) => {
+                const el = document.getElementById(id);
+                if (!val) { el.classList.add('input-error'); valid = false; }
+                else el.classList.remove('input-error');
+            });
+            if (!valid) return;
+
+            const btn = document.getElementById('insc-submit');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+            const body = new FormData();
+            body.append('entry.1072526304', nombre);
+            body.append('entry.1338885220', email);
+            body.append('entry.438973991',  telefono);
+
+            try { await fetch(FORM_URLS[inscTipo], { method: 'POST', mode: 'no-cors', body }); } catch (_) {}
+
+            document.getElementById('form-inscripcion').style.display = 'none';
+            document.getElementById('insc-success').style.display = 'block';
+        });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
