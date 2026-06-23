@@ -5,7 +5,7 @@
             --panel-strong: rgba(20, 23, 27, 0.96);
             --text-main: #FFFFFF;
             --text-soft: #D7DBE0;
-            --text-muted: #98A0A8;
+            --text-muted: #AEB6BE;
             --line-soft: rgba(255,255,255,0.08);
             --line-mid: rgba(255,255,255,0.18);
             --shadow-soft: 0 18px 42px rgba(0,0,0,0.35);
@@ -1125,4 +1125,22 @@
             .milestones-grid { grid-template-columns: 1fr; gap: 16px; }
             footer { padding: 36px 18px 28px 18px; }
             .footer-links { gap: 10px; }
+        }
+
+        /* ── Accesibilidad: respetar preferencia de menos movimiento ── */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+            /* Asegurar que el contenido revelado por scroll quede visible */
+            .screen, .section-title, .section-subtitle, .mission-box, .milestone-card,
+            .membership-card, .problem-card, .timeline-item, .referente-card,
+            .sharing-methods li, .animate-on-scroll {
+                opacity: 1 !important;
+                transform: none !important;
+            }
         }
