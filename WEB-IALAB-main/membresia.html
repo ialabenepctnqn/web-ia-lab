@@ -763,19 +763,75 @@
     <!-- ── INSCRIPCIONES ── -->
     <div id="membresias" class="inner-section" style="padding-top: 0;">
         <div class="content-wrapper">
-            <div class="form-shell" id="form-inscripcion">
-                <h2 class="form-title">Inscribite al ciclo 2026</h2>
-                <p class="form-subtitle">Completá tus datos y nos ponemos en contacto para confirmar tu membresía.</p>
 
-                <div class="form-group">
-                    <label>Tipo de membresía</label>
-                    <div class="type-toggle">
-                        <button type="button" class="type-btn active" data-type="individual">Individual</button>
-                        <button type="button" class="type-btn" data-type="corporativo">Corporativo</button>
+            <!-- Paso 1: selector de plan -->
+            <div id="plan-selector">
+                <h2 class="section-title" style="margin-bottom: 8px;">Elegí tu membresía</h2>
+                <p class="section-subtitle" style="margin-bottom: 40px;">Ciclo 2026 · Mayo – Noviembre</p>
+                <div class="membership-grid" style="max-width: 860px; margin: 0 auto;">
+
+                    <div class="membership-card visible">
+                        <div class="membership-tier-badge"><i class="fas fa-user"></i> Individual</div>
+                        <div style="margin-bottom: 16px; position: relative; z-index: 1;">
+                            <div class="price-display">$85.000</div>
+                            <span class="price-period">por mes · ciclo 2026</span>
+                        </div>
+                        <h3>Membresía Individual</h3>
+                        <p class="membership-card-tagline">Para profesionales, emprendedores y referentes que quieren ser parte del ecosistema de IA de la región.</p>
+                        <ul class="membership-features">
+                            <li>Participación en grupos y verticales de IA aplicada</li>
+                            <li>Acceso a charlas y encuentros exclusivos del ecosistema</li>
+                            <li>Networking con empresas y profesionales de Neuquén y Patagonia</li>
+                            <li>Prioridad en actividades organizadas por ENE</li>
+                            <li>Sesiones técnicas sobre desafíos y negocios reales</li>
+                            <li>Beneficios y merchandising institucional</li>
+                            <li>Acceso al coworking ENE hasta 2 veces por semana</li>
+                        </ul>
+                        <div class="form-submit" style="border-top: 1px solid var(--line-soft); padding-top: 24px; margin-top: 24px;">
+                            <button type="button" class="btn-cta" style="width: 100%;" onclick="mostrarFormulario('individual')">
+                                <i class="fas fa-arrow-right"></i> Inscribirme — Individual
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div id="insc-desc" style="margin-bottom: 28px; padding: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--line-soft); border-radius: 12px; position: relative; z-index: 1;"></div>
+                    <div class="membership-card membership-card-featured visible">
+                        <div class="membership-tier-badge"><i class="fas fa-building"></i> Corporativo</div>
+                        <div style="margin-bottom: 16px; position: relative; z-index: 1;">
+                            <div class="price-display price-display-gradient">$150.000</div>
+                            <span class="price-period">por mes · ciclo 2026</span>
+                        </div>
+                        <h3>Membresía Corporativa</h3>
+                        <p class="membership-card-tagline">Para empresas e instituciones que quieren incorporar IA con visibilidad y participación colectiva.</p>
+                        <ul class="membership-features">
+                            <li>Participación en grupos y verticales de IA aplicada</li>
+                            <li>Acceso a charlas y encuentros exclusivos del ecosistema</li>
+                            <li>Networking con empresas y profesionales de Neuquén y Patagonia</li>
+                            <li>Prioridad en actividades organizadas por ENE</li>
+                            <li>Sesiones técnicas sobre desafíos y negocios reales</li>
+                            <li>Beneficios y merchandising institucional</li>
+                            <li>Acceso al coworking ENE hasta 2 veces por semana</li>
+                            <li>Hasta <strong>3 personas</strong> de la organización simultáneamente</li>
+                            <li>Mayor visibilidad en eventos y actividades del laboratorio</li>
+                            <li>Vinculación directa con referentes y soluciones por vertical</li>
+                            <li>Participación activa en el diseño de proyectos del laboratorio</li>
+                        </ul>
+                        <div class="form-submit" style="border-top: 1px solid var(--line-soft); padding-top: 24px; margin-top: 24px;">
+                            <button type="button" class="btn-cta" style="width: 100%;" onclick="mostrarFormulario('corporativo')">
+                                <i class="fas fa-arrow-right"></i> Inscribirme — Corporativo
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Paso 2: formulario -->
+            <div class="form-shell" id="form-inscripcion" style="display: none;">
+                <button type="button" id="insc-volver" style="background:none;border:none;color:var(--text-muted);font-size:0.88rem;cursor:pointer;margin-bottom:20px;padding:0;display:flex;align-items:center;gap:6px;position:relative;z-index:1;">
+                    <i class="fas fa-arrow-left"></i> Volver a los planes
+                </button>
+                <h2 class="form-title" id="insc-titulo">Inscripción Individual</h2>
+                <p class="form-subtitle">Completá tus datos y nos ponemos en contacto para confirmar tu membresía.</p>
 
                 <div class="form-group">
                     <label for="insc-nombre">Nombre completo <span class="required-mark">*</span></label>
@@ -797,11 +853,13 @@
                 </div>
             </div>
 
-            <div class="form-shell" id="insc-success" style="display:none; text-align:center;">
+            <!-- Paso 3: éxito -->
+            <div class="form-shell" id="insc-success" style="display: none; text-align: center;">
                 <i class="fas fa-check-circle" style="font-size:2.8rem;color:var(--accent-cyan);margin-bottom:20px;display:block;"></i>
                 <h2 class="form-title">¡Inscripción recibida!</h2>
                 <p class="form-subtitle">Gracias por sumarte. En los próximos días nos ponemos en contacto para confirmar tu membresía al ciclo 2026.</p>
             </div>
+
         </div>
     </div>
 
@@ -874,54 +932,6 @@
             '.section-title, .section-subtitle, .mission-box, .value-card, .contact-card, .quote-block'
         ).forEach(el => observer.observe(el));
 
-        // ── Datos de membresías ──
-        const MEMBERSHIPS = {
-            individual: {
-                price:   '$85.000',
-                period:  'por mes · ciclo 2026',
-                tagline: 'Para profesionales, emprendedores y referentes que quieren ser parte del ecosistema de IA de la región.',
-                benefits: [
-                    'Participación en grupos y verticales de IA aplicada',
-                    'Acceso a charlas y encuentros exclusivos del ecosistema',
-                    'Networking con empresas y profesionales de Neuquén y Patagonia',
-                    'Prioridad en actividades organizadas por ENE',
-                    'Sesiones técnicas sobre desafíos y negocios reales',
-                    'Beneficios y merchandising institucional',
-                    'Acceso al coworking ENE hasta 2 veces por semana'
-                ]
-            },
-            corporativo: {
-                price:   '$150.000',
-                period:  'por mes · ciclo 2026',
-                tagline: 'Para empresas e instituciones que quieren incorporar IA con visibilidad y participación colectiva.',
-                benefits: [
-                    'Participación en grupos y verticales de IA aplicada',
-                    'Acceso a charlas y encuentros exclusivos del ecosistema',
-                    'Networking con empresas y profesionales de Neuquén y Patagonia',
-                    'Prioridad en actividades organizadas por ENE',
-                    'Sesiones técnicas sobre desafíos y negocios reales',
-                    'Beneficios y merchandising institucional',
-                    'Acceso al coworking ENE hasta 2 veces por semana',
-                    'Hasta <strong>3 personas</strong> de la organización simultáneamente',
-                    'Mayor visibilidad en eventos y actividades del laboratorio',
-                    'Vinculación directa con referentes y soluciones por vertical',
-                    'Participación activa en el diseño de proyectos del laboratorio'
-                ]
-            }
-        };
-
-        function renderDesc(type) {
-            const m = MEMBERSHIPS[type];
-            document.getElementById('insc-desc').innerHTML =
-                `<div style="text-align:center;margin-bottom:16px;">
-                    <div class="price-display" style="font-size:1.9rem;">${m.price}</div>
-                    <span class="price-period">${m.period}</span>
-                    <p style="font-size:0.88rem;color:var(--text-muted);margin:10px 0 0;">${m.tagline}</p>
-                </div>
-                <ul class="membership-features">${m.benefits.map(b => `<li>${b}</li>`).join('')}</ul>`;
-        }
-        renderDesc('individual');
-
         // ── Formulario de inscripción ──
         const FORM_URLS = {
             individual:  'https://docs.google.com/forms/d/e/1FAIpQLSdmK_fQqWRwqV6plB_a6qyeIYBf-Cn0KnyccwBXxuAN7408Vg/formResponse',
@@ -929,13 +939,18 @@
         };
         let inscTipo = 'individual';
 
-        document.querySelectorAll('.type-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                inscTipo = btn.dataset.type;
-                renderDesc(inscTipo);
-            });
+        function mostrarFormulario(tipo) {
+            inscTipo = tipo;
+            document.getElementById('insc-titulo').textContent =
+                tipo === 'individual' ? 'Inscripción Individual' : 'Inscripción Corporativa';
+            document.getElementById('plan-selector').style.display = 'none';
+            document.getElementById('form-inscripcion').style.display = 'block';
+            document.getElementById('membresias').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        document.getElementById('insc-volver').addEventListener('click', () => {
+            document.getElementById('form-inscripcion').style.display = 'none';
+            document.getElementById('plan-selector').style.display = 'block';
         });
 
         document.getElementById('insc-submit').addEventListener('click', async () => {
