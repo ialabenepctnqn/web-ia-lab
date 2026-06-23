@@ -1,7 +1,10 @@
-# Excluir todo excepto WEB-IALAB-main
+# Excluir todo excepto WEB-IALAB-main y comandos de Claude Code
 *
 !.gitignore
 !CLAUDE.md
 !README.md
 !WEB-IALAB-main/
 !WEB-IALAB-main/**
+!.claude/
+!.claude/commands/
+!.claude/commands/**

@@ -397,16 +397,6 @@
     </footer>
 
     <script>
-        /*
-         * SHEET_CSV_URL: URL del CSV publicado del Google Sheet.
-         * Para obtenerla: Archivo → Compartir → Publicar en la web → Hoja1 → CSV → Publicar.
-         * Reemplazá el valor de abajo con la URL que te da Google.
-         *
-         * Columnas esperadas (fila 1 = encabezados):
-         *   titulo | autor | vertical | fecha | resumen | url
-         */
-        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8cOeB0-arpoJeoqGOWyRepEEB2M-QXXVemqTCbOfauLTP8qWjI7kl0RHAp6rZyRVXzVbNHscffQd-/pub?gid=1395243721&single=true&output=csv';
-
         const VERTICAL_LABELS = {
             'energia': 'Energía',
             'rrhh': 'RRHH',
@@ -423,60 +413,6 @@
 
         let allPublicaciones = [];
         let selectedVerticals = new Set();
-
-        // Mapa inverso: label del formulario → slug interno
-        const LABEL_TO_SLUG = Object.fromEntries(
-            Object.entries(VERTICAL_LABELS).map(([slug, label]) => [label.toLowerCase(), slug])
-        );
-
-        function normalizeVertical(value) {
-            const v = (value || '').trim();
-            // Si ya es un slug conocido, lo devolvemos tal cual
-            if (VERTICAL_LABELS[v]) return v;
-            // Si es un label del formulario (ej. "Energía"), lo convertimos a slug
-            return LABEL_TO_SLUG[v.toLowerCase()] || v.toLowerCase()
-                .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-');
-        }
-
-        const HEADER_MAP = {
-            'marca temporal': null, 'timestamp': null,
-            'titulo': 'titulo', 'title': 'titulo',
-            'autor': 'autor', 'author': 'autor',
-            'vertical': 'vertical',
-            'fecha': 'fecha', 'date': 'fecha',
-            'resumen': 'resumen', 'summary': 'resumen', 'descripcion': 'resumen',
-            'url': 'url', 'url publicacion': 'url', 'enlace': 'url', 'link': 'url'
-        };
-
-        function normalizeHeader(h) {
-            return h.trim().replace(/^"|"$/g, '')
-                .toLowerCase()
-                .normalize('NFD').replace(/[̀-ͯ]/g, '');
-        }
-
-        function parseCSV(text) {
-            const lines = text.trim().split('\n');
-            if (lines.length < 2) return [];
-            const headers = lines[0].split(',').map(h => {
-                const norm = normalizeHeader(h);
-                return HEADER_MAP.hasOwnProperty(norm) ? HEADER_MAP[norm] : norm;
-            });
-            return lines.slice(1).map(line => {
-                const values = [];
-                let current = '';
-                let inQuotes = false;
-                for (let i = 0; i < line.length; i++) {
-                    const ch = line[i];
-                    if (ch === '"') { inQuotes = !inQuotes; continue; }
-                    if (ch === ',' && !inQuotes) { values.push(current.trim()); current = ''; continue; }
-                    current += ch;
-                }
-                values.push(current.trim());
-                const obj = {};
-                headers.forEach((h, i) => { obj[h] = values[i] || ''; });
-                return obj;
-            }).filter(row => row.titulo);
-        }
 
         function buildCard(pub, delay) {
             const verticalLabel = VERTICAL_LABELS[pub.vertical] || pub.vertical;
@@ -528,18 +464,10 @@
             const loadingEl = document.getElementById('pub-loading');
             const errorEl = document.getElementById('pub-error');
 
-            if (SHEET_CSV_URL === 'REEMPLAZAR_CON_URL_DEL_SHEET') {
-                loadingEl.style.display = 'none';
-                errorEl.style.display = 'block';
-                errorEl.innerHTML = '<i class="fas fa-tools"></i> Sección en configuración. Próximamente disponible.';
-                return;
-            }
-
             try {
-                const res = await fetch(SHEET_CSV_URL);
+                const res = await fetch('./publicaciones/index.json');
                 if (!res.ok) throw new Error('HTTP ' + res.status);
-                const csv = await res.text();
-                allPublicaciones = parseCSV(csv).map(p => ({ ...p, vertical: normalizeVertical(p.vertical) }));
+                allPublicaciones = await res.json();
                 loadingEl.style.display = 'none';
                 renderCards();
             } catch (e) {
