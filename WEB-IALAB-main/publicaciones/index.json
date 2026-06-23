@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "titulo": "IA Aplicada en Arquitectura: Del Código Urbano al Proyecto, Sin Fricción",
+    "autor": "ENE IA LAB",
+    "vertical": "arquitectura",
+    "fecha": "2026-06-23",
+    "resumen": "Neuquén crece a una velocidad inusual y el sector de arquitectura opera con herramientas modernas pero sin inteligencia que las conecte: la normativa es una caja negra, el análisis de viabilidad llega tarde y la documentación de obra se pierde en el campo. Este White Paper muestra cómo la IA puede resolver eso hoy, con prototipos concretos y quick wins implementables en semanas — no en años.",
+    "url": "publicaciones/arquitectura/ia-aplicada-en-arquitectura-del-codigo-urbano-al-proyecto-sin-friccion.html"
+  }
+]
