@@ -1377,6 +1377,41 @@
 
         .btn-cta i { font-size: 1rem; }
 
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 30px;
+            border-radius: 999px;
+            border: 1px solid rgba(6,182,212,0.40);
+            color: var(--accent-cyan);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.22s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-outline:hover {
+            background: rgba(6,182,212,0.10);
+            border-color: rgba(6,182,212,0.65);
+            box-shadow: 0 0 18px rgba(6,182,212,0.18);
+        }
+
+        /* ── Hero CTA ── */
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
         /* ── Price display (preview en home) ── */
         .price-display {
             font-family: 'Montserrat', sans-serif;
@@ -1719,7 +1754,11 @@
                 <div class="hero-text">
                     <div class="hero-kicker">Laboratorio vivo de IA</div>
                     <h1 class="animate-on-scroll">Inteligencia Artificial <br>desde <span>Neuquén.</span></h1>
-                    <p class="justification-text animate-on-scroll" style="transition-delay: 0.1s;">En el corazón de <strong>Vaca Muerta</strong>, <strong>ENEIALAB</strong> impulsa un Laboratorio Vivo de soluciones con IA: prototipos reales, mes a mes, para los sectores estratégicos de Neuquén y la Patagonia.</p>
+                    <p class="justification-text animate-on-scroll" style="transition-delay: 0.1s;">En el corazón de <strong>Vaca Muerta</strong>, <strong>ENE IA LAB</strong> impulsa un Laboratorio Vivo de soluciones con IA: prototipos reales, mes a mes, para los sectores estratégicos de Neuquén y la Patagonia.</p>
+                    <div class="hero-cta animate-on-scroll" style="transition-delay: 0.2s;">
+                        <a href="membresia.html" class="btn-cta"><i class="fas fa-arrow-right"></i> Sumate a la comunidad</a>
+                        <a href="#screen2" class="btn-outline"><i class="fas fa-layer-group"></i> Conocé las verticales</a>
+                    </div>
                 </div>
             </div>
         </div>
