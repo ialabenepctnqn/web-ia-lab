@@ -335,11 +335,11 @@
         }
 
         .screen {
-            min-height: 100vh;
+            min-height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 110px 52px;
+            padding: 96px 52px;
             position: relative;
             opacity: 0;
             transform: translateY(30px);
