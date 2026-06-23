@@ -775,6 +775,8 @@
                     </div>
                 </div>
 
+                <div id="insc-desc" style="margin-bottom: 28px; padding: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--line-soft); border-radius: 12px; position: relative; z-index: 1;"></div>
+
                 <div class="form-group">
                     <label for="insc-nombre">Nombre completo <span class="required-mark">*</span></label>
                     <input type="text" id="insc-nombre" placeholder="Tu nombre y apellido">
@@ -872,6 +874,54 @@
             '.section-title, .section-subtitle, .mission-box, .value-card, .contact-card, .quote-block'
         ).forEach(el => observer.observe(el));
 
+        // ── Datos de membresías ──
+        const MEMBERSHIPS = {
+            individual: {
+                price:   '$85.000',
+                period:  'por mes · ciclo 2026',
+                tagline: 'Para profesionales, emprendedores y referentes que quieren ser parte del ecosistema de IA de la región.',
+                benefits: [
+                    'Participación en grupos y verticales de IA aplicada',
+                    'Acceso a charlas y encuentros exclusivos del ecosistema',
+                    'Networking con empresas y profesionales de Neuquén y Patagonia',
+                    'Prioridad en actividades organizadas por ENE',
+                    'Sesiones técnicas sobre desafíos y negocios reales',
+                    'Beneficios y merchandising institucional',
+                    'Acceso al coworking ENE hasta 2 veces por semana'
+                ]
+            },
+            corporativo: {
+                price:   '$150.000',
+                period:  'por mes · ciclo 2026',
+                tagline: 'Para empresas e instituciones que quieren incorporar IA con visibilidad y participación colectiva.',
+                benefits: [
+                    'Participación en grupos y verticales de IA aplicada',
+                    'Acceso a charlas y encuentros exclusivos del ecosistema',
+                    'Networking con empresas y profesionales de Neuquén y Patagonia',
+                    'Prioridad en actividades organizadas por ENE',
+                    'Sesiones técnicas sobre desafíos y negocios reales',
+                    'Beneficios y merchandising institucional',
+                    'Acceso al coworking ENE hasta 2 veces por semana',
+                    'Hasta <strong>3 personas</strong> de la organización simultáneamente',
+                    'Mayor visibilidad en eventos y actividades del laboratorio',
+                    'Vinculación directa con referentes y soluciones por vertical',
+                    'Participación activa en el diseño de proyectos del laboratorio'
+                ]
+            }
+        };
+
+        function renderDesc(type) {
+            const m = MEMBERSHIPS[type];
+            document.getElementById('insc-desc').innerHTML =
+                `<div style="text-align:center;margin-bottom:16px;">
+                    <div class="price-display" style="font-size:1.9rem;">${m.price}</div>
+                    <span class="price-period">${m.period}</span>
+                    <p style="font-size:0.88rem;color:var(--text-muted);margin:10px 0 0;">${m.tagline}</p>
+                </div>
+                <ul class="membership-features">${m.benefits.map(b => `<li>${b}</li>`).join('')}</ul>`;
+        }
+        renderDesc('individual');
+
         // ── Formulario de inscripción ──
         const FORM_URLS = {
             individual:  'https://docs.google.com/forms/d/e/1FAIpQLSdmK_fQqWRwqV6plB_a6qyeIYBf-Cn0KnyccwBXxuAN7408Vg/formResponse',
@@ -884,6 +934,7 @@
                 document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 inscTipo = btn.dataset.type;
+                renderDesc(inscTipo);
             });
         });
 
