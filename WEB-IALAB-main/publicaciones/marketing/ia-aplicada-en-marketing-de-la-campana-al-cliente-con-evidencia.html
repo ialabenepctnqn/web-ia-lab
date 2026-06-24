@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Aplicada en Marketing: De la Campaña al Cliente, con Evidencia — ENE IA LAB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #F97316; --accent-light: #FFF7ED; --accent-dark: #C2410C; --accent-mid: #F97316;
+    --lab-purple: #7C3AED; --lab-teal: #06B6D4; --lab-green: #10B981;
+    --text: #0F172A; --text-muted: #64748B; --text-light: #94A3B8;
+    --border: #E2E8F0; --bg-subtle: #F8FAFC; --page-w: 210mm; --page-h: 297mm; --margin: 18mm;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 10pt; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: #CBD5E1; }
+  .page { width: var(--page-w); min-height: var(--page-h); background: #fff; margin: 8mm auto; padding: var(--margin); position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.15); }
+  .page-cover { padding: 0; background: var(--text); }
+  @media print { body { background: white; } .page { margin: 0; box-shadow: none; page-break-after: always; width: 100%; } @page { size: A4; margin: 0; } }
+  .cover-bg { position: absolute; inset: 0; background: linear-gradient(145deg, #0F172A 0%, #1E293B 60%, #333 100%); }
+  .cover-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #F97316 0%, #F97316 50%, #F97316 100%); }
+  .cover-content { position: relative; z-index: 1; padding: 18mm; height: 297mm; display: flex; flex-direction: column; }
+  .cover-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: auto; }
+  .cover-logo-box { border: 1.5px solid rgba(255,255,255,.25); border-radius: 8px; padding: 6px 14px; font-size: 9pt; color: rgba(255,255,255,.7); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+  .cover-edition { font-size: 8pt; color: rgba(255,255,255,.4); letter-spacing: .12em; text-transform: uppercase; }
+  .cover-license { font-size: 7.5pt; color: rgba(255,255,255,.5); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 5px; padding: 3px 9px; margin-left: auto; font-weight: 600; }
+  .cover-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20mm 0 10mm; }
+  .cover-sector { display: inline-block; background: #F97316; color: #fff; font-size: 7.5pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 14px; }
+  .cover-title { font-size: 28pt; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 14px; letter-spacing: -.02em; }
+  .cover-title span { color: #F97316; filter: brightness(1.3); }
+  .cover-subtitle { font-size: 11pt; color: rgba(255,255,255,.65); line-height: 1.6; max-width: 155mm; font-weight: 400; }
+  .cover-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 20mm; }
+  .cover-kpi { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 12px 10px; }
+  .cover-kpi-num { font-size: 18pt; font-weight: 900; color: #F97316; filter: brightness(1.3); line-height: 1; }
+  .cover-kpi-label { font-size: 7.5pt; color: rgba(255,255,255,.55); margin-top: 4px; line-height: 1.3; }
+  .cover-footer { border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .cover-footer-left { font-size: 7.5pt; color: rgba(255,255,255,.4); }
+  .cover-footer-right { font-size: 7.5pt; color: rgba(255,255,255,.4); text-align: right; }
+  .page-header { border-bottom: 2px solid #FFF7ED; padding-bottom: 8px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .page-header-left { font-size: 7.5pt; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .page-header-right { font-size: 7.5pt; color: #F97316; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .page-footer { position: absolute; bottom: 12mm; left: var(--margin); right: var(--margin); border-top: 1px solid var(--border); padding-top: 6px; display: flex; justify-content: space-between; align-items: center; }
+  .page-footer-text { font-size: 7pt; color: var(--text-light); }
+  .page-num { font-size: 7pt; color: var(--text-muted); font-weight: 600; }
+  .section-label { font-size: 7.5pt; font-weight: 700; color: #F97316; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+  .section-title { font-size: 18pt; font-weight: 800; color: var(--text); line-height: 1.15; margin-bottom: 4px; letter-spacing: -.02em; }
+  .section-divider { width: 40px; height: 3px; background: #F97316; border-radius: 2px; margin-bottom: 18px; }
+  .subsection-title { font-size: 10pt; font-weight: 700; color: var(--text); margin: 14px 0 6px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+  p { font-size: 9.5pt; line-height: 1.65; color: #1E293B; margin-bottom: 10px; }
+  p.lead { font-size: 10.5pt; font-weight: 500; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
+  strong { font-weight: 700; }
+  .callout { background: #FFF7ED; border-left: 4px solid #F97316; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .callout-title { font-size: 8pt; font-weight: 700; color: #F97316; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+  .callout p { margin: 0; font-size: 9pt; }
+  .info-box { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .info-box p { margin: 0; font-size: 9pt; color: #1E40AF; }
+  .kpi-row { display: grid; gap: 10px; margin: 14px 0; }
+  .kpi-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .kpi-row-2 { grid-template-columns: 1fr 1fr; }
+  .kpi-row-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .kpi-card { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; text-align: center; }
+  .kpi-card-accent { background: #FFF7ED; border-color: #F9731644; }
+  .kpi-num { font-size: 20pt; font-weight: 900; color: #F97316; line-height: 1; }
+  .kpi-num-sm { font-size: 14pt; font-weight: 900; color: #F97316; line-height: 1; }
+  .kpi-label { font-size: 8pt; color: var(--text-muted); margin-top: 4px; line-height: 1.35; }
+  .kpi-source { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .bullet-list { list-style: none; margin: 0 0 12px; }
+  .bullet-list li { padding: 5px 0 5px 18px; position: relative; font-size: 9.5pt; line-height: 1.55; color: #1E293B; border-bottom: 1px solid var(--border); }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: #F97316; }
+  .bullet-list li strong { color: #C2410C; }
+  .grid-6 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .grid-cell-accent { background: #FFF7ED; border-color: #F9731655; }
+  .grid-cell-title { font-size: 7.5pt; font-weight: 700; color: #F97316; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .grid-cell p { font-size: 9pt; margin: 0; line-height: 1.5; }
+  .quote-block { border-left: 3px solid #F97316; padding: 10px 14px; background: var(--bg-subtle); border-radius: 0 8px 8px 0; margin: 14px 0; }
+  .quote-text { font-size: 10pt; font-style: italic; color: var(--text); line-height: 1.55; }
+  .quote-source { font-size: 8pt; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
+  .tech-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 9px; display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: start; }
+  .tech-icon { width: 36px; height: 36px; border-radius: 8px; background: #FFF7ED; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .tech-name { font-size: 9.5pt; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .tech-desc { font-size: 8.5pt; color: var(--text-muted); line-height: 1.5; margin-bottom: 3px; }
+  .tech-apply { font-size: 8pt; color: #C2410C; font-weight: 600; }
+  .dolor-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .dolor-table th { background: var(--text); color: #fff; padding: 7px 8px; text-align: left; font-weight: 600; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .dolor-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .dolor-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .score-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 8pt; text-align: center; min-width: 32px; }
+  .score-red { background: #FEE2E2; color: #991B1B; }
+  .score-orange { background: #FED7AA; color: #9A3412; }
+  .score-yellow { background: #FEF9C3; color: #854D0E; }
+  .score-green { background: #D1FAE5; color: #065F46; }
+  .type-badge { display: inline-block; padding: 2px 7px; border-radius: 12px; font-size: 7.5pt; font-weight: 600; }
+  .type-latente { background: #EDE9FE; color: #5B21B6; }
+  .type-declarado { background: #DBEAFE; color: #1E40AF; }
+  .validated-mark { display: inline-block; background: #D1FAE5; color: #065F46; font-size: 6.5pt; font-weight: 800; padding: 1px 5px; border-radius: 3px; margin-left: 3px; vertical-align: middle; }
+  .dolor-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+  .dolor-card-header { background: #F97316; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .dolor-card-num { font-size: 20pt; font-weight: 900; opacity: .35; line-height: 1; }
+  .dolor-card-title { font-size: 9.5pt; font-weight: 700; flex: 1; padding: 0 8px; line-height: 1.3; }
+  .dolor-card-score { font-size: 17pt; font-weight: 900; line-height: 1; }
+  .dolor-card-score-label { font-size: 7pt; opacity: .8; text-transform: uppercase; letter-spacing: .06em; }
+  .dolor-card-body { padding: 12px; }
+  .dolor-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .dolor-field-label { font-size: 7.5pt; font-weight: 700; color: #F97316; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-field-text { font-size: 8.5pt; color: var(--text); line-height: 1.5; }
+  .dolor-opp { margin-top: 8px; background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 8px; padding: 9px 11px; }
+  .dolor-opp-label { font-size: 7.5pt; font-weight: 700; color: #15803D; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-opp p { font-size: 8.5pt; color: #14532D; margin: 0; }
+  .ia-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+  .ia-card-header { padding: 12px 14px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .ia-card-header-qw { background: linear-gradient(135deg, #064E3B, #065F46); }
+  .ia-card-header-mp { background: linear-gradient(135deg, #1E3A8A, #1D4ED8); }
+  .ia-card-header-lp { background: linear-gradient(135deg, #581C87, #6D28D9); }
+  .ia-card-title { font-size: 10pt; font-weight: 700; color: #fff; line-height: 1.3; flex: 1; }
+  .ia-card-badge { font-size: 7pt; font-weight: 700; color: #fff; background: rgba(255,255,255,.2); padding: 3px 9px; border-radius: 12px; white-space: nowrap; margin-left: 8px; align-self: flex-start; margin-top: 2px; }
+  .ia-card-body { padding: 14px; }
+  .ia-card-desc { font-size: 9pt; line-height: 1.6; color: var(--text); margin-bottom: 10px; }
+  .ia-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .ia-tag { font-size: 7.5pt; padding: 2px 9px; border-radius: 12px; border: 1px solid var(--border); color: var(--text-muted); background: var(--bg-subtle); }
+  .ia-tag-key { background: #FFF7ED; border-color: #F9731655; color: #C2410C; font-weight: 600; }
+  .ia-detail-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .ia-detail-cell { background: var(--bg-subtle); border-radius: 6px; padding: 8px 10px; }
+  .ia-detail-label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; font-weight: 600; }
+  .ia-detail-value { font-size: 8.5pt; color: var(--text); font-weight: 600; }
+  .ia-evidence { background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 8pt; color: #14532D; }
+  .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .roadmap-col { border-radius: 10px; overflow: hidden; }
+  .roadmap-col-header { padding: 10px 12px; font-size: 9pt; font-weight: 700; color: #fff; }
+  .roadmap-col-header-m1 { background: #065F46; }
+  .roadmap-col-header-m2 { background: #1E40AF; }
+  .roadmap-col-header-m3 { background: #4C1D95; }
+  .roadmap-item { padding: 9px 11px; border-bottom: 1px solid var(--border); background: #fff; }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-item-title { font-size: 8.5pt; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .roadmap-item-desc { font-size: 7.5pt; color: var(--text-muted); line-height: 1.4; }
+  .roadmap-item-time { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .impact-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .impact-table th { background: var(--text); color: #fff; padding: 7px 10px; text-align: left; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .impact-table td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .impact-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .ethics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .ethics-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .ethics-cell-title { font-size: 9pt; font-weight: 700; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .ethics-cell p { font-size: 8.5pt; color: var(--text-muted); margin: 0; line-height: 1.5; }
+  .brecha-row { display: grid; grid-template-columns: 1fr 20px 1fr; gap: 8px; margin-bottom: 10px; align-items: center; }
+  .brecha-actual { background: #FEE2E2; border: 1px solid #FECACA; border-radius: 8px; padding: 10px 12px; }
+  .brecha-nuevo { background: #D1FAE5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 10px 12px; }
+  .brecha-arrow { font-size: 14pt; color: var(--text-muted); text-align: center; }
+  .brecha-label { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .brecha-label-red { color: #991B1B; }
+  .brecha-label-green { color: #065F46; }
+  .brecha-text { font-size: 8.5pt; line-height: 1.45; }
+  .ref-list { list-style: none; margin: 0; counter-reset: ref-counter; }
+  .ref-list li { font-size: 8.5pt; line-height: 1.55; padding: 5px 0 5px 28px; position: relative; border-bottom: 1px solid var(--border); color: #1E293B; counter-increment: ref-counter; }
+  .ref-list li:last-child { border-bottom: none; }
+  .ref-list li::before { content: '[' counter(ref-counter) ']'; position: absolute; left: 0; font-weight: 700; color: #F97316; font-size: 8pt; }
+  .maturity-wrap { margin: 14px 0; }
+  .maturity-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .maturity-table th { padding: 6px 7px; font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-align: center; border: 1px solid var(--border); }
+  .maturity-table td { padding: 5px 7px; border: 1px solid var(--border); vertical-align: middle; }
+  .maturity-table td:first-child { font-weight: 600; font-size: 8pt; background: var(--bg-subtle); width: 28%; }
+  .mat-h0 { background: var(--text); color: #fff; }
+  .mat-h1 { background: #FCA5A5; color: #7F1D1D; }
+  .mat-h2 { background: #FCD34D; color: #713F12; }
+  .mat-h3 { background: #6EE7B7; color: #064E3B; }
+  .mat-h4 { background: #34D399; color: #064E3B; }
+  .mat-h5 { background: #10B981; color: #fff; }
+  .mat-1 { background: #FEE2E2; color: #991B1B; text-align: center; font-size: 7pt; }
+  .mat-2 { background: #FEF9C3; color: #713F12; text-align: center; font-size: 7pt; }
+  .mat-3 { background: #D1FAE5; color: #065F46; text-align: center; font-size: 7pt; }
+  .mat-4 { background: #A7F3D0; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-5 { background: #6EE7B7; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-empty { background: #fff; }
+  .mat-current { font-weight: 800; background: #F97316; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .mat-target { font-weight: 700; background: #065F46; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .cycle-row { display: flex; align-items: stretch; gap: 0; margin: 14px 0; }
+  .cycle-step { flex: 1; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
+  .cycle-step-active { background: #FFF7ED; border-color: #F9731655; }
+  .cycle-num { width: 22px; height: 22px; background: #F97316; color: #fff; border-radius: 50%; font-size: 9pt; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; }
+  .cycle-title { font-size: 8pt; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+  .cycle-desc { font-size: 7pt; color: var(--text-muted); line-height: 1.4; }
+  .cycle-arrow-h { display: flex; align-items: center; padding: 0 4px; font-size: 14pt; color: #F97316; font-weight: 900; }
+  .cycle-return { text-align: center; font-size: 7.5pt; color: #F97316; font-weight: 600; margin-top: 6px; padding: 5px 0; border-top: 2px dashed #F9731655; }
+  .initiative-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .initiative-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 11px; }
+  .initiative-flag { font-size: 14pt; margin-bottom: 4px; }
+  .initiative-name { font-size: 8.5pt; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+  .initiative-country { font-size: 7pt; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
+  .initiative-model { font-size: 7.5pt; color: var(--text); line-height: 1.45; margin-bottom: 5px; }
+  .initiative-tag { display: inline-block; font-size: 7pt; padding: 1px 7px; border-radius: 10px; font-weight: 700; background: var(--bg-subtle); border: 1px solid var(--border); color: var(--text-muted); }
+  .license-block { background: #F0FDF4; border: 2px solid #6EE7B7; border-radius: 10px; padding: 14px 16px; margin: 16px 0; }
+  .license-block-title { font-size: 8pt; font-weight: 800; color: #065F46; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .license-block p { font-size: 8.5pt; color: #14532D; margin: 0 0 6px; line-height: 1.55; }
+  .license-block p:last-child { margin: 0; }
+  .license-badge-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .license-badge { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1.5px solid #6EE7B7; border-radius: 6px; padding: 4px 12px; font-weight: 800; font-size: 9.5pt; color: #065F46; }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="page page-cover">
+  <div class="cover-bg"></div>
+  <div class="cover-accent-bar"></div>
+  <div class="cover-content">
+    <div class="cover-logo-area">
+      <div class="cover-logo-box"><img src="../../imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:34px;width:auto;filter:brightness(0) invert(1);"></div>
+      <div class="cover-edition">White Paper · Edición N° 1 · Junio 2026</div>
+      <div class="cover-license">CC BY-SA 4.0</div>
+    </div>
+    <div class="cover-main">
+      <div class="cover-sector">📈 Marketing y Comercialización · Comercio / Servicios / PYME</div>
+      <div class="cover-title">IA Aplicada<br><span>en Marketing: De la Campaña al Cliente, con Evidencia</span></div>
+      <div class="cover-subtitle">El marketing en Neuquén y la región enfrenta una paradoja: profesionales que ya experimentan con IA pero sin procesos que conviertan esa experimentación en resultados medibles. Este White Paper mapea los 5 dolores validados del sector y propone prototipos concretos para atacarlos en el segundo semestre de 2026.</div>
+    </div>
+    <div class="cover-kpis">
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">300–700</div>
+        <div class="cover-kpi-label">leads por campaña sin precalificar, que saturan equipos comerciales antes de llegar a ventas · Campo IA LAB MKT 2026</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">40–60%</div>
+        <div class="cover-kpi-label">reducción de tiempo en producción creativa proyectada con pipeline de IA encadenado · Benchmark equipo, IA LAB MKT 2026</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">68%</div>
+        <div class="cover-kpi-label">de los marketers ya usan IA sin proceso estructurado ni métricas de impacto · Campo IA LAB MKT 2026</div>
+      </div>
+    </div>
+    <div class="cover-footer" style="margin-top:14px;">
+      <div class="cover-footer-left">ENE IA LAB · Polo Tecnológico Neuquén<br>ia-lab@eneneuquen.com.ar · eneneuquen.com.ar</div>
+      <div class="cover-footer-right">Hecho desde el campo.<br>Para quien lo opera.</div>
+    </div>
+  </div>
+</div>
+<!-- NOTA METODOLÓGICA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Nota Metodológica</div>
+  </div>
+  <div class="section-label">Sobre esta investigación</div>
+  <div class="section-title">Nota Metodológica</div>
+  <div class="section-divider"></div>
+  <p class="lead">El IA LAB opera en ciclos iterativos de cuatro meses que combinan investigación documental, trabajo de campo con profesionales activos y validación técnica. El presente White Paper consolida los hallazgos del primer ciclo del vertical Marketing y Comercialización (Abril–Junio 2026).</p>
+
+  <div class="subsection-title">Ciclo metodológico de investigación</div>
+  <div class="cycle-row">
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">1</div>
+      <div class="cycle-title">Investigación Documental</div>
+      <div class="cycle-desc">revisión de literatura, estadísticas sectoriales y benchmarks de adopción de IA en marketing</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">2</div>
+      <div class="cycle-title">Entrevistas de Campo</div>
+      <div class="cycle-desc">sesiones con profesionales activos de marketing y comercialización, identificación y priorización de dolores</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">3</div>
+      <div class="cycle-title">Validación con Expertos IA</div>
+      <div class="cycle-desc">factibilidad técnica de soluciones propuestas, scoring compuesto por impacto y viabilidad</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">4</div>
+      <div class="cycle-title">Publicación CC BY-SA</div>
+      <div class="cycle-desc">White Paper, código de prototipos y datasets liberados bajo licencia abierta</div>
+    </div>
+    <div class="cycle-arrow-h">↺</div>
+    <div class="cycle-step">
+      <div class="cycle-num" style="background:#94A3B8;">5</div>
+      <div class="cycle-title">Nueva ronda</div>
+      <div class="cycle-desc">dolores propuestos pasan a nueva validación en el ciclo siguiente</div>
+    </div>
+  </div>
+  <div class="cycle-return">↑ El ciclo se repite: cada edición valida nuevos dolores propuestos por el grupo y la comunidad</div>
+
+  <div class="subsection-title">Fuentes primarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Entrevistas de campo</div>
+      <p>Se realizaron entrevistas y sesiones de trabajo con profesionales de marketing digital, directores comerciales, responsables de agencias y especialistas en e-commerce activos en la región del Comahue y Patagonia Norte. Los perfiles representan sectores de hotelería, retail, servicios financieros, agencias de publicidad y comercio digital. Los participantes se identificaron como referentes de su disciplina y aportaron casos reales de operación cotidiana.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Sesiones técnicas del Vertical</div>
+      <p>El vertical realizó una sesión plenaria de presentación de hallazgos en Abril 2026 (N=10 entrevistas de campo), con participación de los miembros del grupo y revisión colectiva de los dolores priorizados. Se identificaron 6 PoCs de alto impacto y 2 quick wins implementables de inmediato.</p>
+    </div>
+  </div>
+  <div class="subsection-title">Fuentes secundarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Estadísticas y reportes institucionales</div>
+      <p>HubSpot State of Marketing Report 2024; Gartner Marketing Technology Survey 2024; IAB Argentina Digital Ad Spend 2024; Salesforce State of Sales 2024; Nielsen IQ Consumer &amp; Media View 2023; Campo IA LAB MKT 2026 (entrevistas y sesión plenaria propias)</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Literatura científica y técnica</div>
+      <p>Kotler, P. &amp; Keller, K. (2022). Marketing Management, 16th ed. Pearson. · Chaffey, D. &amp; Ellis-Chadwick, F. (2022). Digital Marketing. Pearson. · Davenport, T. et al. (2020). How AI Is Changing Marketing. MIT Sloan Management Review. · Kumar, V. (2022). Customer Lifetime Value: Toward a Unified Framework. Journal of Marketing.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <div class="callout-title">5 dolores validados · 2 propuestos para ciclos futuros</div>
+    <p>La tabla de la Sección 5 presenta 7 puntos de dolor identificados. Los marcados con <strong>✓ VAL</strong> fueron validados mediante entrevistas directas en esta edición. Los restantes 2 son propuestas del grupo, pendientes de validación en campo en ciclos futuros. No se presentan como hallazgos confirmados sino como hipótesis a explorar.</p>
+  </div>
+  <div class="info-box"><p><strong>Este documento no es un paper académico en sentido estricto.</strong> Es un instrumento práctico de diagnóstico y hoja de ruta, elaborado con rigor metodológico y orientado a la acción. Publicado bajo <strong>CC BY-SA 4.0</strong>: podés reutilizarlo, adaptarlo y distribuirlo libremente con la condición de mantener la misma licencia en las obras derivadas. Errores o contribuciones de campo: ia-lab@eneneuquen.com.ar</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">2</div>
+  </div>
+</div>
+<!-- RESUMEN EJECUTIVO -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Resumen Ejecutivo</div>
+  </div>
+  <div class="section-label">Sección 1 de 9</div>
+  <div class="section-title">Resumen Ejecutivo</div>
+  <div class="section-divider"></div>
+  <p class="lead">El marketing regional enfrenta una brecha crítica: los profesionales ya adoptaron herramientas de IA de manera individual y desordenada, pero ningún proceso captura ese aprendizaje ni lo convierte en resultados medibles. La fragmentación de datos entre plataformas, la pérdida de trazabilidad de leads en el traspaso a WhatsApp y el cuello de botella creativo son los tres frenos estructurales que bloquean la eficiencia comercial.</p>
+
+  <div class="subsection-title">KPIs del sector</div>
+  <div class="kpi-row kpi-row-3">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">300–700</div>
+      <div class="kpi-label">leads por campaña sin precalificar, que saturan equipos comerciales antes de llegar a ventas · Campo IA LAB MKT 2026</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">40–60%</div>
+      <div class="kpi-label">reducción de tiempo en producción creativa proyectada con pipeline de IA encadenado · Benchmark equipo, IA LAB MKT 2026</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">68%</div>
+      <div class="kpi-label">de los marketers ya usan IA sin proceso estructurado ni métricas de impacto · Campo IA LAB MKT 2026</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Hallazgos principales</div>
+  <ul class="bullet-list">
+    <li>El 68% de los marketers ya usa IA, pero sin proceso estructurado ni métricas de impacto (Campo IA LAB MKT 2026)</li>
+    <li>La trazabilidad de leads colapsa en el momento en que el prospecto migra de anuncio digital a WhatsApp o llamada telefónica</li>
+    <li>Campañas de 300 a 700 leads saturan equipos comerciales que no tienen criterio automatizado para priorizar hot vs. cold leads</li>
+    <li>La producción creativa (brief → iteración → aprobación) consume entre 3 y 8 horas por pieza por falta de automatización</li>
+    <li>Las métricas de marketing y ventas viven en plataformas separadas; ningún dashboard consolida CAC, LTV y ROI en tiempo real</li>
+    <li>Quick wins disponibles: guía práctica de herramientas IA para marketers y agente de prompt engineering, implementables en semanas sin inversión en infraestructura</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">Quick Wins disponibles hoy</div>
+    <p>Dos implementaciones de bajo costo y rápida adopción están disponibles: (1) Guía práctica de herramientas IA — criterios claros de qué herramienta para qué tarea, con ejemplos reales de marketing digital; (2) Agente de Prompt Engineering — flujo guiado para estructurar instrucciones y obtener resultados consistentes con LLMs comerciales.</p>
+  </div>
+
+  <p>El contexto regional suma una ventaja y una restricción: el tamaño acotado del mercado de Neuquén permite pilotar rápido con grupos pequeños y medir con precisión. Pero las agencias y equipos de marketing operan con recursos ajustados, lo que hace que cada hora de producción cuente. La IA no reemplaza la creatividad; organiza el caos operativo para que el equipo pueda enfocarse en lo que agrega valor.</p>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">3</div>
+  </div>
+</div>
+<!-- CONTEXTO DEL SECTOR -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Contexto del Sector</div>
+  </div>
+  <div class="section-label">Sección 2 de 9</div>
+  <div class="section-title">Contexto del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">El sector de marketing y comercialización en Neuquén y la región del Comahue se ha complejizado en los últimos cinco años: la proliferación de canales digitales, la presión por resultados medibles y la irrupción de herramientas de IA generativa cambiaron el perfil del profesional requerido y la velocidad a la que deben operar. La región combina empresas de servicios, retail, turismo, sector financiero e industrias extractivas que comparten la necesidad de convertir campañas en clientes de manera eficiente.</p>
+
+  <div class="kpi-row kpi-row-4">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">68%</div>
+      <div class="kpi-label">de marketers usan IA sin proceso estructurado</div>
+      <div class="kpi-source">Campo IA LAB MKT 2026</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">3,5x</div>
+      <div class="kpi-label">más leads necesarios para cerrar una venta vs. 2019</div>
+      <div class="kpi-source">Salesforce State of Sales 2024</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">+42%</div>
+      <div class="kpi-label">incremento en inversión publicitaria digital en Argentina (2023–2024)</div>
+      <div class="kpi-source">IAB Argentina 2024</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">80%</div>
+      <div class="kpi-label">de compradores B2B completan más de la mitad de su proceso de decisión antes de hablar con un vendedor</div>
+      <div class="kpi-source">Gartner B2B Buyer Survey 2024</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">El sector en detalle</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Actores principales</div>
+      <p>Agencias de publicidad digital y tradicional, equipos de marketing in-house en empresas de servicios y retail, consultoras de estrategia digital, freelancers y especialistas en paid media, además de los equipos comerciales y de ventas que reciben y cierran los leads que marketing genera. El ecosistema local incluye actores de alcance regional y nacional con presencia en Neuquén y el Comahue.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Perfil del profesional</div>
+      <p>Profesional híbrido que combina estrategia de contenidos, gestión de pauta digital (Meta, Google), análisis de métricas y, cada vez más, prompting con herramientas de IA generativa. Del lado comercial, el vendedor opera cada vez más como receptor y calificador manual de leads, un rol que también debe integrarse al proceso de IA. La brecha entre quien usa IA de manera experimental y quien la integra en procesos productivos es el eje central del ciclo 2026 del IA LAB.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Sistemas actuales</div>
+      <p>Stack fragmentado: Meta Ads Manager, Google Analytics, herramientas de email marketing, CRM parcialmente implementados y WhatsApp Business como canal de cierre. La integración entre plataformas es manual o inexistente. El reporte se construye copiando y pegando datos entre dashboards.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Marco regulatorio</div>
+      <p>Ley 25.326 de Protección de Datos Personales (Argentina). Regulaciones de Meta y Google sobre privacidad y targeting de audiencias. Normas de GDPR que afectan indirectamente a campañas con presencia internacional. Requerimientos de transparencia en publicidad digital (CONARP).</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Contexto regional (Patagonia/Neuquén)</div>
+      <p>Neuquén opera como laboratorio válido: mercado acotado, trazable y con perfiles de consumo diferenciados (oil &amp; gas, turismo, servicios). Lo que funciona aquí tiene alta probabilidad de replicarse en otros mercados secundarios de Argentina y la región. El tamaño permite pilotar con grupos pequeños y medir el impacto real antes de escalar.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Integración Marketing-Ventas</div>
+      <p>Marketing y el equipo comercial suelen operar con métricas y objetivos distintos: marketing optimiza CPL y alcance, ventas mide cierres. Sin un proceso común que conecte ambos extremos del funnel, cada área defiende su propia versión de qué está funcionando, sin un criterio compartido sobre qué lead vale la pena perseguir.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">El problema estructural</div>
+    <p>La brecha entre generación de demanda y conversión real es el problema central: el marketing genera leads que el proceso comercial no puede priorizar ni atender a tiempo, y los resultados se miden en métricas de campaña que no se conectan con ventas cerradas.</p>
+  </div>
+
+  <div class="info-box"><p><strong>Oportunidad de IA:</strong> La IA puede actuar en los tres puntos de quiebre: (1) calificar leads automáticamente antes de que lleguen al vendedor, (2) consolidar métricas de todas las plataformas en un dashboard unificado con análisis en lenguaje natural, y (3) automatizar la cadena de producción creativa desde el brief hasta la pieza final, reduciendo ciclos de aprobación.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">4</div>
+  </div>
+</div>
+<!-- MARCO TEÓRICO / TECNOLOGÍAS IA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Tecnologías IA Relevantes</div>
+  </div>
+  <div class="section-label">Sección 3 de 9</div>
+  <div class="section-title">Tecnologías de IA Relevantes para el Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Las tecnologías de IA relevantes para marketing en 2026 van desde los modelos de lenguaje que asisten la producción de contenido hasta los sistemas de scoring que priorizan leads en tiempo real. El sector tiene acceso a herramientas de adopción inmediata sin necesidad de infraestructura especializada, lo que elimina la barrera de entrada tecnológica. El desafío es metodológico, no tecnológico.</p>
+
+  <div class="tech-card">
+    <div class="tech-icon">🤖</div>
+    <div>
+      <div class="tech-name">Large Language Models (LLM)</div>
+      <div class="tech-desc">GPT-4o, Claude, Gemini — modelos conversacionales</div>
+      <div class="tech-apply">→ Generación y adaptación de copys, asistentes de brief, resúmenes de reportes automáticos, agentes conversacionales de precalificación de leads</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🔗</div>
+    <div>
+      <div class="tech-name">RAG (Retrieval-Augmented Generation)</div>
+      <div class="tech-desc">Búsqueda semántica + generación contextualizada</div>
+      <div class="tech-apply">→ Knowledge bases con historial de campañas, respuestas automáticas basadas en catálogos de productos y preguntas frecuentes de clientes</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">📊</div>
+    <div>
+      <div class="tech-name">Modelos predictivos de scoring</div>
+      <div class="tech-desc">ML supervisado sobre datos de CRM y comportamiento</div>
+      <div class="tech-apply">→ Lead scoring automático por probabilidad de cierre, predicción de churn, segmentación dinámica de audiencias por propensión a compra</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🖼️</div>
+    <div>
+      <div class="tech-name">IA Generativa Multimodal</div>
+      <div class="tech-desc">DALL-E, Midjourney, Stable Diffusion — imagen y video</div>
+      <div class="tech-apply">→ Generación de assets visuales para campañas, variantes de creatividades para A/B testing, adaptación automática de piezas a múltiples formatos</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🔄</div>
+    <div>
+      <div class="tech-name">Automatización Agentic</div>
+      <div class="tech-desc">Agentes con herramientas y memoria persistente</div>
+      <div class="tech-apply">→ Pipeline creativo encadenado brief→concepto→auditoría→variantes, agentes que cruzan datos de CRM y publican reportes automáticamente</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">📡</div>
+    <div>
+      <div class="tech-name">APIs de integración y webhooks</div>
+      <div class="tech-desc">Conectores entre plataformas de ad, CRM y BI</div>
+      <div class="tech-apply">→ Trazabilidad end-to-end de leads desde el anuncio hasta el cierre en CRM, consolidación de métricas cross-platform en tiempo real</div>
+    </div>
+  </div>
+
+
+  <div class="subsection-title">Evidencia cuantitativa global</div>
+  <div class="kpi-row kpi-row-3">
+    <div class="kpi-card">
+      <div class="kpi-num">40–60%</div>
+      <div class="kpi-label">reducción en tiempo de producción creativa con pipelines de IA encadenados</div>
+      <div class="kpi-source">Proyección propia, Benchmark IA LAB MKT 2026</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">3–5x</div>
+      <div class="kpi-label">mejora proyectada en tasa de cierre con precalificación automática de leads</div>
+      <div class="kpi-source">Salesforce Einstein AI Report 2024</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">20–35%</div>
+      <div class="kpi-label">mejora en eficiencia de inversión publicitaria con atribución multi-touch correcta</div>
+      <div class="kpi-source">Nielsen Attribution Study 2023</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">El desafío no es tecnológico</div>
+    <p>Las herramientas de IA para marketing son accesibles, económicas y de adopción inmediata. El cuello de botella real es la ausencia de procesos que integren esas herramientas en la operación cotidiana. Sin proceso, la IA es otro gasto de suscripción que el equipo usa de manera inconsistente.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">5</div>
+  </div>
+</div>
+<!-- MAPA DE DOLORES -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Mapa de Dolores</div>
+  </div>
+  <div class="section-label">Sección 4 de 9</div>
+  <div class="section-title">Mapa de Dolores del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Los 7 dolores identificados en el campo fueron priorizados con un scoring compuesto que considera frecuencia de mención, impacto en el resultado comercial y factibilidad técnica de solución con IA disponible en 2026. Los 5 primeros cuentan con validación explícita del grupo; los 2 restantes son propuestas para el próximo ciclo.</p>
+
+  <table class="dolor-table">
+    <thead>
+      <tr>
+        <th style="width:30px;">#</th>
+        <th>Punto de dolor</th>
+        <th style="width:90px;">Tipo</th>
+        <th style="width:110px;">Tecnología IA</th>
+        <th style="width:55px;">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center;font-weight:700;">1</td>
+        <td>Trazabilidad de leads: el agujero negro del WhatsApp<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>UTMs · CRM · Multi-touch Attribution</td>
+        <td><span class="score-badge score-red">95</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">3</td>
+        <td>Precalificación de leads: saturación del equipo comercial<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>LLM · Lead Scoring · Agente Conversacional</td>
+        <td><span class="score-badge score-red">93</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">2</td>
+        <td>Cuello de botella en la producción creativa<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>LLM · IA Generativa · Agentic AI</td>
+        <td><span class="score-badge score-red">90</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">4</td>
+        <td>Reportes fragmentados: métricas sin cierre comercial<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>APIs · LLM · BI Integrado</td>
+        <td><span class="score-badge score-red">86</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">5</td>
+        <td>Ingeniería de prompts: IA sin proceso = resultados inconsistentes<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>LLM · Prompt Engineering · Templates</td>
+        <td><span class="score-badge score-red">82</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">6</td>
+        <td>Curaduría de herramientas: FOMO sin criterio</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>Evaluación comparativa · Knowledge Base</td>
+        <td><span class="score-badge score-orange">78</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">7</td>
+        <td>Naming, planificación de medios y pricing inteligente</td>
+        <td><span class="type-badge type-declarado">Emergente</span></td>
+        <td>LLM · Modelos de precios · IA predictiva</td>
+        <td><span class="score-badge score-orange">68</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box"><p><strong>Score compuesto 0–100:</strong> frecuencia × impacto × factibilidad de implementación con IA. <strong>✓ VAL</strong> = validado en entrevistas de campo. Sin marca = propuesta del grupo para ciclos futuros.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">6</div>
+  </div>
+</div>
+<!-- FICHAS DOLORES p.7 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 4 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 1 a 2</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">01</div>
+      <div class="dolor-card-title">Trazabilidad de leads: el agujero negro del WhatsApp</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">95</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>El flujo de conversión digital colapsa en el momento en que el prospecto migra de un anuncio (Meta, Google) a WhatsApp o una llamada telefónica. En ese paso, se pierde la información del canal de origen, la campaña que generó el interés y el recorrido previo del usuario. El equipo comercial recibe un contacto sin contexto y el equipo de marketing no puede saber qué campaña realmente convirtió.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Responsables de marketing digital y directores comerciales en empresas de servicios, hotelería, retail y agencias que operan con tráfico mixto (digital + cierre presencial o telefónico).</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Inversión publicitaria sin atribución real: se optimizan métricas de plataforma (CPL, CTR) que no correlacionan con ventas cerradas. El equipo de marketing y el equipo comercial operan con métricas distintas y sin lenguaje común, generando fricción interna y decisiones de presupuesto mal fundamentadas.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Seguimiento manual por planilla o memoria del vendedor. En el mejor caso, etiquetas en WhatsApp Business sin integración al CRM. Atribución de ventas por último clic o por declaración del vendedor.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">20–35% de mejora en eficiencia de inversión publicitaria cuando se implementa atribución multi-touch correcta (Nielsen Attribution Study 2023).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Implementación de UTM parameters persistentes en todos los canales, integración con CRM via webhook, y modelo de atribución multi-touch que mantiene el hilo desde el primer clic hasta el cierre. Tecnología: APIs de Meta/Google + CRM + scripts de trazabilidad. Tiempo de implementación: 6–8 semanas. Impacto: saber qué canal y qué mensaje convierte, y optimizar el presupuesto sobre datos reales.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">02</div>
+      <div class="dolor-card-title">Cuello de botella en la producción creativa</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">90</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>El proceso de producción creativa (brief → concepto → iteración → aprobación → adaptaciones de formato) consume entre 3 y 8 horas por pieza en el flujo actual. La aprobación requiere múltiples rondas de cambios. El tiempo que debería invertirse en estrategia se consume en operación repetitiva y revisiones.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Equipos de agencias de publicidad, diseñadores y community managers que gestionan múltiples clientes o campañas simultáneas con plazos ajustados.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Capacidad instalada consumida en producción mecánica. Burnout del equipo creativo. Demoras en el lanzamiento de campañas. Menor capacidad de experimentar y probar variantes por falta de tiempo.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Proceso lineal manual: brief en documento de texto → reunión de kick-off → boceto en Canva o Figma → rondas de aprobación por WhatsApp o email → adaptaciones de formato una por una.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El pipeline de IA encadenado (brief → concepto → auditoría → variantes) proyecta una reducción de 40–60% en tiempo de producción por pieza (Benchmark IA LAB MKT 2026).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Pipeline agentic de producción creativa: LLM que toma un brief estructurado y genera concepto + copy en múltiples tonos, sistema de auditoría de marca automático, generación de variantes visuales con IA generativa. Proyección de reducción del ciclo de 3–8 horas a 1,5–4,5 horas por pieza (40–60%). Tecnología: GPT-4o + DALL-E + agente orquestador. Tiempo: prototipo en 8 semanas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">7</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.8 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 4 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 3 a 4</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">03</div>
+      <div class="dolor-card-title">Precalificación de leads: saturación del equipo comercial</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">93</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Las campañas de generación de demanda producen entre 300 y 700 leads por ciclo. Sin un sistema de calificación previo, todos esos contactos llegan al equipo de ventas con la misma prioridad. El vendedor dedica tiempo a prospectos sin intención real de compra mientras hot leads esperan respuesta horas o días.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Equipos comerciales en empresas de servicios, hotelería y retail que operan con pauta digital y cierre humano. También agencias que derivan leads calificados a sus clientes.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Tasa de conversión baja no por falta de demanda sino por incapacidad de priorizar. Frustración del equipo de ventas con la calidad de leads generados por marketing. Costo de adquisición elevado por tiempo de vendedor invertido en leads fríos.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Revisión manual del formulario de lead. En algunos casos, primera llamada de discovery sin información previa. Sin score ni criterio automatizado de priorización.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Empresas que implementan lead scoring automático reportan mejoras de 3 a 5 veces en tasa de cierre sobre los mismos volúmenes de leads (Salesforce Einstein AI Report 2024).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Agente conversacional de WhatsApp o webchat que precalifica al prospecto con 3–5 preguntas clave, asigna score de calificación y deriva hot leads al vendedor con resumen de contexto. Cold y warm leads entran a flujo de nurturing automático. Tecnología: LLM + integración WhatsApp Business API + CRM scoring. Estado: en producción desde Mayo 2026 con un cliente piloto; métricas de calificación en captura, resultados consolidados en Diciembre 2026.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">04</div>
+      <div class="dolor-card-title">Reportes fragmentados: métricas sin cierre comercial</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">86</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Las métricas de marketing viven en Meta Ads Manager, Google Analytics, la herramienta de email, el CRM y las planillas del área comercial. Nadie tiene en un solo lugar el CAC real, el LTV proyectado, el ROI por canal y la conversión desde primer clic hasta cierre. El reporte mensual se arma copiando datos de 4 a 6 fuentes, lleva horas, y cuando está listo ya está desactualizado.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Directores de marketing y gerentes comerciales que deben reportar a dirección o al cliente. También agencias que construyen reportes de performance para múltiples clientes.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Decisiones de inversión publicitaria basadas en métricas parciales. Incapacidad de identificar el canal que realmente convierte. Tiempo del equipo senior consumido en construcción de reportes en lugar de análisis e interpretación.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Exportación manual de datos de cada plataforma. Consolidación en planilla Excel. En el mejor caso, un dashboard de Google Looker Studio que requiere actualización manual o tiene latencia de 24 a 48 horas.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Los equipos de marketing dedican en promedio entre 4 y 8 horas semanales a construcción de reportes que podrían automatizarse (HubSpot State of Marketing 2024).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Dashboard integrador con APIs de Meta, Google, email y CRM que consolida métricas en tiempo real y genera resúmenes automáticos con LLM (qué funcionó, qué no, qué recomienda hacer). El equipo pasa de construir el reporte a leerlo e interpretarlo. Tecnología: Python + APIs + LLM + BI tool. Tiempo: 8–10 semanas para versión estable.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">8</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.9 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 4 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 5 a 5</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">05</div>
+      <div class="dolor-card-title">Ingeniería de prompts: IA sin proceso = resultados inconsistentes</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">82</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>La mayoría de los profesionales de marketing ya usa ChatGPT, Claude u otras herramientas de IA generativa, pero de manera experimental y sin estructura. Los resultados varían enormemente entre un prompt y otro, lo que genera desconfianza en la herramienta y uso inconsistente. El problema no es la IA: es que nadie enseñó a estructurar instrucciones para obtener outputs reutilizables y de calidad.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Profesionales de marketing de todos los niveles que adoptaron herramientas de IA de manera autodidacta. Particularmente equipos de contenidos, redes sociales y producción creativa.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">La inversión en suscripciones de IA no se traduce en productividad real. El equipo abandona las herramientas por frustración o las usa solo para tareas triviales. Se pierde la ventaja competitiva que la IA podría generar.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Prompts ad hoc sin estructura, sin variables, sin contexto de marca. Resultados inconsistentes que requieren edición manual extensa. Sin biblioteca de prompts institucional.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El 68% de los marketers usa IA sin proceso estructurado (Campo IA LAB MKT 2026). La experiencia de campo del grupo indica que estandarizar prompts por tipo de tarea mejora notablemente la consistencia de los outputs generados, aunque esto aún no fue medido formalmente en el sector regional.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Quick win inmediato: agente de prompt engineering que guía al profesional para estructurar instrucciones con rol, contexto, tarea, formato y restricciones. Biblioteca de prompts por tipo de tarea (copy, brief, reporte, respuesta a cliente). Tiempo: 2–3 semanas para versión funcional compartible con el grupo.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">9</div>
+  </div>
+</div>
+<!-- ANÁLISIS DE BRECHAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Análisis de Brechas</div>
+  </div>
+  <div class="section-label">Sección 5 de 9</div>
+  <div class="section-title">Análisis de Brechas: Estado Actual vs. con IA</div>
+  <div class="section-divider"></div>
+  <p class="lead">El sector de marketing y comercialización en Neuquén y la región del Comahue se ha complejizado en los últimos cinco años: la proliferación de canales digitales, la presión por resultados medibles y la irrupción de herramientas de IA generativa cambiaron el perfil del profesional requerido y la velocidad a la que deben operar. La región combina empresas de servicios, retail, turismo, sector financiero e industrias extractivas que comparten la necesidad de convertir campañas en clientes de manera eficiente.</p>
+
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Trazabilidad de leads</div>
+      <div class="brecha-text">El hilo se pierde al pasar de anuncio a WhatsApp. Marketing y ventas no comparten métricas de cierre.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Trazabilidad de leads</div>
+      <div class="brecha-text">UTMs persistentes + CRM webhook + atribución multi-touch. Se sabe exactamente qué campaña y qué mensaje genera clientes.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Producción creativa</div>
+      <div class="brecha-text">Brief manual → reunión → boceto → rondas de aprobación. Ciclo de 3–8 horas por pieza. Capacidad consumida en operación.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Producción creativa</div>
+      <div class="brecha-text">Pipeline agentic: brief estructurado → concepto → auditoría de marca → variantes. Ciclo proyectado de 1,5–4,5 horas por pieza (40–60% de reducción).</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Calificación de leads</div>
+      <div class="brecha-text">Todos los leads llegan al vendedor con la misma prioridad. Revisión manual sin criterio automatizado.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Calificación de leads</div>
+      <div class="brecha-text">Agente conversacional que califica, puntúa y deriva. Solo hot leads llegan al vendedor. Cold leads entran a nurturing automático.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Reportes de performance</div>
+      <div class="brecha-text">4–6 fuentes de datos copiadas manualmente. Reporte semanal lleva horas. Métricas no conectadas con ventas.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Reportes de performance</div>
+      <div class="brecha-text">APIs conectadas + LLM que genera resumen automático. Dashboard en tiempo real con análisis en lenguaje natural.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Uso de herramientas IA</div>
+      <div class="brecha-text">Adopción experimental y desordenada. Sin biblioteca de prompts. Resultados inconsistentes que generan desconfianza.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Uso de herramientas IA</div>
+      <div class="brecha-text">Prompts estructurados por tipo de tarea. Biblioteca institucional compartida. Outputs reutilizables y de calidad predecible.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Segmentación de audiencias</div>
+      <div class="brecha-text">Segmentación estática en plataformas de pauta. Sin actualización dinámica basada en comportamiento post-clic.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Segmentación de audiencias</div>
+      <div class="brecha-text">Audiencias lookalike enriquecidas con datos de CRM. Retargeting inteligente por etapa del funnel. Propensión a compra calculada.</div>
+    </div>
+  </div>
+
+
+  <div class="info-box"><p><strong>Nota:</strong> Los impactos expresados son estimaciones basadas en implementaciones análogas documentadas en literatura y casos de uso globales. No representan garantías de resultado. Los indicadores son no-monetarios: tiempo, incidentes, adopción, calidad.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">10</div>
+  </div>
+</div>
+<!-- MAPA DE MADUREZ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Mapa de Madurez</div>
+  </div>
+  <div class="section-label">Sección 6 de 9</div>
+  <div class="section-title">Mapa de Madurez — Digital Marketing Maturity Model (Gartner) — adaptación IA LAB 2026</div>
+  <div class="section-divider"></div>
+  <p class="lead">El Digital Marketing Maturity Model de Gartner evalúa la capacidad de una organización para crear experiencias de cliente relevantes y medibles a través de canales digitales. La adaptación del IA LAB incorpora una capa de evaluación específica sobre adopción de IA generativa, que el modelo original no contempla. El diagnóstico de campo indica que el sector regional se ubica predominantemente entre los niveles 1 y 2, con bolsones de práctica avanzada en equipos específicos.</p>
+
+  <div class="maturity-wrap">
+    <table class="maturity-table">
+      <thead>
+        <tr>
+<th class="mat-h0">Dimensión</th>
+        <th class="mat-h1">1 — Experimental</th>
+        <th class="mat-h2">2 — Emergente</th>
+        <th class="mat-h3">3 — Sistemático</th>
+        <th class="mat-h4">4 — Optimizado</th>
+        <th class="mat-h5">5 — Predictivo</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr><td>Atribución y Trazabilidad</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Calificación de Leads</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Producción Creativa</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"></td><td class="mat-4"><span class="mat-target">Objetivo</span></td><td class="mat-5"></td></tr>
+      <tr><td>Reportes e Inteligencia</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Adopción de IA</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"></td><td class="mat-4"><span class="mat-target">Objetivo</span></td><td class="mat-5"></td></tr>
+      <tr><td>Segmentación de Audiencias</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-3" style="margin-top:12px;">
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#7F1D1D;">1 — Experimental</div>
+      <p>Presencia digital básica. Campañas sin estrategia de atribución. Métricas de vanidad (likes, alcance). Uso ad hoc de herramientas de IA.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#713F12;">2 — Emergente</div>
+      <p>Campañas con seguimiento básico de conversiones. Primeros intentos de segmentación. Uso experimental de IA generativa sin proceso estructurado.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">3 — Sistemático</div>
+      <p>Atribución multi-canal implementada. Lead scoring activo. Reportes integrados. Prompts estructurados y biblioteca compartida.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">4 — Optimizado</div>
+      <p>Personalización automatizada a escala. Pipeline creativo con IA. Trazabilidad completa desde campaña hasta cierre. Decisiones basadas en datos en tiempo real.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#ffffff;">5 — Predictivo</div>
+      <p>Modelos predictivos de demanda y churn. Contenido personalizado por segmento generado dinámicamente. Presupuesto optimizado por IA en tiempo real.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Dónde está el sector y adónde puede llegar</div>
+    <p>La mayoría de los equipos regionales se ubican entre los niveles 1 y 2. Las intervenciones propuestas en este ciclo apuntan a llevar las dimensiones críticas al nivel 3 en seis meses, con potencial de alcanzar nivel 4 en producción creativa y adopción de IA. El salto no requiere grandes inversiones tecnológicas: requiere procesos.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">11</div>
+  </div>
+</div>
+<!-- CASOS DE USO IA p.12 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 7 de 9</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Biblioteca de prompts para marketing</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Conjunto de plantillas de prompts estructurados por tipo de tarea (copy, brief, reporte, respuesta a cliente), listas para usar con LLMs comerciales sin necesidad de desarrollo ni infraestructura. Se distribuye como kit descargable al grupo.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Prompt Templates</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Casos de uso recurrentes del equipo + guía de marca</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">1–2 semanas, sin infraestructura adicional</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Mayor consistencia y calidad de los outputs generados con IA. Reduce el tiempo de edición manual posterior.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Experiencia de campo del grupo IA LAB MKT 2026, pendiente de medición formal. Resuelve Dolor #5.</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Agente de prompt engineering</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Flujo guiado que ayuda al profesional a estructurar instrucciones con rol, contexto, tarea, formato y restricciones antes de enviarlas a un LLM comercial. No requiere desarrollo de infraestructura, solo una interfaz simple de guía paso a paso.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Prompt Templates</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Biblioteca de prompts del Caso #1 + ejemplos de uso del equipo</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">2–3 semanas, versión web funcional sin infraestructura adicional</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Resultados más consistentes y reutilizables con herramientas de IA ya disponibles. Reduce la curva de aprendizaje del equipo.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Experiencia de campo del grupo IA LAB MKT 2026, pendiente de medición formal. Resuelve Dolor #5.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">12</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.13 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 7 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Agente de precalificación de leads en WhatsApp</div>
+      <div class="ia-card-badge">Capacidad</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Agente conversacional que recibe el lead desde el formulario o el anuncio, inicia una conversación por WhatsApp con 3–5 preguntas de calificación, asigna un score automático (hot/warm/cold) y deriva al vendedor solo los hot leads con un resumen de contexto. Los cold y warm leads entran a un flujo de nurturing automatizado.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">WhatsApp Business API</span><span class="ia-tag ia-tag-key">CRM Integration</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Formulario de lead + CRM existente + criterios de calificación definidos por el equipo comercial</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">En producción desde Mayo 2026 con un cliente piloto; métricas de calificación en captura</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción del tiempo del vendedor en leads fríos. Mejora proyectada de 3–5x en tasa de cierre sobre el mismo volumen de leads; resultados del piloto se publicarán en Diciembre 2026.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Salesforce Einstein AI Report 2024: empresas con lead scoring automático reportan mejoras de 3–5x en conversión. Resuelve Dolor #3.</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Pipeline creativo automatizado: brief a pieza en menos tiempo</div>
+      <div class="ia-card-badge">Capacidad</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Flujo encadenado de IA que toma un brief estructurado y produce: (1) concepto creativo en múltiples tonos, (2) auditoría automática de consistencia de marca, (3) variantes de copy para A/B testing, (4) adaptaciones a formatos de diferentes plataformas. El creativo revisa y aprueba en lugar de producir desde cero.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">IA Generativa Multimodal</span><span class="ia-tag ia-tag-key">Agentic AI</span><span class="ia-tag ia-tag-key">Prompt Templates</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Brief de campaña + guía de marca + histórico de campañas anteriores</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">8 semanas para prototipo funcional</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción proyectada del ciclo de producción de 3–8 horas a 1,5–4,5 horas por pieza (40–60%). Mayor capacidad de experimentar con variantes sin costo adicional.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Benchmark IA LAB MKT 2026: proyección propia de 40–60% de reducción, pendiente de validación con datos del piloto. Resuelve Dolor #2.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">13</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.14 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 7 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Dashboard integrador de marketing con resúmenes en lenguaje natural</div>
+      <div class="ia-card-badge">Capacidad</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Consolidador automático que conecta Meta Ads, Google Analytics, herramienta de email y CRM a través de APIs, y genera un dashboard unificado con métricas de campaña + conversión + CAC + LTV + ROI. Un módulo LLM genera resumen semanal con hallazgos y recomendaciones en lenguaje natural.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">APIs</span><span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Python</span><span class="ia-tag ia-tag-key">BI Dashboard</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Credenciales de acceso a Meta Ads API, Google Analytics API, email platform API, CRM API</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">8–10 semanas para versión estable con las 4 fuentes integradas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Eliminación de 4–8 horas semanales de construcción manual de reportes. Decisiones de inversión basadas en datos completos y actualizados.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Estimación de campo del grupo IA LAB MKT 2026 sobre horas dedicadas a reportes manuales. Resuelve Dolor #4.</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Sistema de trazabilidad de leads end-to-end</div>
+      <div class="ia-card-badge">Capacidad</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Implementación de UTM parameters persistentes en todos los canales de pauta, integración con CRM via webhook, y modelo de atribución multi-touch que mantiene el hilo desde el primer clic del anuncio hasta el cierre en CRM. Incluye panel de atribución que muestra qué canal y qué mensaje generó cada cliente.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">UTM Parameters</span><span class="ia-tag ia-tag-key">Webhooks</span><span class="ia-tag ia-tag-key">CRM</span><span class="ia-tag ia-tag-key">Multi-touch Attribution Model</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Historial de campañas + datos de cierre de CRM + configuración de píxeles y conversiones en plataformas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">6–8 semanas para implementación completa con un conjunto de canales</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Saber con precisión qué canal y qué mensaje convierte. Optimización del presupuesto sobre datos de clientes reales, no de métricas de plataforma.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Nielsen Attribution Study 2023: 20–35% de mejora en eficiencia de inversión con atribución multi-touch correcta. Resuelve Dolor #1.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">14</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.15 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 7 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Lead scoring avanzado multi-canal con modelo ML</div>
+      <div class="ia-card-badge">Capacidad</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Modelo de machine learning entrenado sobre el historial de leads del CRM que predice la probabilidad de cierre de cada nuevo prospecto basado en fuente de origen, comportamiento en el sitio, datos demográficos y respuesta a comunicaciones previas. El score se actualiza en tiempo real conforme el lead avanza en el funnel.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">ML Supervisado</span><span class="ia-tag ia-tag-key">CRM Data</span><span class="ia-tag ia-tag-key">APIs de Comportamiento</span><span class="ia-tag ia-tag-key">Scoring Engine</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Historial de al menos 500 leads con resultado de venta (cerrado/perdido) en CRM</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">10 semanas para primera versión del modelo con datos suficientes</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Priorización automática del pipeline comercial. Reducción de tiempo de vendedor en leads fríos. Nurturing automatizado para leads en etapas tempranas.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Salesforce Einstein AI Report 2024: mejoras de 3–5x en tasa de cierre. Evolución del Caso #3 con modelo propio. Resuelve Dolor #3.</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Motor de personalización de contenido B2B por segmento</div>
+      <div class="ia-card-badge">Estructural</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema que genera contenido personalizado por segmento de audiencia a escala: emails, landing pages y piezas de redes sociales adaptadas al perfil del prospecto (industria, cargo, etapa del funnel) generadas automáticamente por LLM a partir de una plantilla base y datos del CRM.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Estructural</span>
+        <span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">CRM Segmentation</span><span class="ia-tag ia-tag-key">Email Automation</span><span class="ia-tag ia-tag-key">Dynamic Landing Pages</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Segmentación del CRM + biblioteca de mensajes por persona + histórico de tasas de apertura y conversión</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">14–16 semanas para implementación completa con 3 segmentos y 2 canales</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Comunicación relevante a escala sin costo de producción por pieza individual. Mejora de engagement y conversión por relevancia de contenido.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 McKinsey Personalization at Scale 2023: empresas con personalización avanzada generan más revenue que competidores. Resuelve Dolores #2 y #4.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">15</div>
+  </div>
+</div>
+<!-- HOJA DE RUTA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Hoja de Ruta</div>
+  </div>
+  <div class="section-label">Sección 8 de 9</div>
+  <div class="section-title">Hoja de Ruta — Jul–Dic 2026</div>
+  <div class="section-divider"></div>
+  <p class="lead">Propuesta de avance estructurado en tres fases para implementar las oportunidades priorizadas, con criterio de Quick Wins primero, construcción de capacidades después y proyectos estructurales al final.</p>
+
+  <div class="roadmap-grid">
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m1">Fase 1 — Quick Wins (Jul–Ago 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Biblioteca de prompts para marketing</div>
+        <div class="roadmap-item-desc">Templates estructurados por tipo de tarea: copy, brief, reporte, respuesta a cliente. Distribuida al grupo como kit descargable.</div>
+        <div class="roadmap-item-time">Julio · Sem. 1–2</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Agente de prompt engineering</div>
+        <div class="roadmap-item-desc">Flujo guiado que ayuda al profesional a estructurar instrucciones con rol, contexto, tarea, formato y restricciones. Versión web funcional.</div>
+        <div class="roadmap-item-time">Julio · Sem. 3–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Prototipo agente precalificación leads</div>
+        <div class="roadmap-item-desc">MVP del agente conversacional de WhatsApp con calificación básica y derivación. Piloto con un cliente del sector hotelería o inmobiliaria.</div>
+        <div class="roadmap-item-time">Agosto · Sem. 1–4</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m2">Fase 2 — Capacidades (Sep–Oct 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Pipeline creativo automatizado v1</div>
+        <div class="roadmap-item-desc">Prototipo funcional del flujo brief → concepto → auditoría → variantes. Prueba con un cliente de agencia regional.</div>
+        <div class="roadmap-item-time">Septiembre · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Dashboard integrador de marketing</div>
+        <div class="roadmap-item-desc">Conexión de Meta + Google + CRM con resumen LLM automático. Versión beta para 2 clientes piloto.</div>
+        <div class="roadmap-item-time">Octubre · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Sistema de trazabilidad UTM + CRM</div>
+        <div class="roadmap-item-desc">Implementación completa de UTM persistentes + webhook CRM + panel de atribución.</div>
+        <div class="roadmap-item-time">Octubre · Sem. 2–4</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m3">Fase 3 — Estructural (Nov–Dic 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Lead scoring con modelo ML propio</div>
+        <div class="roadmap-item-desc">Primera versión del modelo entrenado sobre datos reales de CRM del piloto. Evaluación de precisión y ajuste.</div>
+        <div class="roadmap-item-time">Noviembre · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Motor de personalización B2B v1</div>
+        <div class="roadmap-item-desc">Generación automática de contenido personalizado por 3 segmentos en email y landing page.</div>
+        <div class="roadmap-item-time">Diciembre · Sem. 1–3</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Presentación abierta de resultados</div>
+        <div class="roadmap-item-desc">Sesión pública con métricas reales de los pilotos, código abierto y lecciones aprendidas. Apertura de ciclo 2027.</div>
+        <div class="roadmap-item-time">Diciembre · Sem. 4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Métricas de éxito (no monetarias)</div>
+  <table class="impact-table">
+    <thead>
+      <tr>
+        <th>Prototipo / Iniciativa</th>
+        <th>Métrica clave</th>
+        <th>Horizonte</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Agente precalificación leads</td>
+        <td>Tasa de calificación correcta hot/cold vs. revisión manual</td>
+        <td>Septiembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Pipeline creativo automatizado</td>
+        <td>Tiempo promedio de producción por pieza (horas)</td>
+        <td>Octubre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Dashboard integrador</td>
+        <td>Horas semanales ahorradas en construcción de reportes</td>
+        <td>Noviembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Trazabilidad UTM + CRM</td>
+        <td>% de leads con canal de origen identificado correctamente</td>
+        <td>Noviembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Lead scoring ML</td>
+        <td>Precisión del modelo (AUC-ROC) vs. baseline manual</td>
+        <td>Diciembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">16</div>
+  </div>
+</div>
+<!-- ÉTICA Y GOBERNANZA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Ética y Gobernanza</div>
+  </div>
+  <div class="section-label">Sección 9 de 9</div>
+  <div class="section-title">Ética, Gobernanza y Marco de Trabajo</div>
+  <div class="section-divider"></div>
+  <p class="lead">La adopción de IA en marketing plantea dilemas éticos específicos del sector: la línea entre personalización y manipulación es difusa, los modelos predictivos pueden reforzar sesgos de segmentación y la automatización de comunicaciones puede degradar la autenticidad de la relación con el cliente. El IA LAB propone un marco de gobernanza que distingue entre lo que la IA puede hacer y lo que debería hacer en cada contexto.</p>
+
+  <div class="subsection-title">Iniciativas análogas globales — aprendizajes para el IA LAB</div>
+  <div class="initiative-grid">
+    <div class="initiative-card">
+      <div class="initiative-flag">🇪🇺</div>
+      <div class="initiative-name">EU AI Act — Clasificación de riesgo en sistemas de IA</div>
+      <div class="initiative-country">Europa · Regulación</div>
+      <div class="initiative-model">El AI Act europeo establece obligaciones de transparencia para sistemas que pueden interactuar con personas, categoría bajo la cual podrían encuadrar ciertos usos de lead scoring y targeting automatizado según su diseño específico. Sin asumir una clasificación legal definitiva, el IA LAB toma como principio de diseño que las organizaciones deben poder documentar cómo funciona su modelo de calificación y garantizar que el cliente pueda solicitar revisión humana de decisiones automatizadas.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇺🇸</div>
+      <div class="initiative-name">FTC AI Marketing Guidelines 2024</div>
+      <div class="initiative-country">EE.UU. · Buenas prácticas</div>
+      <div class="initiative-model">La FTC exige que el contenido generado por IA sea identificable cuando podría ser percibido como comunicación humana. El IA LAB adopta este principio: los agentes conversacionales de precalificación deben identificarse como asistentes automáticos al inicio de la conversación.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇦🇷</div>
+      <div class="initiative-name">Marco Ético IA Argentina — Secretaría de Innovación 2024</div>
+      <div class="initiative-country">Argentina · Propuesta</div>
+      <div class="initiative-model">La propuesta argentina incluye principios de no discriminación en segmentación publicitaria y derecho a conocer los criterios de calificación automatizada. El IA LAB incorpora estos principios en el diseño de los prototipos, independientemente de su estado regulatorio.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Riesgos sin protocolo de gobernanza</div>
+    <p>Sin gobernanza: los agentes conversacionales pueden recopilar datos sensibles sin consentimiento explícito, los modelos de lead scoring pueden discriminar por patrones geográficos o socioeconómicos, y el contenido generado por IA puede ser percibido como engañoso si no se identifica correctamente.</p>
+  </div>
+
+  <div class="subsection-title">Modelo propuesto para el IA LAB</div>
+  <p>El IA LAB propone tres principios operativos para las implementaciones de marketing: (1) Transparencia activa — los sistemas automatizados se identifican como tales en el primer contacto; (2) Datos mínimos necesarios — se recopila solo lo necesario para la función declarada; (3) Revisión humana en el loop — ninguna decisión comercial relevante se ejecuta sin posibilidad de revisión humana.</p>
+
+  <div class="subsection-title">Consideraciones éticas operativas</div>
+  <div class="ethics-grid">
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🔒 Privacidad y Consentimiento</div>
+      <p>Los sistemas de trazabilidad y scoring deben cumplir con la Ley 25.326 de Protección de Datos Personales. El usuario debe poder conocer y oponerse al uso de sus datos para calificación automatizada.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">⚖️ No Discriminación en Segmentación</div>
+      <p>Los modelos de lead scoring deben auditarse periódicamente para detectar sesgos por variables protegidas (geografía, género, edad) que podrían traducirse en exclusión involuntaria de audiencias.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🤝 Autenticidad en la Comunicación</div>
+      <p>Los agentes conversacionales deben identificarse como automatizados. El contenido generado por IA puede usarse como base, pero la voz institucional debe ser revisada y aprobada por el equipo humano.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">📋 Trazabilidad de Decisiones</div>
+      <p>Los criterios de calificación y priorización de leads deben estar documentados. El equipo comercial debe poder explicar por qué un lead fue calificado de determinada manera.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Posición del IA LAB</div>
+    <p>La IA en marketing no es neutral: cada sistema de calificación es un conjunto de supuestos sobre qué cliente vale más. El IA LAB exige que esos supuestos sean explícitos, auditables y revisables. La eficiencia comercial que genera la IA debe construirse sobre una base de transparencia hacia el cliente.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">17</div>
+  </div>
+</div>
+<!-- CIERRE / LICENCIA / REFERENCIAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Marketing</div>
+    <div class="page-header-right">Lo que estamos construyendo</div>
+  </div>
+  <div class="section-label">Experimentos en Curso</div>
+  <div class="section-title">Lo que el Vertical Está Trabajando</div>
+  <div class="section-divider"></div>
+  <p class="lead">El vertical continúa activo. Estas son algunas de las iniciativas en exploración en el grupo de trabajo actual.</p>
+
+  <ul class="bullet-list">
+    <li>Agente conversacional de precalificación de leads integrado con WhatsApp Business API — en producción desde Mayo 2026 con un cliente piloto del sector hotelería y turismo; métricas de calificación aún en captura, resultados consolidados se presentarán en Diciembre 2026</li>
+    <li>Flujo de pipeline creativo automatizado (brief → concepto → auditoría → variantes) — prototipo en construcción, con prueba en contexto de agencia regional</li>
+    <li>Dashboard integrador que consolida Meta Ads + Google Analytics + CRM con resúmenes automáticos vía LLM — arquitectura definida, implementación prevista Sep–Oct 2026</li>
+    <li>Biblioteca de prompts para marketing (templates por tipo de tarea) — lista para distribución al grupo en Julio 2026</li>
+    <li>Exploración de cruce con vertical Energía: trazabilidad de leads en ciclos B2B de larga duración con múltiples tomadores de decisión — interés conjunto identificado, pendiente de estructuración formal</li>
+  </ul>
+
+  <div class="callout" style="margin-top:18px;">
+    <div class="callout-title">Sumate al vertical Marketing</div>
+    <p>El ENE IA LAB funciona como un espacio abierto de co-creación. Si trabajás en el sector y querés aportar tu perspectiva de campo, validar dolores, explorar soluciones o participar en los prototipos, escribinos. El conocimiento que generamos es público y libre.</p>
+  </div>
+
+  <div class="license-block">
+    <div class="license-badge-row">
+      <div class="license-badge">CC BY-SA 4.0</div>
+      <div style="font-size:8.5pt;color:#065F46;">Este White Paper está publicado bajo licencia Creative Commons Attribution-ShareAlike 4.0 International</div>
+    </div>
+    <div class="license-block-title">Condiciones de uso</div>
+    <p><strong>Podés:</strong> copiar, distribuir, adaptar y usar comercialmente este material, incluyendo en productos y servicios propios.</p>
+    <p><strong>Con la condición de:</strong> atribuir al ENE IA LAB como fuente original y publicar cualquier obra derivada bajo la misma licencia CC BY-SA 4.0 (copyleft).</p>
+    <p><strong>No requerido:</strong> autorización previa. <strong>Atribución sugerida:</strong> "Basado en investigación del ENE IA LAB (CC BY-SA 4.0) — eneneuquen.com.ar"</p>
+    <p>Texto completo de la licencia: creativecommons.org/licenses/by-sa/4.0/</p>
+  </div>
+
+  <div class="subsection-title">Referencias bibliográficas</div>
+  <ol class="ref-list">
+    <li>HubSpot (2024). State of Marketing Report. HubSpot Research. https://www.hubspot.com/state-of-marketing</li>
+    <li>Salesforce (2024). State of Sales, 6th Edition. Salesforce Research. https://www.salesforce.com/resources/research-reports/state-of-sales/</li>
+    <li>Gartner (2024). Gartner Marketing Technology Survey 2024. Gartner, Inc.</li>
+    <li>Nielsen IQ (2023). Attribution Study: Multi-Touch Attribution Impact on Advertising Efficiency. Nielsen IQ.</li>
+    <li>IAB Argentina (2024). Inversión Publicitaria Digital en Argentina 2024. Cámara Argentina de Anunciantes.</li>
+    <li>McKinsey &amp; Company (2023). The value of getting personalization right — or wrong — is multiplying. McKinsey Digital. https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right</li>
+    <li>Kotler, P. &amp; Keller, K. L. (2022). Marketing Management (16th ed.). Pearson.</li>
+    <li>Davenport, T., Guha, A., Grewal, D. &amp; Bressgott, T. (2020). How artificial intelligence will change the future of marketing. Journal of the Academy of Marketing Science, 48(1), 24–42.</li>
+    <li>Chaffey, D. &amp; Ellis-Chadwick, F. (2022). Digital Marketing: Strategy, Implementation and Practice (8th ed.). Pearson.</li>
+    <li>European Parliament (2024). Regulation (EU) 2024/1689 — Artificial Intelligence Act. Official Journal of the European Union.</li>
+    <li>Secretaría de Innovación Pública Argentina (2024). Marco Ético para el Uso de Inteligencia Artificial en Argentina. Gobierno de Argentina.</li>
+  </ol>
+
+  <div style="margin-top:20px;padding-top:16px;border-top:2px solid var(--border);text-align:center;">
+    <div style="font-size:10pt;font-weight:800;color:var(--text);margin-bottom:4px;">ENE IA LAB · Marketing y Comercialización</div>
+    <div style="font-size:8.5pt;color:var(--text-muted);margin-bottom:10px;">Sumate a co-crear el futuro de tu sector con IA.</div>
+    <div style="font-size:8pt;color:var(--text-muted);">ia-lab@eneneuquen.com.ar · @eneneuquen · ENE — Polo Tecnológico Neuquén</div>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">18</div>
+  </div>
+</div>
+
+</body>
+</html>
