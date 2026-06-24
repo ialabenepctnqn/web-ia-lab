@@ -601,6 +601,77 @@
         .type-btn.active { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(6,182,212,0.07); }
         .type-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--text-main); }
 
+        /* ── Cómo funciona (flyers) ── */
+        .procedure-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 980px;
+            margin: 40px auto 0;
+        }
+        .procedure-card {
+            margin: 0;
+            border: 1px solid var(--line-soft);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
+            transition: border-color 0.25s ease, box-shadow 0.35s ease, transform 0.25s ease;
+        }
+        .procedure-card:hover {
+            border-color: rgba(6,182,212,0.32);
+            box-shadow: 0 0 16px rgba(6,182,212,0.10);
+            transform: translateY(-3px);
+        }
+        .procedure-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            background: #0b0d10;
+        }
+        .procedure-card figcaption {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 18px;
+            border-top: 1px solid var(--line-soft);
+        }
+        .procedure-label { font-size: 0.95rem; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .procedure-label i { color: var(--accent-cyan); }
+        .procedure-hint { font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; }
+
+        /* ── Lightbox ── */
+        .flyer-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0,0,0,0.92);
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            cursor: zoom-out;
+        }
+        .flyer-lightbox.open { display: flex; }
+        .flyer-lightbox img {
+            max-width: 95vw;
+            max-height: 92vh;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+        .flyer-lightbox-close {
+            position: absolute;
+            top: 20px; right: 24px;
+            background: none; border: none;
+            color: #fff; font-size: 2rem;
+            cursor: pointer; line-height: 1;
+            opacity: 0.75; transition: opacity 0.2s;
+        }
+        .flyer-lightbox-close:hover { opacity: 1; }
+
         /* ── Próximamente ── */
         .coming-soon-shell {
             text-align: center;
@@ -674,6 +745,7 @@
             .inner-section { padding: 44px 18px; }
             .value-grid { grid-template-columns: 1fr; gap: 14px; }
             .contact-grid { grid-template-columns: 1fr; }
+            .procedure-grid { grid-template-columns: 1fr; gap: 16px; }
             .quote-block { padding: 36px 24px; }
             .quote-text { font-size: 1rem; }
             .coming-soon-shell { padding: 44px 24px; }
@@ -696,7 +768,10 @@
                 <li><a href="publicaciones.html" class="nav-link-page">Publicaciones</a></li>
             </ul>
             <a href="membresia.html" class="nav-cta-btn">
-                <i class="fas fa-users"></i> Membresía
+                <i class="fas fa-users"></i> Sumate
+            </a>
+            <a href="membresia.html" class="nav-login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login
             </a>
         </div>
     </nav>
@@ -760,6 +835,26 @@
         </div>
     </div>
 
+    <!-- ── CÓMO FUNCIONA ── -->
+    <div class="inner-section" style="padding-top: 0;">
+        <div class="content-wrapper">
+            <div class="section-shell">
+                <h2 class="section-title">¿Cómo funciona ENE IA LAB?</h2>
+                <p class="section-subtitle">El circuito de cada vertical y el camino para sumarte como miembro.</p>
+                <div class="procedure-grid">
+                    <figure class="procedure-card" onclick="abrirFlyer('imagenes/incorporacion-miembros-ialab.jpeg')">
+                        <img src="imagenes/incorporacion-miembros-ialab.jpeg" alt="Procedimiento de incorporación de miembros" loading="lazy">
+                        <figcaption><span class="procedure-label"><i class="fas fa-user-plus"></i> Incorporación de miembros</span><span class="procedure-hint">Click para ampliar</span></figcaption>
+                    </figure>
+                    <figure class="procedure-card" onclick="abrirFlyer('imagenes/gestion-interna-ialab.jpeg')">
+                        <img src="imagenes/gestion-interna-ialab.jpeg" alt="Procedimiento de gestión interna de los verticales" loading="lazy">
+                        <figcaption><span class="procedure-label"><i class="fas fa-sitemap"></i> Gestión interna de verticales</span><span class="procedure-hint">Click para ampliar</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ── INSCRIPCIONES ── -->
     <div id="membresias" class="inner-section" style="padding-top: 0;">
         <div class="content-wrapper">
@@ -768,11 +863,11 @@
             <div id="plan-selector">
                 <h2 class="section-title" style="margin-bottom: 8px;">Elegí tu membresía</h2>
                 <p class="section-subtitle" style="margin-bottom: 40px;">Ciclo 2026 · Mayo – Noviembre</p>
-                <div class="membership-grid" style="max-width: 860px; margin: 0 auto;">
+                <div class="membership-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 860px; margin: 0 auto;">
 
                     <div class="membership-card visible">
                         <div class="membership-tier-badge"><i class="fas fa-user"></i> Individual</div>
-                        <div style="margin-bottom: 16px; position: relative; z-index: 1;">
+                        <div style="margin-bottom: 20px; position: relative; z-index: 1;">
                             <div class="price-display">$85.000</div>
                             <span class="price-period">por mes · ciclo 2026</span>
                         </div>
@@ -787,41 +882,31 @@
                             <li>Beneficios y merchandising institucional</li>
                             <li>Acceso al coworking ENE hasta 2 veces por semana</li>
                         </ul>
-                        <div class="form-submit" style="border-top: 1px solid var(--line-soft); padding-top: 24px; margin-top: 24px;">
-                            <button type="button" class="btn-cta" style="width: 100%;" onclick="mostrarFormulario('individual')">
-                                <i class="fas fa-arrow-right"></i> Inscribirme — Individual
-                            </button>
-                        </div>
                     </div>
 
                     <div class="membership-card membership-card-featured visible">
                         <div class="membership-tier-badge"><i class="fas fa-building"></i> Corporativo</div>
-                        <div style="margin-bottom: 16px; position: relative; z-index: 1;">
+                        <div style="margin-bottom: 20px; position: relative; z-index: 1;">
                             <div class="price-display price-display-gradient">$150.000</div>
                             <span class="price-period">por mes · ciclo 2026</span>
                         </div>
                         <h3>Membresía Corporativa</h3>
                         <p class="membership-card-tagline">Para empresas e instituciones que quieren incorporar IA con visibilidad y participación colectiva.</p>
+                        <p style="font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600; margin-bottom: 12px; position: relative; z-index: 1;">Todo lo de Individual, más:</p>
                         <ul class="membership-features">
-                            <li>Participación en grupos y verticales de IA aplicada</li>
-                            <li>Acceso a charlas y encuentros exclusivos del ecosistema</li>
-                            <li>Networking con empresas y profesionales de Neuquén y Patagonia</li>
-                            <li>Prioridad en actividades organizadas por ENE</li>
-                            <li>Sesiones técnicas sobre desafíos y negocios reales</li>
-                            <li>Beneficios y merchandising institucional</li>
-                            <li>Acceso al coworking ENE hasta 2 veces por semana</li>
-                            <li>Hasta <strong>3 personas</strong> de la organización simultáneamente</li>
+                            <li>Hasta 3 personas de la organización simultáneamente</li>
                             <li>Mayor visibilidad en eventos y actividades del laboratorio</li>
                             <li>Vinculación directa con referentes y soluciones por vertical</li>
                             <li>Participación activa en el diseño de proyectos del laboratorio</li>
                         </ul>
-                        <div class="form-submit" style="border-top: 1px solid var(--line-soft); padding-top: 24px; margin-top: 24px;">
-                            <button type="button" class="btn-cta" style="width: 100%;" onclick="mostrarFormulario('corporativo')">
-                                <i class="fas fa-arrow-right"></i> Inscribirme — Corporativo
-                            </button>
-                        </div>
                     </div>
 
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <button type="button" class="btn-cta" onclick="mostrarFormulario()">
+                        <i class="fas fa-arrow-right"></i> Quiero inscribirme
+                    </button>
                 </div>
             </div>
 
@@ -830,8 +915,16 @@
                 <button type="button" id="insc-volver" style="background:none;border:none;color:var(--text-muted);font-size:0.88rem;cursor:pointer;margin-bottom:20px;padding:0;display:flex;align-items:center;gap:6px;position:relative;z-index:1;">
                     <i class="fas fa-arrow-left"></i> Volver a los planes
                 </button>
-                <h2 class="form-title" id="insc-titulo">Inscripción Individual</h2>
+                <h2 class="form-title">Quiero inscribirme</h2>
                 <p class="form-subtitle">Completá tus datos y nos ponemos en contacto para confirmar tu membresía.</p>
+
+                <div class="form-group">
+                    <label>Tipo de membresía</label>
+                    <div class="type-toggle">
+                        <button type="button" class="type-btn active" data-type="individual">Individual · $85.000/mes</button>
+                        <button type="button" class="type-btn" data-type="corporativa">Corporativo · $150.000/mes</button>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label for="insc-nombre">Nombre completo <span class="required-mark">*</span></label>
@@ -906,6 +999,12 @@
         </div>
     </div>
 
+    <!-- ── Lightbox flyers ── -->
+    <div class="flyer-lightbox" id="flyer-lightbox">
+        <button type="button" class="flyer-lightbox-close" id="flyer-close" aria-label="Cerrar">&times;</button>
+        <img id="flyer-lightbox-img" src="" alt="Procedimiento ampliado">
+    </div>
+
     <footer>
         <div class="footer-logo">
             <img src="imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:38px;width:auto;object-fit:contain;filter:invert(1);">
@@ -932,21 +1031,41 @@
             '.section-title, .section-subtitle, .mission-box, .value-card, .contact-card, .quote-block'
         ).forEach(el => observer.observe(el));
 
-        // ── Formulario de inscripción ──
-        const FORM_URLS = {
-            individual:  'https://docs.google.com/forms/d/e/1FAIpQLSdmK_fQqWRwqV6plB_a6qyeIYBf-Cn0KnyccwBXxuAN7408Vg/formResponse',
-            corporativo: 'https://docs.google.com/forms/d/e/1FAIpQLSdYJNUBhv_qXy5cYFeU4ZpNMEoucpN7fbGPe6IuGy4Yy2shTQ/formResponse'
-        };
+        // ── Lightbox de flyers ──
+        const flyerBox = document.getElementById('flyer-lightbox');
+        const flyerImg = document.getElementById('flyer-lightbox-img');
+
+        function abrirFlyer(src) {
+            flyerImg.src = src;
+            flyerBox.classList.add('open');
+        }
+        function cerrarFlyer() {
+            flyerBox.classList.remove('open');
+            flyerImg.src = '';
+        }
+        flyerBox.addEventListener('click', cerrarFlyer);
+        document.getElementById('flyer-close').addEventListener('click', cerrarFlyer);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && flyerBox.classList.contains('open')) cerrarFlyer();
+        });
+
+        // ── Formulario de inscripción (Google Form único) ──
+        const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdmK_fQqWRwqV6plB_a6qyeIYBf-Cn0KnyccwBXxuAN7408Vg/formResponse';
         let inscTipo = 'individual';
 
-        function mostrarFormulario(tipo) {
-            inscTipo = tipo;
-            document.getElementById('insc-titulo').textContent =
-                tipo === 'individual' ? 'Inscripción Individual' : 'Inscripción Corporativa';
+        function mostrarFormulario() {
             document.getElementById('plan-selector').style.display = 'none';
             document.getElementById('form-inscripcion').style.display = 'block';
             document.getElementById('membresias').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                inscTipo = btn.dataset.type;
+            });
+        });
 
         document.getElementById('insc-volver').addEventListener('click', () => {
             document.getElementById('form-inscripcion').style.display = 'none';
@@ -974,8 +1093,9 @@
             body.append('entry.1072526304', nombre);
             body.append('entry.1338885220', email);
             body.append('entry.438973991',  telefono);
+            body.append('entry.2013830276', inscTipo);
 
-            try { await fetch(FORM_URLS[inscTipo], { method: 'POST', mode: 'no-cors', body }); } catch (_) {}
+            try { await fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body }); } catch (_) {}
 
             document.getElementById('form-inscripcion').style.display = 'none';
             document.getElementById('insc-success').style.display = 'block';
