@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Aplicada en Ciencias Económicas: Del Contador Operador al Arquitecto de Procesos — ENE IA LAB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #1D4ED8; --accent-light: #EFF6FF; --accent-dark: #1E3A8A; --accent-mid: #1D4ED8;
+    --lab-purple: #7C3AED; --lab-teal: #06B6D4; --lab-green: #10B981;
+    --text: #0F172A; --text-muted: #64748B; --text-light: #94A3B8;
+    --border: #E2E8F0; --bg-subtle: #F8FAFC; --page-w: 210mm; --page-h: 297mm; --margin: 18mm;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 10pt; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: #CBD5E1; }
+  .page { width: var(--page-w); min-height: var(--page-h); background: #fff; margin: 8mm auto; padding: var(--margin); position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.15); }
+  .page-cover { padding: 0; background: var(--text); }
+  @media print { body { background: white; } .page { margin: 0; box-shadow: none; page-break-after: always; width: 100%; } @page { size: A4; margin: 0; } }
+  .cover-bg { position: absolute; inset: 0; background: linear-gradient(145deg, #0F172A 0%, #1E293B 60%, #333 100%); }
+  .cover-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #1D4ED8 0%, #1D4ED8 50%, #F97316 100%); }
+  .cover-content { position: relative; z-index: 1; padding: 18mm; height: 297mm; display: flex; flex-direction: column; }
+  .cover-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: auto; }
+  .cover-logo-box { border: 1.5px solid rgba(255,255,255,.25); border-radius: 8px; padding: 6px 14px; font-size: 9pt; color: rgba(255,255,255,.7); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+  .cover-edition { font-size: 8pt; color: rgba(255,255,255,.4); letter-spacing: .12em; text-transform: uppercase; }
+  .cover-license { font-size: 7.5pt; color: rgba(255,255,255,.5); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 5px; padding: 3px 9px; margin-left: auto; font-weight: 600; }
+  .cover-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20mm 0 10mm; }
+  .cover-sector { display: inline-block; background: #1D4ED8; color: #fff; font-size: 7.5pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 14px; }
+  .cover-title { font-size: 28pt; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 14px; letter-spacing: -.02em; }
+  .cover-title span { color: #1D4ED8; filter: brightness(1.3); }
+  .cover-subtitle { font-size: 11pt; color: rgba(255,255,255,.65); line-height: 1.6; max-width: 155mm; font-weight: 400; }
+  .cover-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 20mm; }
+  .cover-kpi { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 12px 10px; }
+  .cover-kpi-num { font-size: 18pt; font-weight: 900; color: #1D4ED8; filter: brightness(1.3); line-height: 1; }
+  .cover-kpi-label { font-size: 7.5pt; color: rgba(255,255,255,.55); margin-top: 4px; line-height: 1.3; }
+  .cover-footer { border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .cover-footer-left { font-size: 7.5pt; color: rgba(255,255,255,.4); }
+  .cover-footer-right { font-size: 7.5pt; color: rgba(255,255,255,.4); text-align: right; }
+  .page-header { border-bottom: 2px solid #EFF6FF; padding-bottom: 8px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .page-header-left { font-size: 7.5pt; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .page-header-right { font-size: 7.5pt; color: #1D4ED8; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .page-footer { position: absolute; bottom: 12mm; left: var(--margin); right: var(--margin); border-top: 1px solid var(--border); padding-top: 6px; display: flex; justify-content: space-between; align-items: center; }
+  .page-footer-text { font-size: 7pt; color: var(--text-light); }
+  .page-num { font-size: 7pt; color: var(--text-muted); font-weight: 600; }
+  .section-label { font-size: 7.5pt; font-weight: 700; color: #1D4ED8; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+  .section-title { font-size: 18pt; font-weight: 800; color: var(--text); line-height: 1.15; margin-bottom: 4px; letter-spacing: -.02em; }
+  .section-divider { width: 40px; height: 3px; background: #1D4ED8; border-radius: 2px; margin-bottom: 18px; }
+  .subsection-title { font-size: 10pt; font-weight: 700; color: var(--text); margin: 14px 0 6px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+  p { font-size: 9.5pt; line-height: 1.65; color: #1E293B; margin-bottom: 10px; }
+  p.lead { font-size: 10.5pt; font-weight: 500; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
+  strong { font-weight: 700; }
+  .callout { background: #EFF6FF; border-left: 4px solid #1D4ED8; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .callout-title { font-size: 8pt; font-weight: 700; color: #1D4ED8; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+  .callout p { margin: 0; font-size: 9pt; }
+  .info-box { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .info-box p { margin: 0; font-size: 9pt; color: #1E40AF; }
+  .kpi-row { display: grid; gap: 10px; margin: 14px 0; }
+  .kpi-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .kpi-row-2 { grid-template-columns: 1fr 1fr; }
+  .kpi-row-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .kpi-card { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; text-align: center; }
+  .kpi-card-accent { background: #EFF6FF; border-color: #1D4ED844; }
+  .kpi-num { font-size: 20pt; font-weight: 900; color: #1D4ED8; line-height: 1; }
+  .kpi-num-sm { font-size: 14pt; font-weight: 900; color: #1D4ED8; line-height: 1; }
+  .kpi-label { font-size: 8pt; color: var(--text-muted); margin-top: 4px; line-height: 1.35; }
+  .kpi-source { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .bullet-list { list-style: none; margin: 0 0 12px; }
+  .bullet-list li { padding: 5px 0 5px 18px; position: relative; font-size: 9.5pt; line-height: 1.55; color: #1E293B; border-bottom: 1px solid var(--border); }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: #1D4ED8; }
+  .bullet-list li strong { color: #1E3A8A; }
+  .grid-6 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .grid-cell-accent { background: #EFF6FF; border-color: #1D4ED855; }
+  .grid-cell-title { font-size: 7.5pt; font-weight: 700; color: #1D4ED8; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .grid-cell p { font-size: 9pt; margin: 0; line-height: 1.5; }
+  .quote-block { border-left: 3px solid #1D4ED8; padding: 10px 14px; background: var(--bg-subtle); border-radius: 0 8px 8px 0; margin: 14px 0; }
+  .quote-text { font-size: 10pt; font-style: italic; color: var(--text); line-height: 1.55; }
+  .quote-source { font-size: 8pt; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
+  .tech-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 9px; display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: start; }
+  .tech-icon { width: 36px; height: 36px; border-radius: 8px; background: #EFF6FF; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .tech-name { font-size: 9.5pt; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .tech-desc { font-size: 8.5pt; color: var(--text-muted); line-height: 1.5; margin-bottom: 3px; }
+  .tech-apply { font-size: 8pt; color: #1E3A8A; font-weight: 600; }
+  .dolor-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .dolor-table th { background: var(--text); color: #fff; padding: 7px 8px; text-align: left; font-weight: 600; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .dolor-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .dolor-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .score-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 8pt; text-align: center; min-width: 32px; }
+  .score-red { background: #FEE2E2; color: #991B1B; }
+  .score-orange { background: #FED7AA; color: #9A3412; }
+  .score-yellow { background: #FEF9C3; color: #854D0E; }
+  .score-green { background: #D1FAE5; color: #065F46; }
+  .type-badge { display: inline-block; padding: 2px 7px; border-radius: 12px; font-size: 7.5pt; font-weight: 600; }
+  .type-latente { background: #EDE9FE; color: #5B21B6; }
+  .type-declarado { background: #DBEAFE; color: #1E40AF; }
+  .validated-mark { display: inline-block; background: #D1FAE5; color: #065F46; font-size: 6.5pt; font-weight: 800; padding: 1px 5px; border-radius: 3px; margin-left: 3px; vertical-align: middle; }
+  .dolor-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+  .dolor-card-header { background: #1D4ED8; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .dolor-card-num { font-size: 20pt; font-weight: 900; opacity: .35; line-height: 1; }
+  .dolor-card-title { font-size: 9.5pt; font-weight: 700; flex: 1; padding: 0 8px; line-height: 1.3; }
+  .dolor-card-score { font-size: 17pt; font-weight: 900; line-height: 1; }
+  .dolor-card-score-label { font-size: 7pt; opacity: .8; text-transform: uppercase; letter-spacing: .06em; }
+  .dolor-card-body { padding: 12px; }
+  .dolor-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .dolor-field-label { font-size: 7.5pt; font-weight: 700; color: #1D4ED8; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-field-text { font-size: 8.5pt; color: var(--text); line-height: 1.5; }
+  .dolor-opp { margin-top: 8px; background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 8px; padding: 9px 11px; }
+  .dolor-opp-label { font-size: 7.5pt; font-weight: 700; color: #15803D; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-opp p { font-size: 8.5pt; color: #14532D; margin: 0; }
+  .ia-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+  .ia-card-header { padding: 12px 14px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .ia-card-header-qw { background: linear-gradient(135deg, #064E3B, #065F46); }
+  .ia-card-header-mp { background: linear-gradient(135deg, #1E3A8A, #1D4ED8); }
+  .ia-card-header-lp { background: linear-gradient(135deg, #581C87, #6D28D9); }
+  .ia-card-title { font-size: 10pt; font-weight: 700; color: #fff; line-height: 1.3; flex: 1; }
+  .ia-card-badge { font-size: 7pt; font-weight: 700; color: #fff; background: rgba(255,255,255,.2); padding: 3px 9px; border-radius: 12px; white-space: nowrap; margin-left: 8px; align-self: flex-start; margin-top: 2px; }
+  .ia-card-body { padding: 14px; }
+  .ia-card-desc { font-size: 9pt; line-height: 1.6; color: var(--text); margin-bottom: 10px; }
+  .ia-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .ia-tag { font-size: 7.5pt; padding: 2px 9px; border-radius: 12px; border: 1px solid var(--border); color: var(--text-muted); background: var(--bg-subtle); }
+  .ia-tag-key { background: #EFF6FF; border-color: #1D4ED855; color: #1E3A8A; font-weight: 600; }
+  .ia-detail-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .ia-detail-cell { background: var(--bg-subtle); border-radius: 6px; padding: 8px 10px; }
+  .ia-detail-label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; font-weight: 600; }
+  .ia-detail-value { font-size: 8.5pt; color: var(--text); font-weight: 600; }
+  .ia-evidence { background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 8pt; color: #14532D; }
+  .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .roadmap-col { border-radius: 10px; overflow: hidden; }
+  .roadmap-col-header { padding: 10px 12px; font-size: 9pt; font-weight: 700; color: #fff; }
+  .roadmap-col-header-m1 { background: #065F46; }
+  .roadmap-col-header-m2 { background: #1E40AF; }
+  .roadmap-col-header-m3 { background: #4C1D95; }
+  .roadmap-item { padding: 9px 11px; border-bottom: 1px solid var(--border); background: #fff; }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-item-title { font-size: 8.5pt; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .roadmap-item-desc { font-size: 7.5pt; color: var(--text-muted); line-height: 1.4; }
+  .roadmap-item-time { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .impact-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .impact-table th { background: var(--text); color: #fff; padding: 7px 10px; text-align: left; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .impact-table td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .impact-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .ethics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .ethics-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .ethics-cell-title { font-size: 9pt; font-weight: 700; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .ethics-cell p { font-size: 8.5pt; color: var(--text-muted); margin: 0; line-height: 1.5; }
+  .brecha-row { display: grid; grid-template-columns: 1fr 20px 1fr; gap: 8px; margin-bottom: 10px; align-items: center; }
+  .brecha-actual { background: #FEE2E2; border: 1px solid #FECACA; border-radius: 8px; padding: 10px 12px; }
+  .brecha-nuevo { background: #D1FAE5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 10px 12px; }
+  .brecha-arrow { font-size: 14pt; color: var(--text-muted); text-align: center; }
+  .brecha-label { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .brecha-label-red { color: #991B1B; }
+  .brecha-label-green { color: #065F46; }
+  .brecha-text { font-size: 8.5pt; line-height: 1.45; }
+  .ref-list { list-style: none; margin: 0; counter-reset: ref-counter; }
+  .ref-list li { font-size: 8.5pt; line-height: 1.55; padding: 5px 0 5px 28px; position: relative; border-bottom: 1px solid var(--border); color: #1E293B; counter-increment: ref-counter; }
+  .ref-list li:last-child { border-bottom: none; }
+  .ref-list li::before { content: '[' counter(ref-counter) ']'; position: absolute; left: 0; font-weight: 700; color: #1D4ED8; font-size: 8pt; }
+  .maturity-wrap { margin: 14px 0; }
+  .maturity-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .maturity-table th { padding: 6px 7px; font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-align: center; border: 1px solid var(--border); }
+  .maturity-table td { padding: 5px 7px; border: 1px solid var(--border); vertical-align: middle; }
+  .maturity-table td:first-child { font-weight: 600; font-size: 8pt; background: var(--bg-subtle); width: 28%; }
+  .mat-h0 { background: var(--text); color: #fff; }
+  .mat-h1 { background: #FCA5A5; color: #7F1D1D; }
+  .mat-h2 { background: #FCD34D; color: #713F12; }
+  .mat-h3 { background: #6EE7B7; color: #064E3B; }
+  .mat-h4 { background: #34D399; color: #064E3B; }
+  .mat-h5 { background: #10B981; color: #fff; }
+  .mat-1 { background: #FEE2E2; color: #991B1B; text-align: center; font-size: 7pt; }
+  .mat-2 { background: #FEF9C3; color: #713F12; text-align: center; font-size: 7pt; }
+  .mat-3 { background: #D1FAE5; color: #065F46; text-align: center; font-size: 7pt; }
+  .mat-4 { background: #A7F3D0; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-5 { background: #6EE7B7; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-empty { background: #fff; }
+  .mat-current { font-weight: 800; background: #1D4ED8; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .mat-target { font-weight: 700; background: #065F46; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .cycle-row { display: flex; align-items: stretch; gap: 0; margin: 14px 0; }
+  .cycle-step { flex: 1; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
+  .cycle-step-active { background: #EFF6FF; border-color: #1D4ED855; }
+  .cycle-num { width: 22px; height: 22px; background: #1D4ED8; color: #fff; border-radius: 50%; font-size: 9pt; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; }
+  .cycle-title { font-size: 8pt; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+  .cycle-desc { font-size: 7pt; color: var(--text-muted); line-height: 1.4; }
+  .cycle-arrow-h { display: flex; align-items: center; padding: 0 4px; font-size: 14pt; color: #1D4ED8; font-weight: 900; }
+  .cycle-return { text-align: center; font-size: 7.5pt; color: #1D4ED8; font-weight: 600; margin-top: 6px; padding: 5px 0; border-top: 2px dashed #1D4ED855; }
+  .initiative-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .initiative-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 11px; }
+  .initiative-flag { font-size: 14pt; margin-bottom: 4px; }
+  .initiative-name { font-size: 8.5pt; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+  .initiative-country { font-size: 7pt; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
+  .initiative-model { font-size: 7.5pt; color: var(--text); line-height: 1.45; margin-bottom: 5px; }
+  .initiative-tag { display: inline-block; font-size: 7pt; padding: 1px 7px; border-radius: 10px; font-weight: 700; background: var(--bg-subtle); border: 1px solid var(--border); color: var(--text-muted); }
+  .license-block { background: #F0FDF4; border: 2px solid #6EE7B7; border-radius: 10px; padding: 14px 16px; margin: 16px 0; }
+  .license-block-title { font-size: 8pt; font-weight: 800; color: #065F46; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .license-block p { font-size: 8.5pt; color: #14532D; margin: 0 0 6px; line-height: 1.55; }
+  .license-block p:last-child { margin: 0; }
+  .license-badge-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .license-badge { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1.5px solid #6EE7B7; border-radius: 6px; padding: 4px 12px; font-weight: 800; font-size: 9.5pt; color: #065F46; }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="page page-cover">
+  <div class="cover-bg"></div>
+  <div class="cover-accent-bar"></div>
+  <div class="cover-content">
+    <div class="cover-logo-area">
+      <div class="cover-logo-box"><img src="../../imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:34px;width:auto;filter:brightness(0) invert(1);"></div>
+      <div class="cover-edition">White Paper · Edición N° 1 · Junio 2026</div>
+      <div class="cover-license">CC BY-SA 4.0</div>
+    </div>
+    <div class="cover-main">
+      <div class="cover-sector">📊 Ciencias Económicas · Contabilidad / Finanzas / Auditoría</div>
+      <div class="cover-title">IA Aplicada<br><span>en Ciencias Económicas: Del Contador Operador al Arquitecto de Procesos</span></div>
+      <div class="cover-subtitle">PyMEs proveedoras de Oil &amp; Gas en la Cuenca Neuquina operan con estructuras administrativas mínimas frente a exigencias regulatorias máximas. Este white paper mapea los 10 dolores identificados en el sector y propone una arquitectura de soluciones con IA aplicable en 12 meses sin interrumpir la operación.</div>
+    </div>
+    <div class="cover-kpis">
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">800+</div>
+        <div class="cover-kpi-label">PyMEs proveedoras activas en el sector O&amp;G de la Cuenca Neuquina registradas ante organismos provinciales (COMARSA/EPEN, 2025)</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">72%</div>
+        <div class="cover-kpi-label">de tareas administrativas contables son automatizables con tecnología disponible hoy (McKinsey Global Institute, 2023)</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">3–5 días</div>
+        <div class="cover-kpi-label">consume el cierre mensual en una PyME con gestión manual; con datos integrados se reduce a menos de 4 horas (hallazgo de campo, 2026)</div>
+      </div>
+    </div>
+    <div class="cover-footer" style="margin-top:14px;">
+      <div class="cover-footer-left">ENE IA LAB · Polo Tecnológico Neuquén<br>ia-lab@eneneuquen.com.ar · eneneuquen.com.ar</div>
+      <div class="cover-footer-right">Hecho desde el campo.<br>Para quien lo opera.</div>
+    </div>
+  </div>
+</div>
+<!-- NOTA METODOLÓGICA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Nota Metodológica</div>
+  </div>
+  <div class="section-label">Sobre esta investigación</div>
+  <div class="section-title">Nota Metodológica</div>
+  <div class="section-divider"></div>
+  <p class="lead">El ENE IA LAB opera en ciclos iterativos de investigación-acción. Cada ciclo parte de la identificación de dolores de campo, los valida con profesionales activos del sector, los prioriza con un scoring compuesto y propone prototipos de solución. Los resultados se publican bajo licencia libre para que cualquier profesional o institución pueda reutilizarlos.</p>
+
+  <div class="subsection-title">Ciclo metodológico de investigación</div>
+  <div class="cycle-row">
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">1</div>
+      <div class="cycle-title">Investigación Documental</div>
+      <div class="cycle-desc">relevamiento de literatura académica, estadísticas sectoriales y benchmarks internacionales sobre digitalización contable en PyMEs</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">2</div>
+      <div class="cycle-title">Entrevistas de Campo</div>
+      <div class="cycle-desc">sesiones con profesionales contables y administrativos activos en el sector O&amp;G de Neuquén y Río Negro, identificación y priorización de dolores</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">3</div>
+      <div class="cycle-title">Validación con Expertos IA</div>
+      <div class="cycle-desc">análisis de factibilidad técnica, scoring compuesto por impacto, frecuencia y viabilidad de implementación</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">4</div>
+      <div class="cycle-title">Publicación CC BY-SA</div>
+      <div class="cycle-desc">White Paper, esquemas de arquitectura y prototipos liberados para reutilización sin restricciones</div>
+    </div>
+    <div class="cycle-arrow-h">↺</div>
+    <div class="cycle-step">
+      <div class="cycle-num" style="background:#94A3B8;">5</div>
+      <div class="cycle-title">Nueva ronda</div>
+      <div class="cycle-desc">dolores propuestos pasan a la siguiente validación con nuevas cohortes de profesionales del sector</div>
+    </div>
+  </div>
+  <div class="cycle-return">↑ El ciclo se repite: cada edición valida nuevos dolores propuestos por el grupo y la comunidad</div>
+
+  <div class="subsection-title">Fuentes primarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Entrevistas de campo</div>
+      <p>Se realizaron sesiones de trabajo con profesionales contables y administradores de PyMEs proveedoras del sector O&amp;G en la Cuenca Neuquina, abarcando distintos tamaños de empresa (5 a 80 empleados) y especialidades (contabilidad general, auditoría, administración de personal y compras). Las entrevistas fueron anónimas y los datos se agregaron sin identificar actores individuales ni organizaciones.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Sesiones técnicas del Vertical</div>
+      <p>Se realizaron sesiones plenarias y mesas técnicas en el marco del ENE IA LAB, con participación de profesionales del sector, donde se presentaron y debatieron los dolores identificados, las propuestas de solución y los principios de diseño de la arquitectura funcional.</p>
+    </div>
+  </div>
+  <div class="subsection-title">Fuentes secundarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Estadísticas y reportes institucionales</div>
+      <p>IAPG / Aleph Energy (2025) — Cadena de Valor Vaca Muerta: ~10.000 proveedores, 78% PyMEs; Centro PyME-ADENEU (2025) — Informe Anual PNC (Proveedores Neuquinos Certificados); COMARSA (Comercializadora Neuquina de Insumos) / EPEN (Ente Provincial de Energía del Neuquén); AFIP/ARCA (padrón de contribuyentes); INDEC (ENGE — sector servicios petroleros); Ministerio de Trabajo de Neuquén (CCTs registrados); FACPCE — RT 54 (T.O. RT 59), vigente desde 1° de enero de 2025; Leyes Provinciales 3.338 (Compre Neuquino) y 3.502 (Desarrollo Neuquino); CCTs vigentes: 644/12 Petroleros Privados, 637/11 Petroleros Jerárquicos, 76/75 UOCRA, 260/75 UOM, 130/75 Comercio.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Literatura científica y técnica</div>
+      <p>CEPE Di Tella + Fundar (abril 2026) — Primera Encuesta Nacional sobre IA en PyMEs (n=402); UIA + Accenture (marzo 2026) — Reinventarse con Inteligencia: IA en la industria argentina; Thomson Reuters + CPCECABA (2025) — IA en estudios contables en Argentina (n=500+); Microsoft Argentina + Edelman (marzo 2025) — IA en micro, pequeñas y medianas empresas: tendencias, desafíos y oportunidades; McKinsey Global Institute (2023) — The economic potential of generative AI; Deloitte (2024) — AI in Finance: from automation to intelligence; KPMG (2024) — Finance Digital Maturity Model; BID (2022) — Digitalización de PyMEs en América Latina; OECD (2023) — Financing SMEs and Entrepreneurs.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <div class="callout-title">5 dolores validados · 5 propuestos para ciclos futuros</div>
+    <p>La tabla de la Sección 5 presenta 10 puntos de dolor identificados. Los marcados con <strong>✓ VAL</strong> fueron validados mediante entrevistas directas en esta edición. Los restantes 5 son propuestas del grupo, pendientes de validación en campo en ciclos futuros. No se presentan como hallazgos confirmados sino como hipótesis a explorar.</p>
+  </div>
+  <div class="info-box"><p><strong>Este documento no es un paper académico en sentido estricto.</strong> Es un instrumento práctico de diagnóstico y hoja de ruta, elaborado con rigor metodológico y orientado a la acción. Publicado bajo <strong>CC BY-SA 4.0</strong>: podés reutilizarlo, adaptarlo y distribuirlo libremente con la condición de mantener la misma licencia en las obras derivadas. Errores o contribuciones de campo: ia-lab@eneneuquen.com.ar</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">2</div>
+  </div>
+</div>
+<!-- RESUMEN EJECUTIVO -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Resumen Ejecutivo</div>
+  </div>
+  <div class="section-label">Sección 1 de 10</div>
+  <div class="section-title">Resumen Ejecutivo</div>
+  <div class="section-divider"></div>
+  <p class="lead">Las PyMEs proveedoras de Oil &amp; Gas en la Cuenca Neuquina enfrentan una paradoja estructural: deben cumplir con las mismas exigencias documentales, normativas y de calidad que las grandes corporaciones, pero con estructuras administrativas de 1 a 3 personas. El resultado es un sector donde el talento calificado se pierde ante la urgencia operativa y donde la IA representa la única palanca de escala accesible a bajo costo.</p>
+
+  <div class="subsection-title">KPIs del sector</div>
+  <div class="kpi-row kpi-row-3">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">800+</div>
+      <div class="kpi-label">PyMEs proveedoras activas en el sector O&amp;G de la Cuenca Neuquina registradas ante organismos provinciales (COMARSA/EPEN, 2025)</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">72%</div>
+      <div class="kpi-label">de tareas administrativas contables son automatizables con tecnología disponible hoy (McKinsey Global Institute, 2023)</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">3–5 días</div>
+      <div class="kpi-label">consume el cierre mensual en una PyME con gestión manual; con datos integrados se reduce a menos de 4 horas (hallazgo de campo, 2026)</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Hallazgos principales</div>
+  <ul class="bullet-list">
+    <li>El 80% del tiempo administrativo se consume en tareas repetitivas que la tecnología puede automatizar: ingreso de comprobantes, liquidación de haberes y cierre mensual.</li>
+    <li>Las PyMEs del sector cobran a 60–120 días pero pagan a 30: sin proyección de flujo de caja, la toma de decisiones es reactiva y el riesgo de iliquidez es permanente.</li>
+    <li>La gestión en planillas desconectadas hace que la IA sobre datos fragmentados amplifique errores en lugar de resolverlos: la digitalización básica es el prerrequisito innegociable.</li>
+    <li>El costeo por proyecto es ausente en la mayoría de las PyMEs: se firma contratos sin saber si son rentables y se detecta la pérdida solo al cierre anual.</li>
+    <li>Desde abril de 2026, la presentación del Plan Anual de Seguridad e Higiene es obligatoria para operar como proveedor O&amp;G en Neuquén: el incumplimiento suspende la habilitación.</li>
+    <li>Quick wins disponibles: automatización de ingreso de comprobantes (80% sin intervención humana), alertas de vencimiento documental con 60/30/5 días de anticipación, y proyección de flujo de caja a 90 días.</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">Quick Wins disponibles hoy</div>
+    <p>El sistema de procesamiento automático de comprobantes con OCR e IA puede implementarse en 4–6 semanas sobre cualquier ERP existente. Las alertas de vencimiento documental requieren solo una planilla estructurada como fuente de datos inicial. La proyección de flujo de caja a 90 días puede activarse en 6–8 semanas conectando datos de facturación y cobranzas existentes.</p>
+  </div>
+
+  <p>El Contador Público Nacional es el único profesional con acceso simultáneo a datos financieros, laborales, operativos y de cumplimiento de la empresa. La IA no reduce su valor: transforma su rol de operador de datos a arquitecto de procesos, garante de calidad y agente de cambio cultural. Las herramientas propuestas en este documento están diseñadas con ese principio: el profesional supervisa, la máquina ejecuta.</p>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">3</div>
+  </div>
+</div>
+<!-- CONTEXTO DEL SECTOR -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Contexto del Sector</div>
+  </div>
+  <div class="section-label">Sección 2 de 10</div>
+  <div class="section-title">Contexto del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">La Cuenca Neuquina concentra el mayor ecosistema de proveedores O&amp;G de Argentina, con más de 800 PyMEs activas que abastecen servicios especializados a operadoras de extracción convencional y no convencional. Estas empresas operan en un entorno de alta exigencia regulatoria (ISO, API, CCT múltiples, normativa provincial HSE) con estructuras administrativas mínimas y acceso limitado a tecnología especializada.</p>
+
+  <div class="kpi-row kpi-row-4">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">800+</div>
+      <div class="kpi-label">PyMEs proveedoras O&amp;G activas en Neuquén</div>
+      <div class="kpi-source">COMARSA / EPEN 2025</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">60–120</div>
+      <div class="kpi-label">días promedio de pago de operadoras a proveedores</div>
+      <div class="kpi-source">Hallazgo de campo ENE IA LAB 2026</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">6+</div>
+      <div class="kpi-label">convenios colectivos simultáneos en una sola PyME típica del sector</div>
+      <div class="kpi-source">Ministerio de Trabajo Neuquén / hallazgo de campo</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">72%</div>
+      <div class="kpi-label">de tareas contables automatizables con IA según benchmarks internacionales</div>
+      <div class="kpi-source">McKinsey Global Institute 2023</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">El sector en detalle</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Actores principales</div>
+      <p>Operadoras de extracción convencional y no convencional (Vaca Muerta), servicios especializados (perforación, completación, mantenimiento, seguridad), proveedores de insumos y logística, y empresas de servicios profesionales (contabilidad, legal, RRHH).</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Perfil del profesional</div>
+      <p>Contadores Públicos Nacionales con matrícula provincial, muchos operando en estudios pequeños o como responsables administrativos internos de PyMEs. Alta carga operativa, baja disponibilidad de tiempo para análisis estratégico o actualización tecnológica.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Sistemas actuales</div>
+      <p>Predominio de hojas de cálculo para gestión administrativa, con software de liquidación de sueldos independiente y facturación electrónica vía AFIP/ARCA. La integración entre sistemas es prácticamente inexistente: cada área opera con su propia fuente de datos.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Marco regulatorio</div>
+      <p>Convenios Colectivos de Trabajo: 644/12 Petroleros Privados, 637/11 Petroleros Jerárquicos, 76/75 UOCRA, 260/75 UOM, 130/75 Comercio — con adicionales zonales específicos de la Cuenca Neuquina (zona no convencional, locación). Normativas ISO 9001/14001/45001, API Q1/Q2, habilitaciones provinciales y municipales, Plan Anual de Seguridad e Higiene (obligatorio desde abril 2026), Libro de Sueldos Digital, Factura de Crédito Electrónica y RT 54 FACPCE (T.O. RT 59, vigente desde 1° de enero de 2025). Leyes provinciales 3.338 (Compre Neuquino) y 3.502 (Desarrollo Neuquino) — normativas independientes que definen preferencia y acceso a contrataciones públicas para proveedores locales.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Contexto regional (Patagonia / Neuquén)</div>
+      <p>El auge de la extracción no convencional en Vaca Muerta presiona al ecosistema de proveedores a escalar capacidades rápidamente. La competencia por talento administrativo-contable es directa con las operadoras, que ofrecen condiciones salariales superiores. Las PyMEs proveedoras deben profesionalizar procesos sin poder competir en remuneración.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">El problema estructural</div>
+      <p>Una persona hace el trabajo de tres en la mayoría de las PyMEs del sector. Sin tecnología que multiplique esa capacidad, el crecimiento genera desorden, no escala. La IA es la única palanca disponible para resolver esta ecuación sin aumentar la estructura de costos fija.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">El problema estructural</div>
+    <p>Las PyMEs proveedoras de O&amp;G enfrentan una brecha de capacidad administrativa: las exigencias regulatorias son de gran empresa, pero los recursos para cumplirlas son de microempresa. Esta brecha no se resuelve contratando más personal (no hay disponible ni es financieramente sostenible), sino multiplicando la capacidad del profesional existente con tecnología.</p>
+  </div>
+
+  <div class="info-box"><p><strong>Oportunidad de IA:</strong> La IA permite que una misma persona supervise procesos que antes requerían tres: el sistema procesa comprobantes, proyecta flujo de caja, alerta vencimientos y prepara liquidaciones. El contador valida, aprueba y firma. La productividad se multiplica sin cambiar la estructura organizacional.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">4</div>
+  </div>
+</div>
+<!-- MARCO TEÓRICO / TECNOLOGÍAS IA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Tecnologías IA Relevantes</div>
+  </div>
+  <div class="section-label">Sección 3 de 10</div>
+  <div class="section-title">Tecnologías de IA Relevantes para el Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">El ecosistema de herramientas de IA disponibles en 2026 cubre exactamente las necesidades más críticas del sector: procesamiento masivo de documentos, proyección financiera, cumplimiento normativo y detección de anomalías. Ninguna requiere inversión en infraestructura propia: todas operan como servicio en la nube con modelos de suscripción accesibles para PyMEs.</p>
+
+  <div class="tech-card">
+    <div class="tech-icon">🔍</div>
+    <div>
+      <div class="tech-name">OCR + Visión Computacional</div>
+      <div class="tech-desc">Extracción automática de datos de documentos</div>
+      <div class="tech-apply">→ Procesa facturas, remitos y certificados de proveedor sin intervención humana. Detecta CUIT inconsistentes, importes fuera de rango y documentos duplicados antes de ingresarlos al sistema.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🤖</div>
+    <div>
+      <div class="tech-name">RPA (Automatización de Procesos Robóticos)</div>
+      <div class="tech-desc">Ejecución automática de tareas repetitivas</div>
+      <div class="tech-apply">→ Automatiza el ingreso de comprobantes en el ERP, la generación de órdenes de compra correlativas, la actualización de estados de documentos y el envío de alertas de vencimiento.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">📈</div>
+    <div>
+      <div class="tech-name">ML Predictivo / Forecasting</div>
+      <div class="tech-desc">Proyección de series temporales financieras</div>
+      <div class="tech-apply">→ Proyecta flujo de caja a 30, 60 y 90 días integrando cobros por operadora y pagos comprometidos. Alerta cuando el saldo proyectado cae bajo el umbral mínimo con al menos 30 días de anticipación.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">💬</div>
+    <div>
+      <div class="tech-name">LLM (Modelos de Lenguaje)</div>
+      <div class="tech-desc">Comprensión y generación de texto contable-legal</div>
+      <div class="tech-apply">→ Interpreta actas de paritaria para actualizar parámetros de liquidación, responde consultas sobre normativa laboral específica (CCT, adicionales zonales) y redacta notificaciones a proveedores.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🔗</div>
+    <div>
+      <div class="tech-name">Integración API / ETL</div>
+      <div class="tech-desc">Conexión de sistemas heterogéneos</div>
+      <div class="tech-apply">→ Conecta el sistema de facturación (AFIP/ARCA), el software de liquidación de sueldos, el ERP y las bases de datos de proveedores en un flujo de datos unificado sin desarrollos a medida.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">📊</div>
+    <div>
+      <div class="tech-name">BI + Alertas Inteligentes</div>
+      <div class="tech-desc">Visualización y notificación proactiva</div>
+      <div class="tech-apply">→ Dashboard de rentabilidad por contrato en tiempo real, alertas automáticas de vencimiento documental con 60/30/5 días de anticipación y notificaciones de margen cuando cae bajo el umbral configurado.</div>
+    </div>
+  </div>
+
+
+  <div class="subsection-title">Evidencia cuantitativa global</div>
+  <div class="kpi-row kpi-row-3">
+    <div class="kpi-card">
+      <div class="kpi-num">80%</div>
+      <div class="kpi-label">de comprobantes procesables sin intervención humana con OCR+IA (Deloitte Finance AI Report, 2024)</div>
+      <div class="kpi-source">Deloitte 2024</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">-75%</div>
+      <div class="kpi-label">reducción del tiempo de cierre mensual al integrar datos en una única fuente (KPMG Finance Digital Maturity, 2024)</div>
+      <div class="kpi-source">KPMG 2024</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">30 días</div>
+      <div class="kpi-label">de anticipación mínima para alertas de liquidez con modelos de forecasting de flujo de caja (BID 2022)</div>
+      <div class="kpi-source">BID 2022</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Principio de diseño</div>
+    <p>La máquina nunca decide sola en cuestiones legales o financieras. El 80% del trabajo lo ejecuta el sistema; el 20% restante va al profesional. Toda decisión automatizada es trazable y reversible. El encuadre definitivo y la firma del Libro de Sueldos son responsabilidad legal exclusiva del Contador Público.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">5</div>
+  </div>
+</div>
+<!-- MAPA DE DOLORES -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Mapa de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 de 10</div>
+  <div class="section-title">Mapa de Dolores del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Los 10 dolores fueron identificados a partir de entrevistas de campo con profesionales del sector y revisión de fuentes primarias (FACPCE, ARCA, IAPG, actas paritarias, CCTs vigentes, Centro PyME-ADENEU). Se priorizaron con un scoring compuesto que considera frecuencia, impacto operativo, urgencia y viabilidad de solución con IA. Los dolores 1 a 5 recibieron validación explícita del grupo de trabajo y son el foco de este ciclo. Los dolores 6 al 10 se presentan como propuestas para el próximo ciclo de validación.</p>
+
+  <table class="dolor-table">
+    <thead>
+      <tr>
+        <th style="width:30px;">#</th>
+        <th>Punto de dolor</th>
+        <th style="width:90px;">Tipo</th>
+        <th style="width:110px;">Tecnología IA</th>
+        <th style="width:55px;">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center;font-weight:700;">1</td>
+        <td>Falta de talento administrativo-contable<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Estructural</span></td>
+        <td>OCR · RPA · LLM</td>
+        <td><span class="score-badge score-red">97</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">2</td>
+        <td>Flujo de caja reactivo sin proyección<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>ML · Forecasting · BI</td>
+        <td><span class="score-badge score-red">93</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">3</td>
+        <td>Gestión manual en planillas desconectadas<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>ERP · API · ETL</td>
+        <td><span class="score-badge score-red">90</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">4</td>
+        <td>Sin costeo por proyecto ni contrato<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Estructural</span></td>
+        <td>ML · Analytics · BI</td>
+        <td><span class="score-badge score-red">87</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">5</td>
+        <td>Control documental HSE/ISO deficiente<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>RAG · NLP · Alertas</td>
+        <td><span class="score-badge score-red">84</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">6</td>
+        <td>Liquidación bajo múltiples convenios</td>
+        <td><span class="type-badge type-declarado">Estructural</span></td>
+        <td>RPA · NLP · Compliance</td>
+        <td><span class="score-badge score-red">81</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">7</td>
+        <td>Compras sin proceso formal ni trazabilidad</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>ML · ERP · Alertas</td>
+        <td><span class="score-badge score-orange">78</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">8</td>
+        <td>Gestión de cobro y cartera sin automatización</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>RPA · ML · Alertas</td>
+        <td><span class="score-badge score-orange">74</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">9</td>
+        <td>Vencimientos fiscales sin calendario integrado</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>RPA · Alertas · API ARCA</td>
+        <td><span class="score-badge score-orange">70</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">10</td>
+        <td>Sin transferencia de conocimiento administrativo</td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>RAG · LLM · Documentación</td>
+        <td><span class="score-badge score-orange">65</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box"><p><strong>Score compuesto 0–100:</strong> frecuencia × impacto × factibilidad de implementación con IA. <strong>✓ VAL</strong> = validado en entrevistas de campo. Sin marca = propuesta del grupo para ciclos futuros.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">6</div>
+  </div>
+</div>
+<!-- FICHAS DOLORES p.7 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 1 a 2</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">01</div>
+      <div class="dolor-card-title">Falta de talento administrativo-contable</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">97</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Las operadoras de O&amp;G captan perfiles administrativos-contables calificados a condiciones salariales que las PyMEs proveedoras no pueden igualar. El resultado es que una sola persona debe hacer el trabajo de tres: ingresar comprobantes, liquidar sueldos, controlar documentación, preparar el cierre mensual y atender requerimientos de auditoría de las operadoras.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Responsable administrativo-contable de PyME proveedora con 10 a 50 empleados, habitualmente con matrícula de CPN o estudiante avanzado, con sobrecarga estructural y sin posibilidad de delegar en personal calificado.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Sin tecnología que multiplique la capacidad existente, el crecimiento de la PyME genera colapso administrativo: errores en liquidaciones, documentación vencida, cierres tardíos y pérdida de licitaciones por incumplimientos formales.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Se trabaja con planillas Excel, procesos manuales y jornadas extendidas. Los errores se detectan tarde (al cierre mensual o en una auditoría de la operadora). La contratación de personal adicional es la única solución disponible, y no es sostenible.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El 72% de las tareas administrativas contables son automatizables con tecnología disponible en 2026 (McKinsey Global Institute, 2023). En el sector O&amp;G de Neuquén, la brecha salarial entre operadoras y PyMEs proveedoras para perfiles administrativos supera el 100%.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>OCR + RPA: automatización del 80% del ingreso de comprobantes sin intervención humana, con el 20% restante presentado como sugerencia lista para confirmar. LLM: respuestas automáticas a consultas normativas frecuentes. Implementación: 4–6 semanas. Impacto: reduce entre 60% y 70% el tiempo dedicado a tareas de ingreso.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">02</div>
+      <div class="dolor-card-title">Flujo de caja reactivo sin proyección</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">93</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Las operadoras pagan a 60–120 días. Sin visibilidad anticipada del flujo de caja, las PyMEs aceptan contratos sin evaluar si tendrán liquidez para ejecutarlos, y descubren el problema cuando ya están en el punto de mayor actividad y menor disponibilidad de caja.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Dueño o director de PyME proveedora que toma decisiones de aceptar contratos sin información financiera proyectada, y responsable contable que gestiona la tesorería de forma reactiva.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Iliquidez en el pico de actividad, necesidad de financiamiento de emergencia a tasas desfavorables, imposibilidad de aprovechar oportunidades de crecimiento y deterioro de la relación con proveedores por pagos tardíos.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">El flujo de caja se revisa semana a semana mirando el saldo bancario. No existe proyección formal. Las decisiones de aceptar contratos se toman en base a la experiencia del dueño y estimaciones informales.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">En la Cuenca Neuquina, los plazos de pago de operadoras a proveedores PyME oscilan entre 60 y 120 días corridos (hallazgo de campo ENE IA LAB 2026). La Factura de Crédito Electrónica permite el descuento anticipado con aval de SGR provincial, pero su uso es marginal en el segmento PyME.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>ML Forecasting: proyección de saldo a 30, 60 y 90 días integrando cobros por operadora y pagos comprometidos. Alertas automáticas cuando el saldo proyectado cae bajo el umbral mínimo con 30 días de anticipación. Identificación de facturas descontables en el mercado de capitales. Implementación: 6–8 semanas. Impacto: decisiones de contratación basadas en proyección, no en intuición.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">7</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.8 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 3 a 4</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">03</div>
+      <div class="dolor-card-title">Gestión manual en planillas desconectadas</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">90</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Ventas, compras, stock y administración se gestionan en hojas de cálculo independientes, sin conexión entre sí. Un cambio en una factura no se refleja automáticamente en cuentas a pagar, stock o contabilidad. El cierre mensual consume entre 3 y 5 días hábiles de trabajo intensivo para consolidar información dispersa.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Responsable administrativo-contable que debe consolidar manualmente información de múltiples fuentes. Dueño que no tiene visibilidad del estado real del negocio en tiempo real.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">La IA sobre datos fragmentados amplifica errores en lugar de resolverlos. Sin una única fuente de verdad, cualquier solución de automatización queda limitada a un módulo aislado. El cierre mensual tarda días en lugar de horas.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Múltiples archivos Excel (o Google Sheets) desconectados, actualizados manualmente por distintas personas. La consolidación requiere trabajo manual intensivo y genera errores de versión frecuentes.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Con datos integrados, el cierre mensual se completa en menos de 4 horas en lugar de 3–5 días (hallazgo de campo ENE IA LAB 2026 / KPMG Finance Digital Maturity 2024). La digitalización básica es el prerrequisito innegociable para cualquier implementación de IA posterior.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>ERP cloud con API documentada: única fuente de verdad donde un cambio en una factura se refleja automáticamente en stock, cuentas a pagar y contabilidad. Permite integrar automatizaciones e IA sin desarrollo a medida. Implementación modular: 8–12 semanas. Impacto: cierre mensual en horas, datos confiables como base para todas las soluciones IA siguientes.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">04</div>
+      <div class="dolor-card-title">Sin costeo por proyecto ni contrato</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">87</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>La contabilidad es global: se sabe si la empresa ganó o perdió en el año, pero no si cada contrato fue rentable. Sin imputación de gastos por proyecto, se firman contratos a pérdida sin saberlo y se detecta el problema solo al cierre anual, cuando ya no hay margen de corrección.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Dueño o director comercial que presupuesta contratos nuevos basándose en estimaciones informales. Responsable contable que cierra el ejercicio sin poder explicar la rentabilidad por línea de negocio.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Tendencia sistémica a ganar licitaciones con precios insuficientes. Imposibilidad de identificar qué contratos generan valor y cuáles destruyen margen. Presupuestación de nuevos contratos con estimaciones imprecisas basadas en promedios globales.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Los gastos se registran en cuentas contables globales sin imputación por proyecto. La rentabilidad se calcula una vez al año con el balance. No existen alertas de margen por contrato.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Sin costeo por proyecto, las empresas del sector estiman que entre el 20% y el 30% de sus contratos son deficitarios, pero no pueden identificar cuáles (hallazgo de campo ENE IA LAB 2026). El error de estimación en presupuestación de nuevos contratos supera el 15% en promedio.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Imputación automática por contrato: cada gasto se clasifica al proyecto correcto según proveedor, concepto y reglas del contador. Dashboard de rentabilidad en tiempo real: precio acordado, costos imputados, margen actual y proyectado al cierre. Alerta temprana cuando el margen proyectado cae bajo el umbral configurable. Implementación: 6–10 semanas (requiere ERP del dolor #3). Impacto: visibilidad de rentabilidad por contrato en tiempo real.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">8</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.9 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 5 a 6</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">05</div>
+      <div class="dolor-card-title">Control documental HSE/ISO deficiente</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">84</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Cada operadora tiene requisitos documentales distintos: ISO 9001/14001/45001, API Q1/Q2, Plan Anual de Seguridad e Higiene, ART, exámenes médicos, habilitaciones municipales y provinciales. Perder una licitación por un certificado vencido es una causa frecuente de pérdida de contratos. Desde abril de 2026, la presentación del Plan Anual de Seguridad e Higiene ante el organismo provincial es obligatoria para operar como proveedor O&amp;G en Neuquén.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Responsable de HSE o administrativo que gestiona el legajo de habilitaciones sin sistema de alertas. Dueño que descubre el vencimiento cuando ya perdió la licitación.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Pérdida de contratos por documentación vencida. Suspensión de habilitación operativa (desde abril 2026 para el Plan Anual de SH). Multas y sanciones por incumplimiento regulatorio. Imagen deteriorada ante operadoras.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">El control de vencimientos se hace manualmente con calendarios o recordatorios informales. La documentación se archiva en carpetas físicas o digitales sin estructura estandarizada ni alertas automáticas.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">La presentación del Plan Anual de Seguridad e Higiene es obligatoria desde abril de 2026 para operar como proveedor O&amp;G en Neuquén (normativa provincial). Los legajos de habilitación de una PyME mediana del sector incluyen entre 40 y 80 documentos con fechas de vencimiento independientes.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Sistema de gestión documental con alertas automáticas: legajo digital por operadora con estado de cada documento (vigente / próximo a vencer / vencido), alertas a 60, 30 y 5 días antes del vencimiento. RAG sobre normativa: consultas sobre requisitos de cada operadora respondidas automáticamente. Implementación: 3–5 semanas. Impacto: cero pérdidas de contratos por documentación vencida.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">06</div>
+      <div class="dolor-card-title">Liquidación bajo múltiples convenios</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">81</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Una PyME del sector puede tener trabajadores bajo seis o más convenios colectivos simultáneamente (construcción, metalmecánica, operarios, supervisores, administración). Los errores de encuadre generan condenas retroactivas de hasta 5 años. Las paritarias no se sincronizan y tienen adicionales zonales específicos de la Cuenca Neuquina.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Responsable de liquidación de sueldos y Contador Público a cargo de la firma del Libro de Sueldos Digital.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Errores de encuadre con condenas retroactivas de hasta 5 años. Diferencias salariales no detectadas que generan reclamos laborales. Libro de Sueldos Digital incorrecto con riesgo de impugnación.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Liquidación en software específico (Bejerman, Tango, Sueldos online) con parametrización manual de cada CCT. Actualización de paritarias en forma manual con riesgo de omisión.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Una PyME del sector puede operar bajo 6 o más CCT simultáneos (hallazgo de campo preliminar ENE IA LAB 2026). Los adicionales zonales de la Cuenca Neuquina (zona no convencional, locación) generan una complejidad de cálculo adicional no resuelta por los sistemas estándar.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Parametrización automática de múltiples CCT en una misma nómina. Actualización automática de actas de paritaria con cálculo de retroactivos sobre recibos históricos. Aplicación automática de adicionales zonales. Generación del Libro de Sueldos Digital en formato legal. Nota: el encuadre definitivo y la firma son responsabilidad legal exclusiva del Contador.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">9</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.10 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 7 a 8</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">07</div>
+      <div class="dolor-card-title">Compras sin proceso formal ni trazabilidad</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">78</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Las compras se realizan por urgencia: sin comparación de precios, sin orden formal y con el proveedor más rápido disponible. Las operadoras exigen trazabilidad de insumos críticos para sus auditorías de cadena de suministro. Sin trazabilidad, se pierde el contrato o la habilitación para licitar.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Responsable de compras o administrativo que gestiona adquisiciones de forma informal. Dueño que no tiene visibilidad del gasto de compras hasta el cierre mensual.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Precios pagados por encima del mercado sin justificación. Pérdida de contratos por incapacidad de demostrar trazabilidad de insumos en auditorías de operadoras. Pagos realizados sin orden de compra vinculada.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Compras por WhatsApp o teléfono, registradas retrospectivamente en planillas. Sin comparación formal de precios ni registro de proveedores calificados.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Las operadoras de O&amp;G en Vaca Muerta exigen trazabilidad completa de insumos críticos en sus auditorías de cadena de suministro (normativa interna de operadoras / API Q1/Q2). La diferencia de precio entre compras urgentes y compras planificadas puede superar el 20% en insumos de alta rotación.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Proyección de consumo con alerta de reabastecimiento antes de llegar a stock crítico. Orden de compra numerada y trazable vinculada al pago. Alerta si el precio supera el mercado en más del 20%. Registro de proveedores calificados con alerta por documentación vencida.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">08</div>
+      <div class="dolor-card-title">Gestión de cobro y cartera sin automatización</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">74</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Las facturas emitidas a operadoras circulan durante 60 a 120 días sin seguimiento sistemático de estado. No hay registro actualizado de qué está cobrado, qué está en proceso y qué está vencido. La gestión de cobranzas se activa de forma reactiva, cuando el saldo bancario ya es crítico.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Responsable contable y dueño de la PyME que detectan el problema de cobranza cuando ya no hay margen de maniobra financiero.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Cuentas a cobrar que llegan a su vencimiento sin acciones previas. Facturas que vencen sin reclamo formal, generando mora sin sanción. Necesidad de financiamiento de emergencia que podría haberse evitado con anticipación de 30 días.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">El seguimiento de cobranzas se hace manualmente revisando el saldo bancario y las facturas emitidas. No existe un flujo automático de recordatorios ni de escalada de gestión.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">En la Cuenca Neuquina, los plazos de pago de operadoras a proveedores PyME oscilan entre 60 y 120 días corridos (hallazgo de campo ENE IA LAB 2026). La Factura de Crédito Electrónica como instrumento de cobro anticipado está subutilizada en el segmento.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Dashboard de cartera con estado por factura (emitida / en plazo / próxima a vencer / vencida). Alertas automáticas al responsable antes del vencimiento con plantilla de gestión lista para enviar. Identificación automática de facturas elegibles para descuento en mercado de capitales vía SGR.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">10</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.11 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 9 a 10</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">09</div>
+      <div class="dolor-card-title">Vencimientos fiscales sin calendario integrado</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">70</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Los vencimientos impositivos (IVA, Ganancias, Ingresos Brutos, aportes y contribuciones a la Seguridad Social) se gestionan manualmente, sin integración con el sistema contable ni con el calendario de liquidación de sueldos. Un vencimiento omitido o un pago con saldo incorrecto genera intereses, punitorios y eventualmente inscripción en el registro de deudores fiscales.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Contador Público responsable de las presentaciones impositivas de la PyME. Dueño que recibe el impacto directo de las multas y recargos.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Presentaciones fuera de término con intereses resarcitorios y punitorios. Riesgo de exclusión del régimen simplificado o de inhabilitación para operar como proveedor del Estado. Acumulación de deuda fiscal invisible hasta la consulta periódica en ARCA.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">El calendario fiscal se controla con recordatorios manuales (agenda, planilla) sin conexión con los datos reales de liquidación. La verificación del saldo a pagar depende de la consulta manual en ARCA.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Una PyME proveedora O&amp;G con trabajadores bajo múltiples CCT puede tener 20 o más vencimientos fiscales y previsionales distintos por mes (estimación de campo ENE IA LAB 2026). La integración AFIP/ARCA mediante API REST para consulta de estado de cuenta está disponible desde 2024.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Calendario fiscal integrado con alertas automáticas: extrae vencimientos desde el sistema de liquidación y los integra al calendario del contador con 10 y 3 días de anticipación. Consulta automática del saldo en ARCA via API para verificar consistencia antes del vencimiento.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">10</div>
+      <div class="dolor-card-title">Sin transferencia de conocimiento administrativo</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">65</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Cuando el responsable administrativo-contable cambia (renuncia, enfermedad, cambio de rol), el conocimiento operativo acumulado no está documentado: configuraciones de sistemas, contactos clave de operadoras, criterios de clasificación, procesos informales y excepciones regulatorias específicas de cada contrato. La transición genera semanas de baja capacidad operativa.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Dueño de la PyME que debe gestionar la transición. Nuevo responsable que debe reconstruir el conocimiento operativo desde cero.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Pérdida de know-how crítico. Errores en las primeras semanas del nuevo responsable por desconocimiento de configuraciones y excepciones. Riesgo de incumplimientos durante la transición por falta de información sobre vencimientos y requisitos específicos de cada operadora.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">El conocimiento operativo vive en la cabeza del profesional y en archivos personales no estructurados. No existe un manual de operaciones ni una base de conocimiento transferible.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">En sectores con alta rotación de personal administrativo, la pérdida de conocimiento no documentado genera entre 4 y 8 semanas de recuperación operativa (benchmarks de gestión de conocimiento organizacional / Deloitte 2024).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Base de conocimiento con RAG: documentación de procesos, excepciones por operadora, configuraciones de sistemas y criterios de clasificación consultables en lenguaje natural. LLM que responde &#x27;cómo hacemos esto acá&#x27; con contexto específico de la empresa.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">11</div>
+  </div>
+</div>
+<!-- ANÁLISIS DE BRECHAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Análisis de Brechas</div>
+  </div>
+  <div class="section-label">Sección 6 de 10</div>
+  <div class="section-title">Análisis de Brechas: Estado Actual vs. con IA</div>
+  <div class="section-divider"></div>
+  <p class="lead">La Cuenca Neuquina concentra el mayor ecosistema de proveedores O&amp;G de Argentina, con más de 800 PyMEs activas que abastecen servicios especializados a operadoras de extracción convencional y no convencional. Estas empresas operan en un entorno de alta exigencia regulatoria (ISO, API, CCT múltiples, normativa provincial HSE) con estructuras administrativas mínimas y acceso limitado a tecnología especializada.</p>
+
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Ingreso de comprobantes</div>
+      <div class="brecha-text">Manual, requiere 2–3 horas diarias por persona. Alta tasa de error por transcripción. Sin validación automática de CUIT ni duplicados.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Ingreso de comprobantes</div>
+      <div class="brecha-text">OCR + RPA procesan el 80% sin intervención. El 20% llega con sugerencia lista para confirmar. Validación automática de CUIT, importes y duplicados en tiempo real.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Proyección financiera</div>
+      <div class="brecha-text">Revisión semanal del saldo bancario. Sin proyección formal. Decisiones de aceptar contratos basadas en intuición y experiencia del dueño.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Proyección financiera</div>
+      <div class="brecha-text">Dashboard de flujo de caja proyectado a 30/60/90 días. Alertas automáticas de liquidez con 30 días de anticipación. Identificación de facturas descontables en mercado de capitales.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Cierre mensual</div>
+      <div class="brecha-text">3–5 días hábiles de consolidación manual de datos dispersos en múltiples planillas. Alta posibilidad de errores de versión y omisiones.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Cierre mensual</div>
+      <div class="brecha-text">Menos de 4 horas con datos integrados en ERP. Un cambio en cualquier comprobante se refleja automáticamente en stock, cuentas a pagar y contabilidad.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Costeo y rentabilidad</div>
+      <div class="brecha-text">Contabilidad global sin imputación por proyecto. La rentabilidad se conoce una vez al año. Sin alertas de margen.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Costeo y rentabilidad</div>
+      <div class="brecha-text">Imputación automática por contrato. Dashboard de rentabilidad en tiempo real por proyecto. Alertas cuando el margen cae bajo el umbral configurado.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Control documental</div>
+      <div class="brecha-text">Carpetas físicas o digitales sin estructura estandarizada. Vencimientos controlados manualmente con calendarios informales. Sin alertas proactivas.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Control documental</div>
+      <div class="brecha-text">Legajo digital por operadora. Alertas automáticas a 60, 30 y 5 días. Estado de cada documento visible en un solo dashboard. Cero pérdidas de licitaciones por vencimientos.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Liquidación laboral</div>
+      <div class="brecha-text">Parametrización manual de cada CCT (644/12, 637/11, 76/75, 260/75, 130/75). Actualización de paritarias dependiente de la atención del profesional. Alta complejidad de adicionales zonales.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Liquidación laboral</div>
+      <div class="brecha-text">Actualización automática de actas de paritaria con cálculo de retroactivos. Aplicación automática de adicionales zonales. Generación del Libro de Sueldos Digital. El contador firma y valida.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Gestión de cobro y cartera</div>
+      <div class="brecha-text">Seguimiento manual del estado de facturas emitidas. Sin alertas de vencimiento de cobro. Gestión reactiva cuando el saldo bancario ya es bajo.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Gestión de cobro y cartera</div>
+      <div class="brecha-text">Dashboard de cartera con estado en tiempo real por factura. Alertas automáticas antes del vencimiento con plantilla de gestión. Identificación de facturas elegibles para descuento anticipado.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Cumplimiento fiscal</div>
+      <div class="brecha-text">Calendario fiscal manual sin integración al sistema contable. Verificación de saldo en ARCA por consulta manual periódica. Riesgo de vencimientos omitidos.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Cumplimiento fiscal</div>
+      <div class="brecha-text">Calendario fiscal integrado con alertas a 10 y 3 días del vencimiento. Consulta automática de saldo en ARCA via API. Liquidación y vencimiento conectados en un único flujo.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Gestión del conocimiento operativo</div>
+      <div class="brecha-text">Know-how operativo no documentado: vive en la memoria del profesional. Sin manual de operaciones ni base de conocimiento. Transición de personal genera semanas de baja capacidad.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Gestión del conocimiento operativo</div>
+      <div class="brecha-text">Base de conocimiento consultable en lenguaje natural con RAG. Documentación de procesos, excepciones por operadora y criterios de clasificación accesibles desde el primer día del nuevo profesional.</div>
+    </div>
+  </div>
+
+
+  <div class="info-box"><p><strong>Nota:</strong> Los impactos expresados son estimaciones basadas en implementaciones análogas documentadas en literatura y casos de uso globales. No representan garantías de resultado. Los indicadores son no-monetarios: tiempo, incidentes, adopción, calidad.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">12</div>
+  </div>
+</div>
+<!-- MAPA DE MADUREZ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Mapa de Madurez</div>
+  </div>
+  <div class="section-label">Sección 7 de 10</div>
+  <div class="section-title">Mapa de Madurez — Finance Digital Maturity Model (KPMG, adaptado por ENE IA LAB para PyMEs O&amp;amp;G)</div>
+  <div class="section-divider"></div>
+  <p class="lead">El Finance Digital Maturity Model de KPMG define cinco niveles de madurez en la digitalización de procesos financieros. Lo adaptamos aquí al contexto específico de PyMEs proveedoras de O&amp;G en la Cuenca Neuquina, considerando las restricciones de escala, la complejidad regulatoria local y la disponibilidad de herramientas cloud accesibles para el segmento. La posición actual del sector se ubica predominantemente entre los niveles 1 y 2, con oportunidad de avanzar a nivel 3 en 12 meses con las herramientas propuestas en este documento.</p>
+
+  <div class="maturity-wrap">
+    <table class="maturity-table">
+      <thead>
+        <tr>
+<th class="mat-h0">Dimensión</th>
+        <th class="mat-h1">1 — Inicial</th>
+        <th class="mat-h2">2 — Digitalizado</th>
+        <th class="mat-h3">3 — Automatizado</th>
+        <th class="mat-h4">4 — Inteligente</th>
+        <th class="mat-h5">5 — Optimizado</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr><td>Gestión contable y tesorería</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Costeo y análisis de rentabilidad</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"></td><td class="mat-4"><span class="mat-target">Objetivo</span></td><td class="mat-5"></td></tr>
+      <tr><td>Control documental y compliance</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"></td><td class="mat-4"><span class="mat-target">Objetivo</span></td><td class="mat-5"></td></tr>
+      <tr><td>Liquidación laboral multi-CCT</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Gestión de compras y proveedores</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Capacidad administrativa (IA como multiplicador)</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-3" style="margin-top:12px;">
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#7F1D1D;">1 — Inicial</div>
+      <p>Gestión íntegramente manual en hojas de cálculo desconectadas. Sin integración entre áreas. Cierre mensual consume días. Decisiones basadas en intuición.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#713F12;">2 — Digitalizado</div>
+      <p>ERP básico implementado. Facturación electrónica integrada. Liquidación de sueldos en software específico. Procesos parcialmente digitalizados pero sin integración completa entre sistemas.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">3 — Automatizado</div>
+      <p>Automatización de tareas repetitivas (OCR, RPA). Única fuente de verdad. Cierre mensual en horas. Alertas de vencimiento y liquidez. IA asistiendo al profesional en tareas de supervisión.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">4 — Inteligente</div>
+      <p>Análisis predictivo activo: proyección de flujo de caja, costeo por proyecto, detección de anomalías en tiempo real. El contador actúa como arquitecto de procesos, no como operador.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#ffffff;">5 — Optimizado</div>
+      <p>Modelos de IA supervisados con mejora continua. Integración completa con sistemas de operadoras. Toma de decisiones estratégicas asistida por IA. El CPN genera valor diferencial en análisis y estrategia.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">¿Qué significa este mapa?</div>
+    <p>La mayoría de las PyMEs del sector se encuentran en nivel 1 o 2. El objetivo del ENE IA LAB para el ciclo 2026 es llevar al sector al nivel 3 en las dimensiones críticas: contabilidad integrada, alertas de vencimiento y proyección de flujo de caja. El nivel 4 (análisis predictivo) es alcanzable en un segundo ciclo con los datos consolidados en el primero. El nivel 5 no es el objetivo inmediato: es la dirección de largo plazo.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">13</div>
+  </div>
+</div>
+<!-- CASOS DE USO IA p.14 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 de 10</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Procesamiento automatizado de comprobantes</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema OCR + RPA que procesa facturas, remitos y certificados de proveedor automáticamente. Detecta CUIT inconsistentes, importes fuera de rango y duplicados antes de importarlos al ERP. El 80% de los comprobantes se procesan sin intervención humana; el 20% restante se presenta como sugerencia lista para confirmar. El sistema aprende de las correcciones del operador y mejora con el uso.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">OCR</span><span class="ia-tag ia-tag-key">RPA</span><span class="ia-tag ia-tag-key">ML supervisado</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Imágenes o PDFs de facturas y remitos. Catálogo de proveedores con CUIT válidos. Reglas de validación configuradas por el contador.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">4–6 semanas sobre ERP existente con API documentada.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción del 60–70% del tiempo dedicado a ingreso de comprobantes. Eliminación de errores de transcripción. Trazabilidad completa de cada comprobante desde la recepción.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Implementaciones similares en PyMEs de servicios B2B reportan procesamiento del 75–85% de documentos sin intervención humana (Deloitte Finance AI Report 2024).</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Motor de proyección de flujo de caja a 90 días</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Modelo de forecasting que proyecta el saldo de caja a 30, 60 y 90 días integrando cobros esperados por operadora (según plazo contractual y comportamiento histórico) y pagos comprometidos (sueldos, proveedores, impuestos). Alerta automáticamente cuando el saldo proyectado cae bajo el umbral mínimo configurado, con al menos 30 días de anticipación para actuar.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">ML Forecasting</span><span class="ia-tag ia-tag-key">Series temporales</span><span class="ia-tag ia-tag-key">BI / alertas</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Historial de facturas emitidas y fechas de cobro por operadora. Calendario de pagos comprometidos. Umbral de liquidez mínima configurado por el contador.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">6–8 semanas conectando datos de facturación y cobranzas existentes.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Decisiones de aceptar contratos basadas en proyección objetiva. Reducción de episodios de iliquidez. Identificación proactiva de facturas descontables en mercado de capitales.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 PyMEs de servicios con proyección de flujo de caja reducen episodios de iliquidez en un 60% en el primer año (BID 2022 / OCDE SME Finance Report 2023).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">14</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.15 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Sistema de alertas de vencimiento documental</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Plataforma de gestión documental que organiza el legajo de habilitaciones por operadora (ISO, API, ART, Plan de SH, exámenes médicos, certificaciones específicas) y genera alertas automáticas a 60, 30 y 5 días antes del vencimiento de cada documento. Conecta con el dolor #5: incluye el Plan Anual de Seguridad e Higiene, cuya presentación es obligatoria desde abril 2026.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">Gestión documental cloud</span><span class="ia-tag ia-tag-key">NLP</span><span class="ia-tag ia-tag-key">Alertas automáticas</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Inventario inicial de documentos con fechas de vencimiento por operadora. Email o WhatsApp para notificaciones.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">3–5 semanas. Puede iniciarse con una planilla estructurada como fuente de datos.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Cero pérdidas de licitaciones por documentación vencida. Cumplimiento garantizado de la normativa provincial de SH (Plan Anual). Reducción del 90% del tiempo de búsqueda de documentos en auditorías.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Sistemas de gestión documental con alertas automáticas eliminan prácticamente la pérdida de contratos por vencimiento en sectores con alta carga de compliance (ISO Survey 2023).</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-mp">
+      <div class="ia-card-title">Dashboard de costeo y rentabilidad por contrato</div>
+      <div class="ia-card-badge">Mediano Plazo</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Módulo de imputación automática de gastos por proyecto/contrato integrado al ERP. Cada egreso se clasifica al contrato correcto según proveedor, concepto y reglas configuradas por el contador. Dashboard en tiempo real con precio acordado, costos imputados, margen actual y proyectado al cierre del contrato. Alerta cuando el margen cae bajo el umbral configurable respecto al presupuesto original.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">ML clasificación</span><span class="ia-tag ia-tag-key">BI / dashboards</span><span class="ia-tag ia-tag-key">Alertas en tiempo real</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">ERP con datos integrados (requiere solución del dolor #3). Contratos con precio acordado y líneas de costo presupuestadas.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">6–10 semanas (requiere ERP integrado como base).</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Visibilidad de rentabilidad por contrato en tiempo real. Identificación de contratos deficitarios antes del cierre. Mejora de la precisión en presupuestación de nuevos contratos.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Empresas que implementan costeo por proyecto identifican entre un 15% y 25% de contratos con márgenes inferiores al estimado original (KPMG Finance Digital Maturity 2024).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">15</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.16 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-mp">
+      <div class="ia-card-title">ERP cloud unificado para PyMEs O&amp;G</div>
+      <div class="ia-card-badge">Mediano Plazo</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Implementación de un ERP cloud con API documentada como única fuente de verdad para ventas, compras, stock, contabilidad y tesorería. Un cambio en cualquier comprobante se refleja automáticamente en todas las áreas. El cierre mensual pasa de 3–5 días a menos de 4 horas. Habilita todas las soluciones de IA posteriores que requieren datos integrados y confiables.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">ERP cloud</span><span class="ia-tag ia-tag-key">API REST</span><span class="ia-tag ia-tag-key">Integración de datos</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Datos históricos de ventas, compras, stock y contabilidad para migración inicial.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">8–12 semanas con implementación modular. Inicio con facturación y cuentas a pagar, incorporando módulos adicionales progresivamente.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Cierre mensual en horas. Datos confiables como base para automatización e IA. Reducción de errores de versión y omisiones. Habilitación de todos los casos de uso de IA que requieren datos integrados.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 PyMEs de servicios que migran a ERP cloud reportan reducción del 70% del tiempo de cierre mensual y del 80% de los errores de consolidación (Deloitte SME Digitalization Report 2023).</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Asistente IA para liquidación multi-CCT</div>
+      <div class="ia-card-badge">Largo Plazo</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema de parametrización automática de múltiples convenios colectivos en una misma nómina. Incorpora nuevas actas de paritaria con vigencia y calcula retroactivos sobre recibos históricos afectados. Aplica automáticamente los adicionales por Cuenca Neuquina, zona no convencional y locación. Genera el Libro de Sueldos Digital en formato legal. El encuadre definitivo y la firma son responsabilidad legal exclusiva del Contador Público.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Estructural</span>
+        <span class="ia-tag ia-tag-key">NLP / LLM</span><span class="ia-tag ia-tag-key">RPA</span><span class="ia-tag ia-tag-key">Compliance automatizado</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Texto de actas de paritaria de cada CCT aplicable. Historial de liquidaciones. Configuración de adicionales zonales por locación.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">12–16 semanas (alta complejidad regulatoria).</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Eliminación de errores de encuadre. Actualización automática de paritarias. Reducción del riesgo de condenas retroactivas por diferencias salariales.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Sistemas de liquidación con actualización automática de CCT reducen errores de encuadre en un 85% en empresas con nóminas multi-convenio (hallazgos de campo / literatura de compliance laboral).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">16</div>
+  </div>
+</div>
+<!-- HOJA DE RUTA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Hoja de Ruta</div>
+  </div>
+  <div class="section-label">Sección 9 de 10</div>
+  <div class="section-title">Hoja de Ruta — Jul–Dic 2026</div>
+  <div class="section-divider"></div>
+  <p class="lead">Propuesta de avance estructurado en tres fases para implementar las oportunidades priorizadas, con criterio de Quick Wins primero, construcción de capacidades después y proyectos estructurales al final.</p>
+
+  <div class="roadmap-grid">
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m1">Fase 1 — Quick Wins (Jul–Ago 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Alertas de vencimiento documental</div>
+        <div class="roadmap-item-desc">Legajo digital por operadora con alertas automáticas a 60/30/5 días. Incluye Plan Anual de SH (obligatorio desde abril 2026).</div>
+        <div class="roadmap-item-time">Julio · Sem. 1–3</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Procesamiento automático de comprobantes</div>
+        <div class="roadmap-item-desc">OCR + RPA para el 80% del ingreso de facturas y remitos sin intervención humana. Validación de CUIT y duplicados.</div>
+        <div class="roadmap-item-time">Julio · Sem. 2–6</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Proyección de flujo de caja a 90 días</div>
+        <div class="roadmap-item-desc">Dashboard de saldo proyectado con alertas de liquidez mínima a 30 días de anticipación.</div>
+        <div class="roadmap-item-time">Agosto · Sem. 1–4</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m2">Fase 2 — Capacidades (Sep–Oct 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">ERP cloud unificado</div>
+        <div class="roadmap-item-desc">Implementación modular: facturación + cuentas a pagar + contabilidad como única fuente de verdad. Cierre mensual en horas.</div>
+        <div class="roadmap-item-time">Septiembre · Sem. 1–8</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Dashboard de costeo por contrato</div>
+        <div class="roadmap-item-desc">Imputación automática de gastos por proyecto. Rentabilidad en tiempo real con alertas de margen.</div>
+        <div class="roadmap-item-time">Octubre · Sem. 1–4</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m3">Fase 3 — Estructural (Nov–Dic 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Asistente de liquidación multi-CCT</div>
+        <div class="roadmap-item-desc">Parametrización automática de múltiples convenios. Actualización de paritarias y adicionales zonales. El contador firma y valida.</div>
+        <div class="roadmap-item-time">Noviembre · Sem. 1–8</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Dashboard gerencial integrado</div>
+        <div class="roadmap-item-desc">Vista unificada de rentabilidad por contrato, flujo de caja proyectado, estado documental y alertas activas para la toma de decisiones del dueño.</div>
+        <div class="roadmap-item-time">Diciembre · Sem. 1–4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Métricas de éxito (no monetarias)</div>
+  <table class="impact-table">
+    <thead>
+      <tr>
+        <th>Prototipo / Iniciativa</th>
+        <th>Métrica clave</th>
+        <th>Horizonte</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Alertas documentales</td>
+        <td>Cero licitaciones perdidas por vencimiento</td>
+        <td>Agosto 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Procesamiento de comprobantes</td>
+        <td>80% sin intervención humana</td>
+        <td>Agosto 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Proyección de flujo de caja</td>
+        <td>Alertas de liquidez con 30+ días de anticipación</td>
+        <td>Septiembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>ERP unificado</td>
+        <td>Cierre mensual en menos de 4 horas</td>
+        <td>Noviembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Costeo por contrato</td>
+        <td>100% de contratos activos con margen visible en tiempo real</td>
+        <td>Noviembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">17</div>
+  </div>
+</div>
+<!-- ÉTICA Y GOBERNANZA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Ética y Gobernanza</div>
+  </div>
+  <div class="section-label">Sección 10 de 10</div>
+  <div class="section-title">Ética, Gobernanza y Marco de Trabajo</div>
+  <div class="section-divider"></div>
+  <p class="lead">La IA en el ámbito contable-financiero opera sobre datos críticos: información fiscal, laboral, contractual y comercial de las empresas. El ENE IA LAB adopta un enfoque de IA responsable que preserva la responsabilidad legal exclusiva del Contador Público, garantiza la privacidad de datos sensibles y establece que toda decisión automatizada debe ser trazable, reversible y supervisada por un profesional humano.</p>
+
+  <div class="subsection-title">Iniciativas análogas globales — aprendizajes para el IA LAB</div>
+  <div class="initiative-grid">
+    <div class="initiative-card">
+      <div class="initiative-flag">🇦🇺</div>
+      <div class="initiative-name">Digital Business Plan — Small Business</div>
+      <div class="initiative-country">Australia · Digitalización PyME</div>
+      <div class="initiative-model">El gobierno australiano subsidia la adopción de ERP y herramientas de automatización contable en PyMEs. Aprendizaje clave: la transición debe ser modular y no interrumpir la operación; los contadores son los agentes de cambio principales, no los departamentos de IT.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇸🇬</div>
+      <div class="initiative-name">SME Digital Transformation Programme</div>
+      <div class="initiative-country">Singapur · Gobierno + sector privado</div>
+      <div class="initiative-model">Programa de co-inversión estado-empresa para digitalización de procesos contables y financieros en PyMEs. Aprendizaje clave: la adopción masiva requiere soluciones llave en mano con soporte local, no implementaciones desde cero.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇺🇾</div>
+      <div class="initiative-name">Agenda Digital — Contabilidad PyME</div>
+      <div class="initiative-country">Uruguay · Caso regional</div>
+      <div class="initiative-model">Uruguay avanzó en digitalización de procesos contables y facturación electrónica en PyMEs con resultados medibles en formalización y reducción de carga administrativa. Aprendizaje clave: la obligatoriedad regulatoria (e-factura) fue el principal motor de adopción; la IA viene después de la digitalización base.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Riesgos sin protocolo de gobernanza</div>
+    <p>Sin protocolos de gobernanza, la IA contable puede generar liquidaciones erróneas que el sistema presenta como correctas, clasificar gastos en proyectos equivocados sin alerta, tomar decisiones de aprobación de pagos sin supervisión humana, y exponer información financiera sensible a terceros sin consentimiento explícito. La confianza ciega en el sistema es el riesgo principal.</p>
+  </div>
+
+  <div class="subsection-title">Modelo propuesto para el IA LAB</div>
+  <p>El ENE IA LAB propone un modelo de IA asistida con supervisión profesional obligatoria: el sistema ejecuta el 80% del trabajo y el 20% restante llega al profesional como sugerencia lista para confirmar o corregir. Toda decisión automatizada queda registrada con trazabilidad completa y es reversible. La firma del Libro de Sueldos y el encuadre convencional son responsabilidad legal exclusiva del Contador Público: ningún sistema puede asumir esa responsabilidad.</p>
+
+  <div class="subsection-title">Consideraciones éticas operativas</div>
+  <div class="ethics-grid">
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🔒 Privacidad y confidencialidad</div>
+      <p>Los datos financieros, laborales y comerciales de la empresa no salen del entorno sin autorización explícita. Los modelos de IA se configuran para no entrenar sobre datos de clientes. Cumplimiento de la Ley 25.326 de Protección de Datos Personales.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">✅ Responsabilidad profesional indelegable</div>
+      <p>El encuadre convencional y la firma del Libro de Sueldos son responsabilidad legal exclusiva del Contador Público. Toda decisión automatizada es una sugerencia que requiere confirmación humana en decisiones de impacto legal o financiero.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🔍 Trazabilidad y auditabilidad</div>
+      <p>Toda acción automatizada queda registrada con fecha, hora, usuario y justificación. Los registros son inmutables y disponibles para auditorías de operadoras o fiscales. La reversibilidad de cualquier acción automatizada es un requisito de diseño.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🤝 Adopción y cambio cultural</div>
+      <p>La IA no reemplaza al contador: multiplica su capacidad. El proceso de implementación incluye capacitación, acompañamiento y un período de operación paralela (sistema + proceso manual) hasta que el equipo confía en el nuevo flujo. La resistencia al cambio es normal y se gestiona, no se ignora.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Posición del ENE IA LAB</div>
+    <p>Implementamos IA que el profesional puede explicar a su cliente, entender en su funcionamiento y revertir si algo sale mal. No implementamos cajas negras. La transparencia del sistema no es un plus: es un requisito mínimo para operar en el ámbito contable y financiero.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">18</div>
+  </div>
+</div>
+<!-- CIERRE / LICENCIA / REFERENCIAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · C. Económicas</div>
+    <div class="page-header-right">Lo que estamos construyendo</div>
+  </div>
+  <div class="section-label">Experimentos en Curso</div>
+  <div class="section-title">Lo que el Vertical Está Trabajando</div>
+  <div class="section-divider"></div>
+  <p class="lead">El vertical continúa activo. Estas son algunas de las iniciativas en exploración en el grupo de trabajo actual.</p>
+
+  <ul class="bullet-list">
+    <li>Herramienta de diagnóstico estructurado de los 10 dolores desarrollada por el vertical: aplicación web que guía al profesional y su cliente PyME por los 10 dolores, genera un informe profesional y construye un roadmap de implementación. Arquitectura: backend FastAPI con módulos de agentes, scoring y generación de informes PDF; frontend Next.js 14. Suite de 32 tests automatizados en verde. Principio de diseño: human-in-the-loop, trazabilidad completa, soberanía del dato — los datos identificatorios no salen al modelo de lenguaje.</li>
+    <li>Motor de scoring con tres dimensiones de evaluación: impacto operativo, urgencia del dolor y resistencia a solución con IA — implementado y en uso para priorización de dolores.</li>
+    <li>Pipeline de integración con ARCA/BCRA para consulta de estado de facturas y saldos en tiempo real: en etapa de diseño técnico.</li>
+    <li>Exploración de RAG sobre normativa laboral (CCTs 644/12 y 637/11 con adicionales zonales Cuenca Neuquina) para respuesta automática a consultas de encuadre.</li>
+  </ul>
+
+  <div class="callout" style="margin-top:18px;">
+    <div class="callout-title">Sumate al vertical C. Económicas</div>
+    <p>El ENE IA LAB funciona como un espacio abierto de co-creación. Si trabajás en el sector y querés aportar tu perspectiva de campo, validar dolores, explorar soluciones o participar en los prototipos, escribinos. El conocimiento que generamos es público y libre.</p>
+  </div>
+
+  <div class="license-block">
+    <div class="license-badge-row">
+      <div class="license-badge">CC BY-SA 4.0</div>
+      <div style="font-size:8.5pt;color:#065F46;">Este White Paper está publicado bajo licencia Creative Commons Attribution-ShareAlike 4.0 International</div>
+    </div>
+    <div class="license-block-title">Condiciones de uso</div>
+    <p><strong>Podés:</strong> copiar, distribuir, adaptar y usar comercialmente este material, incluyendo en productos y servicios propios.</p>
+    <p><strong>Con la condición de:</strong> atribuir al ENE IA LAB como fuente original y publicar cualquier obra derivada bajo la misma licencia CC BY-SA 4.0 (copyleft).</p>
+    <p><strong>No requerido:</strong> autorización previa. <strong>Atribución sugerida:</strong> "Basado en investigación del ENE IA LAB (CC BY-SA 4.0) — eneneuquen.com.ar"</p>
+    <p>Texto completo de la licencia: creativecommons.org/licenses/by-sa/4.0/</p>
+  </div>
+
+  <div class="subsection-title">Referencias bibliográficas</div>
+  <ol class="ref-list">
+    <li>CEPE Di Tella + Fundar (abril 2026). Primera Encuesta Nacional sobre IA en PyMEs (n=402). Centro de Estudios de la Situación y Perspectivas de la Argentina — CEPE Di Tella / Fundar.</li>
+    <li>UIA + Accenture (marzo 2026). Reinventarse con Inteligencia: IA en la industria argentina. Unión Industrial Argentina / Accenture.</li>
+    <li>Thomson Reuters + CPCECABA (2025). IA en estudios contables en Argentina (n=500+). Thomson Reuters / Consejo Profesional de Ciencias Económicas de la Ciudad de Buenos Aires.</li>
+    <li>Microsoft Argentina + Edelman (marzo 2025). IA en micro, pequeñas y medianas empresas: tendencias, desafíos y oportunidades. Microsoft Argentina.</li>
+    <li>IAPG / Aleph Energy (2025). La Cadena de Valor para el desarrollo de Vaca Muerta (AOG 2025): 37 operadoras abastecidas por ~10.000 proveedores, 78% PyMEs. Instituto Argentino del Petróleo y del Gas.</li>
+    <li>Centro PyME-ADENEU (2025). Informe Anual PNC — Proveedores Neuquinos Certificados. Agencia de Desarrollo Económico de Neuquén.</li>
+    <li>FACPCE (2024). Resolución Técnica N° 54 (Texto Ordenado RT 59) — Normas sobre estados contables. Vigente desde 1° de enero de 2025. Federación Argentina de Consejos Profesionales de Ciencias Económicas.</li>
+    <li>Provincia de Neuquén (Ley 3.338). Régimen de preferencia para proveedores locales — Compre Neuquino.</li>
+    <li>Provincia de Neuquén (Ley 3.502). Régimen de Desarrollo de Proveedores Neuquinos.</li>
+    <li>McKinsey Global Institute (2023). The economic potential of generative AI: The next productivity frontier. McKinsey &amp; Company.</li>
+    <li>Deloitte (2024). AI in Finance: From automation to intelligence. Deloitte Insights.</li>
+    <li>KPMG (2024). Finance Digital Maturity Model: Benchmarking financial operations in the AI era. KPMG International.</li>
+    <li>BID — Banco Interamericano de Desarrollo (2022). Digitalización de PyMEs en América Latina: barreras, oportunidades y políticas. Nota Técnica IDB-TN-2400.</li>
+    <li>OCDE (2023). Financing SMEs and Entrepreneurs 2023: An OECD Scoreboard. OECD Publishing.</li>
+    <li>ISO Survey (2023). ISO Management System Standards survey. International Organization for Standardization.</li>
+    <li>CAME — Confederación Argentina de la Mediana Empresa (2024). Índice de Digitalización PyME Argentina 2024.</li>
+    <li>INDEC (2025). Encuesta a Grandes Empresas (ENGE) — sector servicios petroleros. Instituto Nacional de Estadística y Censos.</li>
+    <li>Ministerio de Trabajo, Empleo y Seguridad Social (2025). Registro de Convenios Colectivos de Trabajo — actividades O&amp;G Cuenca Neuquina. CCTs: 644/12, 637/11, 76/75, 260/75, 130/75.</li>
+    <li>Provincia de Neuquén — Subsecretaría de Trabajo (2026). Resolución sobre Plan Anual de Seguridad e Higiene para proveedores O&amp;G.</li>
+    <li>Deloitte (2023). SME Digitalization Report: Cloud ERP adoption patterns and productivity outcomes. Deloitte Insights.</li>
+  </ol>
+
+  <div style="margin-top:20px;padding-top:16px;border-top:2px solid var(--border);text-align:center;">
+    <div style="font-size:10pt;font-weight:800;color:var(--text);margin-bottom:4px;">ENE IA LAB · Ciencias Económicas</div>
+    <div style="font-size:8.5pt;color:var(--text-muted);margin-bottom:10px;">Sumate a co-crear el futuro de tu sector con IA.</div>
+    <div style="font-size:8pt;color:var(--text-muted);">ia-lab@eneneuquen.com.ar · @eneneuquen · ENE — Polo Tecnológico Neuquén</div>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">19</div>
+  </div>
+</div>
+
+</body>
+</html>

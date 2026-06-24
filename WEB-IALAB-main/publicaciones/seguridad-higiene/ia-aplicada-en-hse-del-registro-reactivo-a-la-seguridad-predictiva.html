@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Aplicada en HSE: Del Registro Reactivo a la Seguridad Predictiva — ENE IA LAB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #DC2626; --accent-light: #FEF2F2; --accent-dark: #991B1B; --accent-mid: #DC2626;
+    --lab-purple: #7C3AED; --lab-teal: #06B6D4; --lab-green: #10B981;
+    --text: #0F172A; --text-muted: #64748B; --text-light: #94A3B8;
+    --border: #E2E8F0; --bg-subtle: #F8FAFC; --page-w: 210mm; --page-h: 297mm; --margin: 18mm;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 10pt; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: #CBD5E1; }
+  .page { width: var(--page-w); min-height: var(--page-h); background: #fff; margin: 8mm auto; padding: var(--margin); position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.15); }
+  .page-cover { padding: 0; background: var(--text); }
+  @media print { body { background: white; } .page { margin: 0; box-shadow: none; page-break-after: always; width: 100%; } @page { size: A4; margin: 0; } }
+  .cover-bg { position: absolute; inset: 0; background: linear-gradient(145deg, #0F172A 0%, #1E293B 60%, #333 100%); }
+  .cover-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #DC2626 0%, #DC2626 50%, #F97316 100%); }
+  .cover-content { position: relative; z-index: 1; padding: 18mm; height: 297mm; display: flex; flex-direction: column; }
+  .cover-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: auto; }
+  .cover-logo-box { border: 1.5px solid rgba(255,255,255,.25); border-radius: 8px; padding: 6px 14px; font-size: 9pt; color: rgba(255,255,255,.7); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+  .cover-edition { font-size: 8pt; color: rgba(255,255,255,.4); letter-spacing: .12em; text-transform: uppercase; }
+  .cover-license { font-size: 7.5pt; color: rgba(255,255,255,.5); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 5px; padding: 3px 9px; margin-left: auto; font-weight: 600; }
+  .cover-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20mm 0 10mm; }
+  .cover-sector { display: inline-block; background: #DC2626; color: #fff; font-size: 7.5pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 14px; }
+  .cover-title { font-size: 28pt; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 14px; letter-spacing: -.02em; }
+  .cover-title span { color: #DC2626; filter: brightness(1.3); }
+  .cover-subtitle { font-size: 11pt; color: rgba(255,255,255,.65); line-height: 1.6; max-width: 155mm; font-weight: 400; }
+  .cover-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 20mm; }
+  .cover-kpi { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 12px 10px; }
+  .cover-kpi-num { font-size: 18pt; font-weight: 900; color: #DC2626; filter: brightness(1.3); line-height: 1; }
+  .cover-kpi-label { font-size: 7.5pt; color: rgba(255,255,255,.55); margin-top: 4px; line-height: 1.3; }
+  .cover-footer { border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .cover-footer-left { font-size: 7.5pt; color: rgba(255,255,255,.4); }
+  .cover-footer-right { font-size: 7.5pt; color: rgba(255,255,255,.4); text-align: right; }
+  .page-header { border-bottom: 2px solid #FEF2F2; padding-bottom: 8px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .page-header-left { font-size: 7.5pt; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .page-header-right { font-size: 7.5pt; color: #DC2626; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .page-footer { position: absolute; bottom: 12mm; left: var(--margin); right: var(--margin); border-top: 1px solid var(--border); padding-top: 6px; display: flex; justify-content: space-between; align-items: center; }
+  .page-footer-text { font-size: 7pt; color: var(--text-light); }
+  .page-num { font-size: 7pt; color: var(--text-muted); font-weight: 600; }
+  .section-label { font-size: 7.5pt; font-weight: 700; color: #DC2626; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+  .section-title { font-size: 18pt; font-weight: 800; color: var(--text); line-height: 1.15; margin-bottom: 4px; letter-spacing: -.02em; }
+  .section-divider { width: 40px; height: 3px; background: #DC2626; border-radius: 2px; margin-bottom: 18px; }
+  .subsection-title { font-size: 10pt; font-weight: 700; color: var(--text); margin: 14px 0 6px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+  p { font-size: 9.5pt; line-height: 1.65; color: #1E293B; margin-bottom: 10px; }
+  p.lead { font-size: 10.5pt; font-weight: 500; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
+  strong { font-weight: 700; }
+  .callout { background: #FEF2F2; border-left: 4px solid #DC2626; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .callout-title { font-size: 8pt; font-weight: 700; color: #DC2626; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+  .callout p { margin: 0; font-size: 9pt; }
+  .info-box { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .info-box p { margin: 0; font-size: 9pt; color: #1E40AF; }
+  .kpi-row { display: grid; gap: 10px; margin: 14px 0; }
+  .kpi-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .kpi-row-2 { grid-template-columns: 1fr 1fr; }
+  .kpi-row-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .kpi-card { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; text-align: center; }
+  .kpi-card-accent { background: #FEF2F2; border-color: #DC262644; }
+  .kpi-num { font-size: 20pt; font-weight: 900; color: #DC2626; line-height: 1; }
+  .kpi-num-sm { font-size: 14pt; font-weight: 900; color: #DC2626; line-height: 1; }
+  .kpi-label { font-size: 8pt; color: var(--text-muted); margin-top: 4px; line-height: 1.35; }
+  .kpi-source { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .bullet-list { list-style: none; margin: 0 0 12px; }
+  .bullet-list li { padding: 5px 0 5px 18px; position: relative; font-size: 9.5pt; line-height: 1.55; color: #1E293B; border-bottom: 1px solid var(--border); }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: #DC2626; }
+  .bullet-list li strong { color: #991B1B; }
+  .grid-6 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .grid-cell-accent { background: #FEF2F2; border-color: #DC262655; }
+  .grid-cell-title { font-size: 7.5pt; font-weight: 700; color: #DC2626; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .grid-cell p { font-size: 9pt; margin: 0; line-height: 1.5; }
+  .quote-block { border-left: 3px solid #DC2626; padding: 10px 14px; background: var(--bg-subtle); border-radius: 0 8px 8px 0; margin: 14px 0; }
+  .quote-text { font-size: 10pt; font-style: italic; color: var(--text); line-height: 1.55; }
+  .quote-source { font-size: 8pt; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
+  .tech-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 9px; display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: start; }
+  .tech-icon { width: 36px; height: 36px; border-radius: 8px; background: #FEF2F2; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .tech-name { font-size: 9.5pt; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .tech-desc { font-size: 8.5pt; color: var(--text-muted); line-height: 1.5; margin-bottom: 3px; }
+  .tech-apply { font-size: 8pt; color: #991B1B; font-weight: 600; }
+  .dolor-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .dolor-table th { background: var(--text); color: #fff; padding: 7px 8px; text-align: left; font-weight: 600; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .dolor-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .dolor-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .score-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 8pt; text-align: center; min-width: 32px; }
+  .score-red { background: #FEE2E2; color: #991B1B; }
+  .score-orange { background: #FED7AA; color: #9A3412; }
+  .score-yellow { background: #FEF9C3; color: #854D0E; }
+  .score-green { background: #D1FAE5; color: #065F46; }
+  .type-badge { display: inline-block; padding: 2px 7px; border-radius: 12px; font-size: 7.5pt; font-weight: 600; }
+  .type-latente { background: #EDE9FE; color: #5B21B6; }
+  .type-declarado { background: #DBEAFE; color: #1E40AF; }
+  .validated-mark { display: inline-block; background: #D1FAE5; color: #065F46; font-size: 6.5pt; font-weight: 800; padding: 1px 5px; border-radius: 3px; margin-left: 3px; vertical-align: middle; }
+  .dolor-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+  .dolor-card-header { background: #DC2626; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .dolor-card-num { font-size: 20pt; font-weight: 900; opacity: .35; line-height: 1; }
+  .dolor-card-title { font-size: 9.5pt; font-weight: 700; flex: 1; padding: 0 8px; line-height: 1.3; }
+  .dolor-card-score { font-size: 17pt; font-weight: 900; line-height: 1; }
+  .dolor-card-score-label { font-size: 7pt; opacity: .8; text-transform: uppercase; letter-spacing: .06em; }
+  .dolor-card-body { padding: 12px; }
+  .dolor-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .dolor-field-label { font-size: 7.5pt; font-weight: 700; color: #DC2626; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-field-text { font-size: 8.5pt; color: var(--text); line-height: 1.5; }
+  .dolor-opp { margin-top: 8px; background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 8px; padding: 9px 11px; }
+  .dolor-opp-label { font-size: 7.5pt; font-weight: 700; color: #15803D; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-opp p { font-size: 8.5pt; color: #14532D; margin: 0; }
+  .ia-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+  .ia-card-header { padding: 12px 14px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .ia-card-header-qw { background: linear-gradient(135deg, #064E3B, #065F46); }
+  .ia-card-header-mp { background: linear-gradient(135deg, #1E3A8A, #1D4ED8); }
+  .ia-card-header-lp { background: linear-gradient(135deg, #581C87, #6D28D9); }
+  .ia-card-title { font-size: 10pt; font-weight: 700; color: #fff; line-height: 1.3; flex: 1; }
+  .ia-card-badge { font-size: 7pt; font-weight: 700; color: #fff; background: rgba(255,255,255,.2); padding: 3px 9px; border-radius: 12px; white-space: nowrap; margin-left: 8px; align-self: flex-start; margin-top: 2px; }
+  .ia-card-body { padding: 14px; }
+  .ia-card-desc { font-size: 9pt; line-height: 1.6; color: var(--text); margin-bottom: 10px; }
+  .ia-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .ia-tag { font-size: 7.5pt; padding: 2px 9px; border-radius: 12px; border: 1px solid var(--border); color: var(--text-muted); background: var(--bg-subtle); }
+  .ia-tag-key { background: #FEF2F2; border-color: #DC262655; color: #991B1B; font-weight: 600; }
+  .ia-detail-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .ia-detail-cell { background: var(--bg-subtle); border-radius: 6px; padding: 8px 10px; }
+  .ia-detail-label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; font-weight: 600; }
+  .ia-detail-value { font-size: 8.5pt; color: var(--text); font-weight: 600; }
+  .ia-evidence { background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 8pt; color: #14532D; }
+  .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .roadmap-col { border-radius: 10px; overflow: hidden; }
+  .roadmap-col-header { padding: 10px 12px; font-size: 9pt; font-weight: 700; color: #fff; }
+  .roadmap-col-header-m1 { background: #065F46; }
+  .roadmap-col-header-m2 { background: #1E40AF; }
+  .roadmap-col-header-m3 { background: #4C1D95; }
+  .roadmap-item { padding: 9px 11px; border-bottom: 1px solid var(--border); background: #fff; }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-item-title { font-size: 8.5pt; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .roadmap-item-desc { font-size: 7.5pt; color: var(--text-muted); line-height: 1.4; }
+  .roadmap-item-time { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .impact-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .impact-table th { background: var(--text); color: #fff; padding: 7px 10px; text-align: left; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .impact-table td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .impact-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .ethics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .ethics-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .ethics-cell-title { font-size: 9pt; font-weight: 700; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .ethics-cell p { font-size: 8.5pt; color: var(--text-muted); margin: 0; line-height: 1.5; }
+  .brecha-row { display: grid; grid-template-columns: 1fr 20px 1fr; gap: 8px; margin-bottom: 10px; align-items: center; }
+  .brecha-actual { background: #FEE2E2; border: 1px solid #FECACA; border-radius: 8px; padding: 10px 12px; }
+  .brecha-nuevo { background: #D1FAE5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 10px 12px; }
+  .brecha-arrow { font-size: 14pt; color: var(--text-muted); text-align: center; }
+  .brecha-label { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .brecha-label-red { color: #991B1B; }
+  .brecha-label-green { color: #065F46; }
+  .brecha-text { font-size: 8.5pt; line-height: 1.45; }
+  .ref-list { list-style: none; margin: 0; counter-reset: ref-counter; }
+  .ref-list li { font-size: 8.5pt; line-height: 1.55; padding: 5px 0 5px 28px; position: relative; border-bottom: 1px solid var(--border); color: #1E293B; counter-increment: ref-counter; }
+  .ref-list li:last-child { border-bottom: none; }
+  .ref-list li::before { content: '[' counter(ref-counter) ']'; position: absolute; left: 0; font-weight: 700; color: #DC2626; font-size: 8pt; }
+  .maturity-wrap { margin: 14px 0; }
+  .maturity-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .maturity-table th { padding: 6px 7px; font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-align: center; border: 1px solid var(--border); }
+  .maturity-table td { padding: 5px 7px; border: 1px solid var(--border); vertical-align: middle; }
+  .maturity-table td:first-child { font-weight: 600; font-size: 8pt; background: var(--bg-subtle); width: 28%; }
+  .mat-h0 { background: var(--text); color: #fff; }
+  .mat-h1 { background: #FCA5A5; color: #7F1D1D; }
+  .mat-h2 { background: #FCD34D; color: #713F12; }
+  .mat-h3 { background: #6EE7B7; color: #064E3B; }
+  .mat-h4 { background: #34D399; color: #064E3B; }
+  .mat-h5 { background: #10B981; color: #fff; }
+  .mat-1 { background: #FEE2E2; color: #991B1B; text-align: center; font-size: 7pt; }
+  .mat-2 { background: #FEF9C3; color: #713F12; text-align: center; font-size: 7pt; }
+  .mat-3 { background: #D1FAE5; color: #065F46; text-align: center; font-size: 7pt; }
+  .mat-4 { background: #A7F3D0; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-5 { background: #6EE7B7; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-empty { background: #fff; }
+  .mat-current { font-weight: 800; background: #DC2626; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .mat-target { font-weight: 700; background: #065F46; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .cycle-row { display: flex; align-items: stretch; gap: 0; margin: 14px 0; }
+  .cycle-step { flex: 1; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
+  .cycle-step-active { background: #FEF2F2; border-color: #DC262655; }
+  .cycle-num { width: 22px; height: 22px; background: #DC2626; color: #fff; border-radius: 50%; font-size: 9pt; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; }
+  .cycle-title { font-size: 8pt; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+  .cycle-desc { font-size: 7pt; color: var(--text-muted); line-height: 1.4; }
+  .cycle-arrow-h { display: flex; align-items: center; padding: 0 4px; font-size: 14pt; color: #DC2626; font-weight: 900; }
+  .cycle-return { text-align: center; font-size: 7.5pt; color: #DC2626; font-weight: 600; margin-top: 6px; padding: 5px 0; border-top: 2px dashed #DC262655; }
+  .initiative-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .initiative-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 11px; }
+  .initiative-flag { font-size: 14pt; margin-bottom: 4px; }
+  .initiative-name { font-size: 8.5pt; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+  .initiative-country { font-size: 7pt; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
+  .initiative-model { font-size: 7.5pt; color: var(--text); line-height: 1.45; margin-bottom: 5px; }
+  .initiative-tag { display: inline-block; font-size: 7pt; padding: 1px 7px; border-radius: 10px; font-weight: 700; background: var(--bg-subtle); border: 1px solid var(--border); color: var(--text-muted); }
+  .license-block { background: #F0FDF4; border: 2px solid #6EE7B7; border-radius: 10px; padding: 14px 16px; margin: 16px 0; }
+  .license-block-title { font-size: 8pt; font-weight: 800; color: #065F46; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .license-block p { font-size: 8.5pt; color: #14532D; margin: 0 0 6px; line-height: 1.55; }
+  .license-block p:last-child { margin: 0; }
+  .license-badge-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .license-badge { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1.5px solid #6EE7B7; border-radius: 6px; padding: 4px 12px; font-weight: 800; font-size: 9.5pt; color: #065F46; }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="page page-cover">
+  <div class="cover-bg"></div>
+  <div class="cover-accent-bar"></div>
+  <div class="cover-content">
+    <div class="cover-logo-area">
+      <div class="cover-logo-box"><img src="../../imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:34px;width:auto;filter:brightness(0) invert(1);"></div>
+      <div class="cover-edition">White Paper · Edición N° 1 · Junio 2026</div>
+      <div class="cover-license">CC BY-SA 4.0</div>
+    </div>
+    <div class="cover-main">
+      <div class="cover-sector">🛡️ Seguridad e Higiene Industrial · Oil &amp; Gas / Energía / Industria</div>
+      <div class="cover-title">IA Aplicada<br><span>en HSE: Del Registro Reactivo a la Seguridad Predictiva</span></div>
+      <div class="cover-subtitle">El sector Oil &amp; Gas y construcción de la Patagonia dispone de datos históricos de seguridad acumulados durante años, pero esos datos no retroalimentan la operación en tiempo real. Este white paper documenta 5 dolores validados por profesionales HSE activos del sector y propone implementaciones concretas de IA con evidencia de impacto verificable.</div>
+    </div>
+    <div class="cover-kpis">
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">&gt;1</div>
+        <div class="cover-kpi-label">near miss por trabajador/año es el benchmark IOGP — la mayoría de las operaciones registra menos de 0,3, indicando subregistro de 3x a 10x · IOGP Safety Performance Indicators 2023</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">72 hs+</div>
+        <div class="cover-kpi-label">tiempo promedio entre evento HSE y acción correctiva documentada según profesionales de campo relevados · IA LAB HSE 2026</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">60%</div>
+        <div class="cover-kpi-label">de los incidentes graves en Oil &amp; Gas tiene un near-miss previo no reportado en los 30 días anteriores · Energy Institute Leading Indicators 2023</div>
+      </div>
+    </div>
+    <div class="cover-footer" style="margin-top:14px;">
+      <div class="cover-footer-left">ENE IA LAB · Polo Tecnológico Neuquén<br>ia-lab@eneneuquen.com.ar · eneneuquen.com.ar</div>
+      <div class="cover-footer-right">Hecho desde el campo.<br>Para quien lo opera.</div>
+    </div>
+  </div>
+</div>
+<!-- NOTA METODOLÓGICA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Nota Metodológica</div>
+  </div>
+  <div class="section-label">Sobre esta investigación</div>
+  <div class="section-title">Nota Metodológica</div>
+  <div class="section-divider"></div>
+  <p class="lead">Este white paper es resultado del primer ciclo metodológico del ENE IA LAB para el vertical HSE. El proceso combinó investigación documental, entrevistas de campo con profesionales activos del sector y una sesión plenaria de validación colectiva. Los hallazgos se organizan en 5 dolores validados y 12 dolores propuestos para ciclos futuros.</p>
+
+  <div class="subsection-title">Ciclo metodológico de investigación</div>
+  <div class="cycle-row">
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">1</div>
+      <div class="cycle-title">Investigación Documental</div>
+      <div class="cycle-desc">revisión de literatura, estadísticas de IOGP, Energy Institute, CCPS y benchmarks internacionales de seguridad industrial</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">2</div>
+      <div class="cycle-title">Entrevistas de Campo</div>
+      <div class="cycle-desc">sesiones con profesionales HSE activos en Oil &amp; Gas y construcción, identificación y scoring compuesto de 17 dolores potenciales</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">3</div>
+      <div class="cycle-title">Validación con Expertos IA</div>
+      <div class="cycle-desc">factibilidad técnica de soluciones, scoring de impacto, disponibilidad de datos e implementabilidad estimada</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">4</div>
+      <div class="cycle-title">Sesión Plenaria HSE + IA</div>
+      <div class="cycle-desc">validación colectiva de los 5 dolores prioritarios, propuestas IA mínimas y desafíos transversales con profesionales del sector</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step">
+      <div class="cycle-num" style="background:#94A3B8;">5</div>
+      <div class="cycle-title">Publicación CC BY-SA</div>
+      <div class="cycle-desc">WP, prototipos de código y datasets liberados para la comunidad</div>
+    </div>
+    <div class="cycle-arrow-h">↺</div>
+    <div class="cycle-step">
+      <div class="cycle-num" style="background:#94A3B8;">6</div>
+      <div class="cycle-title">Nueva ronda</div>
+      <div class="cycle-desc">dolores propuestos (6 al 17) a nueva validación en ciclos siguientes</div>
+    </div>
+  </div>
+  <div class="cycle-return">↑ El ciclo se repite: cada edición valida nuevos dolores propuestos por el grupo y la comunidad</div>
+
+  <div class="subsection-title">Fuentes primarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Entrevistas de campo</div>
+      <p>Las entrevistas de discovery se realizaron con profesionales HSE activos en operaciones Oil &amp; Gas y proyectos de construcción de la región Patagónica, en roles de supervisión, coordinación y gestión de seguridad operacional. Todos los relatos fueron anonimizados — no se identifican personas ni organizaciones en ninguna sección de este documento.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Sesiones técnicas del Vertical</div>
+      <p>La sesión plenaria HSE + IA (Abril 2026) reunió a profesionales del sector para revisar los 5 dolores prioritarios, discutir propuestas de implementación IA y mapear desafíos transversales y riesgos de adopción. Los patrones emergentes de esa sesión informan directamente la sección de ética y gobernanza de este documento.</p>
+    </div>
+  </div>
+  <div class="subsection-title">Fuentes secundarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Estadísticas y reportes institucionales</div>
+      <p>IOGP Safety Performance Indicators 2023 · Energy Institute Leading HSE Indicators 2023 · CCPS Process Safety Metrics 2020 · SRT Argentina 2024 · OGP Safety Report 2022</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Literatura científica y técnica</div>
+      <p>Fleming (2001) Safety Culture Maturity Model · ISO 45001:2018 · Raza et al. (2023) NLP for incident classification · McKinsey (2023) Future of Work in O&amp;G · Deloitte Digital (2024) AI in Safety Management Systems</p>
+    </div>
+  </div>
+  <div class="callout">
+    <div class="callout-title">5 dolores validados · 12 propuestos para ciclos futuros</div>
+    <p>La tabla de la Sección 5 presenta 17 puntos de dolor identificados. Los marcados con <strong>✓ VAL</strong> fueron validados mediante entrevistas directas en esta edición. Los restantes 12 son propuestas del grupo, pendientes de validación en campo en ciclos futuros. No se presentan como hallazgos confirmados sino como hipótesis a explorar.</p>
+  </div>
+  <div class="info-box"><p><strong>Este documento no es un paper académico en sentido estricto.</strong> Es un instrumento práctico de diagnóstico y hoja de ruta, elaborado con rigor metodológico y orientado a la acción. Publicado bajo <strong>CC BY-SA 4.0</strong>: podés reutilizarlo, adaptarlo y distribuirlo libremente con la condición de mantener la misma licencia en las obras derivadas. Errores o contribuciones de campo: ia-lab@eneneuquen.com.ar</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">2</div>
+  </div>
+</div>
+<!-- RESUMEN EJECUTIVO -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Resumen Ejecutivo</div>
+  </div>
+  <div class="section-label">Sección 1 de 10</div>
+  <div class="section-title">Resumen Ejecutivo</div>
+  <div class="section-divider"></div>
+  <p class="lead">Las organizaciones Oil &amp; Gas y de construcción en Patagonia acumulan datos de seguridad — incidentes, inspecciones, procedimientos — que no se procesan ni retroalimentan la operación. El resultado: patrones de riesgo que se repiten, near-misses sistemáticamente subregistrados y mecanismos de prevención que funcionan como trámite. La IA no resuelve esto sola, pero puede convertir datos ya existentes en inteligencia operacional con herramientas de implementación inmediata.</p>
+
+  <div class="subsection-title">KPIs del sector</div>
+  <div class="kpi-row kpi-row-3">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">&gt;1</div>
+      <div class="kpi-label">near miss por trabajador/año es el benchmark IOGP — la mayoría de las operaciones registra menos de 0,3, indicando subregistro de 3x a 10x · IOGP Safety Performance Indicators 2023</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">72 hs+</div>
+      <div class="kpi-label">tiempo promedio entre evento HSE y acción correctiva documentada según profesionales de campo relevados · IA LAB HSE 2026</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">60%</div>
+      <div class="kpi-label">de los incidentes graves en Oil &amp; Gas tiene un near-miss previo no reportado en los 30 días anteriores · Energy Institute Leading Indicators 2023</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Hallazgos principales</div>
+  <ul class="bullet-list">
+    <li>El subregistro de near-misses es el síntoma más universal: las organizaciones registran entre 3 y 10 veces menos eventos de los esperados según el benchmark IOGP de &gt;1 near miss/trabajador/año</li>
+    <li>Los mecanismos de prevención pre-tarea (ATS/JSA) y de verificación de comprensión (inducciones) operan como formalismos — cumplen el requisito sin cumplir la función preventiva</li>
+    <li>Los datos de inspecciones y gestión documental existen pero no se procesan: el problema no es la falta de datos, sino que no retroalimentan la operación en tiempo real</li>
+    <li>La adopción de tecnología HSE es el verdadero reto técnico: la barrera principal es cultural y de UX, no algorítmica — si algo no es intuitivo e inmediato, se descarta</li>
+    <li>La responsabilidad legal cuando la IA interviene en una decisión de seguridad es el problema de gobernanza más urgente — debe definirse antes de implementar, no después</li>
+    <li>Quick wins disponibles: chatbot NLP para reporte de incidentes, RAG de procedimientos en campo y co-piloto para ATS/JSA pueden implementarse en 6-10 semanas sobre datos ya existentes</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">Quick Wins disponibles hoy</div>
+    <p>Los tres prototipos de implementación más rápida trabajan sobre datos que ya existen: (1) chatbot conversacional para reporte de incidentes y near-misses sin formularios, (2) asistente RAG para consultar procedimientos HSE en lenguaje natural desde el celular, y (3) co-piloto IA que genera un borrador de ATS con riesgos específicos de la tarea. Ninguno requiere infraestructura nueva — sólo integración con documentación y registros existentes.</p>
+  </div>
+
+  <p>El sector Oil &amp; Gas de Neuquén y Patagonia concentra la mayor cuenca no convencional de Latinoamérica, con más de 50.000 puestos directos en operaciones y construcción. La densidad operacional, la alta rotación de personal y las condiciones ambientales extremas hacen que los dolores HSE identificados no sean específicos de una organización — son sistémicos al sector.</p>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">3</div>
+  </div>
+</div>
+<!-- CONTEXTO DEL SECTOR -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Contexto del Sector</div>
+  </div>
+  <div class="section-label">Sección 2 de 10</div>
+  <div class="section-title">Contexto del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">El sector Oil &amp; Gas y de construcción industrial en Patagonia opera bajo condiciones de alta exigencia: turnos rotativos, sitios remotos, integración de múltiples contratistas y marco regulatorio con actualizaciones frecuentes. Neuquén concentra la mayor actividad no convencional de Argentina, lo que convierte a la región en laboratorio natural para innovación en seguridad operacional.</p>
+
+  <div class="kpi-row kpi-row-4">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">+50K</div>
+      <div class="kpi-label">puestos directos en Oil &amp; Gas y construcción en Neuquén</div>
+      <div class="kpi-source">SRT Argentina 2024</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">#1</div>
+      <div class="kpi-label">Vaca Muerta: mayor reservorio de shale de Latinoamérica en actividad</div>
+      <div class="kpi-source">EIA / IEA 2024</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">35%</div>
+      <div class="kpi-label">de accidentes graves en O&amp;G ocurren en las primeras 12 semanas de un nuevo trabajador en el sitio</div>
+      <div class="kpi-source">IOGP 2023</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">ISO 45001</div>
+      <div class="kpi-label">Marco internacional de gestión HSE — adopción creciente en operadoras de la región</div>
+      <div class="kpi-source">ISO 2023</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">El sector en detalle</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Actores principales</div>
+      <p>El sector se organiza en tres capas: operadoras que controlan las concesiones, contratistas especializados en perforación, completación y mantenimiento, y subcontratistas de servicios. Esta estructura de múltiples capas genera brechas de gestión HSE en cada interfaz y es la principal fuente de riesgo no controlado en la región.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Perfil del profesional</div>
+      <p>El profesional HSE activo en la región combina experiencia de campo con gestión documental intensiva. Opera bajo presión dual: cumplir con la regulación sin detener la operación. Maneja herramientas digitales básicas — planillas, formularios PDF — pero detecta el gap entre lo que registra y lo que realmente pasa en campo.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Sistemas actuales</div>
+      <p>La digitalización HSE es heterogénea: algunas operadoras tienen sistemas HSEQ integrados, pero los contratistas y el trabajo de campo siguen dependiendo de papel, Excel y WhatsApp. La fragmentación de herramientas genera datos que no se integran ni se analizan.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Marco regulatorio</div>
+      <p>La actividad está regulada por la Ley 19.587 de Higiene y Seguridad en el Trabajo, el Decreto 351/79, normativa sectorial del sector petrolero (Decreto 617/97) e ISO 45001. Las fiscalizaciones de la SRT generan presión de cumplimiento formal, no siempre alineada con mejora real de seguridad.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Contexto regional (Patagonia/Neuquén)</div>
+      <p>Vaca Muerta concentra inversión y actividad creciente desde 2013. Las condiciones ambientales — vientos, temperatura extrema, sitios remotos sin conectividad — añaden desafíos operacionales específicos. La alta rotación de personal y la modalidad de turnos 14×7 o 21×7 hacen que la gestión HSE deba funcionar sin depender de personas clave.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">El problema estructural</div>
+      <p>Los datos de seguridad existen pero no se usan. Incidentes, inspecciones, procedimientos: todo está registrado en algún sistema. El problema es que esos datos no se procesan, no retroalimentan la operación en tiempo real y no generan aprendizaje sistémico transferible. La IA puede cerrar exactamente esa brecha.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">El problema estructural</div>
+    <p>La información HSE que generan las operaciones no se convierte en inteligencia operacional. El registro existe pero no retroalimenta. La decisión de seguridad más crítica del día — el ATS firmado antes de una tarea de mantenimiento — toma menos de 5 minutos y no consulta el historial de incidentes del sitio.</p>
+  </div>
+
+  <div class="info-box"><p><strong>Oportunidad de IA:</strong> Las herramientas de IA más maduras — NLP, RAG, Computer Vision y LLMs — pueden aplicarse directamente sobre los datos que ya tienen las organizaciones HSE: reportes de incidentes, documentos de procedimientos, registros de inspecciones, formularios ATS. No requieren datos nuevos — requieren procesar los datos existentes de manera diferente.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">4</div>
+  </div>
+</div>
+<!-- MARCO TEÓRICO / TECNOLOGÍAS IA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Tecnologías IA Relevantes</div>
+  </div>
+  <div class="section-label">Sección 3 de 10</div>
+  <div class="section-title">Tecnologías de IA Relevantes para el Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Las tecnologías IA más relevantes para HSE son también las de implementación más madura y menor riesgo técnico. NLP para análisis de texto de incidentes, RAG para documentación normativa, Computer Vision para inspecciones visuales y LLMs para capacitación adaptativa son tecnologías probadas en industrias análogas con aplicación directa al sector.</p>
+
+  <div class="tech-card">
+    <div class="tech-icon">🗣️</div>
+    <div>
+      <div class="tech-name">NLP — Procesamiento de Lenguaje Natural</div>
+      <div class="tech-desc">Análisis de texto no estructurado en escala</div>
+      <div class="tech-apply">→ Clasificación automática de incidentes y near-misses, extracción de causas raíz, identificación de patrones en reportes históricos. Permite que el operario reporte por voz o texto libre sin formularios estructurados desde el celular.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">📚</div>
+    <div>
+      <div class="tech-name">RAG — Retrieval Augmented Generation</div>
+      <div class="tech-desc">Consulta inteligente sobre bases de conocimiento propias</div>
+      <div class="tech-apply">→ Asistente de procedimientos HSE que responde en lenguaje natural: &#x27;¿Qué EPP necesito para soldar en altura con lluvia?&#x27; Trabaja sobre la documentación interna de la organización, siempre citando la fuente y versión vigente. Puede operar offline.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">👁️</div>
+    <div>
+      <div class="tech-name">Computer Vision</div>
+      <div class="tech-desc">Análisis de imágenes y condiciones visuales en campo</div>
+      <div class="tech-apply">→ Detección de condiciones inseguras: EPP incompleto, orden de trabajo, obstrucciones. Informe automático de inspección con fotos clasificadas por criticidad, hallazgos y plan de acción asignado con responsable y plazo.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🤖</div>
+    <div>
+      <div class="tech-name">LLM — Modelos de Lenguaje de Gran Escala</div>
+      <div class="tech-desc">Generación y razonamiento sobre texto complejo</div>
+      <div class="tech-apply">→ Co-piloto para ATS/JSA: el trabajador describe la tarea y el modelo genera un borrador con riesgos específicos usando el historial del sitio. Módulos de capacitación adaptativa por puesto y riesgo específico del sitio de trabajo.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">📊</div>
+    <div>
+      <div class="tech-name">Analytics Predictivo</div>
+      <div class="tech-desc">Detección de patrones de riesgo en datos históricos</div>
+      <div class="tech-apply">→ Dashboard de seguridad que cruza datos de inspecciones, incidentes, condiciones climáticas y turnos para identificar combinaciones de factores de riesgo antes de que se conviertan en accidentes.</div>
+    </div>
+  </div>
+
+
+  <div class="subsection-title">Evidencia cuantitativa global</div>
+  <div class="kpi-row kpi-row-4">
+    <div class="kpi-card">
+      <div class="kpi-num">-40%</div>
+      <div class="kpi-label">reducción en tiempo de análisis de incidentes con NLP vs. análisis manual</div>
+      <div class="kpi-source">Deloitte Digital AI in Safety Management 2024</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">+35%</div>
+      <div class="kpi-label">aumento en retención de conceptos HSE con capacitación adaptativa vs. inducción estándar</div>
+      <div class="kpi-source">McKinsey Future of Learning in Industry 2023</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">-45%</div>
+      <div class="kpi-label">reducción de hallazgos sin cierre con automatización del ciclo de inspección y alertas escaladas</div>
+      <div class="kpi-source">Energy Institute Digital HSE Report 2023</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">3x</div>
+      <div class="kpi-label">mejora en especificidad de riesgos identificados en ATS asistido por IA vs. ATS manual</div>
+      <div class="kpi-source">CCPS Digital Process Safety 2023</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Clave</div>
+    <p>La IA no reemplaza al profesional HSE — lo amplifica. En todos los casos documentados, las soluciones funcionan como co-piloto: sugieren, clasifican y alertan, pero la decisión final y la responsabilidad siguen siendo humanas. Esto no es solo una preferencia ética — es el modelo que genera adopción real en campo y la única arquitectura con coherencia legal.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">5</div>
+  </div>
+</div>
+<!-- MAPA DE DOLORES -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Mapa de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 de 10</div>
+  <div class="section-title">Mapa de Dolores del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">El mapa de dolores HSE combina el scoring compuesto del proceso de investigación documental con la validación de campo realizada en entrevistas individuales y en la sesión plenaria. Los 5 dolores validados cumplieron simultáneamente tres criterios: alta frecuencia de mención entre profesionales del sector, datos disponibles para implementación IA inmediata y factibilidad técnica confirmada. Los 12 dolores propuestos son reales pero requieren mayor madurez de datos, integración de sistemas o cambio cultural antes de que una solución IA sea viable en primera etapa.</p>
+
+  <table class="dolor-table">
+    <thead>
+      <tr>
+        <th style="width:30px;">#</th>
+        <th>Punto de dolor</th>
+        <th style="width:90px;">Tipo</th>
+        <th style="width:110px;">Tecnología IA</th>
+        <th style="width:55px;">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center;font-weight:700;">1</td>
+        <td>Near-Misses e Incidentes sin Aprendizaje Sistémico<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>NLP · LLM · Analytics</td>
+        <td><span class="score-badge score-red">93</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">2</td>
+        <td>Inducción y Capacitación HSE sin Verificación Real<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>LLM · RAG · Adaptive Learning</td>
+        <td><span class="score-badge score-red">82</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">3</td>
+        <td>Inspecciones de Campo sin Valor Analítico<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>Computer Vision · NLP</td>
+        <td><span class="score-badge score-orange">78</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">4</td>
+        <td>Procedimientos HSE Inaccesibles en Campo<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>RAG · LLM · Embeddings</td>
+        <td><span class="score-badge score-orange">75</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">5</td>
+        <td>ATS/JSA como Formalismo sin Prevención Real<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>LLM · RAG · NLP</td>
+        <td><span class="score-badge score-orange">71</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">6</td>
+        <td>Ineficiencia en Gestión de Permisos de Trabajo (PTW)</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>Automatización · LLM</td>
+        <td><span class="score-badge score-red">90</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">7</td>
+        <td>Detección de Comportamientos Inseguros en Campo</td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>Computer Vision · ML</td>
+        <td><span class="score-badge score-red">87</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">8</td>
+        <td>Gestión de Riesgo HSE de Contratistas</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>ML · NLP · Analytics</td>
+        <td><span class="score-badge score-red">83</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">9</td>
+        <td>Fatiga Operacional y Gestión de Turnos</td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>ML predictivo · Wearables IoT</td>
+        <td><span class="score-badge score-red">80</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">10</td>
+        <td>Estrés Térmico y Condiciones Climáticas Extremas</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>Sensores IoT · ML predictivo</td>
+        <td><span class="score-badge score-orange">73</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">11</td>
+        <td>Métricas HSE Lagging sin Capacidad Predictiva</td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>Analytics · ML</td>
+        <td><span class="score-badge score-orange">68</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">12</td>
+        <td>Pérdida de Know-How HSE por Rotación de Personal</td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>LLM · Knowledge Graph</td>
+        <td><span class="score-badge score-orange">62</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">13</td>
+        <td>Brecha entre Capacitación Formal y Comportamiento Real</td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>Computer Vision · Adaptive Learning</td>
+        <td><span class="score-badge score-yellow">59</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">14</td>
+        <td>Gestión del Cambio (MOC) Incompleta o Eludida</td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>Automatización · NLP</td>
+        <td><span class="score-badge score-yellow">56</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">15</td>
+        <td>Trazabilidad de Entrega y Uso de EPP</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>RFID · Computer Vision</td>
+        <td><span class="score-badge score-yellow">52</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">16</td>
+        <td>Simulacros de Emergencia poco Realistas</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>VR / AR · Simulación</td>
+        <td><span class="score-badge score-yellow">47</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">17</td>
+        <td>Reporting HSE Corporativo Manual y Tardío</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>RPA · BI · NLP</td>
+        <td><span class="score-badge score-yellow">45</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box"><p><strong>Score compuesto 0–100:</strong> frecuencia × impacto × factibilidad de implementación con IA. <strong>✓ VAL</strong> = validado en entrevistas de campo. Sin marca = propuesta del grupo para ciclos futuros.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">6</div>
+  </div>
+</div>
+<!-- FICHAS DOLORES p.7 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 1 a 2</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">01</div>
+      <div class="dolor-card-title">Near-Misses e Incidentes sin Aprendizaje Sistémico</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">93</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>El reporte de incidentes y near-misses es reactivo y solo captura lo que ya falló. Los near-misses tienen subregistro sistemático: el personal no reporta por miedo a consecuencias disciplinarias o por exceso de burocracia en el proceso de registro. El análisis de causa raíz varía según quién investiga, sin consistencia metodológica. Los datos históricos existen pero no retroalimentan la operación en tiempo real. El tiempo entre evento y acción correctiva supera habitualmente las 72 horas.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Supervisores HSE y coordinadores de seguridad operacional en plantas y pozos. También afecta a operarios que presencian eventos y deciden no reportarlos por temor a consecuencias.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Patrones de riesgo que se repiten sin ser detectados. Accidentes graves precedidos por near-misses no reportados en las semanas anteriores. Análisis de incidentes inconsistentes que no generan aprendizaje organizacional transferible a otros sitios o equipos.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Formularios en papel o planillas Excel enviadas por correo. Análisis de causa raíz manual con metodología variable entre investigadores. Reuniones de seguridad semanales que revisan eventos pasados sin proyección predictiva.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El benchmark IOGP establece &gt;1 near miss por trabajador por año como indicador de cultura de reporte saludable. Operaciones relevadas por el IA LAB registran menos de 0,3 — subregistro de 3x a 10x respecto al valor esperado (IOGP Safety Performance Indicators 2023).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Chatbot NLP para reportar incidentes y near-misses por voz o texto libre desde el celular, sin formularios estructurados. Clasificación automática de severidad, tipo de evento y área afectada. Dashboard de patrones por turno, condición climática y zona. Generación asistida de árbol de causas (5 Whys / Ishikawa) con historial del sitio como contexto. Tecnología: NLP · LLM · Analytics predictivo. Deploy estimado: 6-8 semanas sobre datos históricos existentes.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">02</div>
+      <div class="dolor-card-title">Inducción y Capacitación HSE sin Verificación Real</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">82</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Las inducciones HSE son genéricas y no se adaptan al puesto ni al sitio de trabajo específico — se enseña lo irrelevante para quien lo recibe. Las evaluaciones funcionan como formalismo: múltiple choice predecible que todos aprueban sin verificar comprensión real. No hay seguimiento post-inducción ni refuerzo de conceptos críticos en el tiempo. La alta rotación hace el proceso costoso y repetitivo sin acumulación de aprendizaje organizacional.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Trabajadores nuevos en campo, personal de contratistas en sitios con múltiples operadores simultáneos, operarios en sitios remotos con baja conectividad.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Trabajadores con habilitación formal pero sin comprensión real de los riesgos de su puesto específico. Mayor probabilidad de incidentes en los primeros 90 días — el período crítico documentado en O&amp;G. Conocimiento crítico no transferido en contextos de alta rotación.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Inducciones presenciales de 4-8 horas con material impreso o PDF genérico. Evaluaciones múltiple choice predecibles. Sin seguimiento post-inducción. El supervisor firma la habilitación sin herramienta de verificación real de comprensión.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El 35% de los accidentes laborales graves en O&amp;G ocurre en las primeras 12 semanas de un nuevo trabajador en el sitio — el período en que la inducción es el único mecanismo formal de transferencia de conocimiento (IOGP Annual Report 2023).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Módulos HSE generados automáticamente por puesto, riesgo específico y sitio de trabajo. Chatbot HSE 24/7 que el trabajador consulta en lenguaje natural desde campo. Evaluaciones adaptativas que ajustan dificultad según las respuestas del trabajador. Microlearning por push: recordatorios contextuales de seguridad enviados antes de una tarea de riesgo específico. Tecnología: LLM · RAG · Adaptive Learning. Deploy estimado: 8-10 semanas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">7</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.8 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 3 a 4</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">03</div>
+      <div class="dolor-card-title">Inspecciones de Campo sin Valor Analítico</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">78</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>El cumplimiento de controles críticos depende de que haya un supervisor presente. Los hallazgos varían según el criterio individual del inspector, sin estándar compartido entre equipos. El seguimiento de acciones correctivas se pierde sin trazabilidad del cierre real. Las auditorías son percibidas como trámite burocrático, no como herramienta de mejora continua.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Inspectores HSE, supervisores de obra, responsables de cumplimiento operacional en operaciones que integran múltiples contratistas simultáneos.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Condiciones inseguras que persisten porque no hay alerta escalada ni mecanismo de seguimiento. Datos de inspección acumulados sin análisis de tendencias. El ciclo de mejora continua se rompe por falta de cierre trazable de acciones correctivas.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Check-lists en papel o apps básicas. Datos descargados a Excel sin análisis sistemático. Fotografías sin clasificación ni seguimiento de estado. Reuniones periódicas que revisan hallazgos puntuales sin análisis de patrones.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Hasta el 45% de los hallazgos de inspección en O&amp;G no tienen cierre documentado dentro del plazo definido, generando acumulación crónica de condiciones sin atender (IOGP Process Safety Report 2022).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>App móvil con Computer Vision para detectar condiciones inseguras en campo: EPP, orden, obstrucciones. Informe generado automáticamente con hallazgos, fotos clasificadas por criticidad y recomendaciones. Plan de acción asignado con responsable y plazo automáticos. Alertas escaladas si el cierre no ocurre en el plazo definido. Tecnología: Computer Vision · NLP · Automatización. Deploy estimado: 10-14 semanas.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">04</div>
+      <div class="dolor-card-title">Procedimientos HSE Inaccesibles en Campo</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">75</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Los procedimientos y normativa HSE existen pero no llegan a quien los necesita en campo. Los cambios normativos se notifican masivamente sin indicar qué cambió específicamente — nadie los lee. La evidencia de cumplimiento está dispersa y sin orden para fiscalizaciones. El responsable HSE dedica tiempo excesivo a buscar, actualizar y distribuir documentación que no genera valor preventivo directo.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Operarios en campo sin acceso a intranet corporativa, supervisores en sitios remotos, responsables HSE que concentran el conocimiento normativo y se convierten en cuello de botella.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">El operario improvisa porque acceder al procedimiento vigente desde campo es lento o imposible. Riesgo de no conformidad normativa por desactualización. El responsable HSE destina entre 3 y 6 horas semanales a gestión documental que no reduce directamente el riesgo operacional.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Documentos en carpetas de red, portales internos o correo electrónico. Búsqueda manual por palabras clave. Actualizaciones por email masivo sin indicar el delta de cambios. Archivos físicos en obra para fiscalización.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El 70% de los profesionales HSE relevados indica que un operario en campo no puede acceder a un procedimiento específico en menos de 10 minutos desde su posición de trabajo. En sitios remotos la imposibilidad es total durante el horario de operación (IA LAB HSE 2026).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>RAG sobre documentación interna y normativa vigente: el operario consulta en lenguaje natural desde el celular sin necesidad de conectividad permanente. Alertas automáticas cuando cambia una norma, destacando exactamente qué cambió. Compilación automática de registros para auditorías. Versionado inteligente con trazabilidad de cambios. Tecnología: RAG · LLM · Embeddings. Deploy estimado: 6-8 semanas sobre documentación existente.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">8</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.9 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 5 a 5</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">05</div>
+      <div class="dolor-card-title">ATS/JSA como Formalismo sin Prevención Real</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">71</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>El Análisis de Trabajo Seguro (ATS/JSA) se completa para cumplir con el requisito formal, no como herramienta de prevención. La calidad cae drásticamente cuando no hay supervisor presente. Los riesgos identificados son genéricos y se reutilizan en copy-paste entre tareas similares. El historial de incidentes del sitio no se consulta. La firma colectiva ocurre en menos de 5 minutos independientemente de la complejidad de la tarea.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Trabajadores de campo en tareas de mantenimiento y no rutinarias, supervisores de turno que firman ATS sin capacidad de verificación real de calidad cuando hay múltiples equipos simultáneos.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">El principal mecanismo de prevención pre-tarea pierde eficacia como barrera real de seguridad. La firma del ATS genera falsa sensación de cumplimiento sin análisis real del riesgo específico de la tarea del día.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Formulario en papel o planilla con campos predefinidos. Alta reutilización entre tareas similares sin adaptación al contexto específico. Firma colectiva en menos de 5 minutos para cualquier tarea.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">En auditorías de proceso, hasta el 80% de los ATS firmados en campo son identificados como copias de análisis previos con mínima o nula adaptación al contexto específico de la tarea (CCPS Process Safety Metrics 2020).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Co-piloto IA: el trabajador describe el trabajo → la IA genera un borrador con riesgos típicos de esa tarea específica, incorporando el historial de incidentes del sitio como contexto. Inspector y trabajador refinan el análisis juntos con soporte del asistente. La firma final sigue siendo humana: la IA asiste y eleva la calidad, no reemplaza la responsabilidad. Tecnología: LLM · RAG · NLP. Deploy estimado: 8-10 semanas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">9</div>
+  </div>
+</div>
+<!-- ANÁLISIS DE BRECHAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Análisis de Brechas</div>
+  </div>
+  <div class="section-label">Sección 6 de 10</div>
+  <div class="section-title">Análisis de Brechas: Estado Actual vs. con IA</div>
+  <div class="section-divider"></div>
+  <p class="lead">El sector Oil &amp; Gas y de construcción industrial en Patagonia opera bajo condiciones de alta exigencia: turnos rotativos, sitios remotos, integración de múltiples contratistas y marco regulatorio con actualizaciones frecuentes. Neuquén concentra la mayor actividad no convencional de Argentina, lo que convierte a la región en laboratorio natural para innovación en seguridad operacional.</p>
+
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Reporte y Registro de Eventos</div>
+      <div class="brecha-text">Formularios manuales. Subregistro crónico de near-misses por miedo y burocracia. Análisis inconsistente con ciclo de corrección de 72+ horas.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Reporte y Registro de Eventos</div>
+      <div class="brecha-text">Chatbot conversacional por voz o texto libre. Clasificación automática de severidad. Dashboard de patrones. Ciclo de análisis reducido a menos de 4 horas.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Capacitación y Transferencia de Conocimiento</div>
+      <div class="brecha-text">Inducciones genéricas de 4-8 horas desconectadas del puesto real. Evaluaciones de aprobación universal. Sin seguimiento post-inducción.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Capacitación y Transferencia de Conocimiento</div>
+      <div class="brecha-text">Módulos adaptados por puesto y sitio. Evaluaciones que ajustan dificultad. Chatbot HSE 24/7 en campo. Microlearning contextual por push.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Inspecciones y Control Operacional</div>
+      <div class="brecha-text">Check-lists manuales con hallazgos según criterio individual. Sin trazabilidad de cierre. Hasta 45% de hallazgos sin cierre en plazo.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Inspecciones y Control Operacional</div>
+      <div class="brecha-text">App con Computer Vision para detección estandarizada. Informe automático con fotos clasificadas. Alertas escaladas por cierre vencido. Tendencias por área y turno.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Acceso a Documentación y Normativa</div>
+      <div class="brecha-text">Procedimientos inaccesibles desde campo en menos de 10 minutos. Actualizaciones masivas sin indicar cambios. Operarios que improvisan.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Acceso a Documentación y Normativa</div>
+      <div class="brecha-text">RAG sobre documentación interna: consulta en lenguaje natural desde el celular. Alertas diferenciales de cambios. Compilación automática para auditorías.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Análisis de Riesgo Pre-Tarea</div>
+      <div class="brecha-text">ATS/JSA completado como formalismo en menos de 5 minutos. Copy-paste entre tareas. Historial de incidentes del sitio no consultado.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Análisis de Riesgo Pre-Tarea</div>
+      <div class="brecha-text">Co-piloto que genera borrador de ATS con riesgos específicos de la tarea usando historial del sitio. Firma humana siempre requerida. Calidad del análisis aumentada.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Inteligencia Predictiva y Métricas</div>
+      <div class="brecha-text">Métricas lagging (accidentes ya ocurridos). Sin cruce de variables. Sin capacidad de anticipar patrones de riesgo antes del evento.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Inteligencia Predictiva y Métricas</div>
+      <div class="brecha-text">Dashboard que cruza inspecciones, incidentes y condiciones para detectar patrones antes del accidente. Indicadores leading automatizados. Alertas tempranas.</div>
+    </div>
+  </div>
+
+
+  <div class="info-box"><p><strong>Nota:</strong> Los impactos expresados son estimaciones basadas en implementaciones análogas documentadas en literatura y casos de uso globales. No representan garantías de resultado. Los indicadores son no-monetarios: tiempo, incidentes, adopción, calidad.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">10</div>
+  </div>
+</div>
+<!-- MAPA DE MADUREZ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Mapa de Madurez</div>
+  </div>
+  <div class="section-label">Sección 7 de 10</div>
+  <div class="section-title">Mapa de Madurez — Fleming HSE Maturity Model adaptado con capa IA (IOGP / ISO 45001)</div>
+  <div class="section-divider"></div>
+  <p class="lead">El Fleming HSE Maturity Model es el marco de referencia más adoptado en la industria Oil &amp; Gas para evaluar la madurez de la cultura de seguridad. Desarrollado para el Health and Safety Executive del Reino Unido (Fleming, 2001) y adoptado por IOGP como marco de evaluación sectorial, define cinco niveles desde la respuesta puramente reactiva hasta la gestión proactiva y predictiva. Para este análisis se incorporó una capa de madurez digital/IA como dimensión transversal que permite ubicar la oportunidad de cada solución propuesta.</p>
+
+  <div class="maturity-wrap">
+    <table class="maturity-table">
+      <thead>
+        <tr>
+<th class="mat-h0">Dimensión</th>
+        <th class="mat-h1">1 — Reactivo</th>
+        <th class="mat-h2">2 — Dependiente</th>
+        <th class="mat-h3">3 — Independiente</th>
+        <th class="mat-h4">4 — Interdependiente</th>
+        <th class="mat-h5">5 — Proactivo/Predictivo</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr><td>Cultura de Reporte</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Gestión de Datos HSE</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"></td><td class="mat-4"><span class="mat-target">Objetivo</span></td><td class="mat-5"></td></tr>
+      <tr><td>Capacitación y Competencias</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Inspecciones y Control</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"></td><td class="mat-4"><span class="mat-target">Objetivo</span></td><td class="mat-5"></td></tr>
+      <tr><td>Análisis de Riesgo Pre-Tarea</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Inteligencia Predictiva</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"></td><td class="mat-4"><span class="mat-target">Objetivo</span></td><td class="mat-5"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-3" style="margin-top:12px;">
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#7F1D1D;">1 — Reactivo</div>
+      <p>La seguridad se gestiona como respuesta a accidentes ya ocurridos. No hay sistema formal. El cumplimiento es accidental y depende de la presión regulatoria.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#713F12;">2 — Dependiente</div>
+      <p>Cumplimiento cuando hay supervisión presente. El comportamiento seguro depende del control externo. La seguridad es obligación, no cultura compartida.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">3 — Independiente</div>
+      <p>Conciencia individual de seguridad. El profesional HSE actúa con criterio propio. Buenas prácticas personales pero sin integración sistémica.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">4 — Interdependiente</div>
+      <p>Cultura colaborativa de seguridad. Aprendizaje organizacional activo. Mejora continua con datos. La seguridad es responsabilidad de todos, no solo del área HSE.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#ffffff;">5 — Proactivo/Predictivo</div>
+      <p>Gestión anticipatoria integrada con IA. Predicción de riesgos antes del evento. Optimización continua basada en datos en tiempo real.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Interpretación</div>
+    <p>Las operaciones relevadas se ubican mayoritariamente entre los niveles 2 y 3 del modelo Fleming — cumplimiento dependiente de supervisión, con conciencia individual pero sin integración sistémica. La IA no eleva automáticamente la madurez: eleva la capacidad de procesar datos y detectar patrones, creando las condiciones para que la organización avance. El salto crítico es de nivel 2 a nivel 3: pasar de &#x27;cumplir cuando hay supervisor&#x27; a &#x27;sistema que retroalimenta sin depender de personas clave&#x27;.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">11</div>
+  </div>
+</div>
+<!-- CASOS DE USO IA p.12 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 de 10</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Chatbot NLP para Reporte de Incidentes y Near-Misses</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Aplicación conversacional que permite al operario reportar incidentes y near-misses por voz o texto libre desde el celular, sin formularios estructurados. El modelo clasifica automáticamente el tipo de evento, la severidad y el área afectada, y genera el registro en el sistema existente. Resuelve la barrera de burocracia del reporte sin infraestructura nueva. Ataca el dolor #1.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">NLP</span><span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Speech-to-Text</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Historial de incidentes digitalizados de la organización + catálogo de tipos de evento HSE</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">6-8 semanas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción del ciclo de análisis de incidentes de 72 horas a menos de 4 horas. Aumento estimado del 40-60% en tasa de reporte de near-misses.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Caso documentado en operaciones O&amp;G (IOGP 2023): implementación de chatbot de reporte resultó en incremento del 250-300% en near-misses reportados en los primeros 6 meses sin aumento real de accidentes — evidenciando la supresión previa.</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">RAG de Procedimientos HSE en Campo</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Asistente conversacional entrenado sobre la documentación HSE interna. El operario pregunta en lenguaje natural — &#x27;¿Qué EPP necesito para soldar en altura con lluvia?&#x27; — y recibe la respuesta con el párrafo exacto del procedimiento vigente y la versión citada. Funciona con conectividad reducida. No genera respuestas sin fuente verificable. Ataca el dolor #4.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">RAG</span><span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Embeddings</span><span class="ia-tag ia-tag-key">Offline-first</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Documentación HSE interna + normativa sectorial vigente (Decreto 351/79, 617/97, ISO 45001)</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">6-8 semanas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción del 70% en tiempo de búsqueda de procedimientos. El responsable HSE recupera 3-5 horas semanales de gestión documental.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Benchmarks de implementación RAG en industria O&amp;G: reducción del 60-70% en consultas al área HSE por procedimientos estándar en los primeros 90 días de uso (Energy Institute Digital HSE Report 2023).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">12</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.13 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Co-piloto IA para ATS/JSA de Calidad Real</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">El trabajador describe la tarea que va a realizar → el sistema genera un borrador de ATS con los riesgos típicos de esa tarea específica, incorporando el historial de incidentes del sitio como contexto. Inspector y trabajador refinan el análisis juntos con soporte del asistente. La firma final sigue siendo humana. Ataca el dolor #5.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">RAG</span><span class="ia-tag ia-tag-key">NLP</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Historial de incidentes del sitio + biblioteca de tareas y riesgos típicos por tipo de trabajo</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">8-10 semanas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Aumento estimado del 60% en especificidad de riesgos identificados vs. ATS manual. El proceso pasa de 5 minutos sin análisis real a 12-15 minutos con calidad demostrable.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Estudios de co-piloto IA para análisis de trabajo en O&amp;G documentan reducción de incidentes en tareas de mantenimiento no rutinario del 25-30% en 18 meses de uso sistemático (CCPS Digital Process Safety 2023).</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">App Móvil con Computer Vision para Inspecciones</div>
+      <div class="ia-card-badge">Capacidad</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">App de campo para inspecciones visuales: el inspector fotografía condiciones del área de trabajo y el modelo detecta automáticamente EPP incompleto, desorden y obstrucciones. Genera informe con hallazgos clasificados por criticidad, fotos etiquetadas y plan de acción con responsable y plazo asignado. Envía alertas escaladas si el cierre no ocurre en tiempo. Ataca el dolor #3.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">Computer Vision</span><span class="ia-tag ia-tag-key">NLP</span><span class="ia-tag ia-tag-key">Automatización</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Dataset de condiciones inseguras etiquetadas para entrenamiento del modelo de visión (requiere fase de recolección inicial de 4-6 semanas)</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">10-14 semanas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción del 40-45% en hallazgos sin cierre. Estandarización de criterios de inspección entre inspectores. Acumulación de datos para análisis de tendencias.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Implementaciones de Computer Vision para inspecciones en industria pesada muestran reducción del 35-50% en hallazgos de alto riesgo no detectados por inspección visual humana estándar (Energy Institute 2023).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">13</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.14 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Módulos de Capacitación HSE Adaptativa</div>
+      <div class="ia-card-badge">Capacidad</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema de generación automática de módulos de capacitación HSE por puesto, riesgo específico y sitio. Incluye chatbot 24/7 para consultas en lenguaje natural y evaluaciones adaptativas que ajustan dificultad según las respuestas. Microlearning por push: recordatorios contextuales enviados antes de tareas de riesgo específico. Ataca el dolor #2.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">RAG</span><span class="ia-tag ia-tag-key">Adaptive Learning</span><span class="ia-tag ia-tag-key">Push Notifications</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Procedimientos HSE internos + perfil de puesto + historial de errores frecuentes en evaluaciones previas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">10-14 semanas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Aumento del 35% en retención de conceptos críticos HSE vs. inducción estándar. Reducción de incidentes en los primeros 90 días de trabajadores nuevos.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Capacitación adaptativa basada en LLM en entornos industriales documenta retención de conceptos críticos 30-40% superior a formación estándar en evaluaciones diferidas a 30 días (McKinsey Future of Learning 2023).</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Dashboard Predictivo de Patrones de Seguridad</div>
+      <div class="ia-card-badge">Estructural</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Plataforma de inteligencia HSE que cruza datos de inspecciones, incidentes, condiciones climáticas, turnos y contratistas para detectar patrones de riesgo antes de que se conviertan en accidentes. Genera indicadores leading automatizados y alertas tempranas por combinación de factores de riesgo. Convierte datos históricos fragmentados en inteligencia operacional continua. Ataca dolores #1 y #3.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Estructural</span>
+        <span class="ia-tag ia-tag-key">ML predictivo</span><span class="ia-tag ia-tag-key">Analytics</span><span class="ia-tag ia-tag-key">NLP</span><span class="ia-tag ia-tag-key">Integración HSEQ</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Histórico de incidentes + inspecciones + datos de turno y condiciones climáticas + integración con sistema HSEQ existente</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">16-24 semanas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Anticipación de patrones de riesgo con 2-4 semanas de anticipación. Conversión de métricas lagging en indicadores leading. Reducción del 20-30% en incidentes repetibles.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Plataformas analíticas HSE con ML en O&amp;G reportan reducción de 25-31% en incidentes repetibles en los primeros 24 meses de implementación sistemática (IOGP Digital HSE Report 2023).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">14</div>
+  </div>
+</div>
+<!-- HOJA DE RUTA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Hoja de Ruta</div>
+  </div>
+  <div class="section-label">Sección 9 de 10</div>
+  <div class="section-title">Hoja de Ruta — Jul–Dic 2026</div>
+  <div class="section-divider"></div>
+  <p class="lead">Propuesta de avance estructurado en tres fases para implementar las oportunidades priorizadas, con criterio de Quick Wins primero, construcción de capacidades después y proyectos estructurales al final.</p>
+
+  <div class="roadmap-grid">
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m1">Fase 1 — Quick Wins (Jul–Ago 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Chatbot NLP reporte near-misses</div>
+        <div class="roadmap-item-desc">Prototipo conversacional para reporte por voz/texto. Clasificación automática de eventos. Integración básica con registros existentes.</div>
+        <div class="roadmap-item-time">Julio · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">RAG procedimientos HSE en campo</div>
+        <div class="roadmap-item-desc">Asistente sobre documentación interna. Capacidad offline para sitios sin conectividad permanente.</div>
+        <div class="roadmap-item-time">Agosto · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Co-piloto ATS/JSA v1</div>
+        <div class="roadmap-item-desc">Borrador de ATS por descripción de tarea. Integración con historial de incidentes del sitio como contexto.</div>
+        <div class="roadmap-item-time">Agosto · Sem. 2–4</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m2">Fase 2 — Capacidades (Sep–Oct 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">App CV inspecciones de campo</div>
+        <div class="roadmap-item-desc">Módulo de Computer Vision para detección estandarizada de EPP y condiciones inseguras. Informe automático con plan de acción.</div>
+        <div class="roadmap-item-time">Septiembre · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Módulo capacitación adaptativa</div>
+        <div class="roadmap-item-desc">Generación automática de módulos por puesto y sitio. Evaluaciones adaptativas con seguimiento diferido.</div>
+        <div class="roadmap-item-time">Octubre · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Dashboard de tendencias HSE</div>
+        <div class="roadmap-item-desc">Cruce de datos de inspecciones e incidentes. Primeros indicadores leading automatizados.</div>
+        <div class="roadmap-item-time">Octubre · Sem. 2–4</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m3">Fase 3 — Estructural (Nov–Dic 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Dashboard predictivo integrado</div>
+        <div class="roadmap-item-desc">Plataforma de inteligencia HSE: cruce de incidentes, inspecciones, turnos y clima. Alertas tempranas por combinación de factores de riesgo.</div>
+        <div class="roadmap-item-time">Noviembre–Diciembre 2026</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Integración HSEQ existente</div>
+        <div class="roadmap-item-desc">Conexión de prototipos con sistemas HSEQ corporativos. Reemplazo progresivo de flujos manuales.</div>
+        <div class="roadmap-item-time">Noviembre–Diciembre 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Métricas de éxito (no monetarias)</div>
+  <table class="impact-table">
+    <thead>
+      <tr>
+        <th>Prototipo / Iniciativa</th>
+        <th>Métrica clave</th>
+        <th>Horizonte</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Chatbot NLP near-misses</td>
+        <td>Tasa de reporte de near-misses por trabajador/mes vs. baseline</td>
+        <td>Septiembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>RAG procedimientos</td>
+        <td>Tiempo de acceso a procedimiento en campo (minutos)</td>
+        <td>Septiembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Co-piloto ATS</td>
+        <td>Especificidad de riesgos identificados vs. ATS control (# riesgos específicos / total)</td>
+        <td>Octubre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>App CV inspecciones</td>
+        <td>% hallazgos con cierre documentado en plazo definido</td>
+        <td>Noviembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Capacitación adaptativa</td>
+        <td>Retención de conceptos HSE en evaluación diferida a 30 días vs. inducción estándar</td>
+        <td>Diciembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">15</div>
+  </div>
+</div>
+<!-- ÉTICA Y GOBERNANZA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Ética y Gobernanza</div>
+  </div>
+  <div class="section-label">Sección 10 de 10</div>
+  <div class="section-title">Ética, Gobernanza y Marco de Trabajo</div>
+  <div class="section-divider"></div>
+  <p class="lead">La ética en IA para HSE no es una sección de cumplimiento normativo — es el primer problema de diseño. Los profesionales del sector lo señalaron con claridad en la sesión plenaria: cuando la IA interviene en una decisión de seguridad que puede costar una vida, la pregunta de quién responde no puede definirse después de implementar. Debe resolverse antes de escribir una línea de código.</p>
+
+  <div class="subsection-title">Iniciativas análogas globales — aprendizajes para el IA LAB</div>
+  <div class="initiative-grid">
+    <div class="initiative-card">
+      <div class="initiative-flag">🇬🇧</div>
+      <div class="initiative-name">UK HSE AI Safety Guidance</div>
+      <div class="initiative-country">Reino Unido · Regulación sectorial</div>
+      <div class="initiative-model">El Health and Safety Executive del Reino Unido publicó en 2024 guías específicas para uso de IA en decisiones de seguridad laboral. Principio clave: la IA puede asistir pero no puede ser el tomador de decisión final en contextos de riesgo para la vida. Marco replicable para el IA LAB.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇪🇺</div>
+      <div class="initiative-name">EU AI Act — Alto Riesgo Ocupacional</div>
+      <div class="initiative-country">Unión Europea · Marco regulatorio</div>
+      <div class="initiative-model">El Reglamento de IA de la UE clasifica como sistemas de alto riesgo las aplicaciones que afectan la seguridad en el trabajo. Requieren evaluación de conformidad, trazabilidad de decisiones y supervisión humana obligatoria — aplica directamente a Computer Vision para inspecciones y co-pilotos ATS.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇦🇺</div>
+      <div class="initiative-name">Safe Work Australia — IA y Automatización</div>
+      <div class="initiative-country">Australia · Guía práctica sectorial</div>
+      <div class="initiative-model">Marco práctico para la introducción de IA en entornos industriales de alto riesgo. Énfasis en gestión del cambio cultural y en que la adopción de tecnología no diluya la responsabilidad de empleadores y trabajadores bajo la legislación de seguridad ocupacional.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Riesgos sin protocolo de gobernanza</div>
+    <p>Sin un marco de gobernanza definido antes de implementar, los principales riesgos son: (1) exceso de confianza en el output de IA — el trabajador asume que el análisis generado es correcto y omite la verificación humana, (2) falsos negativos en Computer Vision — una condición insegura no detectada puede causar un accidente con responsabilidad legal difusa, (3) responsabilidad indeterminada cuando un ATS asistido por IA forma parte de la cadena causal de un incidente, y (4) knowledge base desactualizado que responde consultas críticas de seguridad con información obsoleta.</p>
+  </div>
+
+  <div class="subsection-title">Modelo propuesto para el IA LAB</div>
+  <p>El IA LAB propone un modelo de tres capas: (1) Capa técnica — el sistema siempre cita la fuente, versión y fecha de la información que usa; no genera respuestas en decisiones críticas sin referencia verificable; (2) Capa de proceso — ninguna decisión de alta criticidad puede ejecutarse sin firma humana con nombre y timestamp; (3) Capa de gobernanza — registro auditable de cada intervención del sistema IA en decisiones de seguridad, accesible para el responsable HSE, el trabajador y el regulador.</p>
+
+  <div class="subsection-title">Consideraciones éticas operativas</div>
+  <div class="ethics-grid">
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🔒 Privacidad y Anonimato</div>
+      <p>Los datos de comportamiento individual en campo — quién reporta, con qué frecuencia, qué tipos de eventos — deben tratarse con protocolos de anonimización. El sistema no puede generar perfiles individuales usados en decisiones de empleo o disciplina.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">✅ Calidad y Trazabilidad de Datos</div>
+      <p>Un sistema IA de HSE es tan seguro como sus datos de entrenamiento. Procedimientos desactualizados, incidentes subregistrados o históricos incompletos producen outputs que pueden aumentar el riesgo en lugar de reducirlo. La curaduría de datos es requisito previo a la implementación.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">⚖️ Responsabilidad y Accountability</div>
+      <p>La IA asiste — no decide. Cualquier arquitectura debe mantener trazabilidad clara de qué sugirió el sistema y qué decidió el humano. Esta separación es tanto el núcleo del diseño técnico como el fundamento del marco legal ante un regulador o en una investigación de accidente.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🤝 Adopción y Cambio Cultural</div>
+      <p>La barrera más crítica no es técnica: es cultural. Si el operario no percibe beneficio inmediato o percibe riesgo — miedo a ser monitoreado, miedo a que el sistema lo exponga — rechazará la herramienta. El diseño participativo con usuarios finales no es opcional: es el factor determinante del éxito o fracaso de la implementación.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Posición del IA LAB</div>
+    <p>La IA en HSE es copiloto, no piloto. Asiste, sugiere, clasifica y alerta — pero la decisión final y la responsabilidad siguen siendo humanas. Este principio no es una concesión: es el modelo que genera adopción real en campo y el único que tiene coherencia ética y legal en contextos donde las consecuencias son vidas.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">16</div>
+  </div>
+</div>
+<!-- CIERRE / LICENCIA / REFERENCIAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · HSE</div>
+    <div class="page-header-right">Lo que estamos construyendo</div>
+  </div>
+  <div class="section-label">Experimentos en Curso</div>
+  <div class="section-title">Lo que el Vertical Está Trabajando</div>
+  <div class="section-divider"></div>
+  <p class="lead">El vertical continúa activo. Estas son algunas de las iniciativas en exploración en el grupo de trabajo actual.</p>
+
+  <ul class="bullet-list">
+    <li>Prototipo de chatbot conversacional para reporte de near-misses por texto libre: evaluación de NLP sobre registros históricos de incidentes anonimizados de operaciones Oil &amp; Gas de la región. Fase actual: validación de precisión en clasificación de tipo de evento y área afectada.</li>
+    <li>Exploración de arquitectura RAG sobre documentación HSE interna: pruebas de relevancia y precisión en consultas de procedimientos de campo. Énfasis en funcionamiento con conectividad reducida para sitios sin acceso permanente a internet.</li>
+    <li>Benchmark de modelos de Computer Vision para detección de EPP en contexto industrial patagónico: evaluación de tasas de falsos negativos en condiciones de baja luminosidad, polvo atmosférico, viento y ángulos no estándar típicos del ambiente O&amp;G.</li>
+  </ul>
+
+  <div class="callout" style="margin-top:18px;">
+    <div class="callout-title">Sumate al vertical HSE</div>
+    <p>El ENE IA LAB funciona como un espacio abierto de co-creación. Si trabajás en el sector y querés aportar tu perspectiva de campo, validar dolores, explorar soluciones o participar en los prototipos, escribinos. El conocimiento que generamos es público y libre.</p>
+  </div>
+
+  <div class="license-block">
+    <div class="license-badge-row">
+      <div class="license-badge">CC BY-SA 4.0</div>
+      <div style="font-size:8.5pt;color:#065F46;">Este White Paper está publicado bajo licencia Creative Commons Attribution-ShareAlike 4.0 International</div>
+    </div>
+    <div class="license-block-title">Condiciones de uso</div>
+    <p><strong>Podés:</strong> copiar, distribuir, adaptar y usar comercialmente este material, incluyendo en productos y servicios propios.</p>
+    <p><strong>Con la condición de:</strong> atribuir al ENE IA LAB como fuente original y publicar cualquier obra derivada bajo la misma licencia CC BY-SA 4.0 (copyleft).</p>
+    <p><strong>No requerido:</strong> autorización previa. <strong>Atribución sugerida:</strong> "Basado en investigación del ENE IA LAB (CC BY-SA 4.0) — eneneuquen.com.ar"</p>
+    <p>Texto completo de la licencia: creativecommons.org/licenses/by-sa/4.0/</p>
+  </div>
+
+  <div class="subsection-title">Referencias bibliográficas</div>
+  <ol class="ref-list">
+    <li>Fleming, M. (2001). Safety Culture Maturity Model. Health and Safety Executive, Offshore Technology Report 2000/049. HSE Books, UK.</li>
+    <li>IOGP (2023). Safety Performance Indicators — 2022 Data. International Association of Oil &amp; Gas Producers, Report 2023-001. London.</li>
+    <li>Energy Institute (2023). Hearts and Minds: Understanding and Implementing Leading HSE Performance Indicators. Energy Institute, London.</li>
+    <li>CCPS (2020). Process Safety Metrics: A Guide to Leading and Lagging Indicators. Center for Chemical Process Safety / AIChE, 3rd Edition. New York.</li>
+    <li>ISO (2018). ISO 45001:2018 — Sistemas de Gestión de Seguridad y Salud en el Trabajo. International Organization for Standardization, Geneva.</li>
+    <li>McKinsey &amp; Company (2023). The Future of Work in Oil and Gas: Skills, Technology and Transformation. McKinsey Global Institute.</li>
+    <li>Deloitte Digital (2024). AI Applications in Safety Management Systems: A Practical Guide for Industrial Operators. Deloitte Insights.</li>
+    <li>Raza, A., Hussain, F., &amp; Shafiq, M. (2023). Natural Language Processing for Automated Classification of Incident Reports in Oil &amp; Gas Operations. Safety Science, 158, 105944.</li>
+    <li>OGP (2022). Process Safety — Fundamentals of Process Safety Performance Management. OGP Report 510. London.</li>
+    <li>SRT Argentina (2024). Siniestralidad Laboral en el Sector Energético. Superintendencia de Riesgos del Trabajo, Buenos Aires.</li>
+    <li>UK HSE (2024). Artificial Intelligence in the Workplace: Guidance for Duty Holders. Health and Safety Executive, UK Government.</li>
+    <li>European Parliament (2024). Regulation (EU) 2024/1689 — Artificial Intelligence Act. Official Journal of the European Union.</li>
+    <li>IOGP (2023). Digital HSE: Technology Applications for Health, Safety and Environment in Oil &amp; Gas Operations. IOGP Report D-09.</li>
+  </ol>
+
+  <div style="margin-top:20px;padding-top:16px;border-top:2px solid var(--border);text-align:center;">
+    <div style="font-size:10pt;font-weight:800;color:var(--text);margin-bottom:4px;">ENE IA LAB · Seguridad e Higiene Industrial</div>
+    <div style="font-size:8.5pt;color:var(--text-muted);margin-bottom:10px;">Sumate a co-crear el futuro de tu sector con IA.</div>
+    <div style="font-size:8pt;color:var(--text-muted);">ia-lab@eneneuquen.com.ar · @eneneuquen · ENE — Polo Tecnológico Neuquén</div>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">17</div>
+  </div>
+</div>
+
+</body>
+</html>

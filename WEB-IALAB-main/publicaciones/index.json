@@ -6,5 +6,37 @@
     "fecha": "2026-06-23",
     "resumen": "Neuquén crece a una velocidad inusual y el sector de arquitectura opera con herramientas modernas pero sin inteligencia que las conecte: la normativa es una caja negra, el análisis de viabilidad llega tarde y la documentación de obra se pierde en el campo. Este White Paper muestra cómo la IA puede resolver eso hoy, con prototipos concretos y quick wins implementables en semanas — no en años.",
     "url": "publicaciones/arquitectura/ia-aplicada-en-arquitectura-del-codigo-urbano-al-proyecto-sin-friccion.html"
+  },
+  {
+    "titulo": "IA Aplicada en Ciencias Económicas: Del Contador Operador al Arquitecto de Procesos",
+    "autor": "ENE IA LAB",
+    "vertical": "ciencias-economicas",
+    "fecha": "2026-06-24",
+    "resumen": "Las PyMEs proveedoras de Oil & Gas en la Cuenca Neuquina enfrentan una paradoja estructural: exigencias documentales de gran empresa con estructuras administrativas mínimas. El white paper mapea 10 dolores del sector contable-administrativo — 5 validados en campo — y propone una arquitectura de automatización con IA (OCR, RPA, ML Forecasting) implementable en 12 meses que transforma al Contador Público de operador de datos a arquitecto de procesos.",
+    "url": "publicaciones/ciencias-economicas/ia-aplicada-en-ciencias-economicas-del-contador-operador-al-arquitecto-de-procesos.html"
+  },
+  {
+    "titulo": "IA Aplicada en HSE: Del Registro Reactivo a la Seguridad Predictiva",
+    "autor": "ENE IA LAB",
+    "vertical": "seguridad-higiene",
+    "fecha": "2026-06-24",
+    "resumen": "El sector Oil & Gas y construcción de Patagonia acumula datos de seguridad sin procesarlos, generando near-misses subregistrados y mecanismos de prevención que operan como trámites. El white paper documenta 5 dolores validados por profesionales HSE activos y propone implementaciones de IA — NLP, RAG, Computer Vision, LLMs — que convierten registros históricos en seguridad predictiva.",
+    "url": "publicaciones/seguridad-higiene/ia-aplicada-en-hse-del-registro-reactivo-a-la-seguridad-predictiva.html"
+  },
+  {
+    "titulo": "IA Aplicada en Marketing: De la Campaña al Cliente, con Evidencia",
+    "autor": "ENE IA LAB",
+    "vertical": "marketing",
+    "fecha": "2026-06-24",
+    "resumen": "El marketing regional enfrenta una paradoja: el 68% de los profesionales ya usa IA pero sin procesos que conviertan esa experimentación en resultados medibles. El white paper mapea 5 dolores validados — trazabilidad de leads, cuello de botella creativo, precalificación, reportes fragmentados e ingeniería de prompts — y propone prototipos concretos para atacarlos en el segundo semestre de 2026.",
+    "url": "publicaciones/marketing/ia-aplicada-en-marketing-de-la-campana-al-cliente-con-evidencia.html"
+  },
+  {
+    "titulo": "RRHH frente a la IA: Del Motor Administrativo al Arquitecto de la Adopción Responsable",
+    "autor": "ENE IA LAB",
+    "vertical": "rrhh",
+    "fecha": "2026-06-24",
+    "resumen": "Los equipos de RRHH en Neuquén usan IA de forma fragmentada y solo para tareas operativas, desaprovechando su rol estratégico. El white paper identifica 5 dolores validados — procesos sin automatizar, fuga de conocimiento, adopción fragmentada, selección sin trazabilidad y ausencia de gobernanza — y propone una ruta para reposicionar al área como articulador de la adopción responsable de IA.",
+    "url": "publicaciones/rrhh/rrhh-frente-a-la-ia-del-motor-administrativo-al-arquitecto-de-la-adopcion-responsable.html"
   }
 ]

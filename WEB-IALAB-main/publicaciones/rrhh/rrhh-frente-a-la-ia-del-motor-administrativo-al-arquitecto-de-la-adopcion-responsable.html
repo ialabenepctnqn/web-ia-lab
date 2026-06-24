@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RRHH frente a la IA: Del Motor Administrativo al Arquitecto de la Adopción Responsable — ENE IA LAB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #DB2777; --accent-light: #FDF2F8; --accent-dark: #9D174D; --accent-mid: #DB2777;
+    --lab-purple: #7C3AED; --lab-teal: #06B6D4; --lab-green: #10B981;
+    --text: #0F172A; --text-muted: #64748B; --text-light: #94A3B8;
+    --border: #E2E8F0; --bg-subtle: #F8FAFC; --page-w: 210mm; --page-h: 297mm; --margin: 18mm;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 10pt; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: #CBD5E1; }
+  .page { width: var(--page-w); min-height: var(--page-h); background: #fff; margin: 8mm auto; padding: var(--margin); position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.15); }
+  .page-cover { padding: 0; background: var(--text); }
+  @media print { body { background: white; } .page { margin: 0; box-shadow: none; page-break-after: always; width: 100%; } @page { size: A4; margin: 0; } }
+  .cover-bg { position: absolute; inset: 0; background: linear-gradient(145deg, #0F172A 0%, #1E293B 60%, #333 100%); }
+  .cover-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #DB2777 0%, #DB2777 50%, #F97316 100%); }
+  .cover-content { position: relative; z-index: 1; padding: 18mm; height: 297mm; display: flex; flex-direction: column; }
+  .cover-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: auto; }
+  .cover-logo-box { border: 1.5px solid rgba(255,255,255,.25); border-radius: 8px; padding: 6px 14px; font-size: 9pt; color: rgba(255,255,255,.7); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+  .cover-edition { font-size: 8pt; color: rgba(255,255,255,.4); letter-spacing: .12em; text-transform: uppercase; }
+  .cover-license { font-size: 7.5pt; color: rgba(255,255,255,.5); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 5px; padding: 3px 9px; margin-left: auto; font-weight: 600; }
+  .cover-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20mm 0 10mm; }
+  .cover-sector { display: inline-block; background: #DB2777; color: #fff; font-size: 7.5pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 14px; }
+  .cover-title { font-size: 28pt; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 14px; letter-spacing: -.02em; }
+  .cover-title span { color: #DB2777; filter: brightness(1.3); }
+  .cover-subtitle { font-size: 11pt; color: rgba(255,255,255,.65); line-height: 1.6; max-width: 155mm; font-weight: 400; }
+  .cover-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 20mm; }
+  .cover-kpi { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 12px 10px; }
+  .cover-kpi-num { font-size: 18pt; font-weight: 900; color: #DB2777; filter: brightness(1.3); line-height: 1; }
+  .cover-kpi-label { font-size: 7.5pt; color: rgba(255,255,255,.55); margin-top: 4px; line-height: 1.3; }
+  .cover-footer { border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .cover-footer-left { font-size: 7.5pt; color: rgba(255,255,255,.4); }
+  .cover-footer-right { font-size: 7.5pt; color: rgba(255,255,255,.4); text-align: right; }
+  .page-header { border-bottom: 2px solid #FDF2F8; padding-bottom: 8px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .page-header-left { font-size: 7.5pt; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .page-header-right { font-size: 7.5pt; color: #DB2777; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .page-footer { position: absolute; bottom: 12mm; left: var(--margin); right: var(--margin); border-top: 1px solid var(--border); padding-top: 6px; display: flex; justify-content: space-between; align-items: center; }
+  .page-footer-text { font-size: 7pt; color: var(--text-light); }
+  .page-num { font-size: 7pt; color: var(--text-muted); font-weight: 600; }
+  .section-label { font-size: 7.5pt; font-weight: 700; color: #DB2777; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+  .section-title { font-size: 18pt; font-weight: 800; color: var(--text); line-height: 1.15; margin-bottom: 4px; letter-spacing: -.02em; }
+  .section-divider { width: 40px; height: 3px; background: #DB2777; border-radius: 2px; margin-bottom: 18px; }
+  .subsection-title { font-size: 10pt; font-weight: 700; color: var(--text); margin: 14px 0 6px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+  p { font-size: 9.5pt; line-height: 1.65; color: #1E293B; margin-bottom: 10px; }
+  p.lead { font-size: 10.5pt; font-weight: 500; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
+  strong { font-weight: 700; }
+  .callout { background: #FDF2F8; border-left: 4px solid #DB2777; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .callout-title { font-size: 8pt; font-weight: 700; color: #DB2777; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+  .callout p { margin: 0; font-size: 9pt; }
+  .info-box { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .info-box p { margin: 0; font-size: 9pt; color: #1E40AF; }
+  .kpi-row { display: grid; gap: 10px; margin: 14px 0; }
+  .kpi-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .kpi-row-2 { grid-template-columns: 1fr 1fr; }
+  .kpi-row-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .kpi-card { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; text-align: center; }
+  .kpi-card-accent { background: #FDF2F8; border-color: #DB277744; }
+  .kpi-num { font-size: 20pt; font-weight: 900; color: #DB2777; line-height: 1; }
+  .kpi-num-sm { font-size: 14pt; font-weight: 900; color: #DB2777; line-height: 1; }
+  .kpi-label { font-size: 8pt; color: var(--text-muted); margin-top: 4px; line-height: 1.35; }
+  .kpi-source { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .bullet-list { list-style: none; margin: 0 0 12px; }
+  .bullet-list li { padding: 5px 0 5px 18px; position: relative; font-size: 9.5pt; line-height: 1.55; color: #1E293B; border-bottom: 1px solid var(--border); }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: #DB2777; }
+  .bullet-list li strong { color: #9D174D; }
+  .grid-6 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .grid-cell-accent { background: #FDF2F8; border-color: #DB277755; }
+  .grid-cell-title { font-size: 7.5pt; font-weight: 700; color: #DB2777; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .grid-cell p { font-size: 9pt; margin: 0; line-height: 1.5; }
+  .quote-block { border-left: 3px solid #DB2777; padding: 10px 14px; background: var(--bg-subtle); border-radius: 0 8px 8px 0; margin: 14px 0; }
+  .quote-text { font-size: 10pt; font-style: italic; color: var(--text); line-height: 1.55; }
+  .quote-source { font-size: 8pt; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
+  .tech-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 9px; display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: start; }
+  .tech-icon { width: 36px; height: 36px; border-radius: 8px; background: #FDF2F8; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .tech-name { font-size: 9.5pt; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .tech-desc { font-size: 8.5pt; color: var(--text-muted); line-height: 1.5; margin-bottom: 3px; }
+  .tech-apply { font-size: 8pt; color: #9D174D; font-weight: 600; }
+  .dolor-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .dolor-table th { background: var(--text); color: #fff; padding: 7px 8px; text-align: left; font-weight: 600; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .dolor-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .dolor-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .score-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 8pt; text-align: center; min-width: 32px; }
+  .score-red { background: #FEE2E2; color: #991B1B; }
+  .score-orange { background: #FED7AA; color: #9A3412; }
+  .score-yellow { background: #FEF9C3; color: #854D0E; }
+  .score-green { background: #D1FAE5; color: #065F46; }
+  .type-badge { display: inline-block; padding: 2px 7px; border-radius: 12px; font-size: 7.5pt; font-weight: 600; }
+  .type-latente { background: #EDE9FE; color: #5B21B6; }
+  .type-declarado { background: #DBEAFE; color: #1E40AF; }
+  .validated-mark { display: inline-block; background: #D1FAE5; color: #065F46; font-size: 6.5pt; font-weight: 800; padding: 1px 5px; border-radius: 3px; margin-left: 3px; vertical-align: middle; }
+  .dolor-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+  .dolor-card-header { background: #DB2777; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .dolor-card-num { font-size: 20pt; font-weight: 900; opacity: .35; line-height: 1; }
+  .dolor-card-title { font-size: 9.5pt; font-weight: 700; flex: 1; padding: 0 8px; line-height: 1.3; }
+  .dolor-card-score { font-size: 17pt; font-weight: 900; line-height: 1; }
+  .dolor-card-score-label { font-size: 7pt; opacity: .8; text-transform: uppercase; letter-spacing: .06em; }
+  .dolor-card-body { padding: 12px; }
+  .dolor-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .dolor-field-label { font-size: 7.5pt; font-weight: 700; color: #DB2777; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-field-text { font-size: 8.5pt; color: var(--text); line-height: 1.5; }
+  .dolor-opp { margin-top: 8px; background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 8px; padding: 9px 11px; }
+  .dolor-opp-label { font-size: 7.5pt; font-weight: 700; color: #15803D; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-opp p { font-size: 8.5pt; color: #14532D; margin: 0; }
+  .ia-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+  .ia-card-header { padding: 12px 14px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .ia-card-header-qw { background: linear-gradient(135deg, #064E3B, #065F46); }
+  .ia-card-header-mp { background: linear-gradient(135deg, #1E3A8A, #1D4ED8); }
+  .ia-card-header-lp { background: linear-gradient(135deg, #581C87, #6D28D9); }
+  .ia-card-title { font-size: 10pt; font-weight: 700; color: #fff; line-height: 1.3; flex: 1; }
+  .ia-card-badge { font-size: 7pt; font-weight: 700; color: #fff; background: rgba(255,255,255,.2); padding: 3px 9px; border-radius: 12px; white-space: nowrap; margin-left: 8px; align-self: flex-start; margin-top: 2px; }
+  .ia-card-body { padding: 14px; }
+  .ia-card-desc { font-size: 9pt; line-height: 1.6; color: var(--text); margin-bottom: 10px; }
+  .ia-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .ia-tag { font-size: 7.5pt; padding: 2px 9px; border-radius: 12px; border: 1px solid var(--border); color: var(--text-muted); background: var(--bg-subtle); }
+  .ia-tag-key { background: #FDF2F8; border-color: #DB277755; color: #9D174D; font-weight: 600; }
+  .ia-detail-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .ia-detail-cell { background: var(--bg-subtle); border-radius: 6px; padding: 8px 10px; }
+  .ia-detail-label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; font-weight: 600; }
+  .ia-detail-value { font-size: 8.5pt; color: var(--text); font-weight: 600; }
+  .ia-evidence { background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 8pt; color: #14532D; }
+  .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .roadmap-col { border-radius: 10px; overflow: hidden; }
+  .roadmap-col-header { padding: 10px 12px; font-size: 9pt; font-weight: 700; color: #fff; }
+  .roadmap-col-header-m1 { background: #065F46; }
+  .roadmap-col-header-m2 { background: #1E40AF; }
+  .roadmap-col-header-m3 { background: #4C1D95; }
+  .roadmap-item { padding: 9px 11px; border-bottom: 1px solid var(--border); background: #fff; }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-item-title { font-size: 8.5pt; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .roadmap-item-desc { font-size: 7.5pt; color: var(--text-muted); line-height: 1.4; }
+  .roadmap-item-time { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .impact-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .impact-table th { background: var(--text); color: #fff; padding: 7px 10px; text-align: left; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .impact-table td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .impact-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .ethics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .ethics-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .ethics-cell-title { font-size: 9pt; font-weight: 700; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .ethics-cell p { font-size: 8.5pt; color: var(--text-muted); margin: 0; line-height: 1.5; }
+  .brecha-row { display: grid; grid-template-columns: 1fr 20px 1fr; gap: 8px; margin-bottom: 10px; align-items: center; }
+  .brecha-actual { background: #FEE2E2; border: 1px solid #FECACA; border-radius: 8px; padding: 10px 12px; }
+  .brecha-nuevo { background: #D1FAE5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 10px 12px; }
+  .brecha-arrow { font-size: 14pt; color: var(--text-muted); text-align: center; }
+  .brecha-label { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .brecha-label-red { color: #991B1B; }
+  .brecha-label-green { color: #065F46; }
+  .brecha-text { font-size: 8.5pt; line-height: 1.45; }
+  .ref-list { list-style: none; margin: 0; counter-reset: ref-counter; }
+  .ref-list li { font-size: 8.5pt; line-height: 1.55; padding: 5px 0 5px 28px; position: relative; border-bottom: 1px solid var(--border); color: #1E293B; counter-increment: ref-counter; }
+  .ref-list li:last-child { border-bottom: none; }
+  .ref-list li::before { content: '[' counter(ref-counter) ']'; position: absolute; left: 0; font-weight: 700; color: #DB2777; font-size: 8pt; }
+  .maturity-wrap { margin: 14px 0; }
+  .maturity-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .maturity-table th { padding: 6px 7px; font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-align: center; border: 1px solid var(--border); }
+  .maturity-table td { padding: 5px 7px; border: 1px solid var(--border); vertical-align: middle; }
+  .maturity-table td:first-child { font-weight: 600; font-size: 8pt; background: var(--bg-subtle); width: 28%; }
+  .mat-h0 { background: var(--text); color: #fff; }
+  .mat-h1 { background: #FCA5A5; color: #7F1D1D; }
+  .mat-h2 { background: #FCD34D; color: #713F12; }
+  .mat-h3 { background: #6EE7B7; color: #064E3B; }
+  .mat-h4 { background: #34D399; color: #064E3B; }
+  .mat-h5 { background: #10B981; color: #fff; }
+  .mat-1 { background: #FEE2E2; color: #991B1B; text-align: center; font-size: 7pt; }
+  .mat-2 { background: #FEF9C3; color: #713F12; text-align: center; font-size: 7pt; }
+  .mat-3 { background: #D1FAE5; color: #065F46; text-align: center; font-size: 7pt; }
+  .mat-4 { background: #A7F3D0; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-5 { background: #6EE7B7; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-empty { background: #fff; }
+  .mat-current { font-weight: 800; background: #DB2777; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .mat-target { font-weight: 700; background: #065F46; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .cycle-row { display: flex; align-items: stretch; gap: 0; margin: 14px 0; }
+  .cycle-step { flex: 1; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
+  .cycle-step-active { background: #FDF2F8; border-color: #DB277755; }
+  .cycle-num { width: 22px; height: 22px; background: #DB2777; color: #fff; border-radius: 50%; font-size: 9pt; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; }
+  .cycle-title { font-size: 8pt; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+  .cycle-desc { font-size: 7pt; color: var(--text-muted); line-height: 1.4; }
+  .cycle-arrow-h { display: flex; align-items: center; padding: 0 4px; font-size: 14pt; color: #DB2777; font-weight: 900; }
+  .cycle-return { text-align: center; font-size: 7.5pt; color: #DB2777; font-weight: 600; margin-top: 6px; padding: 5px 0; border-top: 2px dashed #DB277755; }
+  .initiative-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .initiative-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 11px; }
+  .initiative-flag { font-size: 14pt; margin-bottom: 4px; }
+  .initiative-name { font-size: 8.5pt; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+  .initiative-country { font-size: 7pt; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
+  .initiative-model { font-size: 7.5pt; color: var(--text); line-height: 1.45; margin-bottom: 5px; }
+  .initiative-tag { display: inline-block; font-size: 7pt; padding: 1px 7px; border-radius: 10px; font-weight: 700; background: var(--bg-subtle); border: 1px solid var(--border); color: var(--text-muted); }
+  .license-block { background: #F0FDF4; border: 2px solid #6EE7B7; border-radius: 10px; padding: 14px 16px; margin: 16px 0; }
+  .license-block-title { font-size: 8pt; font-weight: 800; color: #065F46; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .license-block p { font-size: 8.5pt; color: #14532D; margin: 0 0 6px; line-height: 1.55; }
+  .license-block p:last-child { margin: 0; }
+  .license-badge-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .license-badge { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1.5px solid #6EE7B7; border-radius: 6px; padding: 4px 12px; font-weight: 800; font-size: 9.5pt; color: #065F46; }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="page page-cover">
+  <div class="cover-bg"></div>
+  <div class="cover-accent-bar"></div>
+  <div class="cover-content">
+    <div class="cover-logo-area">
+      <div class="cover-logo-box"><img src="../../imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:34px;width:auto;filter:brightness(0) invert(1);"></div>
+      <div class="cover-edition">White Paper · Edición N° 1 · Junio 2026</div>
+      <div class="cover-license">CC BY-SA 4.0</div>
+    </div>
+    <div class="cover-main">
+      <div class="cover-sector">👥 Recursos Humanos · RRHH / Talento / Cultura Organizacional</div>
+      <div class="cover-title">RRHH frente<br><span>a la IA: Del Motor Administrativo al Arquitecto de la Adopción Responsable</span></div>
+      <div class="cover-subtitle">Los equipos de RRHH en Neuquén no son solo usuarios de IA: son sus primeros garantes. El área tiene la posición, el mandato y la responsabilidad de liderar la adopción con criterio humano, perspectiva cultural, gobernanza activa y articulación con IT, legal, compliance y el negocio. Este white paper mapea los 7 dolores del sector y propone una ruta de transformación orientada a construir esa posición.</div>
+    </div>
+    <div class="cover-kpis">
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">68%</div>
+        <div class="cover-kpi-label">de equipos de RRHH usa IA exclusivamente para tareas operativas, sin aplicación estratégica (SHRM AI+HI Project, 2024)</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">-40%</div>
+        <div class="cover-kpi-label">reducción del tiempo en procesos de selección al incorporar IA asistida con criterios objetivos (LinkedIn Talent Trends, 2024)</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">Factor clave</div>
+        <div class="cover-kpi-label">El ecosistema condiciona la adopción IA más que la herramienta: liderazgo, cultura y gobernanza son el verdadero campo de trabajo (hallazgo cualitativo de campo, ENE IA LAB, 2026)</div>
+      </div>
+    </div>
+    <div class="cover-footer" style="margin-top:14px;">
+      <div class="cover-footer-left">ENE IA LAB · Polo Tecnológico Neuquén<br>ia-lab@eneneuquen.com.ar · eneneuquen.com.ar</div>
+      <div class="cover-footer-right">Hecho desde el campo.<br>Para quien lo opera.</div>
+    </div>
+  </div>
+</div>
+<!-- NOTA METODOLÓGICA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Nota Metodológica</div>
+  </div>
+  <div class="section-label">Sobre esta investigación</div>
+  <div class="section-title">Nota Metodológica</div>
+  <div class="section-divider"></div>
+  <p class="lead">El ENE IA LAB opera en ciclos de investigación-acción donde cada encuentro de campo produce hallazgos que se validan colectivamente, se priorizan con scoring compuesto y se traducen en propuestas concretas de solución. El vertical RRHH inició en abril de 2026 con un primer encuentro de diagnóstico que permitió identificar los patrones de uso actual, los dolores críticos y las oportunidades de mayor impacto.</p>
+
+  <div class="subsection-title">Ciclo metodológico de investigación</div>
+  <div class="cycle-row">
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">1</div>
+      <div class="cycle-title">Investigación Documental</div>
+      <div class="cycle-desc">revisión de literatura académica, benchmarks internacionales y reportes sectoriales sobre IA en RRHH</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">2</div>
+      <div class="cycle-title">Entrevistas de Campo</div>
+      <div class="cycle-desc">sesiones con profesionales de RRHH activos en organizaciones de la región, relevamiento de usos actuales, dolores y oportunidades</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">3</div>
+      <div class="cycle-title">Validación con Expertos IA</div>
+      <div class="cycle-desc">análisis de factibilidad técnica de las soluciones propuestas, scoring compuesto por impacto, frecuencia y viabilidad</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">4</div>
+      <div class="cycle-title">Publicación CC BY-SA</div>
+      <div class="cycle-desc">White Paper, esquemas de solución y prototipos liberados para reutilización sin restricciones</div>
+    </div>
+    <div class="cycle-arrow-h">↺</div>
+    <div class="cycle-step">
+      <div class="cycle-num" style="background:#94A3B8;">5</div>
+      <div class="cycle-title">Nueva ronda</div>
+      <div class="cycle-desc">dolores propuestos pasan a validación en el próximo ciclo con nuevas cohortes de profesionales del sector</div>
+    </div>
+  </div>
+  <div class="cycle-return">↑ El ciclo se repite: cada edición valida nuevos dolores propuestos por el grupo y la comunidad</div>
+
+  <div class="subsection-title">Fuentes primarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Entrevistas de campo</div>
+      <p>El primer encuentro del vertical se realizó en abril de 2026 con profesionales de RRHH activos en organizaciones de distinto tamaño y sector en la región de Neuquén y Río Negro. La sesión fue presencial, con modalidad de intercambio abierto orientado a casos reales. Los aportes se recolectaron de forma colectiva y los datos se agregaron sin identificar actores individuales ni organizaciones.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Sesiones técnicas del Vertical</div>
+      <p>Se realizó una sesión plenaria inaugural con formato de diagnóstico participativo, seguida del análisis de los patrones emergentes. Los hallazgos fueron sistematizados en un documento de diagnóstico estructural que sirve de base para este White Paper. Próximos encuentros incluirán sesiones con líderes organizacionales y consultores especializados en RRHH.</p>
+    </div>
+  </div>
+  <div class="subsection-title">Fuentes secundarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Estadísticas y reportes institucionales</div>
+      <p>SHRM (Society for Human Resource Management) — AI+HI Project 2024; LinkedIn Talent Solutions — Talent Trends 2024; Deloitte — Global Human Capital Trends 2024; INDEC — Encuesta Permanente de Hogares (EPH) 2024; Mercer — Global Talent Trends 2024; ILO — AI and the Future of Work 2023.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Literatura científica y técnica</div>
+      <p>Deloitte (2024) — Global Human Capital Trends; SHRM (2024) — AI+HI Project Report; LinkedIn (2024) — Future of Recruiting; IBM (2023) — Augmented Work for an Automated, AI-Infused World; ILO (2023) — AI and the Future of Work in the Global South; Harvard Business Review (2024) — The New Science of HR.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <div class="callout-title">5 dolores validados · 2 propuestos para ciclos futuros</div>
+    <p>La tabla de la Sección 5 presenta 7 puntos de dolor identificados. Los marcados con <strong>✓ VAL</strong> fueron validados mediante entrevistas directas en esta edición. Los restantes 2 son propuestas del grupo, pendientes de validación en campo en ciclos futuros. No se presentan como hallazgos confirmados sino como hipótesis a explorar.</p>
+  </div>
+  <div class="info-box"><p><strong>Este documento no es un paper académico en sentido estricto.</strong> Es un instrumento práctico de diagnóstico y hoja de ruta, elaborado con rigor metodológico y orientado a la acción. Publicado bajo <strong>CC BY-SA 4.0</strong>: podés reutilizarlo, adaptarlo y distribuirlo libremente con la condición de mantener la misma licencia en las obras derivadas. Errores o contribuciones de campo: ia-lab@eneneuquen.com.ar</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">2</div>
+  </div>
+</div>
+<!-- RESUMEN EJECUTIVO -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Resumen Ejecutivo</div>
+  </div>
+  <div class="section-label">Sección 1 de 10</div>
+  <div class="section-title">Resumen Ejecutivo</div>
+  <div class="section-divider"></div>
+  <p class="lead">La IA ya está entrando en los equipos de RRHH en Neuquén, pero su uso es fragmentado, individual y concentrado en tareas administrativas. El mayor potencial no está en hacer más rápido lo que ya se hace: está en reposicionar al área como socio estratégico que alinea la tecnología con el desarrollo del talento y la cultura organizacional.</p>
+
+  <div class="subsection-title">KPIs del sector</div>
+  <div class="kpi-row kpi-row-3">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">68%</div>
+      <div class="kpi-label">de equipos de RRHH usa IA exclusivamente para tareas operativas, sin aplicación estratégica (SHRM AI+HI Project, 2024)</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">-40%</div>
+      <div class="kpi-label">reducción del tiempo en procesos de selección al incorporar IA asistida con criterios objetivos (LinkedIn Talent Trends, 2024)</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">Factor clave</div>
+      <div class="kpi-label">El ecosistema condiciona la adopción IA más que la herramienta: liderazgo, cultura y gobernanza son el verdadero campo de trabajo (hallazgo cualitativo de campo, ENE IA LAB, 2026)</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Hallazgos principales</div>
+  <ul class="bullet-list">
+    <li>La IA opera hoy principalmente como un motor de agilización administrativa: elaboración de informes, reemplazo parcial de planillas, síntesis de información y digitalización de procesos.</li>
+    <li>Los dolores más urgentes no son tecnológicos: son culturales, organizacionales y de gobernanza. Sin un marco claro, la adopción queda bloqueada independientemente de la herramienta disponible.</li>
+    <li>La gestión del conocimiento operacional es el dolor más subestimado: el saber práctico acumulado en personas clave no está documentado, y su pérdida representa un riesgo crítico para la continuidad operativa.</li>
+    <li>La selección y las entrevistas con soporte de IA tienen alta demanda, pero requieren diseño cuidadoso para evitar sesgos, garantizar trazabilidad y cumplir con marcos legales.</li>
+    <li>En organizaciones grandes, la seguridad de datos y la falta de lineamientos internos son los factores más citados como bloqueadores de adopción.</li>
+    <li>Quick wins disponibles: automatización de procesos administrativos repetitivos, dashboard de indicadores RRHH con actualización automática, y sistema de captura de conocimiento operacional.</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">Quick Wins disponibles hoy</div>
+    <p>La automatización de procesos manuales repetitivos (generación de informes, seguimiento de indicadores, procesamiento de formularios) puede implementarse en 4–6 semanas con herramientas disponibles hoy. El dashboard de métricas RRHH con actualización automática requiere entre 6 y 8 semanas. Ambas iniciativas generan retorno inmediato en tiempo recuperado y no requieren aprobación de IT ni validación de compliance.</p>
+  </div>
+
+  <p>La adopción de IA en RRHH no depende del software: depende de la madurez del ecosistema subyacente. El principal desafío no es tecnológico: es el estilo del líder, la cultura organizacional, la gobernanza, la seguridad de la información, la claridad de roles y la madurez para habilitar el cambio. El ENE IA LAB propone trabajar ese ecosistema con metodología concreta antes de escalar la tecnología.</p>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">3</div>
+  </div>
+</div>
+<!-- CONTEXTO DEL SECTOR -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Contexto del Sector</div>
+  </div>
+  <div class="section-label">Sección 2 de 10</div>
+  <div class="section-title">Contexto del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Neuquén concentra una matriz productiva diversa que incluye operaciones de Oil &amp; Gas, servicios, industria, salud y administración pública. Los equipos de RRHH de la región operan en organizaciones que van desde PyMEs de 10 empleados hasta grandes corporaciones de cientos. Todos comparten un diagnóstico común: la IA llegó a RRHH de forma espontánea, sin metodología ni gobernanza, y el área tiene la oportunidad histórica de liderar su ordenamiento.</p>
+
+  <div class="kpi-row kpi-row-4">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">68%</div>
+      <div class="kpi-label">de equipos RRHH usa IA solo para tareas operativas, no estratégicas</div>
+      <div class="kpi-source">SHRM AI+HI Project 2024</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">4 de cada 10</div>
+      <div class="kpi-label">profesionales de RRHH en LATAM no tiene lineamientos internos sobre uso de IA</div>
+      <div class="kpi-source">Mercer Global Talent Trends 2024</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">Factor clave</div>
+      <div class="kpi-label">Cultura, gobernanza y liderazgo condicionan la adopción IA en RRHH más que la herramienta disponible</div>
+      <div class="kpi-source">Hallazgo cualitativo de campo ENE IA LAB, abril 2026</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">6+</div>
+      <div class="kpi-label">aplicaciones distintas de IA detectadas en uso activo entre profesionales del primer encuentro</div>
+      <div class="kpi-source">Diagnóstico ENE IA LAB RRHH, abril 2026</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">El sector en detalle</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Actores principales</div>
+      <p>Responsables y profesionales de RRHH en organizaciones de sector O&amp;G, servicios, salud, industria y administración pública de Neuquén y Río Negro. Consultores independientes especializados en talento, desarrollo organizacional y gestión del cambio. Líderes de área que interactúan con RRHH como clientes internos.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Perfil del profesional</div>
+      <p>Licenciados y técnicos en RRHH, psicólogos organizacionales y administradores con especialización en gestión de personas. Alta carga operativa en tareas administrativas que reduce el tiempo disponible para trabajo estratégico. Mayoría con acceso a herramientas de IA pero sin metodología de implementación.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Sistemas actuales</div>
+      <p>Predominio de planillas Excel y Google Sheets para seguimiento de indicadores, legajos y procesos. Software de liquidación de sueldos independiente del resto de los sistemas. Herramientas de IA generativa (ChatGPT, Copilot) usadas de forma individual y no sistemática, sin integración con flujos de trabajo oficiales.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Marco regulatorio</div>
+      <p>Ley 25.326 de Protección de Datos Personales (datos de empleados). Convenios colectivos de trabajo aplicables por sector. Ley de Contrato de Trabajo y normativas de AFIP/ARCA para liquidación. Regulaciones provinciales específicas del sector O&amp;G. Ausencia de normativa específica sobre uso de IA en procesos de selección en Argentina.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Contexto regional (Patagonia / Neuquén)</div>
+      <p>La Cuenca Neuquina genera una demanda de talento específica en operaciones de campo que no tiene equivalente en otras regiones: perfiles técnicos escasos, alta rotación, condiciones de trabajo en locaciones remotas y necesidad de capturar conocimiento operacional crítico antes de que se pierda. Este contexto hace que la gestión del conocimiento sea un dolor distintivo de la región.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">El problema estructural</div>
+      <p>RRHH opera como receptor pasivo de tecnología: las decisiones sobre herramientas las toma IT, el área implementa lo que llega y carece de metodología para priorizar. El resultado es adopción fragmentada, iniciativas individuales sin escala y una oportunidad estratégica desaprovechada: liderar la transformación cultural que toda implementación de IA requiere.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">El problema estructural</div>
+    <p>RRHH tiene acceso a herramientas de IA pero carece de metodología para implementarlas. La adopción es individual, sin gobernanza, sin criterios de priorización y sin claridad sobre qué datos pueden compartirse con qué herramientas. Este desorden no es un problema de tecnología: es un problema de liderazgo y posicionamiento del área.</p>
+  </div>
+
+  <div class="info-box"><p><strong>Oportunidad de IA:</strong> La IA permite que RRHH recupere tiempo operativo para invertirlo en trabajo estratégico. Pero más importante: el área puede convertirse en el articulador natural de la adopción de IA en toda la organización, alineando la tecnología con la cultura, el desarrollo del talento y los valores corporativos. Ese es el salto que el ENE IA LAB propone construir.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">4</div>
+  </div>
+</div>
+<!-- MARCO TEÓRICO / TECNOLOGÍAS IA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Tecnologías IA Relevantes</div>
+  </div>
+  <div class="section-label">Sección 3 de 10</div>
+  <div class="section-title">Tecnologías de IA Relevantes para el Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Las tecnologías de IA disponibles en 2026 cubren exactamente el espectro de necesidades de RRHH: desde automatización de tareas repetitivas hasta análisis predictivo de rotación, captura de conocimiento operacional y asistencia en selección. Ninguna requiere infraestructura propia ni presupuestos de gran empresa: están disponibles como servicios cloud accesibles hoy.</p>
+
+  <div class="tech-card">
+    <div class="tech-icon">🤖</div>
+    <div>
+      <div class="tech-name">RPA + LLM para procesos administrativos</div>
+      <div class="tech-desc">Automatización de tareas repetitivas y generación de documentos</div>
+      <div class="tech-apply">→ Genera informes de indicadores RRHH automáticamente, procesa formularios de altas y bajas, redacta comunicaciones internas y actualiza dashboards sin intervención manual. Recupera entre 5 y 10 horas semanales por profesional.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">📊</div>
+    <div>
+      <div class="tech-name">People Analytics con IA</div>
+      <div class="tech-desc">Análisis predictivo de datos de talento</div>
+      <div class="tech-apply">→ Detecta patrones de rotación con hasta 90 días de anticipación, identifica equipos con riesgo de baja performance, correlaciona variables de clima laboral con indicadores de productividad. Transforma datos dispersos en inteligencia accionable para la toma de decisiones.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🗂️</div>
+    <div>
+      <div class="tech-name">RAG para gestión del conocimiento</div>
+      <div class="tech-desc">Recuperación aumentada sobre documentos operacionales</div>
+      <div class="tech-apply">→ Captura el conocimiento práctico de operaciones de campo en una base consultable: procedimientos, lecciones aprendidas, respuestas a situaciones recurrentes. Permite que el saber experto esté disponible para todo el equipo, independientemente de quién lo acumuló.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🔍</div>
+    <div>
+      <div class="tech-name">IA para selección y cribado</div>
+      <div class="tech-desc">Scoring basado en criterios explícitos, revisables y trazables</div>
+      <div class="tech-apply">→ Analiza CVs y perfiles contra criterios definidos por el equipo, organiza la información de entrevistas en formato estructurado y detecta inconsistencias en los procesos. Requiere diseño cuidadoso de criterios para evitar sesgos algorítmicos.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">📈</div>
+    <div>
+      <div class="tech-name">NLP para análisis de clima y feedback</div>
+      <div class="tech-desc">Procesamiento de texto de encuestas y entrevistas</div>
+      <div class="tech-apply">→ Analiza respuestas abiertas de encuestas de clima, entrevistas de salida y formularios de evaluación para identificar patrones temáticos sin necesidad de codificación manual. Genera síntesis accionables de grandes volúmenes de texto cualitativo.</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🎓</div>
+    <div>
+      <div class="tech-name">IA generativa para capacitación</div>
+      <div class="tech-desc">Personalización de contenidos de aprendizaje</div>
+      <div class="tech-apply">→ Crea materiales de capacitación adaptados al perfil y nivel del colaborador, genera evaluaciones automáticas de comprensión y produce resúmenes ejecutivos de cursos para líderes. Reduce hasta un 60% el tiempo de diseño instruccional.</div>
+    </div>
+  </div>
+
+
+  <div class="subsection-title">Evidencia cuantitativa global</div>
+  <div class="kpi-row kpi-row-3">
+    <div class="kpi-card">
+      <div class="kpi-num">-40%</div>
+      <div class="kpi-label">reducción del tiempo en selección con IA asistida — criterios más objetivos y proceso más rápido (LinkedIn Talent Trends 2024)</div>
+      <div class="kpi-source">LinkedIn 2024</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">85%</div>
+      <div class="kpi-label">de organizaciones que implementan People Analytics reportan mejora en decisiones de retención de talento (Deloitte Human Capital Trends 2024)</div>
+      <div class="kpi-source">Deloitte 2024</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">60%</div>
+      <div class="kpi-label">reducción del tiempo de diseño de capacitación con contenidos generados por IA (IBM AI in Learning 2023)</div>
+      <div class="kpi-source">IBM 2023</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">La ecuación clave</div>
+    <p>La herramienta es el componente menor del desafío. Lo que determina si la adopción funciona es el ecosistema: estilo del líder, cultura organizacional, gobernanza clara, seguridad de la información, claridad de roles y madurez para el cambio. Cualquier implementación de IA que ignore ese ecosistema está construyendo sobre arena.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">5</div>
+  </div>
+</div>
+<!-- MAPA DE DOLORES -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Mapa de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 de 10</div>
+  <div class="section-title">Mapa de Dolores del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Los dolores fueron identificados en el primer encuentro de campo del vertical RRHH (abril 2026) mediante intercambio directo con profesionales activos del sector. La priorización se realizó con un scoring compuesto que pondera frecuencia de aparición en el intercambio, impacto en la productividad del área e impacto en el valor estratégico de RRHH para la organización. Los dolores 1 a 5 fueron validados explícitamente por el grupo; los dolores 6 y 7 se presentan como propuestas para el próximo ciclo.</p>
+
+  <table class="dolor-table">
+    <thead>
+      <tr>
+        <th style="width:30px;">#</th>
+        <th>Punto de dolor</th>
+        <th style="width:90px;">Tipo</th>
+        <th style="width:110px;">Tecnología IA</th>
+        <th style="width:55px;">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center;font-weight:700;">1</td>
+        <td>Procesos manuales repetitivos sin automatizar<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>RPA · LLM · Automatización</td>
+        <td><span class="score-badge score-red">95</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">2</td>
+        <td>Fuga de conocimiento operacional crítico<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>RAG · NLP · Knowledge Base</td>
+        <td><span class="score-badge score-red">91</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">3</td>
+        <td>Adopción IA fragmentada sin metodología<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>Frameworks · Metodología · BI</td>
+        <td><span class="score-badge score-red">88</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">4</td>
+        <td>Selección sin soporte IA estructurado ni trazable<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>ML · NLP · Scoring trazable</td>
+        <td><span class="score-badge score-red">85</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">5</td>
+        <td>Ausencia de marco de gobernanza IA en RRHH<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Estructural</span></td>
+        <td>Gobernanza · Compliance · Frameworks</td>
+        <td><span class="score-badge score-red">82</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">6</td>
+        <td>Condiciones de adopción cultural insuficientes para integrar IA</td>
+        <td><span class="type-badge type-declarado">Estructural</span></td>
+        <td>LLM · Capacitación adaptativa · NLP</td>
+        <td><span class="score-badge score-orange">78</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">7</td>
+        <td>Indicadores RRHH reactivos sin análisis predictivo</td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>People Analytics · ML predictivo · BI</td>
+        <td><span class="score-badge score-orange">74</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box"><p><strong>Score compuesto 0–100:</strong> frecuencia × impacto × factibilidad de implementación con IA. <strong>✓ VAL</strong> = validado en entrevistas de campo. Sin marca = propuesta del grupo para ciclos futuros.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">6</div>
+  </div>
+</div>
+<!-- FICHAS DOLORES p.7 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 1 a 2</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">01</div>
+      <div class="dolor-card-title">Procesos manuales repetitivos sin automatizar</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">95</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Los equipos de RRHH dedican una proporción significativa de su tiempo a tareas repetitivas que no agregan valor estratégico: elaboración de informes periódicos, actualización de planillas de seguimiento, procesamiento de formularios de altas/bajas, generación de comunicaciones internas y consolidación de datos de distintas fuentes. Este tiempo consumido en operativa impide que el área trabaje en diagnóstico, desarrollo de talento y posicionamiento estratégico.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Profesional de RRHH con carga operativa alta en organizaciones de todos los tamaños, desde PyMEs con un responsable hasta equipos medianos sin automatización. El efecto es mayor en organizaciones con alta rotación o procesos de selección frecuentes.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">RRHH opera en modo reactivo permanente, sin tiempo para análisis, planificación o posicionamiento estratégico. El área pierde relevancia organizacional porque su trabajo visible es administrativo, no estratégico. El potencial de la IA queda sin aprovechar por falta de tiempo para implementarla.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Elaboración manual de informes en planillas. Actualización semanal o mensual de indicadores copiando datos de distintas fuentes. Comunicaciones internas redactadas desde cero en cada ocasión. Procesos de alta y baja de personal gestionados con formularios en papel o PDF.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Los profesionales de RRHH dedican entre el 40% y el 60% de su tiempo a tareas administrativas repetitivas (Deloitte Human Capital Trends 2024). La automatización de estos procesos puede recuperar entre 5 y 10 horas semanales por profesional.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>RPA + LLM: automatización de generación de informes periódicos, actualización de dashboards, procesamiento de formularios y redacción de comunicaciones estándar. Implementación: 4–6 semanas con herramientas cloud disponibles (Zapier, Make, ChatGPT API, Copilot). Impacto: recuperación del 40–60% del tiempo operativo para trabajo estratégico.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">02</div>
+      <div class="dolor-card-title">Fuga de conocimiento operacional crítico</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">91</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>El conocimiento práctico acumulado en operaciones de campo, en la gestión de situaciones complejas y en la interpretación de normativas específicas reside en las cabezas de personas clave, no en sistemas documentados. Cuando esa persona se va, rota o es promovida, el saber se va con ella. En el sector O&amp;G de Neuquén, donde las condiciones de campo son únicas y la rotación es alta, este riesgo es estructural.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Organización que pierde continuidad operativa cuando un colaborador clave se va. Nuevo integrante que debe reconstruir conocimiento desde cero. Líder de RRHH que no puede transferir metodologías probadas entre equipos.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Pérdida de continuidad en procesos, errores repetidos que ya fueron resueltos antes, incapacidad de escalar prácticas exitosas a otros equipos o locaciones, y dependencia excesiva de personas individuales que se convierte en fragilidad organizacional.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">El conocimiento se transmite por conversación informal o mentoría no sistemática. La documentación es escasa, desactualizada o inaccesible. Las lecciones aprendidas rara vez se registran de forma estructurada.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Las organizaciones con alta rotación en posiciones críticas pierden entre el 30% y el 50% de su conocimiento operacional por año, con impacto directo en tiempos de onboarding y calidad operativa (IBM Institute for Business Value 2023).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>RAG (Retrieval-Augmented Generation): base de conocimiento consultable que captura procedimientos, respuestas a situaciones frecuentes, lecciones aprendidas y criterios de decisión en lenguaje natural. El sistema permite consultas en tiempo real: ¿cómo se manejó este tipo de situación antes? ¿cuál es el procedimiento correcto en esta condición de campo? Implementación: 6–10 semanas. Impacto: conocimiento institucional disponible para toda la organización.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">7</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.8 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 3 a 4</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">03</div>
+      <div class="dolor-card-title">Adopción IA fragmentada sin metodología</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">88</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>La IA está entrando en RRHH de forma espontánea: cada profesional usa las herramientas que conoce, con los criterios que le parecen correctos, sin coordinación con el resto del equipo ni con la organización. El resultado es adopción desigual, uso subóptimo de las herramientas, incapacidad de escalar iniciativas exitosas y dificultad para demostrar impacto. La falta de metodología convierte buenas intenciones en proyectos piloto que nunca avanzan.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Líder de RRHH que ve cómo su equipo usa IA de forma individual pero no puede orquestrarlo. Profesional que tiene ideas pero no sabe por dónde empezar ni cómo justificar la inversión de tiempo. Organización que no puede medir el retorno de lo que ya está usando.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Las iniciativas de IA quedan en pruebas aisladas sin escala. El conocimiento de qué funciona y qué no se dispersa sin sistematizarse. El área no puede demostrar impacto y pierde credibilidad para acceder a recursos o aprobaciones de IT y compliance.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Cada profesional usa ChatGPT, Copilot u otras herramientas por su cuenta. No hay criterios compartidos sobre qué datos se pueden ingresar a qué herramienta. No hay instancias de intercambio sobre qué está funcionando. No hay metodología para pasar de prueba a implementación.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El 71% de los profesionales de RRHH que usan IA lo hace sin lineamientos formales de su organización (SHRM AI+HI Project 2024). Las organizaciones con metodología de adopción de IA logran 3 veces más iniciativas escalables que las que adoptan de forma orgánica.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Framework de priorización: metodología para identificar casos de bajo riesgo / alto impacto y organizarlos en una hoja de ruta. Comunidad de práctica interna con intercambio sistemático. Criterios claros sobre qué datos pueden usarse con qué herramientas. Implementación: 4–8 semanas (no requiere tecnología, solo metodología). Impacto: adopción orquestada que escala y demuestra resultados.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">04</div>
+      <div class="dolor-card-title">Selección sin soporte IA estructurado ni trazable</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">85</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Los procesos de selección y entrevistas son intensivos en tiempo y dependen fuertemente del criterio subjetivo de quien evalúa. La IA puede asistir en el prefiltrado de candidatos, la organización de información de entrevistas y la estandarización de criterios de evaluación. Pero su aplicación sin diseño adecuado puede amplificar sesgos existentes, reducir la diversidad y generar decisiones no trazables.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Responsable de selección que gestiona grandes volúmenes de CVs sin herramientas de apoyo. Candidatos que son evaluados con criterios no estandarizados. Organización que toma decisiones de talento sin datos comparables entre candidatos.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Procesos de selección lentos y costosos en tiempo. Decisiones basadas en impresiones subjetivas no documentadas. Sesgo inconsciente en la evaluación. Incapacidad de demostrar que el proceso fue justo y trazable ante cuestionamientos legales.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Revisión manual de CVs uno a uno. Entrevistas no estructuradas cuyas notas quedan en documentos personales del entrevistador. Comparación de candidatos basada en recuerdo e impresión, no en datos. Sin trazabilidad del proceso decisorio.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Los procesos de selección con soporte de IA y criterios estandarizados reducen el tiempo de contratación en un 40% y mejoran la diversidad de las incorporaciones en un 35% cuando los criterios se diseñan con atención a sesgos (LinkedIn Talent Trends 2024 / Harvard Business Review 2024).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Asistente de selección: herramienta que analiza CVs contra criterios definidos por el equipo (no por el algoritmo), organiza las notas de entrevistas en formato estructurado, genera comparativas entre candidatos con los mismos criterios y deja trazabilidad de cada decisión. Criterio fundamental: los criterios los define el equipo humano; la IA organiza y compara, no decide. Implementación: 6–8 semanas. Impacto: proceso más rápido, más justo y documentado.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">8</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.9 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 5 a 6</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">05</div>
+      <div class="dolor-card-title">Ausencia de marco de gobernanza IA en RRHH</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">82</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>En organizaciones medianas y grandes, la adopción de IA en RRHH requiere aprobaciones cruzadas entre IT, Legales y Compliance que pueden demorar meses o bloquearse indefinidamente. La causa raíz no es mala voluntad: es la ausencia de un marco interno claro que establezca qué herramientas son seguras, qué datos pueden compartirse, qué procesos pueden automatizarse y quién es responsable de cada decisión.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Profesional de RRHH que tiene iniciativas bloqueadas por falta de aprobación interna. Líder que quiere avanzar pero no sabe cómo justificar el riesgo ante el directorio. Organización que pierde ventaja competitiva mientras espera que los procedimientos internos se actualicen.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Adopción congelada o relegada a uso informal y no declarado. Riesgo real de exposición legal por uso de herramientas sin protocolo (datos de empleados en plataformas sin acuerdo de confidencialidad). Frustración del equipo de RRHH que ve la oportunidad pero no puede materializarla.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Sin lineamientos internos sobre IA, los profesionales usan herramientas con datos de la empresa sin saber si eso está permitido. IT bloquea cualquier herramienta no aprobada. Compliance no tiene criterios para evaluar. El área espera en un limbo regulatorio.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El 56% de los profesionales de RRHH en organizaciones de más de 500 empleados indica que la falta de marcos internos de gobernanza es el principal obstáculo para la adopción de IA (Mercer Global Talent Trends 2024). En organizaciones con marco claro, la velocidad de adopción es 3,5 veces mayor.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Marco de gobernanza mínimo viable: documento de una página que establece qué herramientas son permitidas, qué datos pueden ingresarse en cada herramienta, quién aprueba nuevos usos y cómo se documenta. RRHH puede liderar su construcción convocando a IT, Legales y Compliance en una sesión de 2 horas. Implementación: 2–4 semanas. Impacto: desbloqueo de todas las iniciativas de IA pendientes de aprobación.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">06</div>
+      <div class="dolor-card-title">Condiciones de adopción cultural insuficientes para integrar IA</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">78</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>La convivencia de múltiples perfiles y generaciones en una misma organización requiere condiciones específicas para que la adopción de IA sea sostenida: sentido compartido del cambio, seguridad psicológica para explorar sin miedo a equivocarse, liderazgo que modele la conducta esperada, comunicación transparente sobre el alcance de la transformación, formación diferenciada por perfil y participación activa en las decisiones que afectan el trabajo. Sin estas condiciones, la IA se adopta de forma fragmentada o directamente no se adopta.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Líder de RRHH que debe gestionar un proceso de cambio para el que no recibió formación específica. Equipos que no tienen claridad sobre qué cambia en su trabajo con la IA y qué no. Organización que invierte en herramientas pero no en las condiciones que hacen posible su uso sostenido.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Adopción fragmentada o nula a pesar de contar con herramientas disponibles. Tensión entre distintos perfiles sobre el ritmo y la forma del cambio. Pérdida del conocimiento tácito de perfiles experimentados que no se sienten parte del proceso de transformación.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">La gestión del cambio en implementaciones tecnológicas se delega a IT o consultores externos, sin participación activa de RRHH. Los programas de capacitación son genéricos y no adaptan el mensaje ni el enfoque por perfil o nivel de experiencia.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Las organizaciones que diseñan programas de adopción de IA diferenciados por perfil y nivel de experiencia logran tasas de adopción significativamente superiores a las que aplican un enfoque único (IBM Institute for Business Value 2023).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Plataforma de capacitación personalizada: contenidos de IA adaptados al nivel de experiencia y perfil del colaborador. Para perfiles experimentados: énfasis en cómo la IA reconfigura el trabajo y amplía el alcance de su experiencia, sin eliminar su valor. Para perfiles con menor experiencia tecnológica: énfasis en criterios, responsabilidad y calidad por encima de velocidad. El proceso debe incluir espacios de participación, no solo formación. Implementación: 8–12 semanas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">9</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.10 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 7 a 7</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">07</div>
+      <div class="dolor-card-title">Indicadores RRHH reactivos sin análisis predictivo</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">74</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Los indicadores de RRHH (rotación, ausentismo, tiempos de selección, clima) se reportan en retrospectiva: muestran lo que ya pasó, no lo que va a pasar. Sin análisis predictivo, RRHH actúa siempre después del hecho: gestiona la renuncia cuando ya se produjo, detecta el problema de clima cuando ya afectó la productividad.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Líder de RRHH que presenta métricas de lo que ocurrió sin poder anticipar lo que va a ocurrir. Directivo que no puede tomar decisiones de talento basadas en proyecciones. Organización que pierde talento sin señales de alerta previas.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Gestión reactiva del talento. Costos de rotación no anticipados. Clima deteriorado detectado tarde. Incapacidad de demostrar valor estratégico del área porque los datos solo confirman problemas ya visibles.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Dashboard de indicadores actualizado manualmente cada mes con datos de múltiples fuentes. Sin modelos de predicción. Sin alertas tempranas de riesgo de rotación o caída de clima.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Las organizaciones con people analytics predictivo reducen la rotación no deseada en un 25% en el primer año de implementación (Deloitte Human Capital Trends 2024). El prerrequisito es contar con datos limpios e integrados, lo que requiere resolver los dolores operativos primero.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>People Analytics con ML: modelo de predicción de rotación basado en variables de engagement, desempeño y tiempo en el puesto. Dashboard de indicadores con actualización automática y alertas proactivas. Prerrequisito: datos integrados y de calidad suficiente para entrenar modelos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">10</div>
+  </div>
+</div>
+<!-- ANÁLISIS DE BRECHAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Análisis de Brechas</div>
+  </div>
+  <div class="section-label">Sección 6 de 10</div>
+  <div class="section-title">Análisis de Brechas: Estado Actual vs. con IA</div>
+  <div class="section-divider"></div>
+  <p class="lead">Neuquén concentra una matriz productiva diversa que incluye operaciones de Oil &amp; Gas, servicios, industria, salud y administración pública. Los equipos de RRHH de la región operan en organizaciones que van desde PyMEs de 10 empleados hasta grandes corporaciones de cientos. Todos comparten un diagnóstico común: la IA llegó a RRHH de forma espontánea, sin metodología ni gobernanza, y el área tiene la oportunidad histórica de liderar su ordenamiento.</p>
+
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Generación de informes y reportes</div>
+      <div class="brecha-text">Elaboración manual cada semana o mes, consolidando datos de múltiples planillas. Proceso consume entre 3 y 8 horas por informe. Alta probabilidad de error.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Generación de informes y reportes</div>
+      <div class="brecha-text">Generación automática de informes con datos actualizados en tiempo real. El profesional revisa y valida, no produce. Tiempo reducido a menos de 30 minutos de revisión.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Gestión del conocimiento</div>
+      <div class="brecha-text">Conocimiento operacional en la mente de personas clave. Sin documentación sistemática. Pérdida garantizada ante cada salida o rotación.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Gestión del conocimiento</div>
+      <div class="brecha-text">Base de conocimiento consultable en lenguaje natural. Cualquier miembro del equipo puede consultar procedimientos, precedentes y criterios de decisión en segundos.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Procesos de selección</div>
+      <div class="brecha-text">Revisión manual de CVs uno a uno. Entrevistas no estructuradas. Decisiones basadas en impresión subjetiva. Sin trazabilidad del proceso.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Procesos de selección</div>
+      <div class="brecha-text">Prefiltrado automatizado con criterios definidos por el equipo. Entrevistas estructuradas con guía IA. Comparativa estandarizada de candidatos. Trazabilidad completa del proceso.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Seguimiento de indicadores</div>
+      <div class="brecha-text">Actualización manual mensual de dashboards. Datos retrospectivos. Sin alertas. Sin predicción.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Seguimiento de indicadores</div>
+      <div class="brecha-text">Dashboard actualizado automáticamente. Alertas proactivas de riesgo (rotación, ausentismo, clima). Proyecciones a 30/60/90 días para anticipar decisiones.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Gobernanza y seguridad de datos</div>
+      <div class="brecha-text">Sin lineamientos internos sobre uso de IA. Profesionales usan herramientas sin saber si está permitido. Riesgo legal no gestionado.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Gobernanza y seguridad de datos</div>
+      <div class="brecha-text">Marco de gobernanza mínimo viable: herramientas aprobadas, datos permitidos, responsables definidos. Adopción ordenada y sin riesgo legal.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Posicionamiento del área</div>
+      <div class="brecha-text">RRHH como receptor pasivo de tecnología decidida por IT. Percepción externa como área administrativa, no estratégica.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Posicionamiento del área</div>
+      <div class="brecha-text">RRHH como articulador de la adopción de IA en toda la organización. Posicionamiento como socio estratégico que alinea tecnología con talento y cultura.</div>
+    </div>
+  </div>
+
+
+  <div class="info-box"><p><strong>Nota:</strong> Los impactos expresados son estimaciones basadas en implementaciones análogas documentadas en literatura y casos de uso globales. No representan garantías de resultado. Los indicadores son no-monetarios: tiempo, incidentes, adopción, calidad.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">11</div>
+  </div>
+</div>
+<!-- MAPA DE MADUREZ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Mapa de Madurez</div>
+  </div>
+  <div class="section-label">Sección 7 de 10</div>
+  <div class="section-title">Mapa de Madurez — HR Maturity Model (Deloitte / SHRM, adaptado por ENE IA LAB para el contexto regional)</div>
+  <div class="section-divider"></div>
+  <p class="lead">El HR Maturity Model de Deloitte y SHRM define cinco niveles de madurez en la gestión de personas, desde el rol administrativo básico hasta el posicionamiento como socio estratégico del negocio. Lo adaptamos aquí al contexto específico de organizaciones en Neuquén y Río Negro, integrando la dimensión de adopción de IA como eje transversal. La posición actual del sector en la región se ubica predominantemente entre los niveles 1 y 2, con oportunidad de avanzar al nivel 3–4 en 12 meses con las iniciativas propuestas.</p>
+
+  <div class="maturity-wrap">
+    <table class="maturity-table">
+      <thead>
+        <tr>
+<th class="mat-h0">Dimensión</th>
+        <th class="mat-h1">1 — Administrativo</th>
+        <th class="mat-h2">2 — Operativo</th>
+        <th class="mat-h3">3 — Automatizado</th>
+        <th class="mat-h4">4 — Estratégico</th>
+        <th class="mat-h5">5 — Transformador</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr><td>Automatización de procesos operativos</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Gestión del conocimiento</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Selección y reclutamiento</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Indicadores y reporting</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"></td><td class="mat-4"><span class="mat-target">Objetivo</span></td><td class="mat-5"></td></tr>
+      <tr><td>Gobernanza IA</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Posicionamiento estratégico del área</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"></td><td class="mat-4"><span class="mat-target">Objetivo</span></td><td class="mat-5"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-3" style="margin-top:12px;">
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#7F1D1D;">1 — Administrativo</div>
+      <p>RRHH como área de soporte operativo. Procesos manuales, reactivos y no integrados. Sin datos para toma de decisiones. IA ausente o completamente informal.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#713F12;">2 — Operativo</div>
+      <p>Digitalización básica de procesos. Primeros KPIs de seguimiento. Uso individual y espontáneo de herramientas IA. Sin metodología ni gobernanza.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">3 — Automatizado</div>
+      <p>Procesos repetitivos automatizados. Dashboard de indicadores actualizado en tiempo real. Marco de gobernanza IA implementado. Gestión del conocimiento sistematizada.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">4 — Estratégico</div>
+      <p>People Analytics predictivo activo. Selección asistida por IA con criterios explícitos y trazables. RRHH como articulador de la adopción de IA en toda la organización.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#ffffff;">5 — Transformador</div>
+      <p>RRHH como arquitecto del cambio organizacional. IA integrada en todas las decisiones de talento. Cultura de aprendizaje continuo y adaptación permanente.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">¿Qué significa este mapa?</div>
+    <p>La mayoría de los equipos de RRHH de la región están en nivel 1 o 2. El objetivo del ENE IA LAB para el ciclo 2026 es llevar al sector al nivel 3 en automatización, conocimiento y gobernanza, y sentar las bases del nivel 4 en indicadores y posicionamiento estratégico. El nivel 5 no es el objetivo inmediato: es la dirección de largo plazo.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">12</div>
+  </div>
+</div>
+<!-- CASOS DE USO IA p.13 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 de 10</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Asistente de automatización de informes RRHH</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema que genera automáticamente los informes periódicos de RRHH (ausentismo, rotación, novedades de personal, indicadores de selección) tomando datos de las fuentes existentes. El profesional recibe el informe generado, revisa y valida. Incluye redacción automática de comunicaciones internas estándar (convocatorias, recordatorios, notificaciones de incorporación).</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">RPA</span><span class="ia-tag ia-tag-key">Integración API</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Planillas o sistema de gestión con datos de empleados, asistencia y novedades. Plantillas de los informes existentes.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">4–6 semanas con herramientas cloud (Make/Zapier + ChatGPT API o Copilot).</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Recuperación de 5–10 horas semanales por profesional. Reducción de errores de transcripción. Informes disponibles en tiempo real en lugar de al final del mes.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Equipos de RRHH que automatizan reporting reportan recuperación de entre el 30% y el 50% del tiempo operativo (Deloitte Human Capital Trends 2024).</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Base de conocimiento operacional consultable</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema RAG (Retrieval-Augmented Generation) que captura el conocimiento crítico del equipo: procedimientos documentados, respuestas a situaciones frecuentes, criterios de decisión, lecciones aprendidas en campo. Cualquier miembro puede consultar en lenguaje natural: ¿cómo se manejó esta situación antes? ¿cuál es el procedimiento para este caso? El sistema responde citando la fuente.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">RAG</span><span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Embeddings</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Documentos existentes (procedimientos, manuales, correos con criterios de decisión). Sesiones de captura de conocimiento con personas clave.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">6–8 semanas. Inicio con un dominio específico (onboarding, selección o normativa laboral) y expansión progresiva.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Conocimiento institucional disponible para todo el equipo. Reducción del 60% del tiempo de onboarding de nuevos integrantes. Continuidad operativa ante rotación de personas clave.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Organizaciones con bases de conocimiento IA reducen el tiempo de onboarding en un 60% y el error por desconocimiento en un 40% (IBM Institute for Business Value 2023).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">13</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.14 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Marco de gobernanza IA mínimo viable para RRHH</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Documento de una página que establece las reglas del juego para el uso de IA en el área: herramientas aprobadas para cada tipo de tarea, datos que pueden y no pueden ingresarse en cada herramienta, responsable de aprobar nuevos usos y proceso de documentación. RRHH lidera su construcción convocando a IT, Legales y Compliance en una sesión de trabajo de 2 horas.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">Frameworks de gobernanza</span><span class="ia-tag ia-tag-key">Documentación estructurada</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Inventario de herramientas IA actualmente en uso. Mapa de datos de empleados y su nivel de sensibilidad.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">2–4 semanas (principalmente trabajo de facilitación, no tecnología).</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Desbloqueo de todas las iniciativas de IA pendientes de aprobación. Reducción del riesgo legal por uso no autorizado de herramientas con datos de empleados. Posicionamiento de RRHH como líder de la gobernanza IA organizacional.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Organizaciones con marco de gobernanza IA implementado adoptan nuevas iniciativas 3,5 veces más rápido que las que no lo tienen (Mercer Global Talent Trends 2024).</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-mp">
+      <div class="ia-card-title">Asistente de selección con criterios explícitos y trazables</div>
+      <div class="ia-card-badge">Mediano Plazo</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Herramienta que asiste el proceso de selección en tres momentos: análisis de CVs contra criterios definidos por el equipo (no por el algoritmo), organización estructurada de notas de entrevistas y generación de comparativas estandarizadas entre finalistas. El criterio fundamental: los criterios los define el equipo humano — explícitos, revisables y auditables; la IA aplica esos criterios de forma consistente y trazable. El equipo decide. Toda decisión queda documentada. Se incluye auditoría de sesgos antes de escalar el sistema.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">NLP</span><span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Scoring explícito y trazable</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Perfil del puesto con criterios de evaluación explícitos definidos por el equipo. CVs de candidatos. Guías de entrevista estructurada.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">6–8 semanas. Requiere definir criterios de evaluación antes de implementar.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción del 40% del tiempo de selección. Mejora de consistencia y trazabilidad del proceso. Reducción de sesgos inconscientes con criterios estandarizados. Documentación completa ante potenciales cuestionamientos.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Procesos de selección con criterios estandarizados y soporte IA mejoran la diversidad de incorporaciones en un 35% y reducen el tiempo de contratación en un 40% (LinkedIn Talent Trends 2024).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">14</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.15 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-mp">
+      <div class="ia-card-title">Dashboard de people analytics predictivo</div>
+      <div class="ia-card-badge">Mediano Plazo</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Dashboard de indicadores RRHH con actualización automática y modelos predictivos: alertas de riesgo de rotación por equipo con 60–90 días de anticipación, proyección de ausentismo, evolución de indicadores de clima y análisis de correlaciones entre variables de gestión y resultados operativos. El área pasa de reportar lo que pasó a anticipar lo que va a pasar.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">People Analytics</span><span class="ia-tag ia-tag-key">ML predictivo</span><span class="ia-tag ia-tag-key">BI / dashboards</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Datos históricos de rotación, ausentismo, evaluaciones de desempeño y resultados de encuestas de clima (mínimo 12 meses).</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">8–12 semanas (requiere datos integrados de buena calidad).</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción del 25% de la rotación no deseada en el primer año. Posicionamiento del área como proveedor de inteligencia estratégica para la dirección. Decisiones de talento basadas en datos, no en intuición.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Organizaciones con people analytics predictivo reducen la rotación no deseada en un 25% y mejoran la satisfacción del área RRHH con su propio impacto en un 40% (Deloitte Human Capital Trends 2024).</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Plataforma de capacitación personalizada con IA</div>
+      <div class="ia-card-badge">Largo Plazo</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema de aprendizaje adaptativo que diseña rutas de capacitación según el perfil, la brecha de conocimiento y el rol de cada colaborador. Para la adopción de IA: contenidos diferenciados por nivel de experiencia tecnológica. Para desarrollo profesional: itinerarios personalizados basados en objetivos de carrera y necesidades del negocio. Incluye evaluaciones automáticas y seguimiento de progreso.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Estructural</span>
+        <span class="ia-tag ia-tag-key">LLM generativo</span><span class="ia-tag ia-tag-key">Adaptive Learning</span><span class="ia-tag ia-tag-key">NLP</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Perfil de cada colaborador. Objetivos de desarrollo. Mapa de competencias requeridas por rol.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">12–16 semanas (mayor complejidad de integración).</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción del 60% del tiempo de diseño instruccional. Tasas de adopción IA un 45% superiores con contenidos adaptados por perfil. Reducción de la brecha generacional en la organización.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Organizaciones con programas de capacitación personalizados por perfil generacional logran tasas de adopción tecnológica un 45% superiores (IBM Institute for Business Value 2023).</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">15</div>
+  </div>
+</div>
+<!-- HOJA DE RUTA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Hoja de Ruta</div>
+  </div>
+  <div class="section-label">Sección 9 de 10</div>
+  <div class="section-title">Hoja de Ruta — Jul–Dic 2026</div>
+  <div class="section-divider"></div>
+  <p class="lead">Propuesta de avance estructurado en tres fases para implementar las oportunidades priorizadas, con criterio de Quick Wins primero, construcción de capacidades después y proyectos estructurales al final.</p>
+
+  <div class="roadmap-grid">
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m1">Fase 0 — Diagnóstico y priorización (Jun–Jul 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Mapeo del estado actual de adopción IA en el área</div>
+        <div class="roadmap-item-desc">Relevamiento de herramientas en uso, dolores prioritarios por equipo y brechas de gobernanza. Insumo para toda la hoja de ruta posterior.</div>
+        <div class="roadmap-item-time">Junio · Sem. 3–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Taller de priorización con el equipo de RRHH</div>
+        <div class="roadmap-item-desc">Sesión participativa para identificar los 2–3 casos de uso de mayor impacto y menor fricción en la organización específica. Alinea al equipo antes de invertir en implementación.</div>
+        <div class="roadmap-item-time">Julio · Sem. 1</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m2">Fase 1 — Quick Wins (Jul–Ago 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Marco de gobernanza IA mínimo viable</div>
+        <div class="roadmap-item-desc">Documento de reglas claras sobre herramientas, datos y responsables. RRHH lidera la sesión con IT, Legales y Compliance.</div>
+        <div class="roadmap-item-time">Julio · Sem. 1–2</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Automatización de informes periódicos</div>
+        <div class="roadmap-item-desc">Generación automática de reportes de indicadores y comunicaciones internas estándar con herramientas cloud disponibles.</div>
+        <div class="roadmap-item-time">Julio · Sem. 2–6</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Base de conocimiento operacional (piloto)</div>
+        <div class="roadmap-item-desc">Captura de conocimiento crítico en un dominio específico (onboarding o selección). Sistema consultable por el equipo en lenguaje natural.</div>
+        <div class="roadmap-item-time">Agosto · Sem. 1–4</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m3">Fase 2 — Capacidades (Sep–Oct 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Asistente de selección estructurado</div>
+        <div class="roadmap-item-desc">Definición de criterios objetivos de evaluación. Implementación de herramienta de prefiltrado y comparativa de candidatos con trazabilidad completa.</div>
+        <div class="roadmap-item-time">Septiembre · Sem. 1–6</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Dashboard de indicadores con actualización automática</div>
+        <div class="roadmap-item-desc">Integración de fuentes de datos de RRHH en dashboard unificado con alertas básicas de ausentismo y rotación.</div>
+        <div class="roadmap-item-time">Octubre · Sem. 1–4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Métricas de éxito (no monetarias)</div>
+  <table class="impact-table">
+    <thead>
+      <tr>
+        <th>Prototipo / Iniciativa</th>
+        <th>Métrica clave</th>
+        <th>Horizonte</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Marco de gobernanza</td>
+        <td>100% de herramientas IA en uso con estado definido (aprobada / en revisión / no permitida)</td>
+        <td>Agosto 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Automatización de informes</td>
+        <td>Tiempo de generación de informe mensual reducido de 8 horas a menos de 1 hora</td>
+        <td>Agosto 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Base de conocimiento</td>
+        <td>Tiempo de onboarding de nuevos integrantes reducido en al menos 30%</td>
+        <td>Septiembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Asistente de selección</td>
+        <td>Tiempo promedio de proceso de selección reducido en 40%</td>
+        <td>Noviembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>People Analytics</td>
+        <td>Alertas de riesgo de rotación activas para el 100% de los equipos</td>
+        <td>Diciembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">16</div>
+  </div>
+</div>
+<!-- ÉTICA Y GOBERNANZA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Ética y Gobernanza</div>
+  </div>
+  <div class="section-label">Sección 10 de 10</div>
+  <div class="section-title">Ética, Gobernanza y Marco de Trabajo</div>
+  <div class="section-divider"></div>
+  <p class="lead">RRHH maneja los datos más sensibles de la organización: información personal, de desempeño, de salud laboral, de conflictos y de salarios. La IA en este contexto no es una opción sin riesgos: puede amplificar sesgos, vulnerar privacidad y tomar decisiones que afectan la vida de las personas. El ENE IA LAB adopta un enfoque de IA responsable que pone la dignidad de los colaboradores como límite innegociable de cualquier automatización.</p>
+
+  <div class="subsection-title">Iniciativas análogas globales — aprendizajes para el IA LAB</div>
+  <div class="initiative-grid">
+    <div class="initiative-card">
+      <div class="initiative-flag">🇨🇦</div>
+      <div class="initiative-name">Algorithmic Impact Assessment — Gobierno de Canadá</div>
+      <div class="initiative-country">Canadá · Evaluación de impacto</div>
+      <div class="initiative-model">Marco obligatorio para evaluar el impacto de sistemas de IA antes de implementarlos en decisiones que afectan a personas. Aprendizaje clave para RRHH: toda herramienta que asista decisiones de selección, evaluación o desvinculación debe pasar por una evaluación de sesgo antes de implementarse.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇸🇪</div>
+      <div class="initiative-name">AI and Work — Swedish Government Commission</div>
+      <div class="initiative-country">Suecia · Derechos en el trabajo</div>
+      <div class="initiative-model">Marco de referencia para el uso de IA en el ámbito laboral que establece derechos de transparencia e impugnación para trabajadores. Aprendizaje clave: los colaboradores tienen derecho a saber cuándo una decisión que los afecta fue asistida por IA y a cuestionar esa decisión.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇧🇷</div>
+      <div class="initiative-name">LGPD y datos de empleados</div>
+      <div class="initiative-country">Brasil · Marco regional análogo</div>
+      <div class="initiative-model">La Ley General de Protección de Datos de Brasil (análoga a la Ley 25.326 argentina) establece restricciones específicas sobre el uso de datos de empleados en sistemas automatizados. Aprendizaje clave: los datos de RRHH son datos personales sensibles; su uso en herramientas de IA requiere base legal explícita.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Riesgos sin protocolo de gobernanza</div>
+    <p>Sin protocolos de gobernanza, la IA en RRHH puede reproducir y amplificar sesgos de selección existentes, tomar decisiones de evaluación de desempeño no trazables, vulnerar la privacidad de empleados al ingresar sus datos en plataformas sin acuerdo de confidencialidad, y generar discriminación algorítmica en procesos de reclutamiento. El riesgo más silencioso es la pérdida de confianza de los colaboradores cuando descubren que la IA tuvo influencia en decisiones que los afectaron.</p>
+  </div>
+
+  <div class="subsection-title">Modelo propuesto para el IA LAB</div>
+  <p>El ENE IA LAB propone un modelo de IA asistida con supervisión humana obligatoria en todas las decisiones que afectan a personas. La IA organiza, sintetiza y sugiere; el profesional de RRHH evalúa, decide y documenta. Todo proceso automatizado es explicable: el colaborador afectado tiene derecho a conocer qué criterios se usaron. Los sesgos se auditan antes de escalar cualquier herramienta de selección o evaluación.</p>
+
+  <div class="subsection-title">Consideraciones éticas operativas</div>
+  <div class="ethics-grid">
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🔒 Privacidad de datos de empleados</div>
+      <p>Los datos de RRHH son datos personales sensibles. Ningún dato de empleado se ingresa en herramientas de IA sin verificar que esa herramienta tiene acuerdo de confidencialidad y cumple con la Ley 25.326. El marco de gobernanza establece qué datos pueden usarse en qué herramientas.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">⚖️ No discriminación y auditoría de sesgos</div>
+      <p>Toda herramienta de IA que asista decisiones de selección, evaluación o ascenso debe pasar por una revisión de sesgo antes de implementarse a escala. Los criterios los define el equipo humano; la IA aplica esos criterios de forma consistente, pero el equipo es responsable de que esos criterios sean justos.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">📋 Trazabilidad y derecho a explicación</div>
+      <p>Toda decisión asistida por IA que afecte a un colaborador (selección, evaluación, desvinculación) debe ser trazable y explicable. El colaborador tiene derecho a saber que la IA participó y cuáles fueron los criterios usados. La irreversibilidad no existe: toda decisión puede ser revisada por el responsable humano.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🤝 IA que reconfigura el trabajo: RRHH gestiona la transición</div>
+      <p>La IA no reemplaza roles: reconfigura el trabajo, redistribuye tareas y exige nuevas capacidades. RRHH es el área mejor posicionada para gestionar esa transición — acompañar a las personas, anticipar el impacto en los perfiles, diseñar los procesos de formación y asegurar que el cambio se construya con participación activa de quienes son afectados, no sobre ellos.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Posición del ENE IA LAB</div>
+    <p>La Vertical RRHH del ENE IA LAB no impulsa la adopción acrítica de IA: construye casos de uso responsables, contextualizados y medibles. RRHH no es solo usuario de estas herramientas: es su primera evaluadora, con la mirada puesta en el impacto sobre las personas. No implementamos IA que afecte a personas sin que un profesional humano revise y valide cada decisión. La dignidad de los colaboradores no es un criterio secundario: es el límite que ninguna eficiencia operativa puede cruzar.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">17</div>
+  </div>
+</div>
+<!-- CIERRE / LICENCIA / REFERENCIAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · RRHH</div>
+    <div class="page-header-right">Lo que estamos construyendo</div>
+  </div>
+  <div class="section-label">Experimentos en Curso</div>
+  <div class="section-title">Lo que el Vertical Está Trabajando</div>
+  <div class="section-divider"></div>
+  <p class="lead">El vertical continúa activo. Estas son algunas de las iniciativas en exploración en el grupo de trabajo actual.</p>
+
+  <ul class="bullet-list">
+    <li>Prototipo de base de conocimiento RAG para gestión de procedimientos de RRHH: en diseño de arquitectura con datos sintéticos anonimizados.</li>
+    <li>Exploración de herramientas de automatización de reporting (Make + ChatGPT API): en evaluación con casos de uso del primer grupo de trabajo.</li>
+    <li>Marco de gobernanza IA para RRHH: en redacción colaborativa con referentes del vertical, IT y equipo legal del ENE IA LAB.</li>
+    <li>Mapa de criterios para auditoría de sesgos en herramientas de selección: en construcción a partir de literatura internacional y normativa local.</li>
+  </ul>
+
+  <div class="callout" style="margin-top:18px;">
+    <div class="callout-title">Sumate al vertical RRHH</div>
+    <p>El ENE IA LAB funciona como un espacio abierto de co-creación. Si trabajás en el sector y querés aportar tu perspectiva de campo, validar dolores, explorar soluciones o participar en los prototipos, escribinos. El conocimiento que generamos es público y libre.</p>
+  </div>
+
+  <div class="license-block">
+    <div class="license-badge-row">
+      <div class="license-badge">CC BY-SA 4.0</div>
+      <div style="font-size:8.5pt;color:#065F46;">Este White Paper está publicado bajo licencia Creative Commons Attribution-ShareAlike 4.0 International</div>
+    </div>
+    <div class="license-block-title">Condiciones de uso</div>
+    <p><strong>Podés:</strong> copiar, distribuir, adaptar y usar comercialmente este material, incluyendo en productos y servicios propios.</p>
+    <p><strong>Con la condición de:</strong> atribuir al ENE IA LAB como fuente original y publicar cualquier obra derivada bajo la misma licencia CC BY-SA 4.0 (copyleft).</p>
+    <p><strong>No requerido:</strong> autorización previa. <strong>Atribución sugerida:</strong> "Basado en investigación del ENE IA LAB (CC BY-SA 4.0) — eneneuquen.com.ar"</p>
+    <p>Texto completo de la licencia: creativecommons.org/licenses/by-sa/4.0/</p>
+  </div>
+
+  <div class="subsection-title">Referencias bibliográficas</div>
+  <ol class="ref-list">
+    <li>Deloitte (2024). Global Human Capital Trends 2024: Thriving beyond boundaries. Deloitte Insights.</li>
+    <li>SHRM — Society for Human Resource Management (2024). AI+HI Project: How AI is Reshaping HR. SHRM Research.</li>
+    <li>LinkedIn Talent Solutions (2024). Future of Recruiting 2024. LinkedIn Corporation.</li>
+    <li>IBM Institute for Business Value (2023). Augmented Work for an Automated, AI-Infused World. IBM Corporation.</li>
+    <li>Mercer (2024). Global Talent Trends 2024: Seizing the momentum. Mercer LLC.</li>
+    <li>ILO — International Labour Organization (2023). Artificial Intelligence in the World of Work. ILO Publications.</li>
+    <li>Harvard Business Review (2024). The New Science of People Management. HBR Press.</li>
+    <li>Government of Canada (2022). Algorithmic Impact Assessment Framework. Treasury Board Secretariat.</li>
+    <li>Swedish Government Commission on AI and Work (2023). AI in the Workplace: Rights and Responsibilities. Government Offices of Sweden.</li>
+    <li>Autoridad Nacional de Protección de Datos Personales Argentina (2024). Guía sobre tratamiento de datos personales en el ámbito laboral.</li>
+    <li>INDEC (2024). Encuesta Permanente de Hogares — Indicadores del mercado de trabajo. Instituto Nacional de Estadística y Censos.</li>
+    <li>ENE IA LAB (2026). Diagnóstico Estructural Vertical RRHH — Documento Ejecutivo. 1er Encuentro, 7 de abril de 2026. Polo Tecnológico Neuquén.</li>
+  </ol>
+
+  <div style="margin-top:20px;padding-top:16px;border-top:2px solid var(--border);text-align:center;">
+    <div style="font-size:10pt;font-weight:800;color:var(--text);margin-bottom:4px;">ENE IA LAB · Recursos Humanos</div>
+    <div style="font-size:8.5pt;color:var(--text-muted);margin-bottom:10px;">Sumate a co-crear el futuro de tu sector con IA.</div>
+    <div style="font-size:8pt;color:var(--text-muted);">ia-lab@eneneuquen.com.ar · @eneneuquen · ENE — Polo Tecnológico Neuquén</div>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">18</div>
+  </div>
+</div>
+
+</body>
+</html>
