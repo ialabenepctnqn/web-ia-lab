@@ -331,6 +331,149 @@
             .events-grid { grid-template-columns: 1fr; gap: 14px; }
             .filter-bar { gap: 8px; }
         }
+
+        /* ── Flyer modal ── */
+        .flyer-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .flyer-modal.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .flyer-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.80);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .flyer-modal-box {
+            position: relative;
+            z-index: 1;
+            max-width: min(92vw, 680px);
+            max-height: 90vh;
+            background: linear-gradient(180deg, rgba(16,18,22,0.98) 0%, rgba(10,12,14,0.99) 100%);
+            border: 1px solid rgba(6,182,212,0.22);
+            border-radius: 20px;
+            box-shadow: 0 0 60px rgba(6,182,212,0.12), 0 30px 80px rgba(0,0,0,0.60);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.94) translateY(10px);
+            transition: transform 0.28s ease;
+        }
+
+        .flyer-modal.open .flyer-modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .flyer-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--line-soft);
+            flex-shrink: 0;
+        }
+
+        .flyer-modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-soft);
+            letter-spacing: 0.04em;
+        }
+
+        .flyer-modal-close {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--line-soft);
+            border-radius: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 6px 10px;
+            font-size: 0.90rem;
+            transition: all 0.18s ease;
+            line-height: 1;
+        }
+
+        .flyer-modal-close:hover {
+            background: rgba(255,255,255,0.12);
+            color: var(--text-main);
+            border-color: var(--line-mid);
+        }
+
+        .flyer-modal-body {
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .flyer-modal-body img {
+            max-width: 100%;
+            max-height: calc(90vh - 120px);
+            border-radius: 10px;
+            display: block;
+            transition: opacity 0.18s ease;
+        }
+
+        .flyer-modal-body img.fading { opacity: 0; }
+
+        .flyer-modal-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 10px 20px 14px;
+            flex-shrink: 0;
+            border-top: 1px solid var(--line-soft);
+        }
+
+        .flyer-nav-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--line-soft);
+            border-radius: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 7px 14px;
+            font-size: 0.88rem;
+            transition: all 0.18s ease;
+            line-height: 1;
+        }
+
+        .flyer-nav-btn:hover:not(:disabled) {
+            background: rgba(6,182,212,0.10);
+            border-color: rgba(6,182,212,0.38);
+            color: var(--accent-cyan);
+        }
+
+        .flyer-nav-btn:disabled {
+            opacity: 0.28;
+            cursor: default;
+        }
+
+        .flyer-modal-counter {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.80rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            min-width: 48px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -382,8 +525,30 @@
 
             <div class="events-grid" id="events-grid">
 
+                <!-- PRÓXIMO -->
+                <div class="event-card" data-tipo="proximo" style="transition-delay: 0s;">
+                    <div class="event-card-header">
+                        <span class="event-badge"><i class="fas fa-flask"></i> Encuentro mensual</span>
+                    </div>
+                    <div class="event-date"><i class="fas fa-calendar"></i> 30 junio 2026 · 16 hs</div>
+                    <h3 class="event-title">Ciclo Mensual ENE IA LAB — Primer Encuentro</h3>
+                    <p class="event-desc">Un espacio para conocer casos reales de inteligencia artificial aplicada, desarrollados por las verticales profesionales del laboratorio. IA aplicada, conocimiento regional y oportunidades concretas para transformar la región.</p>
+                    <div class="event-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> ENE – Polo Tecnológico de Neuquén</span>
+                        <span><i class="fas fa-comments"></i> 5 charlas + networking</span>
+                    </div>
+                    <div class="event-card-footer">
+                        <button class="btn-outline event-detail-btn"
+                                data-flyers="imagenes/eventos/30-06-2026-01.jpeg,imagenes/eventos/30-06-2026-02.jpeg,imagenes/eventos/30-06-2026-03.jpeg,imagenes/eventos/30-06-2026-04.jpeg,imagenes/eventos/30-06-2026-05.jpeg,imagenes/eventos/30-06-2026-06.jpeg,imagenes/eventos/30-06-2026-07.jpeg,imagenes/eventos/30-06-2026-08.jpeg"
+                                data-title="Ciclo Mensual ENE IA LAB — Primer Encuentro"
+                                style="font-size:0.82rem; padding: 9px 18px; cursor:pointer;">
+                            <i class="fas fa-images"></i> Ver flyers
+                        </button>
+                    </div>
+                </div>
+
                 <!-- PASADO -->
-                <div class="event-card event-card-past" data-tipo="pasado" style="transition-delay: 0s;">
+                <div class="event-card event-card-past" data-tipo="pasado" style="transition-delay: 0.06s;">
                     <div class="event-card-header">
                         <span class="event-badge event-badge-past"><i class="fas fa-microphone-alt"></i> Conferencia</span>
                         <span class="event-past-tag"><i class="fas fa-check"></i> Realizado</span>
@@ -394,6 +559,14 @@
                     <div class="event-meta">
                         <span><i class="fas fa-map-marker-alt"></i> Auditorio ENE, Neuquén Capital</span>
                         <span><i class="fas fa-users"></i> Abierto al público</span>
+                    </div>
+                    <div class="event-card-footer">
+                        <button class="btn-outline event-detail-btn"
+                                data-flyers="imagenes/eventos/saia-conf-2026.jpg"
+                                data-title="SAIA CONF Neuquén / Vaca Muerta"
+                                style="font-size:0.82rem; padding: 9px 18px; cursor:pointer;">
+                            <i class="fas fa-image"></i> Ver flyer
+                        </button>
                     </div>
                 </div>
 
@@ -433,6 +606,31 @@
         <p class="footer-copy">© 2026 ENE IA LAB · Polo Tecnológico Neuquén · Edificio ENE</p>
     </footer>
 
+    <!-- Flyer modal -->
+    <div class="flyer-modal" id="flyerModal" role="dialog" aria-modal="true" aria-label="Detalle del evento">
+        <div class="flyer-modal-backdrop"></div>
+        <div class="flyer-modal-box">
+            <div class="flyer-modal-header">
+                <span class="flyer-modal-title" id="flyerModalTitle"></span>
+                <button class="flyer-modal-close" id="flyerModalClose" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="flyer-modal-body">
+                <img src="" alt="Flyer del evento" id="flyerModalImg" />
+            </div>
+            <div class="flyer-modal-nav" id="flyerModalNav">
+                <button class="flyer-nav-btn" id="flyerPrev" aria-label="Anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="flyer-modal-counter" id="flyerCounter">1 / 1</span>
+                <button class="flyer-nav-btn" id="flyerNext" aria-label="Siguiente">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
@@ -464,6 +662,59 @@
 
                     emptyMsg.style.display = visible === 0 ? 'block' : 'none';
                 });
+            });
+
+            // Flyer gallery modal
+            const flyerModal   = document.getElementById('flyerModal');
+            const flyerImg     = document.getElementById('flyerModalImg');
+            const flyerTitle   = document.getElementById('flyerModalTitle');
+            const flyerClose   = document.getElementById('flyerModalClose');
+            const flyerNav     = document.getElementById('flyerModalNav');
+            const flyerCounter = document.getElementById('flyerCounter');
+            const flyerPrev    = document.getElementById('flyerPrev');
+            const flyerNext    = document.getElementById('flyerNext');
+
+            let gallery = [];
+            let current = 0;
+
+            function showSlide(index) {
+                flyerImg.classList.add('fading');
+                setTimeout(() => {
+                    flyerImg.src = gallery[index];
+                    flyerImg.classList.remove('fading');
+                }, 180);
+                flyerCounter.textContent = `${index + 1} / ${gallery.length}`;
+                flyerPrev.disabled = index === 0;
+                flyerNext.disabled = index === gallery.length - 1;
+                current = index;
+            }
+
+            document.querySelectorAll('.event-detail-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    gallery = btn.dataset.flyers.split(',').map(s => s.trim());
+                    flyerTitle.textContent = btn.dataset.title;
+                    flyerNav.style.display = gallery.length > 1 ? '' : 'none';
+                    showSlide(0);
+                    flyerModal.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            flyerPrev.addEventListener('click', () => { if (current > 0) showSlide(current - 1); });
+            flyerNext.addEventListener('click', () => { if (current < gallery.length - 1) showSlide(current + 1); });
+
+            function closeModal() {
+                flyerModal.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            flyerClose.addEventListener('click', closeModal);
+            flyerModal.querySelector('.flyer-modal-backdrop').addEventListener('click', closeModal);
+            document.addEventListener('keydown', e => {
+                if (!flyerModal.classList.contains('open')) return;
+                if (e.key === 'Escape')      closeModal();
+                if (e.key === 'ArrowLeft'  && current > 0)               showSlide(current - 1);
+                if (e.key === 'ArrowRight' && current < gallery.length - 1) showSlide(current + 1);
             });
         });
     </script>
