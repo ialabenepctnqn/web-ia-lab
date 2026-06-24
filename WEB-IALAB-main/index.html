@@ -3,38 +3,31 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ENEIALAB</title>
+    <title>ENE IA LAB — Inteligencia Artificial desde Neuquén</title>
 
+
+    <meta name="description" content="Laboratorio Vivo de soluciones con IA en el corazón de Vaca Muerta. Prototipos reales, mes a mes, para los sectores estratégicos de Neuquén y la Patagonia." />
+    <link rel="canonical" href="https://ialab.eneneuquen.com.ar/" />
+    <link rel="icon" type="image/png" href="imagenes/favicon-ene.png" />
+
+    <!-- Open Graph / Redes sociales -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ENE IA LAB" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content="ENE IA LAB — Inteligencia Artificial desde Neuquén" />
+    <meta property="og:description" content="Laboratorio Vivo de soluciones con IA en el corazón de Vaca Muerta. Prototipos reales, mes a mes, para los sectores estratégicos de Neuquén y la Patagonia." />
+    <meta property="og:url" content="https://ialab.eneneuquen.com.ar/" />
+    <meta property="og:image" content="https://ialab.eneneuquen.com.ar/imagenes/POLO3.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ENE IA LAB — Inteligencia Artificial desde Neuquén" />
+    <meta name="twitter:description" content="Laboratorio Vivo de soluciones con IA en el corazón de Vaca Muerta. Prototipos reales, mes a mes, para los sectores estratégicos de Neuquén y la Patagonia." />
+    <meta name="twitter:image" content="https://ialab.eneneuquen.com.ar/imagenes/POLO3.webp" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared.css">
 
     <style>
-        :root {
-            --bg-main: #050607;
-            --bg-deep: #090B0D;
-            --panel: rgba(16, 18, 21, 0.88);
-            --panel-strong: rgba(20, 23, 27, 0.96);
-            --text-main: #FFFFFF;
-            --text-soft: #D7DBE0;
-            --text-muted: #98A0A8;
-            --line-soft: rgba(255,255,255,0.08);
-            --line-mid: rgba(255,255,255,0.18);
-            --shadow-soft: 0 18px 42px rgba(0,0,0,0.35);
-            --shadow-strong: 0 30px 80px rgba(0,0,0,0.50);
-            --radius-xl: 34px;
-            --radius-lg: 24px;
-            --radius-md: 18px;
-            --accent-cyan: #22d3ee;
-            --cyan-electric: #06b6d4;
-            --cyan-deep: #0891b2;
-            --cyan-dark: #0e7490;
-            --cyan-subtle: rgba(6, 182, 212, 0.10);
-            --cyan-glow: rgba(6, 182, 212, 0.22);
-            --accent-violet: #a78bfa;
-            --violet-electric: #8b5cf6;
-            --violet-subtle: rgba(139, 92, 246, 0.10);
-            --violet-glow: rgba(139, 92, 246, 0.20);
-        }
+        
 
         @keyframes dot-pulse {
             0%, 100% { box-shadow: 0 0 10px rgba(6,182,212,0.6); transform: scale(1); }
@@ -67,7 +60,7 @@
             50%       { box-shadow: 0 0 20px rgba(6,182,212,0.30); }
         }
 
-        * { box-sizing: border-box; }
+        
         html {
             scroll-behavior: smooth;
             background-color: #060708;
@@ -87,7 +80,7 @@
             position: fixed;
             inset: -10px;
             z-index: -1;
-            background: url('imagenes/POLO3.png') center / cover no-repeat;
+            background: url('imagenes/POLO3.webp') center / cover no-repeat;
             filter: blur(5px) brightness(0.45);
             pointer-events: none;
         }
@@ -105,51 +98,15 @@
                 rgba(5, 6, 7, 0.62);
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -2;
-            background:
-                linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px);
-            background-size: 38px 38px;
-            opacity: 0.60;
-        }
+        
 
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            background:
-                repeating-linear-gradient(
-                    125deg,
-                    rgba(255,255,255,0.015) 0px,
-                    rgba(255,255,255,0.015) 1px,
-                    transparent 1px,
-                    transparent 14px
-                );
-            opacity: 0.20;
-        }
+        
 
-        h1, h2, h3, h4, h5, h6 {
-            margin: 0;
-            font-family: 'Montserrat', 'Inter', sans-serif;
-            letter-spacing: -0.04em;
-        }
+        
 
-        p {
-            margin: 0 0 0.9em 0;
-            line-height: 1.7;
-        }
+        
 
-        a {
-            color: var(--text-main);
-            text-decoration: none;
-        }
+        
 
         nav {
             position: fixed;
@@ -173,28 +130,11 @@
             pointer-events: none;
         }
 
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        
 
-        .nav-logo::before {
-            content: '';
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--cyan-electric);
-            box-shadow: 0 0 16px rgba(6, 182, 212, 0.55);
-            animation: dot-pulse 2.8s ease-in-out infinite;
-            flex-shrink: 0;
-        }
+        
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        
 
         .nav-links {
             list-style: none;
@@ -221,33 +161,9 @@
             border-color: rgba(6,182,212,0.28);
         }
 
-        .nav-cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 22px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--cyan-electric), var(--violet-electric));
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.84rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            text-decoration: none;
-            white-space: nowrap;
-            flex-shrink: 0;
-            transition: opacity 0.22s ease, transform 0.22s ease, box-shadow 0.28s ease;
-            box-shadow: 0 4px 18px rgba(6,182,212,0.28), 0 2px 8px rgba(139,92,246,0.18),
-                        0 0 0 1px rgba(6,182,212,0.20);
-        }
+        
 
-        .nav-cta-btn:hover {
-            opacity: 0.88;
-            transform: translateY(-1px);
-            box-shadow: 0 7px 26px rgba(6,182,212,0.40), 0 3px 14px rgba(139,92,246,0.26),
-                        0 0 0 1px rgba(6,182,212,0.30);
-        }
+        
 
         /* ── Side nav ── */
         .side-nav {
@@ -318,40 +234,13 @@
 
         @media (max-width: 1200px) { .side-nav { display: none; } }
 
-        .screen {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 110px 52px;
-            position: relative;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.75s ease, transform 0.75s ease;
-        }
+        
 
-        .screen.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        
 
-        .content-wrapper {
-            max-width: 1180px;
-            width: 100%;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
+        
 
-        .section-shell {
-            background: linear-gradient(180deg, rgba(13,15,18,0.74) 0%, rgba(8,10,12,0.80) 100%);
-            border: 1px solid var(--line-soft);
-            border-radius: 34px;
-            padding: 36px;
-            box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
-        }
+        
 
         .section-shell::before {
             content: '';
@@ -364,14 +253,10 @@
         }
 
 
-        .section-shell::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            border-radius: inherit;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-        }
+        
+
+        /* El hero mantiene altura completa para impacto en el primer pantallazo */
+        #screen1 { min-height: 100vh; padding-top: 110px; }
 
         #screen1 .section-shell {
             min-height: calc(100vh - 170px);
@@ -522,27 +407,11 @@
             transition: opacity 0.65s ease, transform 0.65s ease;
         }
 
-        .section-title.visible {
-            opacity: 1;
-            transform: translateY(0);
-            text-shadow: 0 0 40px rgba(6,182,212,0.14);
-        }
+        
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 2px;
-            margin: 20px auto 0 auto;
-            opacity: 0;
-            background: linear-gradient(to right, transparent, var(--cyan-electric), transparent);
-            transition: width 0.7s ease 0.25s, opacity 0.5s ease 0.25s;
-        }
+        
 
-        .section-title.visible::after {
-            width: 110px;
-            opacity: 1;
-        }
+        
 
         .section-subtitle {
             text-align: center;
@@ -555,10 +424,7 @@
             transition: opacity 0.65s ease 0.1s, transform 0.65s ease 0.1s;
         }
 
-        .section-subtitle.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        
 
         .mission-box {
             background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
@@ -575,30 +441,12 @@
             transition: opacity 0.65s ease, transform 0.65s ease;
         }
 
-        .mission-box::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(6,182,212,0.14) 0, rgba(139,92,246,0.06) 50%, transparent 70%);
-            pointer-events: none;
-        }
+        
 
-        .mission-box.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        
 
 
-        .mission-box::after {
-            content: '';
-            position: absolute;
-            left: 28px;
-            right: 28px;
-            top: 0;
-            height: 4px;
-            border-radius: 0 0 8px 8px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.06));
-        }
+        
 
         .mission-box p {
             font-size: 0.96rem;
@@ -763,47 +611,15 @@
             align-items: stretch;
         }
 
-        .timeline-item {
-            width: calc(33.33% - 16px);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.65s ease, transform 0.65s ease;
-        }
+        
 
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        
 
-        .timeline-content {
-            height: 100%;
-            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
-            border: 1px solid var(--line-soft);
-            border-radius: var(--radius-lg);
-            padding: 32px 28px;
-            box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
-        }
+        
 
-        .timeline-content::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0, transparent 30%);
-        }
+        
 
-        .timeline-content::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 24px;
-            right: 24px;
-            height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.06));
-            border-radius: 0 0 8px 8px;
-        }
+        
 
         .timeline-content h4 {
             font-size: 1.05rem;
@@ -813,15 +629,9 @@
             z-index: 1;
         }
 
-        .timeline-content p {
-            font-size: 0.97rem;
-            color: var(--text-soft);
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
+        
 
-        .timeline-content strong { color: var(--text-main); }
+        
 
         .sharing-methods {
             list-style: none;
@@ -847,25 +657,13 @@
             transition: opacity 0.65s ease, transform 0.65s ease, border-color 0.25s ease;
         }
 
-        .sharing-methods li.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        
 
-        .sharing-methods li::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background: linear-gradient(135deg, rgba(255,255,255,0.04) 0, transparent 28%);
-        }
+        
 
-        .sharing-methods li:hover {
-            border-left-color: var(--accent-cyan);
-            box-shadow: -4px 0 16px rgba(6,182,212,0.18), var(--shadow-soft);
-        }
+        
 
-        .sharing-methods li strong { color: var(--text-main); }
+        
 
         .milestones-grid {
             display: grid;
@@ -875,47 +673,15 @@
             margin-bottom: 76px;
         }
 
-        .milestone-card {
-            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
-            border: 1px solid var(--line-soft);
-            border-radius: var(--radius-lg);
-            padding: 30px;
-            box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.65s ease, transform 0.65s ease, border-color 0.25s ease;
-        }
+        
 
-        .milestone-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        
 
-        .milestone-card:hover {
-            border-color: rgba(6,182,212,0.30);
-            box-shadow: 0 0 18px rgba(6,182,212,0.12), var(--shadow-soft);
-        }
+        
 
-        .milestone-card::before {
-            content: '';
-            position: absolute;
-            left: 24px;
-            right: 24px;
-            top: 0;
-            height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.05));
-            border-radius: 0 0 8px 8px;
-        }
+        
 
-        .milestone-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0, transparent 28%);
-            pointer-events: none;
-        }
+        
 
         .milestone-card h4 {
             font-size: 1.05rem;
@@ -925,15 +691,9 @@
             z-index: 1;
         }
 
-        .milestone-card p {
-            font-size: 0.96rem;
-            color: var(--text-soft);
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
+        
 
-        .milestone-card strong { color: var(--text-main); }
+        
 
         .closing-statement {
             background:
@@ -1210,92 +970,27 @@
         .paper-callout-text strong { color: var(--text-main); }
 
         /* ── Comunidad / Membresía preview ── */
-        .membership-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 52px;
-            margin-bottom: 52px;
-            align-items: start;
-        }
+        
 
-        .membership-card {
-            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
-            border: 1px solid var(--line-soft);
-            border-radius: var(--radius-lg);
-            padding: 32px 28px;
-            box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.65s ease, transform 0.65s ease, border-color 0.25s ease, box-shadow 0.35s ease;
-        }
+        
 
-        .membership-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        
 
-        .membership-card:hover {
-            border-color: rgba(6,182,212,0.32);
-            box-shadow: 0 0 20px rgba(6,182,212,0.13), var(--shadow-soft);
-        }
+        
 
-        .membership-card::before {
-            content: '';
-            position: absolute;
-            left: 24px; right: 24px; top: 0;
-            height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.05));
-            border-radius: 0 0 8px 8px;
-        }
+        
 
-        .membership-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0, transparent 28%);
-            pointer-events: none;
-        }
+        
 
-        .membership-card-featured {
-            border-color: rgba(6,182,212,0.32);
-            box-shadow: 0 0 32px rgba(6,182,212,0.15), var(--shadow-strong);
-            background: linear-gradient(180deg, rgba(6,182,212,0.08) 0%, rgba(22,25,29,0.96) 18%, rgba(14,16,19,0.98) 100%);
-        }
+        
 
-        .membership-card-featured::before {
-            background: linear-gradient(to right, var(--accent-cyan), var(--accent-violet));
-            height: 5px;
-        }
+        
 
-        .membership-card-featured:hover {
-            box-shadow: 0 0 44px rgba(6,182,212,0.24), var(--shadow-strong);
-        }
+        
 
-        .membership-tier-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            border-radius: 999px;
-            background: rgba(6,182,212,0.08);
-            border: 1px solid rgba(6,182,212,0.22);
-            font-size: 0.74rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--accent-cyan);
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
+        
 
-        .membership-card-featured .membership-tier-badge {
-            background: rgba(6,182,212,0.14);
-            border-color: rgba(6,182,212,0.42);
-        }
+        
 
         .membership-card h3 {
             font-size: 1.25rem;
@@ -1305,77 +1000,38 @@
             z-index: 1;
         }
 
-        .membership-card-tagline {
-            font-size: 0.96rem;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            margin-top: 0;
-            position: relative;
-            z-index: 1;
-        }
+        
 
-        .membership-features {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 28px 0;
-            position: relative;
-            z-index: 1;
-        }
+        
 
-        .membership-features li {
-            font-size: 0.92rem;
-            color: var(--text-soft);
-            padding: 9px 0;
-            border-bottom: 1px solid var(--line-soft);
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        /* ── Hero CTA ── */
+        .hero-cta {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            line-height: 1.5;
-        }
-
-        .membership-features li:last-child { border-bottom: none; }
-
-        .membership-features li::before {
-            content: '›';
-            color: var(--cyan-electric);
-            font-weight: 700;
-            font-size: 1.1rem;
-            line-height: 1.4;
-            flex-shrink: 0;
-        }
-
-        .cta-wrap {
-            text-align: center;
-            margin-top: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 30px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
-
-        .btn-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 36px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--cyan-electric), var(--violet-electric));
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.94rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: opacity 0.22s ease, transform 0.22s ease, box-shadow 0.28s ease;
-            box-shadow: 0 8px 28px rgba(6,182,212,0.28), 0 4px 12px rgba(139,92,246,0.18);
-        }
-
-        .btn-cta:hover {
-            opacity: 0.88;
-            transform: translateY(-2px);
-            box-shadow: 0 14px 38px rgba(6,182,212,0.40), 0 6px 20px rgba(139,92,246,0.28);
-        }
-
-        .btn-cta i { font-size: 1rem; }
 
         /* ── Price display (preview en home) ── */
         .price-display {
@@ -1405,74 +1061,23 @@
         }
 
         /* ── Footer ── */
-        footer {
-            border-top: 1px solid var(--line-soft);
-            padding: 52px 52px 40px 52px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 28px;
-            text-align: center;
-            background: rgba(7,8,10,0.60);
-        }
+        
 
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+        
 
-        .footer-logo img {
-            height: 44px;
-            width: auto;
-            object-fit: contain;
-            filter: invert(1);
-            opacity: 0.92;
-        }
+        
 
-        .footer-logo span {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            color: var(--text-muted);
-            border-left: 1px solid var(--line-mid);
-            padding-left: 14px;
-        }
+        
 
-        .footer-links {
-            display: flex;
-            gap: 18px;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        
 
-        .footer-links a {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            padding: 8px 14px;
-            border-radius: 999px;
-            border: 1px solid var(--line-soft);
-            transition: all 0.22s ease;
-        }
+        
 
-        .footer-links a:hover {
-            color: var(--text-main);
-            border-color: var(--line-mid);
-            background: rgba(255,255,255,0.05);
-        }
+        
 
-        .footer-links a i { font-size: 1rem; }
+        
 
-        .footer-copy {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            opacity: 0.55;
-        }
+        
 
         @media (max-width: 1024px) {
             nav { padding: 12px 24px; }
@@ -1565,7 +1170,7 @@
             .closing-statement p { font-size: 0.88rem; }
         }
 
-        /* ── Floating nav menu (oculto por defecto; shared.css no se carga en index) ── */
+        /* ── Floating nav menu — override propio del index sobre shared.css ── */
         .nav-floating-menu {
             position: fixed;
             top: 64px;
@@ -1587,11 +1192,7 @@
             transition: opacity 0.20s ease, transform 0.20s ease;
         }
 
-        .nav-floating-menu.open {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: all;
-        }
+        
 
         /* ── Video intro ── */
         #video-intro {
@@ -1653,6 +1254,23 @@
             pointer-events: none;
             animation: hint-bounce 1.8s ease-in-out infinite;
         }
+
+        /* ── Accesibilidad: respetar preferencia de menos movimiento ── */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+            .screen, .section-title, .section-subtitle, .mission-box, .milestone-card,
+            .membership-card, .team-card, .gallery-item, .vertical-item, .timeline-item,
+            .paper-callout, .animate-on-scroll {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1671,7 +1289,10 @@
                 <li><a href="publicaciones.html" class="nav-link-page">Publicaciones</a></li>
             </ul>
             <a href="membresia.html" class="nav-cta-btn">
-                <i class="fas fa-users"></i> Membresía
+                <i class="fas fa-users"></i> Sumate
+            </a>
+            <a href="membresia.html" class="nav-login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login
             </a>
         </div>
     </nav>
@@ -1719,7 +1340,11 @@
                 <div class="hero-text">
                     <div class="hero-kicker">Laboratorio vivo de IA</div>
                     <h1 class="animate-on-scroll">Inteligencia Artificial <br>desde <span>Neuquén.</span></h1>
-                    <p class="justification-text animate-on-scroll" style="transition-delay: 0.1s;">En el corazón de <strong>Vaca Muerta</strong>, <strong>ENEIALAB</strong> impulsa un Laboratorio Vivo de soluciones con IA: prototipos reales, mes a mes, para los sectores estratégicos de Neuquén y la Patagonia.</p>
+                    <p class="justification-text animate-on-scroll" style="transition-delay: 0.1s;">En el corazón de <strong>Vaca Muerta</strong>, <strong>ENE IA LAB</strong> impulsa un Laboratorio Vivo de soluciones con IA: prototipos reales, mes a mes, para los sectores estratégicos de Neuquén y la Patagonia.</p>
+                    <div class="hero-cta animate-on-scroll" style="transition-delay: 0.2s;">
+                        <a href="membresia.html" class="btn-cta"><i class="fas fa-arrow-right"></i> Sumate a la comunidad</a>
+                        <a href="#screen2" class="btn-outline"><i class="fas fa-layer-group"></i> Conocé las verticales</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1731,7 +1356,7 @@
                 <h2 class="section-title">Nuestra Misión</h2>
 
                 <div class="mission-box">
-                    <p><strong>Acelerar la adopción de Inteligencia Artificial en la región</strong> creando, desde ENEIALAB, un <span class="highlight">Laboratorio Vivo</span> que transforme desafíos reales de sectores estratégicos —con foco en el ecosistema de <strong>Vaca Muerta</strong>— en <span class="highlight">soluciones aplicadas, demostrables y transferibles.</span></p>
+                    <p><strong>Acelerar la adopción de Inteligencia Artificial en la región</strong> creando, desde ENE IA LAB, un <span class="highlight">Laboratorio Vivo</span> que transforme desafíos reales de sectores estratégicos —con foco en el ecosistema de <strong>Vaca Muerta</strong>— en <span class="highlight">soluciones aplicadas, demostrables y transferibles.</span></p>
                     <p>No es un programa de I+D clásico: es IA en terreno, con resultados concretos mes a mes.</p>
                 </div>
 
@@ -1745,7 +1370,7 @@
                                 <h4>Energía</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Diego Manfio</p>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Andrés López Gibson</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/recursos-humanos.html" class="vertical-card-container" style="transition-delay: 0.1s;">
@@ -1799,7 +1424,7 @@
                                 <h4>Derecho</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Incorporando referente</p>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Vanesa Ruiz</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/seguridad-higiene.html" class="vertical-card-container" style="transition-delay: 0.7s;">
@@ -1817,7 +1442,7 @@
                                 <h4>Real Estate</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Incorporando referente</p>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Leandro Sfeir</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/coaching.html" class="vertical-card-container" style="transition-delay: 0.9s;">
@@ -1826,16 +1451,16 @@
                                 <h4>Coaching</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Incorporando referente</p>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Vanesa Funes</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/rrii.html" class="vertical-card-container" style="transition-delay: 1.0s;">
                             <div class="vertical-card-front">
                                 <i class="fas fa-globe-americas"></i>
-                                <h4>Relaciones Internacionales</h4>
+                                <h4>Relaciones Institucionales</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Incorporando referente</p>
+                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Sol Buschiazzo</p>
                     </div>
                 </div>
             </div>
@@ -1863,7 +1488,7 @@
                     <div class="timeline-item" style="transition-delay: 0.4s;">
                         <div class="timeline-content">
                             <h4>3. Diseño de soluciones</h4>
-                            <p>Profesionales de <strong>ENEIALAB</strong> desarrollan prototipos, pruebas de concepto y automatizaciones aplicadas a la realidad regional.</p>
+                            <p>Profesionales de <strong>ENE IA LAB</strong> desarrollan prototipos, pruebas de concepto y automatizaciones aplicadas a la realidad regional.</p>
                         </div>
                     </div>
                 </div>
@@ -1883,14 +1508,14 @@
                         <p>Primera quincena de <strong>mayo 2026</strong></p>
                     </div>
                     <div class="milestone-card" style="transition-delay: 0.1s;">
-                        <h4>Evento final ENEIALAB 2026</h4>
+                        <h4>Evento final ENE IA LAB 2026</h4>
                         <p>Noviembre 2026 – Presentación de la experiencia acumulada</p>
                     </div>
                 </div>
 
                 <div class="closing-statement">
                     <h3>Cierre</h3>
-                    <p>Al finalizar 2026, ENEIALAB contará con un <strong>relevamiento sistemático de necesidades</strong> y un conjunto de <strong>soluciones posibles por vertical</strong>, construyendo una base de conocimiento y ejecución que <strong>no tendrá ninguna otra institución de Neuquén.</strong></p>
+                    <p>Al finalizar 2026, ENE IA LAB contará con un <strong>relevamiento sistemático de necesidades</strong> y un conjunto de <strong>soluciones posibles por vertical</strong>, construyendo una base de conocimiento y ejecución que <strong>no tendrá ninguna otra institución de Neuquén.</strong></p>
                     <p>Por su alcance, método y transferencia pública, este será el <strong>trabajo más completo e integrador jamás llevado a cabo en la región en materia de IA aplicada.</strong></p>
                 </div>
             </div>
@@ -1905,9 +1530,9 @@
 
                 <div class="team-grid">
                     <div class="team-card" style="transition-delay: 0s;">
-                        <div class="team-avatar">DM</div>
+                        <div class="team-avatar">AL</div>
                         <div class="team-card-vertical"><i class="fas fa-industry"></i> Energía</div>
-                        <h4>Diego Manfio</h4>
+                        <h4>Andrés López Gibson</h4>
                         <p class="team-role">Líder de iniciativa — Energía / Oil &amp; Gas</p>
                     </div>
                     <div class="team-card" style="transition-delay: 0.08s;">
@@ -1941,9 +1566,9 @@
                         <p class="team-role">Líder de iniciativa — Diseño y proyectos</p>
                     </div>
                     <div class="team-card" style="transition-delay: 0.48s;">
-                        <div class="team-avatar">DE</div>
+                        <div class="team-avatar">VR</div>
                         <div class="team-card-vertical"><i class="fas fa-gavel"></i> Derecho</div>
-                        <h4>Referente del vertical</h4>
+                        <h4>Vanesa Ruiz</h4>
                         <p class="team-role">Líder de iniciativa — Legal y análisis documental</p>
                     </div>
                     <div class="team-card" style="transition-delay: 0.56s;">
@@ -1952,34 +1577,52 @@
                         <h4>Cristian Sanz</h4>
                         <p class="team-role">Líder de iniciativa — Riesgos y protocolos</p>
                     </div>
+                    <div class="team-card" style="transition-delay: 0.64s;">
+                        <div class="team-avatar">SB</div>
+                        <div class="team-card-vertical"><i class="fas fa-globe-americas"></i> Relaciones Institucionales</div>
+                        <h4>Sol Buschiazzo</h4>
+                        <p class="team-role">Líder de iniciativa — Relaciones Institucionales</p>
+                    </div>
+                    <div class="team-card" style="transition-delay: 0.72s;">
+                        <div class="team-avatar">VF</div>
+                        <div class="team-card-vertical"><i class="fas fa-comments"></i> Coaching</div>
+                        <h4>Vanesa Funes</h4>
+                        <p class="team-role">Líder de iniciativa — Coaching y desarrollo</p>
+                    </div>
+                    <div class="team-card" style="transition-delay: 0.80s;">
+                        <div class="team-avatar">LS</div>
+                        <div class="team-card-vertical"><i class="fas fa-home"></i> Real Estate</div>
+                        <h4>Leandro Sfeir</h4>
+                        <p class="team-role">Líder de iniciativa — Real Estate y proptech</p>
+                    </div>
                 </div>
 
                 <h2 class="section-title">Ecosistema en Acción</h2>
 
                 <div class="gallery-grid">
                     <div class="gallery-item gallery-photo" style="transition-delay: 0s;">
-                        <img src="imagenes/IA LAB.jpg" t="Reunión vertical HSE - IA LAB" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        <img src="imagenes/ia-lab-01.jpg" alt="Encuentro de trabajo del ecosistema ENE IA LAB" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
                     </div>
                     <div class="gallery-item gallery-photo" style="transition-delay: 0s;">
-                        <img src="imagenes/IA LAB(7).jpg" t="Reunión vertical HSE - IA LAB" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        <img src="imagenes/ia-lab-02.jpg" alt="Equipo de ENE IA LAB en una reunión de vertical" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
                     </div>
                     <div class="gallery-item gallery-photo" style="transition-delay: 0.1s;">
-                        <img src="imagenes/IA LAB (1).jpeg" t="Reunión vertical HSE - IA LAB" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        <img src="imagenes/ia-lab-03.jpeg" alt="Participantes de ENE IA LAB durante una jornada de trabajo" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
                     </div>
                     <div class="gallery-item" style="transition-delay: 0.2s;">
-                        <img src="imagenes/IA LAB (2).jpeg" t="Reunión vertical HSE - IA LAB" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        <img src="imagenes/ia-lab-04.jpeg" alt="Mesa de trabajo de un vertical de ENE IA LAB" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
                     </div>
                     <div class="gallery-item" style="transition-delay: 0.3s;">
-                        <img src="imagenes/IA LAB (3).jpeg" t="Reunión vertical HSE - IA LAB" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        <img src="imagenes/ia-lab-05.jpeg" alt="Presentación durante un encuentro de ENE IA LAB" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
                     </div>
                     <div class="gallery-item" style="transition-delay: 0.4s;">
-                        <img src="imagenes/IA LAB (4).jpeg" t="Reunión vertical HSE - IA LAB" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        <img src="imagenes/ia-lab-06.jpeg" alt="Networking entre miembros de ENE IA LAB" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
                     </div>
                     <div class="gallery-item" style="transition-delay: 0.5s;">
-                        <img src="imagenes/IA LAB (5).jpeg" t="Reunión vertical HSE - IA LAB" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        <img src="imagenes/ia-lab-07.jpeg" alt="Sesión de colaboración del laboratorio ENE IA LAB" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
                     </div>
                     <div class="gallery-item" style="transition-delay: 0.6s;">
-                        <img src="imagenes/IA LAB (6).jpeg" t="Reunión vertical HSE - IA LAB" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        <img src="imagenes/ia-lab-08.jpeg" alt="Comunidad de ENE IA LAB reunida en el Polo Tecnológico" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
                     </div>
                 </div>
 
@@ -1987,7 +1630,7 @@
                     <div class="paper-callout-icon"><i class="fas fa-file-alt"></i></div>
                     <div class="paper-callout-text">
                         <h4>Primera publicación: Paper de resultados</h4>
-                        <p>Fecha estimada de publicación del primer paper de ENEIALAB: <strong>primeros días de junio de 2026.</strong> Un documento que sistematizará los hallazgos iniciales de los verticales y las soluciones desarrolladas.</p>
+                        <p>Fecha estimada de publicación del primer paper de ENE IA LAB: <strong>primeros días de junio de 2026.</strong> Un documento que sistematizará los hallazgos iniciales de los verticales y las soluciones desarrolladas.</p>
                     </div>
                 </div>
 
@@ -2052,7 +1695,7 @@
             <a href="https://www.instagram.com/eneneuquen/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> @eneneuquen</a>
             <a href="https://www.linkedin.com/company/enepolotecnologico/"><i class="fab fa-linkedin"></i> ENE – Polo Tecnológico Neuquén</a>
         </div>
-        <p class="footer-copy">© 2026 ENEIALAB · Polo Tecnológico Neuquén · Edificio ENE</p>
+        <p class="footer-copy">© 2026 ENE IA LAB · Polo Tecnológico Neuquén · Edificio ENE</p>
     </footer>
 
     <script>

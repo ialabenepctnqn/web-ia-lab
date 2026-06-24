@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Aplicada en Arquitectura: Del Código Urbano al Proyecto, Sin Fricción — ENE IA LAB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #B45309; --accent-light: #FFFBEB; --accent-dark: #78350F; --accent-mid: #B45309;
+    --lab-purple: #7C3AED; --lab-teal: #06B6D4; --lab-green: #10B981;
+    --text: #0F172A; --text-muted: #64748B; --text-light: #94A3B8;
+    --border: #E2E8F0; --bg-subtle: #F8FAFC; --page-w: 210mm; --page-h: 297mm; --margin: 18mm;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 10pt; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: #CBD5E1; }
+  .page { width: var(--page-w); min-height: var(--page-h); background: #fff; margin: 8mm auto; padding: var(--margin); position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.15); }
+  .page-cover { padding: 0; background: var(--text); }
+  @media print { body { background: white; } .page { margin: 0; box-shadow: none; page-break-after: always; width: 100%; } @page { size: A4; margin: 0; } }
+  .cover-bg { position: absolute; inset: 0; background: linear-gradient(145deg, #0F172A 0%, #1E293B 60%, #333 100%); }
+  .cover-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #B45309 0%, #B45309 50%, #F97316 100%); }
+  .cover-content { position: relative; z-index: 1; padding: 18mm; height: 297mm; display: flex; flex-direction: column; }
+  .cover-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: auto; }
+  .cover-logo-box { border: 1.5px solid rgba(255,255,255,.25); border-radius: 8px; padding: 6px 14px; font-size: 9pt; color: rgba(255,255,255,.7); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+  .cover-edition { font-size: 8pt; color: rgba(255,255,255,.4); letter-spacing: .12em; text-transform: uppercase; }
+  .cover-license { font-size: 7.5pt; color: rgba(255,255,255,.5); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 5px; padding: 3px 9px; margin-left: auto; font-weight: 600; }
+  .cover-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20mm 0 10mm; }
+  .cover-sector { display: inline-block; background: #B45309; color: #fff; font-size: 7.5pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-bottom: 14px; }
+  .cover-title { font-size: 28pt; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 14px; letter-spacing: -.02em; }
+  .cover-title span { color: #B45309; filter: brightness(1.3); }
+  .cover-subtitle { font-size: 11pt; color: rgba(255,255,255,.65); line-height: 1.6; max-width: 155mm; font-weight: 400; }
+  .cover-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 20mm; }
+  .cover-kpi { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 12px 10px; }
+  .cover-kpi-num { font-size: 18pt; font-weight: 900; color: #B45309; filter: brightness(1.3); line-height: 1; }
+  .cover-kpi-label { font-size: 7.5pt; color: rgba(255,255,255,.55); margin-top: 4px; line-height: 1.3; }
+  .cover-footer { border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .cover-footer-left { font-size: 7.5pt; color: rgba(255,255,255,.4); }
+  .cover-footer-right { font-size: 7.5pt; color: rgba(255,255,255,.4); text-align: right; }
+  .page-header { border-bottom: 2px solid #FFFBEB; padding-bottom: 8px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .page-header-left { font-size: 7.5pt; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+  .page-header-right { font-size: 7.5pt; color: #B45309; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .page-footer { position: absolute; bottom: 12mm; left: var(--margin); right: var(--margin); border-top: 1px solid var(--border); padding-top: 6px; display: flex; justify-content: space-between; align-items: center; }
+  .page-footer-text { font-size: 7pt; color: var(--text-light); }
+  .page-num { font-size: 7pt; color: var(--text-muted); font-weight: 600; }
+  .section-label { font-size: 7.5pt; font-weight: 700; color: #B45309; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+  .section-title { font-size: 18pt; font-weight: 800; color: var(--text); line-height: 1.15; margin-bottom: 4px; letter-spacing: -.02em; }
+  .section-divider { width: 40px; height: 3px; background: #B45309; border-radius: 2px; margin-bottom: 18px; }
+  .subsection-title { font-size: 10pt; font-weight: 700; color: var(--text); margin: 14px 0 6px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+  p { font-size: 9.5pt; line-height: 1.65; color: #1E293B; margin-bottom: 10px; }
+  p.lead { font-size: 10.5pt; font-weight: 500; color: var(--text); line-height: 1.6; margin-bottom: 14px; }
+  strong { font-weight: 700; }
+  .callout { background: #FFFBEB; border-left: 4px solid #B45309; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; }
+  .callout-title { font-size: 8pt; font-weight: 700; color: #B45309; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+  .callout p { margin: 0; font-size: 9pt; }
+  .info-box { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .info-box p { margin: 0; font-size: 9pt; color: #1E40AF; }
+  .kpi-row { display: grid; gap: 10px; margin: 14px 0; }
+  .kpi-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .kpi-row-2 { grid-template-columns: 1fr 1fr; }
+  .kpi-row-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .kpi-card { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; text-align: center; }
+  .kpi-card-accent { background: #FFFBEB; border-color: #B4530944; }
+  .kpi-num { font-size: 20pt; font-weight: 900; color: #B45309; line-height: 1; }
+  .kpi-num-sm { font-size: 14pt; font-weight: 900; color: #B45309; line-height: 1; }
+  .kpi-label { font-size: 8pt; color: var(--text-muted); margin-top: 4px; line-height: 1.35; }
+  .kpi-source { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .bullet-list { list-style: none; margin: 0 0 12px; }
+  .bullet-list li { padding: 5px 0 5px 18px; position: relative; font-size: 9.5pt; line-height: 1.55; color: #1E293B; border-bottom: 1px solid var(--border); }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: #B45309; }
+  .bullet-list li strong { color: #78350F; }
+  .grid-6 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .grid-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .grid-cell-accent { background: #FFFBEB; border-color: #B4530955; }
+  .grid-cell-title { font-size: 7.5pt; font-weight: 700; color: #B45309; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .grid-cell p { font-size: 9pt; margin: 0; line-height: 1.5; }
+  .quote-block { border-left: 3px solid #B45309; padding: 10px 14px; background: var(--bg-subtle); border-radius: 0 8px 8px 0; margin: 14px 0; }
+  .quote-text { font-size: 10pt; font-style: italic; color: var(--text); line-height: 1.55; }
+  .quote-source { font-size: 8pt; color: var(--text-muted); margin-top: 6px; font-weight: 600; }
+  .tech-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 9px; display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: start; }
+  .tech-icon { width: 36px; height: 36px; border-radius: 8px; background: #FFFBEB; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .tech-name { font-size: 9.5pt; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .tech-desc { font-size: 8.5pt; color: var(--text-muted); line-height: 1.5; margin-bottom: 3px; }
+  .tech-apply { font-size: 8pt; color: #78350F; font-weight: 600; }
+  .dolor-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .dolor-table th { background: var(--text); color: #fff; padding: 7px 8px; text-align: left; font-weight: 600; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .dolor-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .dolor-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .score-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 8pt; text-align: center; min-width: 32px; }
+  .score-red { background: #FEE2E2; color: #991B1B; }
+  .score-orange { background: #FED7AA; color: #9A3412; }
+  .score-yellow { background: #FEF9C3; color: #854D0E; }
+  .score-green { background: #D1FAE5; color: #065F46; }
+  .type-badge { display: inline-block; padding: 2px 7px; border-radius: 12px; font-size: 7.5pt; font-weight: 600; }
+  .type-latente { background: #EDE9FE; color: #5B21B6; }
+  .type-declarado { background: #DBEAFE; color: #1E40AF; }
+  .validated-mark { display: inline-block; background: #D1FAE5; color: #065F46; font-size: 6.5pt; font-weight: 800; padding: 1px 5px; border-radius: 3px; margin-left: 3px; vertical-align: middle; }
+  .dolor-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+  .dolor-card-header { background: #B45309; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+  .dolor-card-num { font-size: 20pt; font-weight: 900; opacity: .35; line-height: 1; }
+  .dolor-card-title { font-size: 9.5pt; font-weight: 700; flex: 1; padding: 0 8px; line-height: 1.3; }
+  .dolor-card-score { font-size: 17pt; font-weight: 900; line-height: 1; }
+  .dolor-card-score-label { font-size: 7pt; opacity: .8; text-transform: uppercase; letter-spacing: .06em; }
+  .dolor-card-body { padding: 12px; }
+  .dolor-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .dolor-field-label { font-size: 7.5pt; font-weight: 700; color: #B45309; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-field-text { font-size: 8.5pt; color: var(--text); line-height: 1.5; }
+  .dolor-opp { margin-top: 8px; background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 8px; padding: 9px 11px; }
+  .dolor-opp-label { font-size: 7.5pt; font-weight: 700; color: #15803D; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .dolor-opp p { font-size: 8.5pt; color: #14532D; margin: 0; }
+  .ia-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+  .ia-card-header { padding: 12px 14px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .ia-card-header-qw { background: linear-gradient(135deg, #064E3B, #065F46); }
+  .ia-card-header-mp { background: linear-gradient(135deg, #1E3A8A, #1D4ED8); }
+  .ia-card-header-lp { background: linear-gradient(135deg, #581C87, #6D28D9); }
+  .ia-card-title { font-size: 10pt; font-weight: 700; color: #fff; line-height: 1.3; flex: 1; }
+  .ia-card-badge { font-size: 7pt; font-weight: 700; color: #fff; background: rgba(255,255,255,.2); padding: 3px 9px; border-radius: 12px; white-space: nowrap; margin-left: 8px; align-self: flex-start; margin-top: 2px; }
+  .ia-card-body { padding: 14px; }
+  .ia-card-desc { font-size: 9pt; line-height: 1.6; color: var(--text); margin-bottom: 10px; }
+  .ia-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .ia-tag { font-size: 7.5pt; padding: 2px 9px; border-radius: 12px; border: 1px solid var(--border); color: var(--text-muted); background: var(--bg-subtle); }
+  .ia-tag-key { background: #FFFBEB; border-color: #B4530955; color: #78350F; font-weight: 600; }
+  .ia-detail-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .ia-detail-cell { background: var(--bg-subtle); border-radius: 6px; padding: 8px 10px; }
+  .ia-detail-label { font-size: 7pt; color: var(--text-light); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; font-weight: 600; }
+  .ia-detail-value { font-size: 8.5pt; color: var(--text); font-weight: 600; }
+  .ia-evidence { background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 8pt; color: #14532D; }
+  .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .roadmap-col { border-radius: 10px; overflow: hidden; }
+  .roadmap-col-header { padding: 10px 12px; font-size: 9pt; font-weight: 700; color: #fff; }
+  .roadmap-col-header-m1 { background: #065F46; }
+  .roadmap-col-header-m2 { background: #1E40AF; }
+  .roadmap-col-header-m3 { background: #4C1D95; }
+  .roadmap-item { padding: 9px 11px; border-bottom: 1px solid var(--border); background: #fff; }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-item-title { font-size: 8.5pt; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .roadmap-item-desc { font-size: 7.5pt; color: var(--text-muted); line-height: 1.4; }
+  .roadmap-item-time { font-size: 7pt; color: var(--text-light); margin-top: 3px; }
+  .impact-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 10px 0; }
+  .impact-table th { background: var(--text); color: #fff; padding: 7px 10px; text-align: left; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .05em; }
+  .impact-table td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .impact-table tr:nth-child(even) td { background: var(--bg-subtle); }
+  .ethics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .ethics-cell { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .ethics-cell-title { font-size: 9pt; font-weight: 700; color: var(--text); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .ethics-cell p { font-size: 8.5pt; color: var(--text-muted); margin: 0; line-height: 1.5; }
+  .brecha-row { display: grid; grid-template-columns: 1fr 20px 1fr; gap: 8px; margin-bottom: 10px; align-items: center; }
+  .brecha-actual { background: #FEE2E2; border: 1px solid #FECACA; border-radius: 8px; padding: 10px 12px; }
+  .brecha-nuevo { background: #D1FAE5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 10px 12px; }
+  .brecha-arrow { font-size: 14pt; color: var(--text-muted); text-align: center; }
+  .brecha-label { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .brecha-label-red { color: #991B1B; }
+  .brecha-label-green { color: #065F46; }
+  .brecha-text { font-size: 8.5pt; line-height: 1.45; }
+  .ref-list { list-style: none; margin: 0; counter-reset: ref-counter; }
+  .ref-list li { font-size: 8.5pt; line-height: 1.55; padding: 5px 0 5px 28px; position: relative; border-bottom: 1px solid var(--border); color: #1E293B; counter-increment: ref-counter; }
+  .ref-list li:last-child { border-bottom: none; }
+  .ref-list li::before { content: '[' counter(ref-counter) ']'; position: absolute; left: 0; font-weight: 700; color: #B45309; font-size: 8pt; }
+  .maturity-wrap { margin: 14px 0; }
+  .maturity-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+  .maturity-table th { padding: 6px 7px; font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; text-align: center; border: 1px solid var(--border); }
+  .maturity-table td { padding: 5px 7px; border: 1px solid var(--border); vertical-align: middle; }
+  .maturity-table td:first-child { font-weight: 600; font-size: 8pt; background: var(--bg-subtle); width: 28%; }
+  .mat-h0 { background: var(--text); color: #fff; }
+  .mat-h1 { background: #FCA5A5; color: #7F1D1D; }
+  .mat-h2 { background: #FCD34D; color: #713F12; }
+  .mat-h3 { background: #6EE7B7; color: #064E3B; }
+  .mat-h4 { background: #34D399; color: #064E3B; }
+  .mat-h5 { background: #10B981; color: #fff; }
+  .mat-1 { background: #FEE2E2; color: #991B1B; text-align: center; font-size: 7pt; }
+  .mat-2 { background: #FEF9C3; color: #713F12; text-align: center; font-size: 7pt; }
+  .mat-3 { background: #D1FAE5; color: #065F46; text-align: center; font-size: 7pt; }
+  .mat-4 { background: #A7F3D0; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-5 { background: #6EE7B7; color: #064E3B; text-align: center; font-size: 7pt; }
+  .mat-empty { background: #fff; }
+  .mat-current { font-weight: 800; background: #B45309; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .mat-target { font-weight: 700; background: #065F46; color: #fff !important; border-radius: 3px; padding: 2px 4px; font-size: 7pt; }
+  .cycle-row { display: flex; align-items: stretch; gap: 0; margin: 14px 0; }
+  .cycle-step { flex: 1; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; }
+  .cycle-step-active { background: #FFFBEB; border-color: #B4530955; }
+  .cycle-num { width: 22px; height: 22px; background: #B45309; color: #fff; border-radius: 50%; font-size: 9pt; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; }
+  .cycle-title { font-size: 8pt; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+  .cycle-desc { font-size: 7pt; color: var(--text-muted); line-height: 1.4; }
+  .cycle-arrow-h { display: flex; align-items: center; padding: 0 4px; font-size: 14pt; color: #B45309; font-weight: 900; }
+  .cycle-return { text-align: center; font-size: 7.5pt; color: #B45309; font-weight: 600; margin-top: 6px; padding: 5px 0; border-top: 2px dashed #B4530955; }
+  .initiative-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .initiative-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 11px; }
+  .initiative-flag { font-size: 14pt; margin-bottom: 4px; }
+  .initiative-name { font-size: 8.5pt; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+  .initiative-country { font-size: 7pt; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
+  .initiative-model { font-size: 7.5pt; color: var(--text); line-height: 1.45; margin-bottom: 5px; }
+  .initiative-tag { display: inline-block; font-size: 7pt; padding: 1px 7px; border-radius: 10px; font-weight: 700; background: var(--bg-subtle); border: 1px solid var(--border); color: var(--text-muted); }
+  .license-block { background: #F0FDF4; border: 2px solid #6EE7B7; border-radius: 10px; padding: 14px 16px; margin: 16px 0; }
+  .license-block-title { font-size: 8pt; font-weight: 800; color: #065F46; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .license-block p { font-size: 8.5pt; color: #14532D; margin: 0 0 6px; line-height: 1.55; }
+  .license-block p:last-child { margin: 0; }
+  .license-badge-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .license-badge { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1.5px solid #6EE7B7; border-radius: 6px; padding: 4px 12px; font-weight: 800; font-size: 9.5pt; color: #065F46; }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="page page-cover">
+  <div class="cover-bg"></div>
+  <div class="cover-accent-bar"></div>
+  <div class="cover-content">
+    <div class="cover-logo-area">
+      <div class="cover-logo-box"><img src="../../imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:34px;width:auto;filter:brightness(0) invert(1);"></div>
+      <div class="cover-edition">White Paper · Edición N° 1 · Junio 2026</div>
+      <div class="cover-license">CC BY-SA 4.0</div>
+    </div>
+    <div class="cover-main">
+      <div class="cover-sector">🏛️ Arquitectura · Diseño / Construcción / Urbanismo</div>
+      <div class="cover-title">IA Aplicada<br><span>en Arquitectura: Del Código Urbano al Proyecto, Sin Fricción</span></div>
+      <div class="cover-subtitle">El sector de la construcción y el diseño en Neuquén opera con herramientas digitales modernas pero sin inteligencia integrada: la normativa es una caja negra, el análisis de viabilidad llega tarde y la documentación de obra se pierde en el campo. Este White Paper mapea los 5 dolores validados del vertical y propone prototipos concretos para el segundo semestre de 2026.</div>
+    </div>
+    <div class="cover-kpis">
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">30–40%</div>
+        <div class="cover-kpi-label">de sobrecosto promedio en proyectos de construcción a nivel global atribuible a fallas en planificación y análisis temprano · McKinsey Global Infrastructure Initiative 2017</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">14%</div>
+        <div class="cover-kpi-label">de los proyectos en América Latina usa BIM de manera sistemática y colaborativa · BID Infrastructure Sector Report 2021</div>
+      </div>
+      <div class="cover-kpi">
+        <div class="cover-kpi-num">5+ hs</div>
+        <div class="cover-kpi-label">semanales que un arquitecto independiente dedica a interpretación normativa y gestión documental por proyecto activo · Campo IA LAB ARQ 2026</div>
+      </div>
+    </div>
+    <div class="cover-footer" style="margin-top:14px;">
+      <div class="cover-footer-left">ENE IA LAB · Polo Tecnológico Neuquén<br>ia-lab@eneneuquen.com.ar · eneneuquen.com.ar</div>
+      <div class="cover-footer-right">Hecho desde el campo.<br>Para quien lo opera.</div>
+    </div>
+  </div>
+</div>
+<!-- NOTA METODOLÓGICA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Nota Metodológica</div>
+  </div>
+  <div class="section-label">Sobre esta investigación</div>
+  <div class="section-title">Nota Metodológica</div>
+  <div class="section-divider"></div>
+  <p class="lead">El IA LAB opera en ciclos iterativos de cuatro meses que combinan investigación documental, trabajo de campo con profesionales activos y validación técnica. El presente White Paper consolida los hallazgos del primer ciclo del vertical Arquitectura y Urbanismo (Abril–Junio 2026).</p>
+
+  <div class="subsection-title">Ciclo metodológico de investigación</div>
+  <div class="cycle-row">
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">1</div>
+      <div class="cycle-title">Investigación Documental</div>
+      <div class="cycle-desc">revisión de literatura sectorial, reportes de adopción tecnológica y benchmarks de IA en construcción y urbanismo</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">2</div>
+      <div class="cycle-title">Relevamiento de Campo</div>
+      <div class="cycle-desc">sesiones con profesionales activos del sector (arquitectos, ingenieros, técnicos, urbanistas, desarrollistas e inmobiliarias) para identificar iniciativas y dolores operativos</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">3</div>
+      <div class="cycle-title">Validación con Expertos IA</div>
+      <div class="cycle-desc">factibilidad técnica de cada propuesta, scoring compuesto por impacto y viabilidad</div>
+    </div>
+    <div class="cycle-arrow-h">→</div>
+    <div class="cycle-step cycle-step-active">
+      <div class="cycle-num">4</div>
+      <div class="cycle-title">Publicación CC BY-SA</div>
+      <div class="cycle-desc">White Paper, código de prototipos y datasets liberados bajo licencia abierta</div>
+    </div>
+    <div class="cycle-arrow-h">↺</div>
+    <div class="cycle-step">
+      <div class="cycle-num" style="background:#94A3B8;">5</div>
+      <div class="cycle-title">Nueva ronda</div>
+      <div class="cycle-desc">iniciativas no validadas pasan a nueva iteración en el ciclo siguiente</div>
+    </div>
+  </div>
+  <div class="cycle-return">↑ El ciclo se repite: cada edición valida nuevos dolores propuestos por el grupo y la comunidad</div>
+
+  <div class="subsection-title">Fuentes primarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Entrevistas de campo</div>
+      <p>Se realizaron sesiones de relevamiento con profesionales activos de arquitectura, urbanismo, gestión de proyectos e inmobiliarias en la región del Comahue. Los perfiles cubrieron estudios de arquitectura independientes, equipos de desarrollistas de proyectos residenciales y comerciales, y profesionales del sector inmobiliario. El relevamiento identificó 8 iniciativas concretas clasificadas en procesos internos y procesos externos.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Sesiones técnicas del Vertical</div>
+      <p>El vertical realizó una sesión plenaria de relevamiento en el primer trimestre de 2026, donde se identificaron y agruparon las iniciativas en dos categorías: procesos internos al estudio (gestión operativa, documentación, comunicación) y procesos externos (análisis normativo, viabilidad y mercado). Se validaron 5 iniciativas para este ciclo y se reservaron 2 para el ciclo siguiente.</p>
+    </div>
+  </div>
+  <div class="subsection-title">Fuentes secundarias</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Estadísticas y reportes institucionales</div>
+      <p>McKinsey Global Infrastructure Initiative 2017; BID Infrastructure Sector Report 2021; FADEA (Federación Argentina de Entidades de Arquitectos) 2022; INDEC Censo 2022; Municipalidad de Neuquén — Plan Urbano 2040; CAPBA (Consejo de Arquitectos Provincia Buenos Aires) 2023</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Literatura científica y técnica</div>
+      <p>Autodesk (2022). The State of the Industry: Infrastructure Report. Autodesk Research. · Eastman, C. et al. (2018). BIM Handbook: A Guide to Building Information Modeling (3rd ed.). Wiley. · Bew, M. &amp; Richards, M. (2008). BIM Maturity Diagram. HM Government UK BIM Task Group. · Berardi, U. (2023). Artificial Intelligence in the Built Environment: Current Applications and Future Scenarios. Sustainability Journal.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <div class="callout-title">5 dolores validados · 7 propuestos para ciclos futuros</div>
+    <p>La tabla de la Sección 5 presenta 12 puntos de dolor identificados. Los marcados con <strong>✓ VAL</strong> fueron validados mediante entrevistas directas en esta edición. Los restantes 7 son propuestas del grupo, pendientes de validación en campo en ciclos futuros. No se presentan como hallazgos confirmados sino como hipótesis a explorar.</p>
+  </div>
+  <div class="info-box"><p><strong>Este documento no es un paper académico en sentido estricto.</strong> Es un instrumento práctico de diagnóstico y hoja de ruta, elaborado con rigor metodológico y orientado a la acción. Publicado bajo <strong>CC BY-SA 4.0</strong>: podés reutilizarlo, adaptarlo y distribuirlo libremente con la condición de mantener la misma licencia en las obras derivadas. Errores o contribuciones de campo: ia-lab@eneneuquen.com.ar</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">2</div>
+  </div>
+</div>
+<!-- RESUMEN EJECUTIVO -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Resumen Ejecutivo</div>
+  </div>
+  <div class="section-label">Sección 1 de 10</div>
+  <div class="section-title">Resumen Ejecutivo</div>
+  <div class="section-divider"></div>
+  <p class="lead">El sector de arquitectura y urbanismo en Neuquén y el Comahue trabaja con herramientas digitales consolidadas (AutoCAD, Revit, SketchUp) pero sin inteligencia que conecte esas herramientas con la información crítica del entorno: la normativa local, los datos de mercado inmobiliario y la documentación de campo. El resultado es un profesional técnicamente capaz pero sobrecargado de tareas administrativas e interpretativas que la IA puede resolver.</p>
+
+  <div class="subsection-title">KPIs del sector</div>
+  <div class="kpi-row kpi-row-3">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">30–40%</div>
+      <div class="kpi-label">de sobrecosto promedio en proyectos de construcción a nivel global atribuible a fallas en planificación y análisis temprano · McKinsey Global Infrastructure Initiative 2017</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">14%</div>
+      <div class="kpi-label">de los proyectos en América Latina usa BIM de manera sistemática y colaborativa · BID Infrastructure Sector Report 2021</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">5+ hs</div>
+      <div class="kpi-label">semanales que un arquitecto independiente dedica a interpretación normativa y gestión documental por proyecto activo · Campo IA LAB ARQ 2026</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Hallazgos principales</div>
+  <ul class="bullet-list">
+    <li>La interpretación del código de edificación y la normativa urbanística consume horas profesionales antes de saber si un proyecto es viable normativamente</li>
+    <li>El análisis de viabilidad de un proyecto (FOT, FOS, alturas, usos permitidos, restricciones) se realiza manualmente con información dispersa en múltiples fuentes</li>
+    <li>Los datos de parcelas (tamaño, propietario, normativa aplicable, precios de mercado) están fragmentados entre catastro, portales inmobiliarios y el conocimiento informal del profesional</li>
+    <li>La documentación de reuniones con clientes y visitas de obra se pierde o queda subrregistrada, generando errores y conflictos posteriores</li>
+    <li>Inmobiliarias y estudios reciben consultas de múltiples canales simultáneos sin sistema de priorización, consumiendo tiempo del profesional en consultas de baja urgencia</li>
+    <li>Quick wins disponibles: asistente normativo basado en RAG y sistema de transcripción automática de reuniones de obra, implementables en semanas</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">Quick Wins disponibles hoy</div>
+    <p>Dos implementaciones de rápida adopción están disponibles sin infraestructura especializada: (1) Asistente normativo con RAG sobre el Código de Edificación y normativa municipal de Neuquén — responde consultas sobre alturas, FOT, usos permitidos y restricciones de parcela en segundos; (2) Transcriptor de reuniones de obra — convierte audio de reuniones y visitas en resúmenes estructurados con acuerdos, compromisos y próximos pasos.</p>
+  </div>
+
+  <p>Neuquén crece a una velocidad inusual para una ciudad de su tamaño: la demanda de construcción residencial, comercial e industrial impulsada por Vaca Muerta genera una presión sin precedentes sobre la capacidad de planificación y diseño de los estudios locales. En ese contexto, cada hora que un profesional dedica a tareas que la IA puede automatizar es una hora que no se dedica a diseño, a clientes y a obra.</p>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">3</div>
+  </div>
+</div>
+<!-- CONTEXTO DEL SECTOR -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Contexto del Sector</div>
+  </div>
+  <div class="section-label">Sección 2 de 10</div>
+  <div class="section-title">Contexto del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Neuquén es una de las ciudades de mayor crecimiento de Argentina. La conjunción entre el boom de Vaca Muerta, la migración de profesionales del sector hidrocarburífero y la expansión de la infraestructura pública genera una demanda sostenida de construcción residencial, comercial e industrial. El sector de arquitectura y urbanismo opera en un contexto de alta demanda con escasa automatización de sus procesos internos y un marco normativo local de creciente complejidad.</p>
+
+  <div class="kpi-row kpi-row-4">
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">3°</div>
+      <div class="kpi-label">ciudad de Argentina con mayor crecimiento poblacional relativo en el último censo (INDEC 2022)</div>
+      <div class="kpi-source">INDEC Censo 2022</div>
+    </div>
+    <div class="kpi-card kpi-card-accent">
+      <div class="kpi-num">30–40%</div>
+      <div class="kpi-label">de sobrecosto promedio en proyectos de construcción por fallas en planificación temprana</div>
+      <div class="kpi-source">McKinsey Global Infrastructure Initiative 2017</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">14%</div>
+      <div class="kpi-label">de proyectos en América Latina usa BIM de manera sistemática y colaborativa</div>
+      <div class="kpi-source">BID 2021</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-num">4+</div>
+      <div class="kpi-label">actores distintos en cada proyecto (profesional, desarrollista, inmobiliaria, urbanista) con flujos de información no integrados</div>
+      <div class="kpi-source">Campo IA LAB ARQ 2026</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">El sector en detalle</div>
+  <div class="grid-6">
+    <div class="grid-cell">
+      <div class="grid-cell-title">Actores principales</div>
+      <p>El vertical integra cuatro tipos de actores con lógicas distintas: (1) Profesionales independientes (arquitectos, ingenieros, técnicos) que ejecutan proyectos y gestionan obras; (2) Inmobiliarias que comercializan propiedades finalizadas; (3) Desarrollistas que llevan proyectos edilicios de inicio a fin; (4) Urbanistas que planifican la ciudad a largo plazo con múltiples stakeholders. Cada actor tiene dolores distintos pero todos comparten la fragmentación informativa como denominador común.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Herramientas actuales</div>
+      <p>El sector usa herramientas digitales maduras: AutoCAD y SketchUp para dibujo técnico y modelado 3D, Revit para BIM colaborativo, Lumion para renders de presentación y Blender para modelado avanzado. Todas operan bajo esquema de suscripción con licencias individuales. Ya existe uso incipiente de IA generativa, pero sin integración formal a los flujos de trabajo.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Normativa y regulación</div>
+      <p>El marco regulatorio incluye el Código de Edificación de Neuquén, las ordenanzas de zonificación municipal, las normativas del CAPBA provincial, las regulaciones de catastro e inspección de obras y los requisitos del Colegio de Ingenieros. La interpretación de este entramado normativo requiere experiencia y tiempo, y es una fuente recurrente de demora y error.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">BIM y madurez digital</div>
+      <p>La adopción de BIM en el sector regional es incipiente: la mayoría de los estudios trabaja en 2D (CAD) o en modelos 3D no colaborativos. La interoperabilidad entre herramientas es manual. La IA se usa de manera experimental para renders generativos y prompting de ideas, sin integración a los procesos de análisis, documentación o gestión.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">Contexto regional (Patagonia/Neuquén)</div>
+      <p>Neuquén es el laboratorio urbano más activo de la Patagonia: la demanda de vivienda de trabajadores del sector energético, la expansión de barrios privados, los proyectos de infraestructura pública y la reconversión urbana del centro generan oportunidades únicas para pilotar herramientas de IA en un contexto real y acotado.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title">El problema estructural</div>
+      <p>Los estudios y profesionales operan como artesanos digitales: usan herramientas modernas pero sin automatización de los procesos administrativos, normativos ni de gestión. La información que necesitan para tomar decisiones (normativa, catastro, mercado) está fragmentada en sistemas que no se hablan entre sí.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">El problema estructural</div>
+    <p>La fragmentación informativa es el problema central del vertical: la normativa, los datos catastrales, los precios de mercado y la documentación de obra viven en sistemas separados que el profesional debe integrar manualmente en cada proyecto.</p>
+  </div>
+
+  <div class="info-box"><p><strong>Oportunidad de IA:</strong> La IA puede actuar como el integrador que conecta fuentes de información dispares: (1) RAG sobre normativa local para responder consultas regulatorias en segundos, (2) modelos de análisis de parcelas que cruzan catastro con normativa y precios de mercado, (3) transcripción y estructuración automática de documentación de campo.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">4</div>
+  </div>
+</div>
+<!-- MARCO TEÓRICO / TECNOLOGÍAS IA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Tecnologías IA Relevantes</div>
+  </div>
+  <div class="section-label">Sección 3 de 10</div>
+  <div class="section-title">Tecnologías de IA Relevantes para el Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Las tecnologías de IA relevantes para arquitectura y urbanismo en 2026 abarcan desde los modelos de lenguaje que interpretan normativa hasta los sistemas de visión computacional que monitorizan obras en tiempo real. El sector tiene la ventaja de trabajar con datos altamente estructurados (planos, normativa, catastro) que son ideales para sistemas de IA supervisados y basados en recuperación semántica.</p>
+
+  <div class="tech-card">
+    <div class="tech-icon">🔗</div>
+    <div>
+      <div class="tech-name">RAG (Retrieval-Augmented Generation)</div>
+      <div class="tech-desc">Búsqueda semántica sobre documentos regulatorios y técnicos</div>
+      <div class="tech-apply">→ Asistente normativo que responde consultas sobre Código de Edificación, FOT, FOS, alturas, usos permitidos y restricciones de parcela en lenguaje natural</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🤖</div>
+    <div>
+      <div class="tech-name">Large Language Models (LLM)</div>
+      <div class="tech-desc">GPT-4o, Claude — generación y análisis de texto técnico</div>
+      <div class="tech-apply">→ Interpretación de cláusulas normativas complejas, redacción de informes de viabilidad, resúmenes de reuniones de obra, respuestas a consultas de clientes</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🗺️</div>
+    <div>
+      <div class="tech-name">GIS + IA Geoespacial</div>
+      <div class="tech-desc">Análisis de datos espaciales con modelos predictivos</div>
+      <div class="tech-apply">→ Mapas inmobiliarios inteligentes que cruzan parcelas con normativa, precios de mercado y potencial constructivo. Análisis de tendencias urbanas y zonas de expansión</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🎙️</div>
+    <div>
+      <div class="tech-name">ASR (Reconocimiento Automático de Voz)</div>
+      <div class="tech-desc">Transcripción automática de audio a texto estructurado</div>
+      <div class="tech-apply">→ Documentación de reuniones con clientes, inspecciones de obra y conversaciones con proveedores. Exportación automática a planillas de seguimiento y minutas</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">🖼️</div>
+    <div>
+      <div class="tech-name">IA Generativa de Imagen</div>
+      <div class="tech-desc">Midjourney, Stable Diffusion, DALL-E — renders conceptuales</div>
+      <div class="tech-apply">→ Generación de renders conceptuales desde croquis o texto, variantes de fachada, visualizaciones de espacios interiores para presentación a clientes sin modelado 3D completo</div>
+    </div>
+  </div>
+  <div class="tech-card">
+    <div class="tech-icon">📊</div>
+    <div>
+      <div class="tech-name">Modelos predictivos de valuación</div>
+      <div class="tech-desc">ML sobre datos de mercado inmobiliario y atributos de parcela</div>
+      <div class="tech-apply">→ Estimación automática de valor de mercado por parcela, predicción de potencial de desarrollo, análisis de tendencias de precio por zona</div>
+    </div>
+  </div>
+
+
+  <div class="subsection-title">Evidencia cuantitativa global</div>
+  <div class="kpi-row kpi-row-3">
+    <div class="kpi-card">
+      <div class="kpi-num">70%</div>
+      <div class="kpi-label">de las consultas normativas rutinarias pueden responderse automáticamente con RAG sobre el código de edificación local</div>
+      <div class="kpi-source">Estimación técnica IA LAB ARQ 2026 — validación en piloto prevista Q3 2026</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">3x</div>
+      <div class="kpi-label">más rápido el análisis de viabilidad de una parcela con herramientas de IA vs. proceso manual actual</div>
+      <div class="kpi-source">Benchmark de herramientas análogas: Vu.city, Urbint, Spectral (2024)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num">40%</div>
+      <div class="kpi-label">reducción de tiempo en documentación y reportes de obra con transcripción automática y resúmenes LLM</div>
+      <div class="kpi-source">McKinsey GII 2017 + campo IA LAB ARQ 2026</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Datos estructurados, ventaja competitiva</div>
+    <p>La arquitectura trabaja con datos altamente estructurados: planos con coordenadas, normativa con artículos numerados, catastro con atributos de parcela. Eso hace que las soluciones de RAG y ML sean especialmente efectivas en este sector. La IA no diseña: organiza la información para que el profesional diseñe mejor.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">5</div>
+  </div>
+</div>
+<!-- MAPA DE DOLORES -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Mapa de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 de 10</div>
+  <div class="section-title">Mapa de Dolores del Sector</div>
+  <div class="section-divider"></div>
+  <p class="lead">Las 8 iniciativas identificadas en el relevamiento de campo fueron clasificadas en procesos internos y procesos externos, y luego priorizadas con un scoring compuesto que considera frecuencia de mención, impacto operativo y factibilidad técnica con IA disponible en 2026. Las 5 primeras cuentan con validación del grupo; las 2 restantes son propuestas para el ciclo siguiente.</p>
+
+  <table class="dolor-table">
+    <thead>
+      <tr>
+        <th style="width:30px;">#</th>
+        <th>Punto de dolor</th>
+        <th style="width:90px;">Tipo</th>
+        <th style="width:110px;">Tecnología IA</th>
+        <th style="width:55px;">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center;font-weight:700;">1</td>
+        <td>La caja negra normativa: interpretar el código es una profesión en sí misma<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>RAG · LLM · Knowledge Base normativa</td>
+        <td><span class="score-badge score-red">94</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">2</td>
+        <td>Análisis de viabilidad: demasiado tarde y demasiado caro<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>GIS · LLM · Catastro API · Normativa</td>
+        <td><span class="score-badge score-red">91</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">3</td>
+        <td>Datos de parcela y mercado: decisiones con información fragmentada<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>GIS + IA · Valuación ML · APIs catastrales</td>
+        <td><span class="score-badge score-red">87</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">4</td>
+        <td>Documentación de obra: la información crítica se pierde en el campo<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-declarado">Declarado</span></td>
+        <td>ASR · LLM · Exportación estructurada</td>
+        <td><span class="score-badge score-red">83</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">5</td>
+        <td>Saturación de consultas: el profesional atiende a todos por igual<span class="validated-mark">✓ VAL</span></td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>LLM · Lead Scoring · Agente de priorización</td>
+        <td><span class="score-badge score-orange">79</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">6</td>
+        <td>Búsqueda de vivienda: experiencia fragmentada para el comprador final</td>
+        <td><span class="type-badge type-latente">Latente</span></td>
+        <td>RAG · GIS · LLM · Filtrado semántico</td>
+        <td><span class="score-badge score-orange">71</span></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;">7</td>
+        <td>Gestión del estudio: operación sin automatización de ERP</td>
+        <td><span class="type-badge type-declarado">Emergente</span></td>
+        <td>ERP + IA · Mensajería automática · Workflow automation</td>
+        <td><span class="score-badge score-orange">65</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box"><p><strong>Score compuesto 0–100:</strong> frecuencia × impacto × factibilidad de implementación con IA. <strong>✓ VAL</strong> = validado en entrevistas de campo. Sin marca = propuesta del grupo para ciclos futuros.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">6</div>
+  </div>
+</div>
+<!-- FICHAS DOLORES p.7 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 1 a 2</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">01</div>
+      <div class="dolor-card-title">La caja negra normativa: interpretar el código es una profesión en sí misma</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">94</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>El Código de Edificación de Neuquén, las ordenanzas de zonificación, las circulares del CAPBA y las disposiciones de catastro forman un entramado normativo de cientos de artículos que ningún profesional tiene completamente internalizado. Antes de comprometerse con un cliente o de iniciar un proyecto, el arquitecto debe invertir horas consultando normativa para saber si el proyecto es siquiera viable normativamente.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Arquitectos e ingenieros independientes que trabajan con múltiples proyectos simultáneos, desarrollistas que evalúan lotes antes de comprar, urbanistas que deben conocer el marco regulatorio en profundidad.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Tiempo no facturable consumido antes de saber si hay proyecto. Errores de interpretación que generan correcciones tardías y costosas. Dependencia de la memoria del profesional más experimentado del estudio, que se convierte en cuello de botella.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Consulta manual del Código de Edificación en PDF o versión web. Llamadas a colegas de confianza. En algunos casos, consulta informal a funcionarios municipales. Sin sistema de referencia rápida.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">5+ horas semanales dedicadas a interpretación normativa por proyecto activo (Campo IA LAB ARQ 2026). Equivalente a más de un día hábil completo en estudios con 3+ proyectos simultáneos.</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Sistema RAG entrenado sobre el Código de Edificación de Neuquén, ordenanzas municipales y normativa CAPBA. El profesional pregunta en lenguaje natural (&#x27;¿cuál es el FOT máximo en zona R3 para lote de esquina?&#x27;) y recibe la respuesta con la referencia exacta al artículo. Quick win: prototipo funcional en 4–6 semanas con los documentos normativos del municipio.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">02</div>
+      <div class="dolor-card-title">Análisis de viabilidad: demasiado tarde y demasiado caro</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">91</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Cuando un cliente o desarrollista llega con un lote, el profesional debe determinar qué puede construirse (altura, FOT, FOS, retiros, usos permitidos), qué restricciones aplican (línea de edificación, servidumbres, zonas de inundación) y si el proyecto es económicamente viable. Este análisis hoy toma días de trabajo manual cruzando datos de catastro, normativa y mercado. Muchas veces, cuando se tiene el resultado, el cliente ya tomó otra decisión.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Arquitectos y técnicos que hacen prefactibilidad, desarrollistas que evalúan lotes antes de comprar, inversores que necesitan una respuesta rápida sobre el potencial de un terreno.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Pérdida de oportunidades por lentitud en la respuesta. Trabajo no remunerado de prefactibilidad que no siempre lleva a un proyecto. Riesgo de comprometerse con un proyecto que luego resulta inviable por restricciones normativas no detectadas a tiempo.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Proceso manual: consulta de normativa + consulta de catastro provincial + estimación empírica del profesional. No existe herramienta integrada que haga el cruce automáticamente.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El análisis manual de viabilidad de una parcela toma entre 4 y 8 horas de trabajo profesional. Con herramientas análogas como Vu.city o Urbint, el mismo análisis tarda minutos (benchmark 2024).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Dashboard de viabilidad de parcela: ingresás la dirección o número de parcela y el sistema devuelve automáticamente los parámetros normativos aplicables (FOT, FOS, altura, usos, retiros), los datos catastrales disponibles y una estimación de potencial constructivo. Tecnología: integración API catastro Neuquén + RAG normativa + LLM para síntesis. Tiempo: 6–8 semanas para MVP.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">7</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.8 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 3 a 4</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">03</div>
+      <div class="dolor-card-title">Datos de parcela y mercado: decisiones con información fragmentada</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">87</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>No existe en Neuquén una fuente única que integre datos catastrales (titular, superficie, valuación fiscal), datos de mercado (precio de oferta, precio de transacción, tendencia de la zona) y datos normativos (zonificación, potencial constructivo) por parcela. Desarrollistas e inmobiliarias toman decisiones de compra e inversión cruzando manualmente tres o cuatro fuentes distintas, con la consiguiente pérdida de tiempo y riesgo de error.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Desarrollistas que evalúan oportunidades de inversión, inmobiliarias que necesitan información completa de la parcela para asesorar al comprador, urbanistas que analizan tendencias de uso del suelo.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Decisiones de inversión basadas en información incompleta. Tiempo del profesional consumido en búsqueda y cruce manual de datos. Asimetría de información entre actores: quien tiene más tiempo para investigar tiene ventaja sobre quien debe responder rápido.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Consulta separada de catastro provincial (web), portales de venta (Zonaprop, MercadoLibre Inmuebles), normativa municipal y conocimiento informal del mercado local. Sin integración.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">El análisis inmobiliario geoespacial integrado reduce el tiempo de evaluación de inversiones en un 60–70% respecto al proceso manual (Autodesk AEC Industry Report 2024).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Mapa inmobiliario inteligente: plataforma geoespacial que integra datos catastrales + zonificación + precios de mercado por zona + potencial constructivo por parcela. El usuario hace clic en cualquier parcela y ve toda la información consolidada. Tecnología: GIS + APIs públicas + modelo de valuación ML. Tiempo: 10–12 semanas para versión funcional con la región del Comahue.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">04</div>
+      <div class="dolor-card-title">Documentación de obra: la información crítica se pierde en el campo</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">83</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Las reuniones con clientes, las inspecciones de obra y las conversaciones con proveedores contienen información técnica crítica: cambios al proyecto acordados, compromisos de entrega, observaciones del inspector, especificaciones de materiales. Esta información hoy se registra de manera inconsistente: anotaciones a mano, fotos de whatsapp, notas en papel que se pierden. El resultado son conflictos posteriores por acuerdos no documentados y reprocesos por especificaciones mal registradas.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Arquitectos directores de obra, técnicos responsables de seguimiento, estudios que gestionan múltiples obras simultáneas.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Conflictos con clientes por acuerdos verbales no documentados. Errores de construcción por especificaciones mal transmitidas al equipo de obra. Tiempo de reposición y corrección. Imposibilidad de generar historial de obra digitalizado para proyectos futuros.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Notas manuscritas, fotos de WhatsApp, correos electrónicos ad hoc. En algunos estudios, planillas Excel actualizadas manualmente después de cada visita. Sin sistema de captura en campo.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">La documentación deficiente de obra es uno de los cinco factores más citados en litigios de construcción en Argentina (CAMARCO 2023). La transcripción automática reduce el tiempo de documentación post-reunión en un 40–60% (benchmark ASR + LLM, 2024).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Transcriptor de obra: aplicación que graba la reunión o visita de obra y genera automáticamente un resumen estructurado con: participantes (por rol, no por nombre), acuerdos y compromisos, próximos pasos y fecha, observaciones técnicas. Se exporta en formato planilla y se archiva en el expediente digital de la obra. Tecnología: ASR (Whisper o equivalente) + LLM para síntesis. Quick win: prototipo en 3–4 semanas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">8</div>
+  </div>
+</div>
+
+<!-- FICHAS DOLORES p.9 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Fichas de Dolores</div>
+  </div>
+  <div class="section-label">Sección 5 (cont.)</div>
+  <div class="section-title">Fichas Detalladas — Dolores 5 a 5</div>
+  <div class="section-divider"></div>
+  <div class="dolor-card">
+    <div class="dolor-card-header">
+      <div class="dolor-card-num">05</div>
+      <div class="dolor-card-title">Saturación de consultas: el profesional atiende a todos por igual</div>
+      <div style="text-align:right;">
+        <div class="dolor-card-score">79</div>
+        <div class="dolor-card-score-label">Score</div>
+      </div>
+    </div>
+    <div class="dolor-card-body">
+      <p>Inmobiliarias y estudios de arquitectura reciben consultas simultáneas por WhatsApp, Instagram, Zonaprop, email y teléfono. Sin sistema de priorización, el profesional responde en el orden en que llegan, dedicando el mismo tiempo a una consulta genérica de precio como a un comprador calificado listo para avanzar. El dolor es latente porque los profesionales lo naturalizan como parte del trabajo, sin identificarlo como un problema resoluble.</p>
+      <div class="dolor-card-grid">
+        <div>
+          <div class="dolor-field-label">Quién lo sufre</div>
+          <div class="dolor-field-text">Inmobiliarias que manejan alta rotación de consultas, arquitectos que dan respuesta a clientes potenciales en paralelo con la ejecución de proyectos activos.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Consecuencia si no se resuelve</div>
+          <div class="dolor-field-text">Hot leads que se enfrían por demora en la respuesta. Tiempo del profesional consumido en consultas de baja probabilidad de avance. Imposibilidad de escalar sin sumar personal de atención.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Cómo se resuelve hoy</div>
+          <div class="dolor-field-text">Respuesta manual a consultas en el orden de llegada. En algunos casos, respuestas tipo copiadas y pegadas. Sin criterio de priorización ni calificación automática.</div>
+        </div>
+        <div>
+          <div class="dolor-field-label">Dato de referencia</div>
+          <div class="dolor-field-text">Responder a un lead en menos de 5 minutos aumenta en 21x la probabilidad de calificación exitosa respecto a responder después de 30 minutos (MIT Lead Response Management Study, actualización 2022).</div>
+        </div>
+      </div>
+      <div class="dolor-opp">
+        <div class="dolor-opp-label">💡 Oportunidad para IA</div>
+        <p>Agente de priorización de mensajes: sistema que recibe consultas de todos los canales, las evalúa con criterios de calificación predefinidos (tipo de propiedad, zona de interés, urgencia declarada, historial de interacción) y genera una bandeja priorizada para el profesional. Las consultas genéricas reciben una respuesta automática con información básica. Tecnología: LLM + integración multicanal + scoring. Tiempo: 6–8 semanas para versión funcional.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">9</div>
+  </div>
+</div>
+<!-- ANÁLISIS DE BRECHAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Análisis de Brechas</div>
+  </div>
+  <div class="section-label">Sección 6 de 10</div>
+  <div class="section-title">Análisis de Brechas: Estado Actual vs. con IA</div>
+  <div class="section-divider"></div>
+  <p class="lead">Neuquén es una de las ciudades de mayor crecimiento de Argentina. La conjunción entre el boom de Vaca Muerta, la migración de profesionales del sector hidrocarburífero y la expansión de la infraestructura pública genera una demanda sostenida de construcción residencial, comercial e industrial. El sector de arquitectura y urbanismo opera en un contexto de alta demanda con escasa automatización de sus procesos internos y un marco normativo local de creciente complejidad.</p>
+
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Interpretación normativa</div>
+      <div class="brecha-text">Consulta manual del código de edificación. Horas de búsqueda antes de confirmar viabilidad. Dependencia de experiencia del profesional.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Interpretación normativa</div>
+      <div class="brecha-text">RAG sobre normativa local. Respuesta en segundos a consultas en lenguaje natural. Referencia al artículo exacto. Historial de consultas.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Análisis de viabilidad</div>
+      <div class="brecha-text">Proceso manual de 4–8 horas cruzando catastro, normativa y mercado. Respuesta tardía al cliente o desarrollista.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Análisis de viabilidad</div>
+      <div class="brecha-text">Dashboard automático: ingresás la parcela y en segundos obtenés FOT, FOS, altura, usos, restricciones y estimación de potencial constructivo.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Datos de mercado inmobiliario</div>
+      <div class="brecha-text">Consulta manual en portales, catastro y fuentes informales. Sin geolocalización integrada. Análisis por zona = trabajo de horas.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Datos de mercado inmobiliario</div>
+      <div class="brecha-text">Mapa interactivo que integra catastro + zonificación + precios de mercado. Análisis de cualquier parcela con un clic.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Documentación de obra</div>
+      <div class="brecha-text">Notas a mano, fotos de WhatsApp, correos sueltos. Alta probabilidad de pérdida de información. Conflictos por acuerdos no documentados.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Documentación de obra</div>
+      <div class="brecha-text">Transcripción automática + resumen estructurado con compromisos y próximos pasos. Archivo digital del historial de obra.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Gestión de consultas</div>
+      <div class="brecha-text">Respuesta manual en orden de llegada. Sin priorización. Hot leads que esperan igual que consultas genéricas.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Gestión de consultas</div>
+      <div class="brecha-text">Priorización automática por calificación. Respuesta inmediata a consultas tipo. Bandeja ordenada por potencial para el profesional.</div>
+    </div>
+  </div>
+  <div class="brecha-row">
+    <div class="brecha-actual">
+      <div class="brecha-label brecha-label-red">HOY — Presentación a clientes</div>
+      <div class="brecha-text">Renders en Lumion que requieren modelo 3D completo. Proceso de 2–5 días de producción antes de tener una visualización.</div>
+    </div>
+    <div class="brecha-arrow">→</div>
+    <div class="brecha-nuevo">
+      <div class="brecha-label brecha-label-green">CON IA — Presentación a clientes</div>
+      <div class="brecha-text">Renders conceptuales generativos desde croquis o texto en minutos. Variantes de fachada y espacios interiores para iteración rápida con el cliente.</div>
+    </div>
+  </div>
+
+
+  <div class="info-box"><p><strong>Nota:</strong> Los impactos expresados son estimaciones basadas en implementaciones análogas documentadas en literatura y casos de uso globales. No representan garantías de resultado. Los indicadores son no-monetarios: tiempo, incidentes, adopción, calidad.</p></div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">10</div>
+  </div>
+</div>
+<!-- MAPA DE MADUREZ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Mapa de Madurez</div>
+  </div>
+  <div class="section-label">Sección 7 de 10</div>
+  <div class="section-title">Mapa de Madurez — BIM Maturity Model (Bew-Richards, 2008) — adaptación IA LAB 2026 con capa de inteligencia artificial</div>
+  <div class="section-divider"></div>
+  <p class="lead">El BIM Maturity Model de Bew-Richards es el estándar de referencia internacional para medir la madurez digital en arquitectura y construcción. Originalmente definido en 4 niveles (0 a 3), la adaptación del IA LAB incorpora un quinto nivel que integra IA generativa y digital twins, capturando el estado del arte en 2026. El diagnóstico de campo indica que la mayoría de los estudios regionales se ubica entre los niveles 1 y 2.</p>
+
+  <div class="maturity-wrap">
+    <table class="maturity-table">
+      <thead>
+        <tr>
+<th class="mat-h0">Dimensión</th>
+        <th class="mat-h1">1 — Nivel 0 — Analógico</th>
+        <th class="mat-h2">2 — Nivel 1 — CAD Digital</th>
+        <th class="mat-h3">3 — Nivel 2 — BIM Gestionado</th>
+        <th class="mat-h4">4 — Nivel 3 — iBIM Integrado</th>
+        <th class="mat-h5">5 — Nivel 4 — IA + Digital Twin</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr><td>Modelado y documentación</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Análisis normativo</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Análisis de viabilidad</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Datos de mercado</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Documentación de campo</td><td class="mat-1"><span class="mat-current">Actual</span></td><td class="mat-2"></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      <tr><td>Gestión de clientes</td><td class="mat-1"></td><td class="mat-2"><span class="mat-current">Actual</span></td><td class="mat-3"><span class="mat-target">Objetivo</span></td><td class="mat-4"></td><td class="mat-5"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-3" style="margin-top:12px;">
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#7F1D1D;">1 — Nivel 0 — Analógico</div>
+      <p>Trabajo en papel y CAD 2D básico. Sin gestión digital de proyectos. Documentación física. Sin colaboración digital entre actores.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#713F12;">2 — Nivel 1 — CAD Digital</div>
+      <p>CAD 2D y modelado 3D independiente (AutoCAD, SketchUp). Sin modelos colaborativos. Archivos compartidos por email o USB. Uso incipiente de IA generativa sin integración.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">3 — Nivel 2 — BIM Gestionado</div>
+      <p>Modelos BIM federados por disciplinas (Revit). Colaboración file-based. Normativa parcialmente integrada. IA asistiendo consultas normativas y análisis de viabilidad.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#064E3B;">4 — Nivel 3 — iBIM Integrado</div>
+      <p>openBIM con interoperabilidad total entre disciplinas. GIS integrado. Análisis de viabilidad automático. Documentación de obra en tiempo real. Mapa inmobiliario inteligente.</p>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-title" style="color:#ffffff;">5 — Nivel 4 — IA + Digital Twin</div>
+      <p>Gemelo digital del proyecto y la ciudad. Diseño generativo asistido por IA. Monitoreo de obra con visión computacional. Modelos predictivos de mantenimiento y uso.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">La región está en Nivel 1–2 y puede saltar al 3 en 6 meses</div>
+    <p>El salto del nivel 2 al 3 no requiere reemplazar las herramientas existentes (AutoCAD, Revit, SketchUp siguen siendo el núcleo del trabajo). Requiere agregar una capa de inteligencia que conecte esas herramientas con la información normativa, catastral y de mercado que hoy el profesional busca a mano. Eso es exactamente lo que propone el IA LAB en este ciclo.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">11</div>
+  </div>
+</div>
+<!-- CASOS DE USO IA p.12 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 de 10</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Asistente normativo: RAG sobre el Código de Edificación de Neuquén</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema de preguntas y respuestas en lenguaje natural sobre el Código de Edificación municipal, las ordenanzas de zonificación y la normativa CAPBA. El profesional pregunta en lenguaje coloquial (&#x27;¿cuál es el retiro mínimo lateral en R2?&#x27;) y recibe la respuesta con referencia exacta al artículo, sin necesidad de buscar manualmente.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">RAG</span><span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Knowledge Base normativa</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Código de Edificación Neuquén (PDF oficial), ordenanzas municipales vigentes, normativas CAPBA provinciales</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">4–6 semanas para versión funcional con la normativa municipal de Neuquén</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción de 5+ horas semanales de interpretación normativa por proyecto activo. Respuesta en segundos en lugar de horas. Resuelve Dolor #1.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Sistemas análogos (Archistar, Vu.city) reportan reducción del 70% en tiempo de consulta normativa. Tecnología disponible sin infraestructura especializada.</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Dashboard de viabilidad de parcela: FOT, FOS y restricciones en segundos</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">El profesional ingresa la dirección o número de parcela y el sistema devuelve automáticamente: parámetros normativos (FOT, FOS, altura máxima, retiros, usos permitidos), datos catastrales disponibles (superficie, perímetro, titular registral) y estimación de potencial constructivo máximo. Elima el análisis manual de prefactibilidad.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">API Catastro Neuquén</span><span class="ia-tag ia-tag-key">RAG normativa</span><span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">GIS</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">API pública de catastro provincial + normativa de zonificación georreferenciada</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">6–8 semanas para MVP con parcelas urbanas de Neuquén capital</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Análisis de viabilidad en minutos en lugar de 4–8 horas. Respuesta rápida al cliente o desarrollista. Resuelve Dolor #2.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Herramientas análogas (Archistar en Australia, Vu.city en UK) reportan 3x de velocidad vs. proceso manual. Benchmarks 2024.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">12</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.13 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-qw">
+      <div class="ia-card-title">Transcriptor de obra: reuniones y visitas convertidas en minutas estructuradas</div>
+      <div class="ia-card-badge">Quick Win</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Aplicación que graba reuniones con clientes o visitas de obra y genera automáticamente un resumen estructurado con: compromisos asumidos, próximos pasos, observaciones técnicas y fecha de seguimiento. El output se exporta en formato planilla y se archiva en el expediente digital de la obra.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Quick Win</span>
+        <span class="ia-tag ia-tag-key">ASR (Whisper)</span><span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Exportación estructurada</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Grabación de audio (local o por llamada). Sin datos de terceros requeridos.</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">3–4 semanas para versión funcional compartible con el grupo</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Reducción del 40–60% en tiempo de documentación post-reunión. Historial de obra digital. Sin conflictos por acuerdos no documentados. Resuelve Dolor #4.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 ASR con Whisper (OpenAI): precisión &gt;95% en español rioplatense. LLM para estructuración de minutas técnicas: validado en contextos de construcción (2024).</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Mapa inmobiliario inteligente: parcelas con datos integrados</div>
+      <div class="ia-card-badge">Capacidad</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Plataforma geoespacial que integra en una sola interfaz: datos catastrales por parcela, zonificación y normativa aplicable, precios de mercado de la zona (oferta y transacciones recientes) y potencial constructivo. El usuario hace clic en cualquier parcela del mapa y ve toda la información consolidada con una estimación de valor.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">GIS</span><span class="ia-tag ia-tag-key">APIs de datos catastrales</span><span class="ia-tag ia-tag-key">ML de valuación</span><span class="ia-tag ia-tag-key">LLM</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Catastro provincial + datos de portales inmobiliarios + normativa georreferenciada + datos de transacciones (donde estén disponibles)</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">10–12 semanas para versión funcional con la región del Comahue</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Decisiones de inversión y tasación con información completa en minutos. Ventaja competitiva para desarrollistas e inmobiliarias que lo adopten primero. Resuelve Dolor #3.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Modelos análogos: Zonaprop + catastro integrado. Sistemas más avanzados: Vu.city (UK), Archistar (Australia). Factibilidad técnica con APIs públicas argentinas: confirmada.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">13</div>
+  </div>
+</div>
+
+<!-- CASOS DE USO IA p.14 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Oportunidades de IA</div>
+  </div>
+  <div class="section-label">Sección 8 (cont.)</div>
+  <div class="section-title">Casos de Uso de IA Priorizados</div>
+  <div class="section-divider"></div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Agente de priorización de consultas inmobiliarias</div>
+      <div class="ia-card-badge">Capacidad</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema que recibe consultas de todos los canales (WhatsApp, portales, email, Instagram), las evalúa con criterios de calificación predefinidos y genera una bandeja priorizada. Las consultas genéricas reciben respuesta automática con información básica. Solo los prospectos calificados llegan al profesional con contexto completo.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Capacidad</span>
+        <span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">Integración multicanal</span><span class="ia-tag ia-tag-key">Lead Scoring</span><span class="ia-tag ia-tag-key">Agente conversacional</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Criterios de calificación definidos por el estudio o inmobiliaria + historial de consultas previas</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">6–8 semanas para versión funcional con integración WhatsApp + email</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Tiempo del profesional enfocado en prospectos calificados. Respuesta inmediata a consultas tipo. Escalabilidad sin sumar personal de atención. Resuelve Dolor #5.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 MIT Lead Response Study: responder en 5 minutos vs. 30 aumenta 21x la tasa de calificación. Tecnología de agente conversacional disponible y probada en marketing y ventas.</div>
+    </div>
+  </div>
+  <div class="ia-card">
+    <div class="ia-card-header ia-card-header-lp">
+      <div class="ia-card-title">Render conceptual generativo: de croquis a visualización en minutos</div>
+      <div class="ia-card-badge">Estructural</div>
+    </div>
+    <div class="ia-card-body">
+      <p class="ia-card-desc">Sistema que toma un croquis, plano básico o descripción textual del proyecto y genera renders conceptuales de calidad de presentación. El profesional itera sobre las propuestas sin necesidad de modelado 3D completo. Permite mostrar variantes de fachada, distribución y materiales al cliente en la primera reunión.</p>
+      <div class="ia-tags">
+        <span class="ia-tag">Estructural</span>
+        <span class="ia-tag ia-tag-key">IA Generativa de Imagen</span><span class="ia-tag ia-tag-key">LLM</span><span class="ia-tag ia-tag-key">ControlNet</span><span class="ia-tag ia-tag-key">Integración CAD</span>
+      </div>
+      <div class="ia-detail-grid">
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Datos disponibles</div>
+          <div class="ia-detail-value">Croquis o plano básico en imagen + parámetros de estilo y materiales</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Implementación</div>
+          <div class="ia-detail-value">8–10 semanas para flujo integrado con herramientas existentes del estudio</div>
+        </div>
+        <div class="ia-detail-cell">
+          <div class="ia-detail-label">Impacto estimado</div>
+          <div class="ia-detail-value">Presentaciones de concepto en la primera reunión con el cliente. Iteración rápida sin costo de producción de render completo. Reducción del ciclo de aprobación de concepto.</div>
+        </div>
+      </div>
+      <div class="ia-evidence">📚 Herramientas como Midjourney + ControlNet permiten renders de calidad arquitectónica desde croquis. Flujos integrados con AutoCAD y Revit disponibles en 2024–2025.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">14</div>
+  </div>
+</div>
+<!-- HOJA DE RUTA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Hoja de Ruta</div>
+  </div>
+  <div class="section-label">Sección 9 de 10</div>
+  <div class="section-title">Hoja de Ruta — Jul–Dic 2026</div>
+  <div class="section-divider"></div>
+  <p class="lead">Propuesta de avance estructurado en tres fases para implementar las oportunidades priorizadas, con criterio de Quick Wins primero, construcción de capacidades después y proyectos estructurales al final.</p>
+
+  <div class="roadmap-grid">
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m1">Fase 1 — Quick Wins (Jul–Ago 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Asistente normativo Neuquén</div>
+        <div class="roadmap-item-desc">RAG sobre Código de Edificación y ordenanzas de zonificación. Respuesta a consultas normativas en lenguaje natural con referencia a artículo.</div>
+        <div class="roadmap-item-time">Julio · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Transcriptor de reuniones de obra</div>
+        <div class="roadmap-item-desc">ASR + LLM para convertir grabaciones de reuniones en minutas estructuradas. Prototipo funcional distribuido al grupo.</div>
+        <div class="roadmap-item-time">Agosto · Sem. 1–3</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">MVP dashboard de viabilidad de parcela</div>
+        <div class="roadmap-item-desc">Integración catastro API + normativa georreferenciada. Análisis automático de FOT, FOS, altura y usos para parcelas de Neuquén capital.</div>
+        <div class="roadmap-item-time">Agosto · Sem. 2–4</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m2">Fase 2 — Capacidades (Sep–Oct 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Mapa inmobiliario inteligente v1</div>
+        <div class="roadmap-item-desc">Plataforma GIS con parcelas, zonificación y datos de mercado integrados. Cobertura inicial: Neuquén capital y áreas de expansión.</div>
+        <div class="roadmap-item-time">Septiembre · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Agente de priorización de consultas</div>
+        <div class="roadmap-item-desc">Integración WhatsApp + email con scoring automático. Piloto con una inmobiliaria o estudio del grupo.</div>
+        <div class="roadmap-item-time">Octubre · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Expansión normativa a región</div>
+        <div class="roadmap-item-desc">Incorporación de ordenanzas de municipios aledaños (Plottier, Centenario, Cipolletti) al asistente normativo.</div>
+        <div class="roadmap-item-time">Octubre · Sem. 2–4</div>
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-col-header roadmap-col-header-m3">Fase 3 — Estructural (Nov–Dic 2026)</div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Render conceptual generativo integrado</div>
+        <div class="roadmap-item-desc">Flujo de generación de visualizaciones desde croquis o plano. Integración con AutoCAD y SketchUp. Prueba en presentación real con cliente.</div>
+        <div class="roadmap-item-time">Noviembre · Sem. 1–4</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Mapa inmobiliario v2 con modelo ML</div>
+        <div class="roadmap-item-desc">Incorporación de modelo predictivo de valuación por parcela. Estimaciones de precio basadas en datos de mercado real.</div>
+        <div class="roadmap-item-time">Diciembre · Sem. 1–3</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-item-title">Presentación abierta de resultados</div>
+        <div class="roadmap-item-desc">Sesión pública con métricas de los pilotos, código abierto y lecciones aprendidas. Apertura de ciclo 2027.</div>
+        <div class="roadmap-item-time">Diciembre · Sem. 4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Métricas de éxito (no monetarias)</div>
+  <table class="impact-table">
+    <thead>
+      <tr>
+        <th>Prototipo / Iniciativa</th>
+        <th>Métrica clave</th>
+        <th>Horizonte</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Asistente normativo</td>
+        <td>Tiempo de respuesta a consulta normativa (minutos vs. horas baseline)</td>
+        <td>Agosto 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Dashboard viabilidad de parcela</td>
+        <td>Tiempo de análisis de prefactibilidad (minutos vs. horas baseline)</td>
+        <td>Septiembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Transcriptor de obra</td>
+        <td>Tiempo de documentación post-reunión (minutos vs. horas baseline)</td>
+        <td>Septiembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Mapa inmobiliario</td>
+        <td>Cobertura de parcelas con datos integrados (% del padrón urbano)</td>
+        <td>Noviembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+      <tr>
+        <td>Agente de priorización</td>
+        <td>Tasa de calificación correcta de consultas vs. revisión manual</td>
+        <td>Noviembre 2026</td>
+        <td><span class="score-badge score-green">Planificado</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">15</div>
+  </div>
+</div>
+<!-- ÉTICA Y GOBERNANZA -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Ética y Gobernanza</div>
+  </div>
+  <div class="section-label">Sección 10 de 10</div>
+  <div class="section-title">Ética, Gobernanza y Marco de Trabajo</div>
+  <div class="section-divider"></div>
+  <p class="lead">La IA aplicada a arquitectura y urbanismo trabaja con datos sensibles: información catastral de propietarios, datos de transacciones inmobiliarias y registros de actividad en obra. El IA LAB propone un marco de uso responsable que protege la privacidad de los datos individuales mientras habilita el análisis agregado para la planificación urbana y la toma de decisiones del sector.</p>
+
+  <div class="subsection-title">Iniciativas análogas globales — aprendizajes para el IA LAB</div>
+  <div class="initiative-grid">
+    <div class="initiative-card">
+      <div class="initiative-flag">🇬🇧</div>
+      <div class="initiative-name">UK BIM Framework — Estándar nacional de información en construcción</div>
+      <div class="initiative-country">Reino Unido · Regulación</div>
+      <div class="initiative-model">El UK BIM Framework exige que todos los proyectos de construcción pública usen BIM Nivel 2 y define estándares de gestión de información digital. Establece quién es propietario de los datos del modelo BIM y cómo deben compartirse entre disciplinas. El IA LAB adopta estos principios para los prototipos de documentación e interoperabilidad.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇪🇺</div>
+      <div class="initiative-name">EU AI Act — Sistemas de IA en infraestructura y urbanismo</div>
+      <div class="initiative-country">Europa · Regulación</div>
+      <div class="initiative-model">El AI Act europeo clasifica los sistemas de toma de decisiones sobre uso del suelo y zonificación como de alto riesgo, con requisitos de transparencia y supervisión humana. Cualquier herramienta de análisis de viabilidad o planificación urbana con impacto en derechos de propiedad debe ser auditada y explicable.</div>
+    </div>
+    <div class="initiative-card">
+      <div class="initiative-flag">🇦🇷</div>
+      <div class="initiative-name">Ley 25.326 — Protección de Datos Personales y datos catastrales</div>
+      <div class="initiative-country">Argentina · Marco legal</div>
+      <div class="initiative-model">Los datos catastrales incluyen información del propietario que está protegida por la Ley 25.326. Los sistemas de análisis inmobiliario deben usar únicamente datos agregados o anonimizados para análisis de mercado, y cumplir con las normativas de acceso a datos públicos del Gobierno de Neuquén.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Riesgos sin protocolo de gobernanza</div>
+    <p>Sin gobernanza: los sistemas de análisis inmobiliario pueden concentrar ventajas informativas en actores con mayor capacidad de inversión tecnológica, profundizando las asimetrías de mercado. Los sistemas de transcripción y documentación de obra pueden procesar comunicaciones sin consentimiento explícito. Los modelos de priorización de consultas pueden discriminar involuntariamente por zona geográfica.</p>
+  </div>
+
+  <div class="subsection-title">Modelo propuesto para el IA LAB</div>
+  <p>El IA LAB propone tres principios para las implementaciones de arquitectura: (1) Datos públicos, beneficio público — los sistemas basados en datos catastrales y normativos públicos deben ser accesibles, no propietarios; (2) Consentimiento explícito en documentación — los sistemas de transcripción de reuniones deben informar a los participantes; (3) Supervisión humana en viabilidad — ninguna decisión de inversión se basa únicamente en el output del modelo, siempre con revisión profesional.</p>
+
+  <div class="subsection-title">Consideraciones éticas operativas</div>
+  <div class="ethics-grid">
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🔒 Privacidad de datos catastrales</div>
+      <p>Los sistemas de análisis de parcelas deben operar con datos agregados o anonimizados cuando se trate de información del propietario. La Ley 25.326 aplica al uso de datos personales en contexto catastral.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🎙️ Consentimiento en transcripción</div>
+      <p>Los sistemas de transcripción de reuniones de obra deben informar explícitamente a todos los participantes que la conversación está siendo grabada y procesada. El audio no debe almacenarse más allá del tiempo necesario para generar la minuta.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">⚖️ Equidad en el acceso informativo</div>
+      <p>Las herramientas de análisis inmobiliario desarrolladas sobre datos públicos deben ser accesibles. El IA LAB promueve la publicación open source de los prototipos para evitar que la ventaja informativa quede concentrada en pocos actores del mercado.</p>
+    </div>
+    <div class="ethics-cell">
+      <div class="ethics-cell-title">🏙️ Supervisión humana en planificación</div>
+      <p>Los modelos de análisis de viabilidad y planificación urbana son herramientas de apoyo a la decisión, no reemplazos de la decisión profesional. El arquitecto o urbanista responsable conserva siempre la decisión final.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Posición del IA LAB</div>
+    <p>Los datos de la ciudad son datos públicos. Las herramientas construidas sobre ellos deben devolver valor al sector que las necesita, no concentrar ventajas en quienes pueden pagar por el acceso. El IA LAB publica todo lo que construye bajo CC BY-SA 4.0 y promueve la reutilización libre de los prototipos.</p>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">16</div>
+  </div>
+</div>
+<!-- CIERRE / LICENCIA / REFERENCIAS -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">ENE IA LAB · Arquitectura</div>
+    <div class="page-header-right">Lo que estamos construyendo</div>
+  </div>
+  <div class="section-label">Experimentos en Curso</div>
+  <div class="section-title">Lo que el Vertical Está Trabajando</div>
+  <div class="section-divider"></div>
+  <p class="lead">El vertical continúa activo. Estas son algunas de las iniciativas en exploración en el grupo de trabajo actual.</p>
+
+  <ul class="bullet-list">
+    <li>Prototipo de asistente normativo basado en RAG sobre el Código de Edificación de Neuquén — arquitectura definida, carga de documentos normativa en curso, piloto previsto Julio 2026</li>
+    <li>Exploración de API pública de catastro provincial para integración con dashboard de viabilidad de parcela — evaluación técnica de disponibilidad y formato de datos</li>
+    <li>Prototipo de transcriptor de reuniones de obra con Whisper + LLM para síntesis de minutas estructuradas — prueba de concepto completada, distribución al grupo prevista Agosto 2026</li>
+    <li>Relevamiento de datos disponibles para mapa inmobiliario inteligente: fuentes catastrales, portales de oferta y datos de transacciones con cobertura regional</li>
+    <li>Exploración de cruce con vertical Real Estate: flujos complementarios entre análisis de parcela (ARQ) y comercialización de propiedades (RE) — interés conjunto identificado</li>
+  </ul>
+
+  <div class="callout" style="margin-top:18px;">
+    <div class="callout-title">Sumate al vertical Arquitectura</div>
+    <p>El ENE IA LAB funciona como un espacio abierto de co-creación. Si trabajás en el sector y querés aportar tu perspectiva de campo, validar dolores, explorar soluciones o participar en los prototipos, escribinos. El conocimiento que generamos es público y libre.</p>
+  </div>
+
+  <div class="license-block">
+    <div class="license-badge-row">
+      <div class="license-badge">CC BY-SA 4.0</div>
+      <div style="font-size:8.5pt;color:#065F46;">Este White Paper está publicado bajo licencia Creative Commons Attribution-ShareAlike 4.0 International</div>
+    </div>
+    <div class="license-block-title">Condiciones de uso</div>
+    <p><strong>Podés:</strong> copiar, distribuir, adaptar y usar comercialmente este material, incluyendo en productos y servicios propios.</p>
+    <p><strong>Con la condición de:</strong> atribuir al ENE IA LAB como fuente original y publicar cualquier obra derivada bajo la misma licencia CC BY-SA 4.0 (copyleft).</p>
+    <p><strong>No requerido:</strong> autorización previa. <strong>Atribución sugerida:</strong> "Basado en investigación del ENE IA LAB (CC BY-SA 4.0) — eneneuquen.com.ar"</p>
+    <p>Texto completo de la licencia: creativecommons.org/licenses/by-sa/4.0/</p>
+  </div>
+
+  <div class="subsection-title">Referencias bibliográficas</div>
+  <ol class="ref-list">
+    <li>McKinsey Global Infrastructure Initiative (2017). Reinventing Construction: A Route to Higher Productivity. McKinsey Global Institute.</li>
+    <li>BID — Banco Interamericano de Desarrollo (2021). BIM en América Latina: Estado del Arte y Perspectivas. División de Infraestructura y Energía.</li>
+    <li>Autodesk (2022). State of the Industry: Infrastructure Report 2022. Autodesk Research.</li>
+    <li>Eastman, C., Teicholz, P., Sacks, R. &amp; Liston, K. (2018). BIM Handbook: A Guide to Building Information Modeling for Owners, Designers, Engineers, Contractors and Facility Managers (3rd ed.). Wiley.</li>
+    <li>Bew, M. &amp; Richards, M. (2008). BIM Maturity Diagram. HM Government UK BIM Task Group.</li>
+    <li>Berardi, U. (2023). Artificial Intelligence in the Built Environment: Current Applications and Future Scenarios. Sustainability, 15(3), 2019.</li>
+    <li>OpenAI (2022). Whisper: Robust Speech Recognition via Large-Scale Weak Supervision. OpenAI Research.</li>
+    <li>FADEA — Federación Argentina de Entidades de Arquitectos (2022). Relevamiento de uso de tecnologías digitales en estudios de arquitectura. FADEA.</li>
+    <li>CAMARCO — Cámara Argentina de la Construcción (2023). Informe de litigiosidad en obras de construcción. CAMARCO.</li>
+    <li>MIT Lead Response Management Study (2022). The Impact of Response Time on Lead Qualification Rates. Actualización 2022.</li>
+    <li>European Parliament (2024). Regulation (EU) 2024/1689 — Artificial Intelligence Act. Official Journal of the European Union.</li>
+    <li>INDEC (2022). Censo Nacional de Población, Hogares y Viviendas 2022. Instituto Nacional de Estadística y Censos de Argentina.</li>
+  </ol>
+
+  <div style="margin-top:20px;padding-top:16px;border-top:2px solid var(--border);text-align:center;">
+    <div style="font-size:10pt;font-weight:800;color:var(--text);margin-bottom:4px;">ENE IA LAB · Arquitectura</div>
+    <div style="font-size:8.5pt;color:var(--text-muted);margin-bottom:10px;">Sumate a co-crear el futuro de tu sector con IA.</div>
+    <div style="font-size:8pt;color:var(--text-muted);">ia-lab@eneneuquen.com.ar · @eneneuquen · ENE — Polo Tecnológico Neuquén</div>
+  </div>
+  <div class="page-footer">
+    <div class="page-footer-text">ENE IA LAB · CC BY-SA 4.0 · ia-lab@eneneuquen.com.ar</div>
+    <div class="page-num">17</div>
+  </div>
+</div>
+
+</body>
+</html>
