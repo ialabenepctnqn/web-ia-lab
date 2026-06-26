@@ -299,7 +299,67 @@
             z-index: 1;
             padding-top: 6px;
             border-top: 1px solid var(--line-soft);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
         }
+
+        /* ── Botón compartir (eventos próximos) ── */
+        .event-share-btn {
+            font-size: 0.82rem;
+            padding: 9px 18px;
+            cursor: pointer;
+        }
+
+        .share-wrap { position: relative; display: inline-flex; }
+
+        .share-menu {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 0;
+            min-width: 200px;
+            display: none;
+            flex-direction: column;
+            gap: 2px;
+            padding: 8px;
+            border-radius: 14px;
+            border: 1px solid rgba(6,182,212,0.30);
+            background: rgba(13,18,30,0.96);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.45), 0 0 18px rgba(6,182,212,0.12);
+            z-index: 20;
+        }
+
+        .share-menu.open { display: flex; }
+
+        .share-menu button,
+        .share-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border: none;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--text-soft, #c7d0e0);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 600;
+            text-align: left;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease;
+        }
+
+        .share-menu button:hover,
+        .share-menu a:hover {
+            background: rgba(6,182,212,0.12);
+            color: #fff;
+        }
+
+        .share-menu i { width: 18px; text-align: center; color: var(--cyan-electric); }
 
         /* ── Empty state ── */
         .events-empty {
@@ -526,7 +586,7 @@
             <div class="events-grid" id="events-grid">
 
                 <!-- PRÓXIMO -->
-                <div class="event-card" data-tipo="proximo" style="transition-delay: 0s;">
+                <div class="event-card" id="ev-ciclo-mensual-2026-06-30" data-tipo="proximo" data-fecha="2026-06-30" style="transition-delay: 0s;">
                     <div class="event-card-header">
                         <span class="event-badge"><i class="fas fa-flask"></i> Encuentro mensual</span>
                     </div>
@@ -548,7 +608,7 @@
                 </div>
 
                 <!-- PASADO -->
-                <div class="event-card event-card-past" data-tipo="pasado" style="transition-delay: 0.06s;">
+                <div class="event-card event-card-past" id="ev-saia-conf-2026-05-14" data-tipo="pasado" data-fecha="2026-05-14" style="transition-delay: 0.06s;">
                     <div class="event-card-header">
                         <span class="event-badge event-badge-past"><i class="fas fa-microphone-alt"></i> Conferencia</span>
                         <span class="event-past-tag"><i class="fas fa-check"></i> Realizado</span>
@@ -662,6 +722,87 @@
 
                     emptyMsg.style.display = visible === 0 ? 'block' : 'none';
                 });
+            });
+
+            // ── Compartir (solo eventos próximos) ──
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+
+            function cerrarMenusCompartir(excepto) {
+                document.querySelectorAll('.share-menu.open').forEach(m => {
+                    if (m !== excepto) m.classList.remove('open');
+                });
+            }
+
+            eventCards.forEach(card => {
+                const iso = card.dataset.fecha;
+                if (!iso) return;
+                const fechaEvento = new Date(iso + 'T00:00:00');
+                if (isNaN(fechaEvento) || fechaEvento < hoy) return; // pasado o inválido → sin botón
+
+                const footer = card.querySelector('.event-card-footer');
+                if (!footer) return;
+
+                const titulo = (card.querySelector('.event-title')?.textContent || 'Evento IA LAB').trim();
+                const url    = location.origin + location.pathname + (card.id ? '#' + card.id : '');
+                const texto  = `${titulo} — Evento de IA LAB`;
+
+                const wrap = document.createElement('div');
+                wrap.className = 'share-wrap';
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'btn-outline event-share-btn';
+                btn.innerHTML = '<i class="fas fa-share-alt"></i> Compartir';
+                wrap.appendChild(btn);
+
+                const enc = encodeURIComponent;
+                const menu = document.createElement('div');
+                menu.className = 'share-menu';
+                menu.innerHTML =
+                    `<a href="https://twitter.com/intent/tweet?text=${enc(texto)}&url=${enc(url)}" target="_blank" rel="noopener"><i class="fab fa-twitter"></i> X / Twitter</a>` +
+                    `<a href="https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>` +
+                    `<a href="https://wa.me/?text=${enc(texto + ' ' + url)}" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>` +
+                    `<button type="button" class="share-copy"><i class="fas fa-link"></i> Copiar enlace</button>`;
+                wrap.appendChild(menu);
+
+                footer.appendChild(wrap);
+
+                btn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({ title: titulo, text: texto, url });
+                        } catch (err) {
+                            if (err && err.name !== 'AbortError') console.error(err);
+                        }
+                        return;
+                    }
+                    const abrir = !menu.classList.contains('open');
+                    cerrarMenusCompartir(menu);
+                    menu.classList.toggle('open', abrir);
+                });
+
+                const copyBtn = menu.querySelector('.share-copy');
+                copyBtn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    try {
+                        await navigator.clipboard.writeText(url);
+                        const original = copyBtn.innerHTML;
+                        copyBtn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+                        setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+                    } catch (err) {
+                        console.error(err);
+                    }
+                });
+
+                menu.querySelectorAll('a').forEach(a =>
+                    a.addEventListener('click', () => menu.classList.remove('open')));
+            });
+
+            document.addEventListener('click', () => cerrarMenusCompartir(null));
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') cerrarMenusCompartir(null);
             });
 
             // Flyer gallery modal

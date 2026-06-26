@@ -57,22 +57,16 @@ Feed dinámico que consume un Google Sheet publicado como CSV y renderiza las pu
 - Las columnas mapeadas a `null` en `HEADER_MAP` (ej. `marca temporal`, `timestamp`) se descartan al parsear.
 - Compatible con exports directos de Google Forms → Google Sheets sin edición manual de encabezados.
 
-### Flujo de registro de membresías (`membresia.html`)
+### Inscripción a membresías (`membresia.html`)
 
-Reemplaza los antiguos enlaces `mailto:` por un flujo guiado de cuatro pasos:
+La página presenta los dos planes —Individual ($85.000/mes) y Corporativa ($150.000/mes)— con sus beneficios. El botón **"Quiero inscribirme"** abre directamente el **Google Form de inscripción** en una pestaña nueva; la inscripción se completa íntegramente en Google.
 
-1. **Selector de tipo** — el usuario elige entre Membresía Individual ($85.000/mes) y Corporativa ($150.000/mes).
-2. **Beneficios** — se muestran los beneficios completos del tipo elegido antes de continuar.
-3. **Formulario dinámico** — campos comunes (nombre, email, teléfono, vertical de interés, fuente de referido, consentimiento) más campos condicionales según el tipo: profesión y organización para Individual; empresa, cargo, cantidad de personas y sector para Corporativa.
-4. **Confirmación** — mensaje de éxito al completar el envío.
+**Por qué un enlace directo y no un formulario embebido:**
+El Google Form incluye campos de **subida de archivos** (selfie para Face ID + comprobante de pago). Google obliga a iniciar sesión en cualquier formulario con subida de archivos, y esos campos no se pueden completar por URL pre-llena ni por envío anónimo (`fetch` con `mode: no-cors`). Por eso la inscripción se delega al Google Form en lugar de embeberla en el sitio.
 
-**Arquitectura:**
-- Estado centralizado en el objeto `state` (`type`, `formData`).
-- Datos de membresías (precios, beneficios, textos) centralizados en la constante `MEMBERSHIPS` — un único lugar para actualizarlos.
-- Los grupos de campos condicionales se muestran/ocultan con la clase `.active` según `state.type`; no hay duplicación de formularios.
-- Validación del lado del cliente con errores inline y foco automático en el primer campo inválido.
-- Atributos `required`, `autocomplete` y `aria-live="polite"` en los errores para compatibilidad con lectores de pantalla.
-- Función `submitMembershipForm(data)` preparada para futura integración con Google Forms (actualmente stub con `// TODO`).
+> **Implicancia:** los visitantes necesitan una cuenta de Google para completar la inscripción.
+
+La URL del form está en el `href` del enlace "Quiero inscribirme" (`membresia.html`, ~línea 907).
 
 ---
 
