@@ -45,12 +45,9 @@ Sitio institucional de IA LAB — comunidad de innovación aplicada en inteligen
 - Preparado para futura integración RAG vía `sendMessage()`.
 
 ### Membresías
-- Flujo implementado en `membresia.html` — 4 pasos: selección de plan → beneficios → formulario → éxito.
-- **Formulario conectado a Google Forms** vía fetch POST (`mode: no-cors`). Dos formularios separados:
-  - **Individual** — campos: Nombre Completo, Email, Teléfono, Razón Social, CUIT, Dirección
-  - **Corporativo** — campos: Nombre del Contacto, Empresa, Email, Teléfono, Razón Social, CUIT, Dirección, Cantidad de Usuarios
-- Los entry IDs y Form IDs están hardcodeados en `GOOGLE_FORMS` (objeto JS en `membresia.html`, ~línea 1160).
-- Las respuestas van a un Google Sheet compartido con dos pestañas (Individual / Corporativo).
+- En `membresia.html` se muestran los dos planes (Individual / Corporativa) con sus beneficios. El botón **"Quiero inscribirme"** es un `<a class="btn-cta">` que abre el **Google Form de inscripción** en una pestaña nueva (`href` ~línea 907). No hay formulario embebido ni envío `fetch`.
+- **Por qué el enlace directo:** el Google Form pide subir archivos (selfie Face ID + comprobante de pago). Google obliga a iniciar sesión en formularios con subida de archivos, y esos campos no se pueden completar por URL pre-llena ni por envío anónimo. Por eso la inscripción se delega al form de Google (el visitante necesita cuenta de Google).
+- Para cambiar a qué form apunta: editar el `href` del enlace "Quiero inscribirme".
 - **Migración de miembros previos:** archivo `Miembros_IA_LAB_v3.xlsx` en local (Downloads del usuario) con 18 miembros (10 individual, 8 corporativo), listo para importar al Sheet.
 
 ---
