@@ -904,53 +904,11 @@
                 </div>
 
                 <div style="text-align: center; margin-top: 40px;">
-                    <button type="button" class="btn-cta" onclick="mostrarFormulario()">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfKbQ0xR07_298QxKPhGown1UXUT-OD-1MMUlR9BYupf1YaJQ/viewform"
+                       target="_blank" rel="noopener" class="btn-cta">
                         <i class="fas fa-arrow-right"></i> Quiero inscribirme
-                    </button>
+                    </a>
                 </div>
-            </div>
-
-            <!-- Paso 2: formulario -->
-            <div class="form-shell" id="form-inscripcion" style="display: none;">
-                <button type="button" id="insc-volver" style="background:none;border:none;color:var(--text-muted);font-size:0.88rem;cursor:pointer;margin-bottom:20px;padding:0;display:flex;align-items:center;gap:6px;position:relative;z-index:1;">
-                    <i class="fas fa-arrow-left"></i> Volver a los planes
-                </button>
-                <h2 class="form-title">Quiero inscribirme</h2>
-                <p class="form-subtitle">Completá tus datos y nos ponemos en contacto para confirmar tu membresía.</p>
-
-                <div class="form-group">
-                    <label>Tipo de membresía</label>
-                    <div class="type-toggle">
-                        <button type="button" class="type-btn active" data-type="individual">Individual · $85.000/mes</button>
-                        <button type="button" class="type-btn" data-type="corporativa">Corporativo · $150.000/mes</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="insc-nombre">Nombre completo <span class="required-mark">*</span></label>
-                    <input type="text" id="insc-nombre" placeholder="Tu nombre y apellido">
-                </div>
-                <div class="form-group">
-                    <label for="insc-email">Email <span class="required-mark">*</span></label>
-                    <input type="email" id="insc-email" placeholder="tucorreo@ejemplo.com">
-                </div>
-                <div class="form-group">
-                    <label for="insc-telefono">Teléfono <span class="required-mark">*</span></label>
-                    <input type="tel" id="insc-telefono" placeholder="+54 9 299 000 0000">
-                </div>
-
-                <div class="form-submit">
-                    <button type="button" id="insc-submit" class="btn-cta">
-                        <i class="fas fa-arrow-right"></i> Enviar inscripción
-                    </button>
-                </div>
-            </div>
-
-            <!-- Paso 3: éxito -->
-            <div class="form-shell" id="insc-success" style="display: none; text-align: center;">
-                <i class="fas fa-check-circle" style="font-size:2.8rem;color:var(--accent-cyan);margin-bottom:20px;display:block;"></i>
-                <h2 class="form-title">¡Inscripción recibida!</h2>
-                <p class="form-subtitle">Gracias por sumarte. En los próximos días nos ponemos en contacto para confirmar tu membresía al ciclo 2026.</p>
             </div>
 
         </div>
@@ -1047,58 +1005,6 @@
         document.getElementById('flyer-close').addEventListener('click', cerrarFlyer);
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && flyerBox.classList.contains('open')) cerrarFlyer();
-        });
-
-        // ── Formulario de inscripción (Google Form único) ──
-        const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdmK_fQqWRwqV6plB_a6qyeIYBf-Cn0KnyccwBXxuAN7408Vg/formResponse';
-        let inscTipo = 'individual';
-
-        function mostrarFormulario() {
-            document.getElementById('plan-selector').style.display = 'none';
-            document.getElementById('form-inscripcion').style.display = 'block';
-            document.getElementById('membresias').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        document.querySelectorAll('.type-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                inscTipo = btn.dataset.type;
-            });
-        });
-
-        document.getElementById('insc-volver').addEventListener('click', () => {
-            document.getElementById('form-inscripcion').style.display = 'none';
-            document.getElementById('plan-selector').style.display = 'block';
-        });
-
-        document.getElementById('insc-submit').addEventListener('click', async () => {
-            const nombre   = document.getElementById('insc-nombre').value.trim();
-            const email    = document.getElementById('insc-email').value.trim();
-            const telefono = document.getElementById('insc-telefono').value.trim();
-
-            let valid = true;
-            [['insc-nombre', nombre], ['insc-email', email], ['insc-telefono', telefono]].forEach(([id, val]) => {
-                const el = document.getElementById(id);
-                if (!val) { el.classList.add('input-error'); valid = false; }
-                else el.classList.remove('input-error');
-            });
-            if (!valid) return;
-
-            const btn = document.getElementById('insc-submit');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-
-            const body = new FormData();
-            body.append('entry.1072526304', nombre);
-            body.append('entry.1338885220', email);
-            body.append('entry.438973991',  telefono);
-            body.append('entry.2013830276', inscTipo);
-
-            try { await fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body }); } catch (_) {}
-
-            document.getElementById('form-inscripcion').style.display = 'none';
-            document.getElementById('insc-success').style.display = 'block';
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
