@@ -39,4 +39,13 @@
     "resumen": "Los equipos de RRHH en Neuquén usan IA de forma fragmentada y solo para tareas operativas, desaprovechando su rol estratégico. El white paper identifica 5 dolores validados — procesos sin automatizar, fuga de conocimiento, adopción fragmentada, selección sin trazabilidad y ausencia de gobernanza — y propone una ruta para reposicionar al área como articulador de la adopción responsable de IA.",
     "url": "publicaciones/rrhh/rrhh-frente-a-la-ia-del-motor-administrativo-al-arquitecto-de-la-adopcion-responsable.html"
   }
+  ,
+  {
+    "titulo": "Cómo Escribir Prompts que Funcionan: 7 Claves para Hablar con la IA",
+    "autor": "ENE IA LAB",
+    "vertical": "intro-ia",
+    "fecha": "2026-06-29",
+    "resumen": "Esta guía práctica explica qué es un prompt y por qué su calidad determina la utilidad de las respuestas de IA. Presenta 7 técnicas concretas —asignar un rol, ser específico, dividir tareas, pedir razonamiento paso a paso, definir el formato, proporcionar ejemplos y usar advertencias— pensadas para usuarios sin conocimientos técnicos. Con ejemplos de antes/después, permite empezar a obtener mejores resultados de cualquier asistente de IA en una lectura de 10 minutos.",
+    "url": "publicaciones/intro-ia/como-escribir-prompts-que-funcionan-7-claves.html"
+  }
 ]

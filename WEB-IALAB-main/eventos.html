@@ -538,26 +538,7 @@
 </head>
 <body>
 
-    <nav>
-        <div class="nav-left">
-            <a href="index.html" class="nav-logo">
-                <img src="imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:36px;width:auto;object-fit:contain;filter:invert(1);">
-            </a>
-        </div>
-        <div class="nav-right">
-            <ul class="nav-links">
-                <li><a href="metodologia.html" class="nav-link-page">Metodología</a></li>
-                <li><a href="eventos.html" class="nav-link-page nav-link-active">Eventos</a></li>
-                <li><a href="publicaciones.html" class="nav-link-page">Publicaciones</a></li>
-            </ul>
-            <a href="membresia.html" class="nav-cta-btn">
-                <i class="fas fa-users"></i> Sumate
-            </a>
-            <a href="membresia.html" class="nav-login-btn">
-                <i class="fas fa-sign-in-alt"></i> Login
-            </a>
-        </div>
-    </nav>
+    <div id="nav-root"></div>
 
     <!-- ── HERO ── -->
     <div class="page-hero">
@@ -653,18 +634,7 @@
         </div>
     </div>
 
-    <footer>
-        <div class="footer-logo">
-            <img src="imagenes/LOGOIALAB.png" alt="ENE IA LAB" style="height:38px;width:auto;object-fit:contain;filter:invert(1);">
-            <span>2026</span>
-        </div>
-        <div class="footer-links">
-            <a href="mailto:ialab@eneneuquen.com.ar"><i class="fas fa-envelope"></i> ialab@eneneuquen.com.ar</a>
-            <a href="https://www.instagram.com/eneneuquen/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> @eneneuquen</a>
-            <a href="https://www.linkedin.com/company/enepolotecnologico/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> ENE – Polo Tecnológico Neuquén</a>
-        </div>
-        <p class="footer-copy">© 2026 ENE IA LAB · Polo Tecnológico Neuquén · Edificio ENE</p>
-    </footer>
+    <div id="footer-root"></div>
 
     <!-- Flyer modal -->
     <div class="flyer-modal" id="flyerModal" role="dialog" aria-modal="true" aria-label="Detalle del evento">
@@ -691,6 +661,7 @@
         </div>
     </div>
 
+    <script src="/js/layout.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
