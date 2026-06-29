@@ -1,4 +1,4 @@
-const LOGIN_URL = 'PEGAR_ACA_EL_NUEVO_LINK_DE_LOGIN';
+const LOGIN_URL = 'https://app.ialab.eneneuquen.com.ar/login';
 
 function injectNav() {
   const root = document.getElementById('nav-root');
