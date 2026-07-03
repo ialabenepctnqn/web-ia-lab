@@ -51,7 +51,7 @@ Sitio institucional de IA LAB — comunidad de innovación aplicada en inteligen
   - `id="ev-..."` único → se usa como ancla en la URL compartida (`...#id`).
   - `data-fecha="2026-06-30"` → fecha real del evento en formato ISO.
 - **Mecanismo:** usa **Web Share API** nativo (`navigator.share`, ideal en móvil); si el navegador no lo soporta, abre un menú con X/Twitter, LinkedIn, WhatsApp y "Copiar enlace".
-- `data-tipo="proximo|pasado"` sigue siendo independiente: gobierna el **filtro** y el estilo "Realizado", no el botón Compartir.
+- **Próximo/Pasado automático:** al cargar la página, el JS deriva el estado de cada card desde `data-fecha`: si la fecha ya pasó, setea `data-tipo="pasado"`, agrega la clase `event-card-past`, el estilo del badge y la etiqueta "Realizado" — todo en runtime, sin tocar el HTML. El `data-tipo` escrito en el HTML es solo fallback para cards sin `data-fecha` válida; no hace falta actualizarlo a mano cuando un evento pasa.
 - **Iconos:** Font Awesome 6.0.0-beta3 → usar `fab fa-twitter` y `fas fa-share-alt` (esta versión no incluye `fa-x-twitter` ni garantiza `fa-share-nodes`).
 
 ### Membresías

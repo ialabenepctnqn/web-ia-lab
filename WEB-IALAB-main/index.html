@@ -125,12 +125,6 @@
             transition: opacity 0.3s ease;
         }
 
-        nav.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        
 
         
 
@@ -180,12 +174,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .side-nav.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .side-nav-item {
+.side-nav-item {
             display: flex;
             align-items: center;
             gap: 9px;
@@ -464,6 +453,8 @@
             font-weight: 800;
         }
 
+        #screen2-verticales { scroll-margin-top: 96px; }
+
         .verticals-grid {
             display: flex;
             flex-wrap: wrap;
@@ -478,24 +469,7 @@
             flex: 0 0 calc((100% - 66px) / 4);
         }
 
-        .vertical-referente {
-            text-align: center;
-            font-size: 0.76rem;
-            color: var(--text-muted);
-            margin: 0;
-            letter-spacing: 0.03em;
-            display: flex;
-            align-items: baseline;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .vertical-referente i {
-            color: var(--cyan-electric);
-            font-size: 0.70rem;
-        }
-
-        /* Tarjeta con overlay deslizante — sin 3D, 100% compatible móvil */
+/* Tarjeta con overlay deslizante — sin 3D, 100% compatible móvil */
         .vertical-card-container {
             position: relative;
             height: 196px;
@@ -633,30 +607,6 @@
 
         
 
-        .sharing-methods {
-            list-style: none;
-            padding: 0;
-            margin: 46px auto 74px auto;
-            max-width: 860px;
-        }
-
-        .sharing-methods li {
-            background: linear-gradient(180deg, rgba(22,25,29,0.92) 0%, rgba(14,16,19,0.96) 100%);
-            border: 1px solid var(--line-soft);
-            border-left: 5px solid var(--cyan-electric);
-            border-radius: var(--radius-md);
-            padding: 22px 22px 22px 24px;
-            color: var(--text-soft);
-            font-size: 1.04rem;
-            margin-bottom: 14px;
-            box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateX(-18px);
-            transition: opacity 0.65s ease, transform 0.65s ease, border-color 0.25s ease;
-        }
-
         
 
         
@@ -665,13 +615,7 @@
 
         
 
-        .milestones-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-top: 40px;
-            margin-bottom: 76px;
-        }
+        
 
         
 
@@ -683,173 +627,68 @@
 
         
 
-        .milestone-card h4 {
-            font-size: 1.05rem;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
         
 
-        
-
-        .closing-statement {
-            background:
-                radial-gradient(circle at 20% 20%, rgba(6,182,212,0.14) 0, transparent 22%),
-                radial-gradient(circle at 80% 80%, rgba(139,92,246,0.12) 0, transparent 22%),
-                linear-gradient(180deg, rgba(24,27,32,0.98) 0%, rgba(10,12,14,0.99) 100%);
-            border: 1px solid var(--line-soft);
-            border-radius: 34px;
-            padding: 58px;
-            box-shadow: var(--shadow-strong);
-            text-align: center;
-            max-width: 940px;
-            margin: 84px auto 0 auto;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.65s ease, transform 0.65s ease;
-        }
-
-        .closing-statement.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .closing-statement::before {
-            content: '';
-            position: absolute;
-            right: -90px;
-            bottom: -90px;
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.12) 0, transparent 70%);
-            pointer-events: none;
-        }
-
-        .closing-statement::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 34px;
-            right: 34px;
-            height: 5px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.08));
-            border-radius: 0 0 10px 10px;
-        }
-
-        .closing-statement h3 {
-            font-size: 1.75rem;
-            margin-bottom: 24px;
-            color: var(--text-main);
-            position: relative;
-            z-index: 1;
-        }
-
-        .closing-statement p {
-            font-size: 0.94rem;
-            color: var(--text-soft);
-            max-width: 760px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .closing-statement strong { color: var(--text-main); }
-
-        /* ── Equipo ── */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
+        /* ── Equipo (franja compacta de referentes) ── */
+        .team-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
             margin-top: 40px;
             margin-bottom: 60px;
         }
 
-        .team-card {
+        .team-chip {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px 10px 10px;
             background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
             border: 1px solid var(--line-soft);
-            border-radius: var(--radius-lg);
-            padding: 28px 24px;
+            border-radius: 999px;
             box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.65s ease, transform 0.65s ease, border-color 0.25s ease;
+            transform: translateY(14px);
+            transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.25s ease;
         }
 
-        .team-card.visible {
+        .team-chip.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .team-card:hover {
+        .team-chip:hover {
             border-color: rgba(6,182,212,0.30);
-            box-shadow: 0 0 18px rgba(6,182,212,0.12), var(--shadow-soft);
         }
 
-        .team-card::before {
-            content: '';
-            position: absolute;
-            left: 24px;
-            right: 24px;
-            top: 0;
-            height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.05));
-            border-radius: 0 0 8px 8px;
+        .team-chip h4 {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.25;
         }
 
-        .team-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0, transparent 28%);
-            pointer-events: none;
-        }
-
-        .team-card-vertical {
-            font-size: 0.76rem;
+        .team-chip-vertical {
+            font-size: 0.68rem;
             font-weight: 700;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-top: 2px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            position: relative;
-            z-index: 1;
+            gap: 5px;
         }
 
-        .team-card-vertical i {
-            font-size: 1rem;
-        }
-
-        .team-card h4 {
-            font-size: 1.12rem;
-            color: var(--text-main);
-            margin-bottom: 4px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .team-card .team-role {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            position: relative;
-            z-index: 1;
-            margin: 0;
+        .team-chip-vertical i {
+            color: var(--cyan-electric);
+            font-size: 0.7rem;
         }
 
         .team-avatar {
-            width: 48px;
-            height: 48px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             background: rgba(255,255,255,0.06);
             border: 1px solid var(--line-soft);
@@ -858,11 +697,9 @@
             justify-content: center;
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 0.82rem;
             color: var(--text-soft);
-            margin-bottom: 16px;
-            position: relative;
-            z-index: 1;
+            flex-shrink: 0;
         }
 
         /* ── Galería ── */
@@ -916,7 +753,7 @@
             font-size: 0.78rem;
         }
 
-        /* ── Paper milestone ── */
+        /* ── Paper callout ── */
         .paper-callout {
             background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
             border: 1px solid rgba(6,182,212,0.22);
@@ -969,6 +806,11 @@
 
         .paper-callout-text strong { color: var(--text-main); }
 
+        .paper-callout-text a {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
         /* ── Comunidad / Membresía preview ── */
         
 
@@ -991,14 +833,6 @@
         
 
         
-
-        .membership-card h3 {
-            font-size: 1.25rem;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
 
         
 
@@ -1033,33 +867,6 @@
             z-index: 2;
         }
 
-        /* ── Price display (preview en home) ── */
-        .price-display {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(1.5rem, 2.6vw, 2.1rem);
-            font-weight: 900;
-            color: var(--accent-cyan);
-            letter-spacing: -0.04em;
-            line-height: 1;
-        }
-
-        .membership-card-featured .price-display {
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .price-period {
-            display: block;
-            font-size: 0.84rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-top: 4px;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0;
-        }
-
         /* ── Footer ── */
         
 
@@ -1081,7 +888,6 @@
 
         @media (max-width: 1024px) {
             nav { padding: 12px 24px; }
-            .nav-floating-menu { left: 24px; }
             .screen { padding: 100px 28px; }
             .vertical-item { flex-basis: calc((100% - 22px) / 2); }
             .timeline { flex-direction: column; align-items: center; }
@@ -1094,7 +900,6 @@
             .nav-right { width: 100%; justify-content: center; flex-wrap: wrap; }
             .nav-links a { font-size: 0.78rem; padding: 7px 10px; }
             .nav-cta-btn { font-size: 0.78rem; padding: 8px 14px; }
-            .nav-floating-menu { top: 108px; left: 16px; min-width: 180px; }
 
             .screen { padding: 86px 18px; }
 
@@ -1151,108 +956,11 @@
             .timeline-item { width: 100%; }
             .timeline-content { padding: 24px; }
 
-            .sharing-methods li { font-size: 0.88rem; }
-            .milestones-grid { grid-template-columns: 1fr; gap: 16px; }
             .gallery-grid { grid-template-columns: 1fr; gap: 12px; }
-            .team-grid { grid-template-columns: 1fr; gap: 14px; }
-            .membership-grid { grid-template-columns: 1fr; gap: 16px; }
-            .membership-card-featured { order: -1; }
+            .team-chip { padding: 8px 16px 8px 8px; }
             .paper-callout { flex-direction: column; gap: 14px; text-align: center; }
             footer { padding: 36px 18px 28px 18px; }
             .footer-links { gap: 10px; }
-
-            .closing-statement {
-                padding: 32px 22px;
-                border-radius: 24px;
-            }
-
-            .closing-statement h3 { font-size: 1.35rem; }
-            .closing-statement p { font-size: 0.88rem; }
-        }
-
-        /* ── Floating nav menu — override propio del index sobre shared.css ── */
-        .nav-floating-menu {
-            position: fixed;
-            top: 64px;
-            left: 40px;
-            z-index: 999;
-            background: rgba(8,10,13,0.94);
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
-            border: 1px solid rgba(6,182,212,0.18);
-            border-radius: 18px;
-            padding: 8px 6px;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            min-width: 192px;
-            opacity: 0;
-            transform: translateY(-8px) scale(0.96);
-            pointer-events: none;
-            transition: opacity 0.20s ease, transform 0.20s ease;
-        }
-
-        
-
-        /* ── Video intro ── */
-        #video-intro {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            background: #000;
-        }
-
-        #intro-video {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        #skip-intro-btn {
-            position: absolute;
-            bottom: 32px;
-            right: 32px;
-            z-index: 10;
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.22);
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.88rem;
-            font-weight: 500;
-            padding: 10px 22px;
-            border-radius: 999px;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.2s ease;
-        }
-
-        #skip-intro-btn:hover { background: rgba(255,255,255,0.22); }
-
-        @keyframes hint-bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-            50%       { transform: translateX(-50%) translateY(7px); opacity: 0.75; }
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 36px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,1);
-            font-size: 0.8rem;
-            letter-spacing: 0.06em;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            pointer-events: none;
-            animation: hint-bounce 1.8s ease-in-out infinite;
         }
 
         /* ── Accesibilidad: respetar preferencia de menos movimiento ── */
@@ -1264,8 +972,8 @@
                 transition-duration: 0.001ms !important;
                 scroll-behavior: auto !important;
             }
-            .screen, .section-title, .section-subtitle, .mission-box, .milestone-card,
-            .membership-card, .team-card, .gallery-item, .vertical-item, .timeline-item,
+            .screen, .section-title, .section-subtitle, .mission-box,
+            .team-chip, .gallery-item, .vertical-item, .timeline-item,
             .paper-callout, .animate-on-scroll {
                 opacity: 1 !important;
                 transform: none !important;
@@ -1279,35 +987,12 @@
     <div id="nav-root"></div>
 
     <div class="side-nav">
-        <a href="#screen1"           class="side-nav-item active"><span class="side-nav-dot"></span><span class="side-nav-label">Contexto</span></a>
-        <a href="#screen2"           class="side-nav-item"><span class="side-nav-dot"></span><span class="side-nav-label">Misión</span></a>
+        <a href="#screen1"           class="side-nav-item active"><span class="side-nav-dot"></span><span class="side-nav-label">Inicio</span></a>
+        <a href="#screen2"           class="side-nav-item"><span class="side-nav-dot"></span><span class="side-nav-label">Verticales</span></a>
         <a href="#screen3"           class="side-nav-item"><span class="side-nav-dot"></span><span class="side-nav-label">Metodología</span></a>
         <a href="#screen4-equipo"    class="side-nav-item"><span class="side-nav-dot"></span><span class="side-nav-label">Equipo</span></a>
         <a href="#screen5-comunidad" class="side-nav-item"><span class="side-nav-dot"></span><span class="side-nav-label">Comunidad</span></a>
     </div>
-
-    <div class="nav-floating-menu" id="nav-floating-menu">
-        <a href="#screen1"><i class="fas fa-map-marker-alt"></i> Contexto</a>
-        <a href="#screen2"><i class="fas fa-crosshairs"></i> Misión</a>
-        <a href="#screen2-verticales"><i class="fas fa-layer-group"></i> Sectores</a>
-        <a href="#screen3-modelo"><i class="fas fa-project-diagram"></i> Modelo</a>
-        <a href="#screen3-agenda"><i class="fas fa-calendar-alt"></i> Agenda</a>
-        <a href="#screen4-equipo"><i class="fas fa-users"></i> Equipo</a>
-        <a href="#screen5-comunidad"><i class="fas fa-handshake"></i> Comunidad</a>
-    </div>
-
-    <section id="video-intro">
-        <video id="intro-video" autoplay muted playsinline>
-            <source src="imagenes/poloTetris.mp4" type="video/mp4">
-        </video>
-        <button id="skip-intro-btn">
-            Saltar <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="scroll-hint">
-            <span>Scroll para continuar</span>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-    </section>
 
     <section id="screen1" class="screen">
         <div class="content-wrapper">
@@ -1351,7 +1036,6 @@
                                 <h4>Energía</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Andrés López Gibson · Maxi Arias</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/recursos-humanos.html" class="vertical-card-container" style="transition-delay: 0.1s;">
@@ -1360,7 +1044,6 @@
                                 <h4>Recursos Humanos</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Mariana Sobisch · Vanesa Villalobos · Belén Lombi</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/salud.html" class="vertical-card-container" style="transition-delay: 0.2s;">
@@ -1369,7 +1052,6 @@
                                 <h4>Salud</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Vanesa Scholl</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/marketing.html" class="vertical-card-container" style="transition-delay: 0.3s;">
@@ -1378,7 +1060,6 @@
                                 <h4>Marketing y Comercialización</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Rodrigo Bustos · Fernando Acuña</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/ciencias-economicas.html" class="vertical-card-container" style="transition-delay: 0.4s;">
@@ -1387,7 +1068,6 @@
                                 <h4>Ciencias Económicas</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Matias Bacci · Pablo Serra</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/arquitectura.html" class="vertical-card-container" style="transition-delay: 0.5s;">
@@ -1396,7 +1076,6 @@
                                 <h4>Arquitectura</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> A definir</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/derecho.html" class="vertical-card-container" style="transition-delay: 0.6s;">
@@ -1405,7 +1084,6 @@
                                 <h4>Derecho</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Vanesa Ruiz</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/seguridad-higiene.html" class="vertical-card-container" style="transition-delay: 0.7s;">
@@ -1414,7 +1092,6 @@
                                 <h4>Seguridad (HSE)</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Cristian Sanz · Ezequiel Weidermann</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/real-estate.html" class="vertical-card-container" style="transition-delay: 0.8s;">
@@ -1423,7 +1100,6 @@
                                 <h4>Real Estate</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Leandro Sfeir</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/coaching.html" class="vertical-card-container" style="transition-delay: 0.9s;">
@@ -1432,7 +1108,6 @@
                                 <h4>Coaching</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Vanesa Funes</p>
                     </div>
                     <div class="vertical-item">
                         <a href="verticales/rrii.html" class="vertical-card-container" style="transition-delay: 1.0s;">
@@ -1441,7 +1116,6 @@
                                 <h4>Relaciones Institucionales</h4>
                             </div>
                         </a>
-                        <p class="vertical-referente"><i class="fas fa-user-circle"></i> Sol Buschiazzo · Ileana Temi</p>
                     </div>
                 </div>
             </div>
@@ -1474,30 +1148,10 @@
                     </div>
                 </div>
 
-                <h2 class="section-title">Cómo lo vamos a compartir</h2>
-
-                <ul class="sharing-methods">
-                    <li>• <strong>6 eventos abiertos al público</strong> durante 2026 en el <strong>auditorio de ENE</strong>.</li>
-                    <li style="transition-delay: 0.1s;">• Presentación de <strong>soluciones desarrolladas</strong> para distintos verticales.</li>
-                    <li style="transition-delay: 0.2s;">• Participación de <strong>empresas o profesionales</strong> con soluciones propias aplicables al vertical abordado.</li>
-                </ul>
-
-                <h2 class="section-title" id="screen3-agenda">Hitos del proyecto</h2>
-                <div class="milestones-grid">
-                    <div class="milestone-card">
-                        <h4>SAIA CONF Neuquén / Vaca Muerta</h4>
-                        <p>Primera quincena de <strong>mayo 2026</strong></p>
-                    </div>
-                    <div class="milestone-card" style="transition-delay: 0.1s;">
-                        <h4>Evento final ENE IA LAB 2026</h4>
-                        <p>Noviembre 2026 – Presentación de la experiencia acumulada</p>
-                    </div>
-                </div>
-
-                <div class="closing-statement">
-                    <h3>Cierre</h3>
-                    <p>Al finalizar 2026, ENE IA LAB contará con un <strong>relevamiento sistemático de necesidades</strong> y un conjunto de <strong>soluciones posibles por vertical</strong>, construyendo una base de conocimiento y ejecución que <strong>no tendrá ninguna otra institución de Neuquén.</strong></p>
-                    <p>Por su alcance, método y transferencia pública, este será el <strong>trabajo más completo e integrador jamás llevado a cabo en la región en materia de IA aplicada.</strong></p>
+                <div class="cta-wrap">
+                    <a href="metodologia.html" class="btn-cta">
+                        <i class="fas fa-arrow-right"></i> Conocé la metodología completa
+                    </a>
                 </div>
             </div>
         </div>
@@ -1507,116 +1161,134 @@
         <div class="content-wrapper">
             <div class="section-shell">
 
-                <h2 class="section-title">Primeros pasos del proyecto</h2>
+                <h2 class="section-title">Equipo de referentes</h2>
 
-                <div class="team-grid">
-                    <div class="team-card" style="transition-delay: 0s;">
+                <div class="team-strip">
+                    <div class="team-chip" style="transition-delay: 0s;">
                         <div class="team-avatar">AL</div>
-                        <div class="team-card-vertical"><i class="fas fa-industry"></i> Energía</div>
-                        <h4>Andrés López Gibson</h4>
-                        <p class="team-role">Líder de iniciativa — Energía / Oil &amp; Gas</p>
+                        <div>
+                            <h4>Andrés López Gibson</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-industry"></i> Energía</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.08s;">
+                    <div class="team-chip" style="transition-delay: 0.04s;">
                         <div class="team-avatar">MA</div>
-                        <div class="team-card-vertical"><i class="fas fa-industry"></i> Energía</div>
-                        <h4>Maxi Arias</h4>
-                        <p class="team-role">Referente — Energía / Oil &amp; Gas</p>
+                        <div>
+                            <h4>Maxi Arias</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-industry"></i> Energía</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.16s;">
+                    <div class="team-chip" style="transition-delay: 0.08s;">
                         <div class="team-avatar">MS</div>
-                        <div class="team-card-vertical"><i class="fas fa-users"></i> Recursos Humanos</div>
-                        <h4>Mariana Sobisch</h4>
-                        <p class="team-role">Líder de iniciativa — Gestión del talento</p>
+                        <div>
+                            <h4>Mariana Sobisch</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-users"></i> Recursos Humanos</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.24s;">
+                    <div class="team-chip" style="transition-delay: 0.12s;">
                         <div class="team-avatar">VV</div>
-                        <div class="team-card-vertical"><i class="fas fa-users"></i> Recursos Humanos</div>
-                        <h4>Vanesa Villalobos</h4>
-                        <p class="team-role">Referente — Recursos Humanos</p>
+                        <div>
+                            <h4>Vanesa Villalobos</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-users"></i> Recursos Humanos</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.32s;">
+                    <div class="team-chip" style="transition-delay: 0.16s;">
                         <div class="team-avatar">BL</div>
-                        <div class="team-card-vertical"><i class="fas fa-users"></i> Recursos Humanos</div>
-                        <h4>Belén Lombi</h4>
-                        <p class="team-role">Referente — Recursos Humanos</p>
+                        <div>
+                            <h4>Belén Lombi</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-users"></i> Recursos Humanos</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.40s;">
+                    <div class="team-chip" style="transition-delay: 0.20s;">
                         <div class="team-avatar">VS</div>
-                        <div class="team-card-vertical"><i class="fas fa-heartbeat"></i> Salud</div>
-                        <h4>Vanesa Scholl</h4>
-                        <p class="team-role">Líder de iniciativa — Salud y datos clínicos</p>
+                        <div>
+                            <h4>Vanesa Scholl</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-heartbeat"></i> Salud</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.48s;">
+                    <div class="team-chip" style="transition-delay: 0.24s;">
                         <div class="team-avatar">RB</div>
-                        <div class="team-card-vertical"><i class="fas fa-chart-line"></i> Marketing</div>
-                        <h4>Rodrigo Bustos</h4>
-                        <p class="team-role">Líder de iniciativa — Marketing y comercialización</p>
+                        <div>
+                            <h4>Rodrigo Bustos</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-chart-line"></i> Marketing</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.56s;">
+                    <div class="team-chip" style="transition-delay: 0.28s;">
                         <div class="team-avatar">FA</div>
-                        <div class="team-card-vertical"><i class="fas fa-chart-line"></i> Marketing</div>
-                        <h4>Fernando Acuña</h4>
-                        <p class="team-role">Referente — Marketing y comercialización</p>
+                        <div>
+                            <h4>Fernando Acuña</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-chart-line"></i> Marketing</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.64s;">
+                    <div class="team-chip" style="transition-delay: 0.32s;">
                         <div class="team-avatar">MB</div>
-                        <div class="team-card-vertical"><i class="fas fa-calculator"></i> Ciencias Económicas</div>
-                        <h4>Matias Bacci</h4>
-                        <p class="team-role">Líder de iniciativa — Análisis financiero y contable</p>
+                        <div>
+                            <h4>Matias Bacci</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-calculator"></i> Ciencias Económicas</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.72s;">
+                    <div class="team-chip" style="transition-delay: 0.36s;">
                         <div class="team-avatar">PS</div>
-                        <div class="team-card-vertical"><i class="fas fa-calculator"></i> Ciencias Económicas</div>
-                        <h4>Pablo Serra</h4>
-                        <p class="team-role">Referente — Ciencias Económicas</p>
+                        <div>
+                            <h4>Pablo Serra</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-calculator"></i> Ciencias Económicas</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.80s;">
+                    <div class="team-chip" style="transition-delay: 0.40s;">
                         <div class="team-avatar">?</div>
-                        <div class="team-card-vertical"><i class="fas fa-building"></i> Arquitectura</div>
-                        <h4>Referente a definir</h4>
-                        <p class="team-role">Líder de iniciativa — Diseño y proyectos</p>
+                        <div>
+                            <h4>Referente a definir</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-building"></i> Arquitectura</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.88s;">
+                    <div class="team-chip" style="transition-delay: 0.44s;">
                         <div class="team-avatar">VR</div>
-                        <div class="team-card-vertical"><i class="fas fa-gavel"></i> Derecho</div>
-                        <h4>Vanesa Ruiz</h4>
-                        <p class="team-role">Líder de iniciativa — Legal y análisis documental</p>
+                        <div>
+                            <h4>Vanesa Ruiz</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-gavel"></i> Derecho</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 0.96s;">
+                    <div class="team-chip" style="transition-delay: 0.48s;">
                         <div class="team-avatar">CS</div>
-                        <div class="team-card-vertical"><i class="fas fa-shield-alt"></i> Seguridad (HSE)</div>
-                        <h4>Cristian Sanz</h4>
-                        <p class="team-role">Líder de iniciativa — Riesgos y protocolos</p>
+                        <div>
+                            <h4>Cristian Sanz</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-shield-alt"></i> Seguridad (HSE)</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 1.04s;">
+                    <div class="team-chip" style="transition-delay: 0.52s;">
                         <div class="team-avatar">EW</div>
-                        <div class="team-card-vertical"><i class="fas fa-shield-alt"></i> Seguridad (HSE)</div>
-                        <h4>Ezequiel Weidermann</h4>
-                        <p class="team-role">Referente — Seguridad (HSE)</p>
+                        <div>
+                            <h4>Ezequiel Weidermann</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-shield-alt"></i> Seguridad (HSE)</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 1.12s;">
+                    <div class="team-chip" style="transition-delay: 0.56s;">
                         <div class="team-avatar">SB</div>
-                        <div class="team-card-vertical"><i class="fas fa-globe-americas"></i> Relaciones Internacionales</div>
-                        <h4>Sol Buschiazzo</h4>
-                        <p class="team-role">Líder de iniciativa — Relaciones Institucionales</p>
+                        <div>
+                            <h4>Sol Buschiazzo</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-globe-americas"></i> Relaciones Internacionales</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 1.20s;">
+                    <div class="team-chip" style="transition-delay: 0.60s;">
                         <div class="team-avatar">IT</div>
-                        <div class="team-card-vertical"><i class="fas fa-globe-americas"></i> Relaciones Internacionales</div>
-                        <h4>Ileana Temi</h4>
-                        <p class="team-role">Referente — Relaciones Internacionales</p>
+                        <div>
+                            <h4>Ileana Temi</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-globe-americas"></i> Relaciones Internacionales</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 1.28s;">
+                    <div class="team-chip" style="transition-delay: 0.64s;">
                         <div class="team-avatar">VF</div>
-                        <div class="team-card-vertical"><i class="fas fa-comments"></i> Coaching</div>
-                        <h4>Vanesa Funes</h4>
-                        <p class="team-role">Líder de iniciativa — Coaching y desarrollo</p>
+                        <div>
+                            <h4>Vanesa Funes</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-comments"></i> Coaching</div>
+                        </div>
                     </div>
-                    <div class="team-card" style="transition-delay: 1.36s;">
+                    <div class="team-chip" style="transition-delay: 0.68s;">
                         <div class="team-avatar">LS</div>
-                        <div class="team-card-vertical"><i class="fas fa-home"></i> Real Estate</div>
-                        <h4>Leandro Sfeir</h4>
-                        <p class="team-role">Líder de iniciativa — Real Estate y proptech</p>
+                        <div>
+                            <h4>Leandro Sfeir</h4>
+                            <div class="team-chip-vertical"><i class="fas fa-home"></i> Real Estate</div>
+                        </div>
                     </div>
                 </div>
 
@@ -1652,8 +1324,8 @@
                 <div class="paper-callout">
                     <div class="paper-callout-icon"><i class="fas fa-file-alt"></i></div>
                     <div class="paper-callout-text">
-                        <h4>Primera publicación: Paper de resultados</h4>
-                        <p>Fecha estimada de publicación del primer paper de ENE IA LAB: <strong>primeros días de junio de 2026.</strong> Un documento que sistematizará los hallazgos iniciales de los verticales y las soluciones desarrolladas.</p>
+                        <h4>Publicaciones del laboratorio</h4>
+                        <p>Ya están disponibles los primeros papers de ENE IA LAB, con los dolores relevados y las soluciones propuestas por vertical. <a href="publicaciones.html">Leé las publicaciones <i class="fas fa-arrow-right"></i></a></p>
                     </div>
                 </div>
 
@@ -1666,40 +1338,8 @@
             <div class="section-shell">
                 <h2 class="section-title">Comunidad ENE IA LAB</h2>
 
-                <div class="membership-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 860px; margin-left: auto; margin-right: auto;">
-
-                    <div class="membership-card" style="transition-delay: 0s;">
-                        <div class="membership-tier-badge"><i class="fas fa-user"></i> Individual</div>
-                        <div style="margin-bottom: 16px; position: relative; z-index: 1;">
-                            <div class="price-display">$85.000</div>
-                            <span class="price-period">por mes · ciclo 2026</span>
-                        </div>
-                        <h3>Membresía Individual</h3>
-                        <p class="membership-card-tagline">Para profesionales, emprendedores y referentes del sector.</p>
-                        <ul class="membership-features">
-                            <li>Participación en verticales de IA aplicada</li>
-                            <li>Charlas y encuentros exclusivos</li>
-                            <li>Networking con el ecosistema regional</li>
-                            <li>Coworking ENE hasta 2 veces por semana</li>
-                        </ul>
-                    </div>
-
-                    <div class="membership-card membership-card-featured" style="transition-delay: 0.15s;">
-                        <div class="membership-tier-badge"><i class="fas fa-building"></i> Corporativa</div>
-                        <div style="margin-bottom: 16px; position: relative; z-index: 1;">
-                            <div class="price-display">$150.000</div>
-                            <span class="price-period">por mes · ciclo 2026</span>
-                        </div>
-                        <h3>Membresía Corporativa</h3>
-                        <p class="membership-card-tagline">Para empresas e instituciones. Hasta 3 personas simultáneas.</p>
-                        <ul class="membership-features">
-                            <li>Todos los beneficios del nivel Individual</li>
-                            <li>Hasta 3 personas de la organización</li>
-                            <li>Mayor visibilidad en eventos del laboratorio</li>
-                            <li>Vinculación directa con verticales y referentes</li>
-                        </ul>
-                    </div>
-
+                <div class="mission-box">
+                    <p>Sumate como <strong>miembro individual o corporativo</strong> y participá de los verticales de IA aplicada, los eventos y el networking del ecosistema tecnológico de la región.</p>
                 </div>
 
                 <div class="cta-wrap">
@@ -1716,28 +1356,13 @@
     <script src="/js/layout.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Video intro
-            const introVideo = document.getElementById('intro-video');
-            const skipBtn    = document.getElementById('skip-intro-btn');
-
-            function scrollToMain() {
-                const navHeight = document.querySelector('nav').offsetHeight;
-                const screen1   = document.getElementById('screen1');
-                window.scrollTo({ top: screen1.offsetTop - navHeight, behavior: 'smooth' });
-            }
-
-            if (introVideo) {
-                introVideo.addEventListener('ended', scrollToMain);
-                skipBtn.addEventListener('click', scrollToMain);
-            }
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
                 });
             }, { threshold: 0.1 });
 
-            document.querySelectorAll('.screen, .section-title, .section-subtitle, .mission-box, .vertical-card-container, .timeline-item, .sharing-methods li, .milestone-card, .closing-statement, .team-card, .gallery-item, .paper-callout, .membership-card').forEach(el => {
+            document.querySelectorAll('.screen, .section-title, .section-subtitle, .mission-box, .vertical-card-container, .timeline-item, .team-chip, .gallery-item, .paper-callout').forEach(el => {
                 observer.observe(el);
             });
 
@@ -1755,26 +1380,7 @@
                 });
             });
 
-            // Floating menu toggle
-            const navToggle = document.getElementById('nav-toggle');
-            const navFloating = document.getElementById('nav-floating-menu');
-
-            if (navToggle && navFloating) {
-                navToggle.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    navFloating.classList.toggle('open');
-                    navToggle.classList.toggle('active');
-                });
-
-                document.addEventListener('click', () => {
-                    navFloating.classList.remove('open');
-                    navToggle.classList.remove('active');
-                });
-
-                navFloating.addEventListener('click', (e) => e.stopPropagation());
-            }
-
-            // Smooth scroll — nav floating menu + any #anchor
+            // Smooth scroll — any #anchor
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1782,28 +1388,16 @@
                     if (target) {
                         const navHeight = document.querySelector('nav').offsetHeight;
                         window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - navHeight, behavior: 'smooth' });
-                        if (navFloating) {
-                            navFloating.classList.remove('open');
-                            navToggle.classList.remove('active');
-                        }
                     }
                 });
             });
 
             // Side-nav scroll-spy
-            const sideNavEl = document.querySelector('.side-nav');
             const mainNavEl = document.querySelector('nav');
-            const videoIntroEl = document.getElementById('video-intro');
             const sideNavSections = ['screen1','screen2','screen3','screen4-equipo','screen5-comunidad'];
             function updateSideNav() {
                 const scrollY = window.scrollY;
                 const navH = mainNavEl ? mainNavEl.offsetHeight : 0;
-
-                // Ocultar nav y side-nav mientras se está en la intro del video
-                const inVideo = videoIntroEl && scrollY < videoIntroEl.offsetHeight * 0.8;
-                if (sideNavEl) sideNavEl.classList.toggle('hidden', inVideo);
-                if (mainNavEl) mainNavEl.classList.toggle('hidden', inVideo);
-
 
                 let current = sideNavSections[0];
                 sideNavSections.forEach(id => {

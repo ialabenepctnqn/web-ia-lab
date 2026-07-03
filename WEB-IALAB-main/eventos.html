@@ -588,6 +588,21 @@
                     </div>
                 </div>
 
+                <!-- PRÓXIMO -->
+                <div class="event-card" id="ev-final-ialab-2026-11" data-tipo="proximo" data-fecha="2026-11-30" style="transition-delay: 0.03s;">
+                    <div class="event-card-header">
+                        <span class="event-badge"><i class="fas fa-flag-checkered"></i> Evento de cierre</span>
+                    </div>
+                    <div class="event-date"><i class="fas fa-calendar"></i> Noviembre 2026 · fecha a confirmar</div>
+                    <h3 class="event-title">Evento final ENE IA LAB 2026</h3>
+                    <p class="event-desc">Cierre de la temporada 2026 del laboratorio: presentación de la experiencia acumulada, los resultados de cada vertical y las soluciones desarrolladas durante el año.</p>
+                    <div class="event-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Auditorio ENE, Neuquén Capital</span>
+                        <span><i class="fas fa-users"></i> Abierto al público</span>
+                    </div>
+                    <div class="event-card-footer"></div>
+                </div>
+
                 <!-- PASADO -->
                 <div class="event-card event-card-past" id="ev-saia-conf-2026-05-14" data-tipo="pasado" data-fecha="2026-05-14" style="transition-delay: 0.06s;">
                     <div class="event-card-header">
@@ -672,10 +687,43 @@
 
             document.querySelectorAll('.section-title, .section-subtitle, .event-card, .mission-box').forEach(el => observer.observe(el));
 
-            // Filter
             const filterBtns = document.querySelectorAll('.filter-btn');
             const eventCards = document.querySelectorAll('.event-card');
             const emptyMsg   = document.getElementById('events-empty');
+
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+
+            // ── Próximo/Pasado automático según data-fecha ──
+            // Si la fecha ya pasó, la card se marca como "pasado" (filtro + estilo
+            // "Realizado") sin tocar el HTML. data-tipo manual queda solo como
+            // fallback para cards sin data-fecha válida.
+            eventCards.forEach(card => {
+                const iso = card.dataset.fecha;
+                if (!iso) return;
+                const fechaEvento = new Date(iso + 'T00:00:00');
+                if (isNaN(fechaEvento)) return;
+
+                const esPasado = fechaEvento < hoy;
+                card.dataset.tipo = esPasado ? 'pasado' : 'proximo';
+                card.classList.toggle('event-card-past', esPasado);
+
+                const badge = card.querySelector('.event-badge');
+                if (badge) badge.classList.toggle('event-badge-past', esPasado);
+
+                const header = card.querySelector('.event-card-header');
+                let tag = card.querySelector('.event-past-tag');
+                if (esPasado && !tag && header) {
+                    tag = document.createElement('span');
+                    tag.className = 'event-past-tag';
+                    tag.innerHTML = '<i class="fas fa-check"></i> Realizado';
+                    header.appendChild(tag);
+                } else if (!esPasado && tag) {
+                    tag.remove();
+                }
+            });
+
+            // Filter
 
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -696,9 +744,6 @@
             });
 
             // ── Compartir (solo eventos próximos) ──
-            const hoy = new Date();
-            hoy.setHours(0, 0, 0, 0);
-
             function cerrarMenusCompartir(excepto) {
                 document.querySelectorAll('.share-menu.open').forEach(m => {
                     if (m !== excepto) m.classList.remove('open');
