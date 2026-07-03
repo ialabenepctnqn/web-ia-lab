@@ -12,13 +12,19 @@ WEB-IALAB-main/
 ├── metodologia.html            # Metodología del laboratorio
 ├── eventos.html                # Eventos 2026
 ├── membresia.html              # Planes de membresía
+├── publicaciones.html          # Feed de publicaciones
 ├── css/
 │   └── shared.css              # Estilos compartidos por todas las páginas
+├── js/
+│   └── layout.js               # Nav y footer inyectados en todas las páginas
 ├── imagenes/
 │   ├── LOGOIALAB.png
 │   ├── POLO3.png               # Fondo principal
-│   └── IA LAB*.jpg/jpeg        # Fotos del laboratorio
-└── verticales/
+│   └── ia-lab-*.jpg/jpeg       # Fotos del laboratorio
+├── publicaciones/
+│   ├── index.json              # Índice de publicaciones (fuente del feed)
+│   └── <vertical>/*.html       # Papers y guías (una página por publicación)
+└── verticales/                 # 11 páginas, una por sector
     ├── energia.html
     ├── recursos-humanos.html
     ├── salud.html
@@ -26,7 +32,10 @@ WEB-IALAB-main/
     ├── ciencias-economicas.html
     ├── arquitectura.html
     ├── derecho.html
-    └── seguridad-higiene.html
+    ├── seguridad-higiene.html
+    ├── rrii.html
+    ├── coaching.html
+    └── real-estate.html
 ```
 
 ---
@@ -37,25 +46,21 @@ WEB-IALAB-main/
 
 | Página | Descripción |
 |--------|-------------|
-| `index.html` | Home con hero, misión, verticales, metodología, equipo, galería y membresías |
+| `index.html` | Home: hero, misión + grid de verticales, teaser de metodología, equipo (chips) + galería, banda CTA de membresía |
 | `metodologia.html` | Detalle del enfoque y metodología del laboratorio |
-| `eventos.html` | Agenda de eventos del año 2026 |
+| `eventos.html` | Agenda de eventos del año 2026; el estado próximo/realizado se deriva automáticamente de `data-fecha` |
 | `membresia.html` | Planes Individual ($85k) y Corporativa ($150k) |
-| `publicaciones.html` | Feed de publicaciones filtrable por vertical, cargado desde Google Sheets vía CSV |
+| `publicaciones.html` | Feed de publicaciones filtrable por vertical y ordenable por fecha |
+
+El nav y el footer de todas las páginas se inyectan desde `js/layout.js` (contenedores `#nav-root` y `#footer-root`).
 
 ### Publicaciones (`publicaciones.html`)
 
-Feed dinámico que consume un Google Sheet publicado como CSV y renderiza las publicaciones filtradas por vertical.
+Feed estático que carga `publicaciones/index.json` (vía `fetch`) y renderiza las cards con filtros por vertical y ordenamiento por fecha.
 
-**Fuente de datos:**
-- URL configurada en la constante `SHEET_CSV_URL` (línea ~391).
-- Para actualizar la fuente: Archivo → Compartir → Publicar en la web → Hoja1 → CSV → copiar URL.
-
-**Parser CSV (`parseCSV` + `HEADER_MAP`):**
-- Soporta encabezados en español e inglés, con o sin acentos, y variantes comunes (ej. `enlace` / `link` / `url publicacion` → campo `url`; `resumen` / `summary` / `descripcion` → campo `resumen`).
-- La función `normalizeHeader()` extrae la lógica de normalización (trim, minúsculas, strip diacríticos) reutilizada tanto en la detección de headers como en los filtros.
-- Las columnas mapeadas a `null` en `HEADER_MAP` (ej. `marca temporal`, `timestamp`) se descartan al parsear.
-- Compatible con exports directos de Google Forms → Google Sheets sin edición manual de encabezados.
+**Para agregar una publicación:**
+1. Crear la página del paper/guía en `publicaciones/<vertical>/<slug>.html`.
+2. Agregar su entrada (título, vertical, fecha, autor, resumen, URL) en `publicaciones/index.json`.
 
 ### Inscripción a membresías (`membresia.html`)
 
@@ -72,16 +77,19 @@ La URL del form está en el `href` del enlace "Quiero inscribirme" (`membresia.h
 
 ### Verticales (sectores de trabajo)
 
-| Página | Sector | Referente |
+| Página | Sector | Referentes |
 |--------|--------|-----------|
-| `verticales/energia.html` | Energía / Vaca Muerta | Diego Manfio |
-| `verticales/recursos-humanos.html` | Recursos Humanos | Mariana Sobisch |
+| `verticales/energia.html` | Energía / Vaca Muerta | Andrés López Gibson · Maxi Arias |
+| `verticales/recursos-humanos.html` | Recursos Humanos | Mariana Sobisch · Vanesa Villalobos · Belén Lombi |
 | `verticales/salud.html` | Salud | Vanesa Scholl |
-| `verticales/marketing.html` | Marketing | Rodrigo Bustos |
-| `verticales/ciencias-economicas.html` | Ciencias Económicas | Matias Bacci |
-| `verticales/arquitectura.html` | Arquitectura | Pablo Coronato |
-| `verticales/derecho.html` | Derecho | Por incorporar |
-| `verticales/seguridad-higiene.html` | Seguridad e Higiene | Cristian Sanz |
+| `verticales/marketing.html` | Marketing y Comercialización | Rodrigo Bustos · Fernando Acuña |
+| `verticales/ciencias-economicas.html` | Ciencias Económicas | Matias Bacci · Pablo Serra |
+| `verticales/arquitectura.html` | Arquitectura | A definir |
+| `verticales/derecho.html` | Derecho | Vanesa Ruiz |
+| `verticales/seguridad-higiene.html` | Seguridad (HSE) | Cristian Sanz · Ezequiel Weidermann |
+| `verticales/rrii.html` | Relaciones Institucionales | Sol Buschiazzo · Ileana Temi |
+| `verticales/coaching.html` | Coaching | Vanesa Funes |
+| `verticales/real-estate.html` | Real Estate | Leandro Sfeir |
 
 ---
 

@@ -28,21 +28,23 @@ Sitio institucional de IA LAB — comunidad de innovación aplicada en inteligen
 **Diseño:** Dark mode · Glassmorphism · Paleta cyan/violeta · Estilo moderno e institucional
 
 **Estructura del sitio:**
-- Home
+- Home (hero → misión + grid de verticales → teaser de metodología → equipo en chips + galería → banda CTA de membresía; sin video intro)
 - Metodología
 - Eventos
 - Membresías
-- Verticales: Energía · RRHH · Salud · Marketing · Arquitectura · Derecho · Seguridad e Higiene · Relaciones Internacionales · Ciencias Económicas · Coaching · Real Estate
+- Publicaciones (feed filtrable, carga desde `publicaciones/index.json`; los papers viven en `publicaciones/<vertical>/`)
+- Verticales: Energía · RRHH · Salud · Marketing · Arquitectura · Derecho · Seguridad e Higiene · Relaciones Internacionales · Ciencias Económicas · Coaching · Real Estate (páginas en `verticales/`)
+
+**Nav y footer:** inyectados en todas las páginas por `js/layout.js` (`#nav-root` / `#footer-root`). Links: Verticales (ancla a la home) · Metodología · Eventos · Publicaciones + botones "Sumate" (membresía) y "Login" (app externa).
 
 ---
 
 ## 3. Componentes especiales
 
-### Chatbot (Neo)
-- Demo funcional del asistente IA LAB. Mascota: **Neo**.
-- Archivos: `css/chatbot.css`, `js/chatbot.js`
-- Interfaz desacoplada del resto del sitio.
-- Preparado para futura integración RAG vía `sendMessage()`.
+### Chatbot (Neo) — planificado, aún no implementado
+- Asistente IA LAB previsto para el futuro. Mascota: **Neo**.
+- Archivos previstos: `css/chatbot.css`, `js/chatbot.js` (todavía no existen en el repo).
+- Idea: interfaz desacoplada del resto del sitio, preparada para integración RAG vía `sendMessage()`.
 
 ### Eventos / Compartir
 - En `eventos.html` cada evento es un `<div class="event-card">`. Toda la lógica (filtros, modal de flyers, compartir) está **inline** en ese archivo: CSS en el `<style>` del `<head>` y JS al final del `<body>`.
