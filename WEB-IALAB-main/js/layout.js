@@ -8,7 +8,7 @@ function injectNav() {
       <div class="nav-left">
         <a href="/index.html" class="nav-logo">
           <img src="/imagenes/LOGOIALAB.png" alt="ENE IA LAB"
-               style="height:36px;width:auto;object-fit:contain;filter:invert(1);">
+               style="height:36px;width:auto;object-fit:contain;">
         </a>
       </div>
       <div class="nav-right">
@@ -44,7 +44,7 @@ function injectFooter() {
     <footer>
       <div class="footer-logo">
         <img src="/imagenes/LOGOIALAB.png" alt="IA LAB Logo"
-             style="height:38px;width:auto;object-fit:contain;filter:invert(1);">
+             style="height:38px;width:auto;object-fit:contain;">
         <span>2026</span>
       </div>
       <div class="footer-links">

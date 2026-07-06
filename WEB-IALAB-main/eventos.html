@@ -22,7 +22,8 @@
     <meta name="twitter:title" content="Eventos – ENE IA LAB 2026" />
     <meta name="twitter:description" content="Demos, workshops y encuentros de ENE IA LAB: la agenda de eventos de IA aplicada en Neuquén." />
     <meta name="twitter:image" content="https://ialab.eneneuquen.com.ar/imagenes/POLO3.webp" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#ECF3F4" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css">
 
@@ -40,9 +41,9 @@
             text-align: center;
             padding: 64px 60px;
             background:
-                radial-gradient(ellipse 65% 50% at 50% 5%, rgba(6,182,212,0.22) 0, transparent 65%),
-                radial-gradient(ellipse 35% 28% at 90% 85%, rgba(139,92,246,0.16) 0, transparent 60%),
-                linear-gradient(180deg, rgba(16,18,22,0.93) 0%, rgba(8,9,11,0.98) 100%);
+                radial-gradient(ellipse 65% 50% at 50% 5%, rgba(176,224,233,0.50) 0, transparent 65%),
+                radial-gradient(ellipse 35% 28% at 90% 85%, rgba(34,109,122,0.14) 0, transparent 60%),
+                linear-gradient(165deg, rgba(228,242,244,0.94) 0%, rgba(209,232,236,0.90) 55%, rgba(238,246,247,0.96) 100%);
             box-shadow: var(--shadow-strong);
         }
 
@@ -50,11 +51,11 @@
             display: inline-block;
             padding: 8px 18px;
             border-radius: 999px;
-            background: rgba(6,182,212,0.08);
-            border: 1px solid rgba(6,182,212,0.28);
+            background: rgba(34,109,122,0.08);
+            border: 1px solid rgba(34,109,122,0.28);
             font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--accent-cyan);
             margin-bottom: 28px;
@@ -64,14 +65,13 @@
         .page-hero h1 {
             font-size: clamp(2.4rem, 5.5vw, 4.8rem);
             line-height: 1.0;
-            font-weight: 900;
+            font-weight: 800;
             margin-bottom: 20px;
-            text-shadow: 0 0 50px rgba(6,182,212,0.14);
         }
 
         .page-hero h1 span {
             display: inline-block;
-            background: linear-gradient(90deg, #ffffff 0%, #22d3ee 28%, #a78bfa 55%, #22d3ee 78%, #ffffff 100%);
+            background: linear-gradient(90deg, #005460 0%, #226D7A 28%, #4FA3B2 55%, #226D7A 78%, #005460 100%);
             background-size: 200% auto;
             background-clip: text;
             -webkit-background-clip: text;
@@ -103,7 +103,7 @@
         .filter-label {
             font-size: 0.80rem;
             font-weight: 700;
-            letter-spacing: 0.10em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--text-muted);
             margin-right: 4px;
@@ -115,7 +115,7 @@
             border: 1px solid var(--line-soft);
             background: transparent;
             color: var(--text-soft);
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.84rem;
             font-weight: 700;
             cursor: pointer;
@@ -124,16 +124,16 @@
         }
 
         .filter-btn:hover {
-            border-color: rgba(6,182,212,0.35);
+            border-color: rgba(34,109,122,0.35);
             color: var(--accent-cyan);
-            background: rgba(6,182,212,0.06);
+            background: rgba(34,109,122,0.06);
         }
 
         .filter-btn-active {
-            border-color: rgba(6,182,212,0.50);
+            border-color: rgba(34,109,122,0.50);
             color: var(--accent-cyan);
-            background: rgba(6,182,212,0.10);
-            box-shadow: 0 0 12px rgba(6,182,212,0.14);
+            background: rgba(34,109,122,0.10);
+            box-shadow: 0 2px 10px rgba(34,109,122,0.12);
         }
 
         /* ── Events grid ── */
@@ -145,7 +145,7 @@
 
         /* ── Event card ── */
         .event-card {
-            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
+            background: var(--surface-card);
             border: 1px solid var(--line-soft);
             border-radius: var(--radius-lg);
             padding: 28px 26px;
@@ -162,8 +162,8 @@
         .event-card.visible { opacity: 1; transform: translateY(0); }
 
         .event-card:hover {
-            border-color: rgba(6,182,212,0.30);
-            box-shadow: 0 0 22px rgba(6,182,212,0.12), var(--shadow-soft);
+            border-color: rgba(34,109,122,0.30);
+            box-shadow: 0 8px 28px rgba(34,109,122,0.14);
         }
 
         .event-card::before {
@@ -171,7 +171,7 @@
             position: absolute;
             left: 22px; right: 22px; top: 0;
             height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.04));
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(176,224,233,0.30));
             border-radius: 0 0 8px 8px;
         }
 
@@ -179,7 +179,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(6,182,212,0.05) 0, transparent 30%);
+            background: linear-gradient(135deg, rgba(176,224,233,0.18) 0, transparent 30%);
             pointer-events: none;
         }
 
@@ -193,12 +193,12 @@
         }
 
         .event-card-past::before {
-            background: linear-gradient(to right, rgba(255,255,255,0.15), rgba(255,255,255,0.04));
+            background: linear-gradient(to right, rgba(92,122,128,0.30), rgba(92,122,128,0.08));
         }
 
         .event-card-past .event-title { color: var(--text-soft); }
-        .event-card-past .event-badge { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.10); color: var(--text-muted); }
-        .event-card-past .event-date  { color: var(--text-muted); opacity: 0.7; }
+        .event-card-past .event-badge { background: rgba(92,122,128,0.08); border-color: rgba(92,122,128,0.20); color: var(--text-muted); }
+        .event-card-past .event-date  { color: var(--text-muted); }
 
         /* ── Card parts ── */
         .event-card-header {
@@ -216,18 +216,18 @@
             gap: 6px;
             padding: 5px 12px;
             border-radius: 999px;
-            background: rgba(6,182,212,0.08);
-            border: 1px solid rgba(6,182,212,0.20);
+            background: rgba(34,109,122,0.08);
+            border: 1px solid rgba(34,109,122,0.20);
             font-size: 0.72rem;
             font-weight: 700;
-            letter-spacing: 0.10em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--accent-cyan);
         }
 
         .event-badge-past {
-            background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.10);
+            background: rgba(92,122,128,0.08);
+            border-color: rgba(92,122,128,0.20);
             color: var(--text-muted);
         }
 
@@ -237,16 +237,16 @@
             gap: 5px;
             padding: 4px 10px;
             border-radius: 999px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(92,122,128,0.08);
+            border: 1px solid rgba(92,122,128,0.18);
             font-size: 0.68rem;
             font-weight: 600;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.05em;
             color: var(--text-muted);
         }
 
         .event-date {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.82rem;
             font-weight: 700;
             color: var(--accent-cyan);
@@ -256,7 +256,7 @@
         }
 
         .event-title {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 1.18rem;
             font-weight: 800;
             color: var(--text-main);
@@ -324,11 +324,11 @@
             gap: 2px;
             padding: 8px;
             border-radius: 14px;
-            border: 1px solid rgba(6,182,212,0.30);
-            background: rgba(13,18,30,0.96);
+            border: 1px solid rgba(34,109,122,0.30);
+            background: rgba(246,250,251,0.97);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.45), 0 0 18px rgba(6,182,212,0.12);
+            box-shadow: var(--shadow-strong);
             z-index: 20;
         }
 
@@ -343,8 +343,8 @@
             border: none;
             border-radius: 9px;
             background: transparent;
-            color: var(--text-soft, #c7d0e0);
-            font-family: 'Montserrat', sans-serif;
+            color: var(--text-soft, #2E5158);
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.84rem;
             font-weight: 600;
             text-align: left;
@@ -355,8 +355,8 @@
 
         .share-menu button:hover,
         .share-menu a:hover {
-            background: rgba(6,182,212,0.12);
-            color: #fff;
+            background: rgba(34,109,122,0.08);
+            color: var(--accent-cyan);
         }
 
         .share-menu i { width: 18px; text-align: center; color: var(--cyan-electric); }
@@ -413,7 +413,7 @@
         .flyer-modal-backdrop {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.80);
+            background: rgba(26, 58, 64, 0.55);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
         }
@@ -423,10 +423,10 @@
             z-index: 1;
             max-width: min(92vw, 680px);
             max-height: 90vh;
-            background: linear-gradient(180deg, rgba(16,18,22,0.98) 0%, rgba(10,12,14,0.99) 100%);
-            border: 1px solid rgba(6,182,212,0.22);
+            background: #F6FAFA;
+            border: 1px solid rgba(34,109,122,0.22);
             border-radius: 20px;
-            box-shadow: 0 0 60px rgba(6,182,212,0.12), 0 30px 80px rgba(0,0,0,0.60);
+            box-shadow: var(--shadow-strong);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -448,7 +448,7 @@
         }
 
         .flyer-modal-title {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.92rem;
             font-weight: 700;
             color: var(--text-soft);
@@ -456,7 +456,7 @@
         }
 
         .flyer-modal-close {
-            background: rgba(255,255,255,0.06);
+            background: rgba(34,109,122,0.06);
             border: 1px solid var(--line-soft);
             border-radius: 8px;
             color: var(--text-muted);
@@ -468,7 +468,7 @@
         }
 
         .flyer-modal-close:hover {
-            background: rgba(255,255,255,0.12);
+            background: rgba(34,109,122,0.12);
             color: var(--text-main);
             border-color: var(--line-mid);
         }
@@ -503,7 +503,7 @@
         }
 
         .flyer-nav-btn {
-            background: rgba(255,255,255,0.06);
+            background: rgba(34,109,122,0.06);
             border: 1px solid var(--line-soft);
             border-radius: 8px;
             color: var(--text-muted);
@@ -515,8 +515,8 @@
         }
 
         .flyer-nav-btn:hover:not(:disabled) {
-            background: rgba(6,182,212,0.10);
-            border-color: rgba(6,182,212,0.38);
+            background: rgba(34,109,122,0.10);
+            border-color: rgba(34,109,122,0.38);
             color: var(--accent-cyan);
         }
 
@@ -526,11 +526,11 @@
         }
 
         .flyer-modal-counter {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.80rem;
             font-weight: 700;
             color: var(--text-muted);
-            letter-spacing: 0.08em;
+            letter-spacing: 0.05em;
             min-width: 48px;
             text-align: center;
         }
