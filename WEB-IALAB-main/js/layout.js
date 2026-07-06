@@ -62,7 +62,19 @@ function injectFooter() {
     </footer>`;
 }
 
+// Fondo global: foto del edificio ENE + velo oscuro (estilos en css/shared.css)
+function injectBackground() {
+  if (document.getElementById('bg-photo')) return; // index.html ya los trae en el HTML
+  const overlay = document.createElement('div');
+  overlay.id = 'bg-overlay';
+  document.body.prepend(overlay);
+  const photo = document.createElement('div');
+  photo.id = 'bg-photo';
+  document.body.prepend(photo);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  injectBackground();
   injectNav();
   injectFooter();
 });

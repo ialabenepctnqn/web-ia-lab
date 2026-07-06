@@ -22,7 +22,7 @@
     <meta name="twitter:title" content="Eventos – ENE IA LAB 2026" />
     <meta name="twitter:description" content="Demos, workshops y encuentros de ENE IA LAB: la agenda de eventos de IA aplicada en Neuquén." />
     <meta name="twitter:image" content="https://ialab.eneneuquen.com.ar/imagenes/POLO3.webp" />
-    <meta name="theme-color" content="#ECF3F4" />
+    <meta name="theme-color" content="#060B14" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css">
@@ -41,9 +41,9 @@
             text-align: center;
             padding: 64px 60px;
             background:
-                radial-gradient(ellipse 65% 50% at 50% 5%, rgba(176,224,233,0.50) 0, transparent 65%),
-                radial-gradient(ellipse 35% 28% at 90% 85%, rgba(34,109,122,0.14) 0, transparent 60%),
-                linear-gradient(165deg, rgba(228,242,244,0.94) 0%, rgba(209,232,236,0.90) 55%, rgba(238,246,247,0.96) 100%);
+                radial-gradient(ellipse 65% 50% at 50% 5%, rgba(79,216,235,0.2) 0, transparent 65%),
+                radial-gradient(ellipse 35% 28% at 90% 85%, rgba(79,216,235,0.14) 0, transparent 60%),
+                linear-gradient(165deg, rgba(13,22,38,0.94) 0%, rgba(16,26,44,0.90) 55%, rgba(6,11,20,0.96) 100%);
             box-shadow: var(--shadow-strong);
         }
 
@@ -51,8 +51,8 @@
             display: inline-block;
             padding: 8px 18px;
             border-radius: 999px;
-            background: rgba(34,109,122,0.08);
-            border: 1px solid rgba(34,109,122,0.28);
+            background: rgba(79,216,235,0.08);
+            border: 1px solid rgba(79,216,235,0.28);
             font-size: 0.78rem;
             font-weight: 700;
             letter-spacing: 0.05em;
@@ -71,7 +71,7 @@
 
         .page-hero h1 span {
             display: inline-block;
-            background: linear-gradient(90deg, #005460 0%, #226D7A 28%, #4FA3B2 55%, #226D7A 78%, #005460 100%);
+            background: linear-gradient(90deg, #4FD8EB 0%, #2E9BFF 28%, #A78BFA 55%, #2E9BFF 78%, #4FD8EB 100%);
             background-size: 200% auto;
             background-clip: text;
             -webkit-background-clip: text;
@@ -124,16 +124,16 @@
         }
 
         .filter-btn:hover {
-            border-color: rgba(34,109,122,0.35);
+            border-color: rgba(79,216,235,0.35);
             color: var(--accent-cyan);
-            background: rgba(34,109,122,0.06);
+            background: rgba(79,216,235,0.06);
         }
 
         .filter-btn-active {
-            border-color: rgba(34,109,122,0.50);
+            border-color: rgba(79,216,235,0.50);
             color: var(--accent-cyan);
-            background: rgba(34,109,122,0.10);
-            box-shadow: 0 2px 10px rgba(34,109,122,0.12);
+            background: rgba(79,216,235,0.10);
+            box-shadow: 0 2px 10px rgba(79,216,235,0.12);
         }
 
         /* ── Events grid ── */
@@ -162,8 +162,8 @@
         .event-card.visible { opacity: 1; transform: translateY(0); }
 
         .event-card:hover {
-            border-color: rgba(34,109,122,0.30);
-            box-shadow: 0 8px 28px rgba(34,109,122,0.14);
+            border-color: rgba(79,216,235,0.30);
+            box-shadow: 0 8px 28px rgba(79,216,235,0.14);
         }
 
         .event-card::before {
@@ -171,7 +171,7 @@
             position: absolute;
             left: 22px; right: 22px; top: 0;
             height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(176,224,233,0.30));
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(79,216,235,0.12));
             border-radius: 0 0 8px 8px;
         }
 
@@ -179,7 +179,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(176,224,233,0.18) 0, transparent 30%);
+            background: linear-gradient(135deg, rgba(79,216,235,0.07) 0, transparent 30%);
             pointer-events: none;
         }
 
@@ -193,11 +193,11 @@
         }
 
         .event-card-past::before {
-            background: linear-gradient(to right, rgba(92,122,128,0.30), rgba(92,122,128,0.08));
+            background: linear-gradient(to right, rgba(147,165,184,0.30), rgba(147,165,184,0.08));
         }
 
         .event-card-past .event-title { color: var(--text-soft); }
-        .event-card-past .event-badge { background: rgba(92,122,128,0.08); border-color: rgba(92,122,128,0.20); color: var(--text-muted); }
+        .event-card-past .event-badge { background: rgba(147,165,184,0.08); border-color: rgba(147,165,184,0.20); color: var(--text-muted); }
         .event-card-past .event-date  { color: var(--text-muted); }
 
         /* ── Card parts ── */
@@ -216,8 +216,8 @@
             gap: 6px;
             padding: 5px 12px;
             border-radius: 999px;
-            background: rgba(34,109,122,0.08);
-            border: 1px solid rgba(34,109,122,0.20);
+            background: rgba(79,216,235,0.08);
+            border: 1px solid rgba(79,216,235,0.20);
             font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.05em;
@@ -226,8 +226,8 @@
         }
 
         .event-badge-past {
-            background: rgba(92,122,128,0.08);
-            border-color: rgba(92,122,128,0.20);
+            background: rgba(147,165,184,0.08);
+            border-color: rgba(147,165,184,0.20);
             color: var(--text-muted);
         }
 
@@ -324,8 +324,8 @@
             gap: 2px;
             padding: 8px;
             border-radius: 14px;
-            border: 1px solid rgba(34,109,122,0.30);
-            background: rgba(246,250,251,0.97);
+            border: 1px solid rgba(79,216,235,0.30);
+            background: rgba(10,17,30,0.97);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             box-shadow: var(--shadow-strong);
@@ -343,7 +343,7 @@
             border: none;
             border-radius: 9px;
             background: transparent;
-            color: var(--text-soft, #2E5158);
+            color: var(--text-soft, #C5D3E0);
             font-family: 'Open Sans', sans-serif;
             font-size: 0.84rem;
             font-weight: 600;
@@ -355,7 +355,7 @@
 
         .share-menu button:hover,
         .share-menu a:hover {
-            background: rgba(34,109,122,0.08);
+            background: rgba(79,216,235,0.08);
             color: var(--accent-cyan);
         }
 
@@ -413,7 +413,7 @@
         .flyer-modal-backdrop {
             position: absolute;
             inset: 0;
-            background: rgba(26, 58, 64, 0.55);
+            background: rgba(3, 6, 12, 0.72);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
         }
@@ -423,8 +423,8 @@
             z-index: 1;
             max-width: min(92vw, 680px);
             max-height: 90vh;
-            background: #F6FAFA;
-            border: 1px solid rgba(34,109,122,0.22);
+            background: #101A2C;
+            border: 1px solid rgba(79,216,235,0.22);
             border-radius: 20px;
             box-shadow: var(--shadow-strong);
             overflow: hidden;
@@ -456,7 +456,7 @@
         }
 
         .flyer-modal-close {
-            background: rgba(34,109,122,0.06);
+            background: rgba(79,216,235,0.06);
             border: 1px solid var(--line-soft);
             border-radius: 8px;
             color: var(--text-muted);
@@ -468,7 +468,7 @@
         }
 
         .flyer-modal-close:hover {
-            background: rgba(34,109,122,0.12);
+            background: rgba(79,216,235,0.12);
             color: var(--text-main);
             border-color: var(--line-mid);
         }
@@ -503,7 +503,7 @@
         }
 
         .flyer-nav-btn {
-            background: rgba(34,109,122,0.06);
+            background: rgba(79,216,235,0.06);
             border: 1px solid var(--line-soft);
             border-radius: 8px;
             color: var(--text-muted);
@@ -515,8 +515,8 @@
         }
 
         .flyer-nav-btn:hover:not(:disabled) {
-            background: rgba(34,109,122,0.10);
-            border-color: rgba(34,109,122,0.38);
+            background: rgba(79,216,235,0.10);
+            border-color: rgba(79,216,235,0.38);
             color: var(--accent-cyan);
         }
 

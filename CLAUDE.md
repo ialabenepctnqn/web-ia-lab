@@ -25,7 +25,7 @@ Sitio institucional de IA LAB — comunidad de innovación aplicada en inteligen
 
 **Stack:** HTML · CSS · JavaScript Vanilla · Sin frameworks
 
-**Diseño:** Modo claro · Glassmorphism · Paleta Deep Teal (#226D7A) + Soft Aqua (#B0E0E9), acento cálido ámbar puntual · Corporativo/moderno e institucional. Fuente de verdad de paleta, tipografía (Open Sans) y componentes: `DESIGN.md` (sistema ENE "Hydro-Clean Professional").
+**Diseño:** Modo oscuro (jul 2026) · Glassmorphism · Fondo azul-noche (#060B14) + cian neón (#4FD8EB), azul eléctrico (#2E9BFF) y violeta (#8B5CF6), ámbar/naranja ENE puntual · Corporativo/tecnológico e institucional. Fuente de verdad de paleta, tipografía (Open Sans) y componentes: `publi ej/DESIGN-DARK.md` (sistema "Hydro-Clean Professional — Dark", derivado de las placas promocionales); la variante clara anterior vive en `publi ej/DESIGN.md`. En dark la elevación es por bordes luminosos y glow tintado, no sombras; texto sobre botones cian = navy #001F25.
 
 **Estructura del sitio:**
 - Home (hero → misión + grid de verticales → teaser de metodología → equipo en chips + galería → banda CTA de membresía; sin video intro)
