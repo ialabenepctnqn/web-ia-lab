@@ -252,10 +252,12 @@
             background: radial-gradient(circle, var(--aqua) 0%, transparent 70%);
             animation: aurora-breathe 9s ease-in-out infinite;
         }
+        /* Glow cálido: eco atmosférico del naranja de marca ENE en la esquina */
         .hero-glow.b {
-            right: -120px; bottom: -60px;
-            opacity: 0.10;
-            background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
+            right: -140px; bottom: -80px;
+            width: 560px; height: 560px;
+            opacity: 0.24;
+            background: radial-gradient(circle, var(--ene-orange) 0%, transparent 68%);
             animation: violet-aurora 11s ease-in-out infinite;
         }
 
@@ -306,16 +308,17 @@
             animation: hero-text-shimmer 4s linear infinite;
         }
 
+        /* Subrayado del título en el naranja→dorado de ENE: acento secundario complementario al teal */
         #screen1 h1 span::after {
             content: '';
             position: absolute;
             left: 0;
             right: 0;
-            bottom: -0.04em;
-            height: 3px;
-            background: linear-gradient(to right, transparent, var(--cyan-electric), transparent);
+            bottom: -0.06em;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--ene-orange) 30%, var(--ene-gold) 70%, transparent);
             border-radius: 999px;
-            opacity: 0.75;
+            opacity: 1;
         }
 
         .hero-text {

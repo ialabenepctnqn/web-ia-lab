@@ -33,9 +33,11 @@
             --surface-card: linear-gradient(180deg, rgba(250,253,253,0.95) 0%, rgba(236,245,246,0.98) 100%);
             --error: #B91C1C;
             --warning: #B45309;
-            /* Terciario del sistema ENE (DESIGN.md): acento cálido para énfasis puntual */
-            --accent-warm: #8A5928;
-            --accent-warm-soft: #F9BA80;
+            /* Acento secundario = naranja de marca ENE (eneneuquen.com.ar, gráficos "swirly") */
+            --ene-orange: #E1522C;
+            --ene-gold: #F0C764;
+            --grad-ene: linear-gradient(120deg, #E1522C 0%, #F0C764 100%);
+            --accent-warm: #B23E1C; /* naranja ENE oscurecido para texto (contraste AA sobre claro) */
         }
 
         @keyframes dot-pulse {
@@ -328,15 +330,16 @@
             content: '';
             display: block;
             width: 0;
-            height: 2px;
+            height: 3px;
             margin: 20px auto 0 auto;
             opacity: 0;
-            background: linear-gradient(to right, transparent, var(--cyan-electric), transparent);
+            border-radius: 999px;
+            background: var(--grad-ene);
             transition: width 0.7s ease 0.25s, opacity 0.5s ease 0.25s;
         }
 
         .section-title.visible::after {
-            width: 110px;
+            width: 132px;
             opacity: 1;
         }
 
