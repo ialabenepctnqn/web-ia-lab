@@ -47,9 +47,9 @@ WEB-IALAB-main/
 | Página | Descripción |
 |--------|-------------|
 | `index.html` | Home: hero, misión + grid de verticales, teaser de metodología, equipo (chips) + galería, banda CTA de membresía |
-| `metodologia.html` | Detalle del enfoque y metodología del laboratorio |
+| `metodologia.html` | Enfoque, principios y procedimiento de gestión interna del vertical |
 | `eventos.html` | Agenda de eventos del año 2026; el estado próximo/realizado se deriva automáticamente de `data-fecha` |
-| `membresia.html` | Planes Individual ($85k) y Corporativa ($150k) |
+| `membresia.html` | Planes Individual ($85k) y Corporativa ($150k) + manual de incorporación (línea de tiempo de 7 pasos) |
 | `publicaciones.html` | Feed de publicaciones filtrable por vertical y ordenable por fecha |
 
 El nav y el footer de todas las páginas se inyectan desde `js/layout.js` (contenedores `#nav-root` y `#footer-root`).
@@ -71,7 +71,9 @@ El Google Form incluye campos de **subida de archivos** (selfie para Face ID + c
 
 > **Implicancia:** los visitantes necesitan una cuenta de Google para completar la inscripción.
 
-La URL del form está en el `href` del enlace "Quiero inscribirme" (`membresia.html`, ~línea 907).
+La URL del form está en el `href` del enlace "Quiero inscribirme" (`membresia.html`, ~línea 917).
+
+Debajo de los planes, la página incluye el **manual de incorporación** ("Cómo es la incorporación"): una línea de tiempo vertical de 7 pasos (del sitio web a las credenciales) con sus modalidades de participación y acceso por capas. Antes estaba en `metodologia.html` como un stepper clickeable; se movió a Membresía y se rediseñó.
 
 ---
 
@@ -96,9 +98,9 @@ La URL del form está en el `href` del enlace "Quiero inscribirme" (`membresia.h
 ## Tecnologías
 
 - **HTML / CSS / JavaScript** vanilla — sin frameworks
-- **Google Fonts:** Inter + Montserrat
+- **Google Fonts:** Open Sans
 - **Font Awesome 6** (vía CDN) para iconografía
-- **Diseño:** dark mode, glassmorphism, animaciones CSS, accents cyan + violeta
+- **Diseño:** modo claro, glassmorphism, animaciones CSS, paleta teal + aqua (sistema ENE)
 
 ---
 

@@ -25,13 +25,13 @@ Sitio institucional de IA LAB — comunidad de innovación aplicada en inteligen
 
 **Stack:** HTML · CSS · JavaScript Vanilla · Sin frameworks
 
-**Diseño:** Dark mode · Glassmorphism · Paleta cyan/violeta · Estilo moderno e institucional
+**Diseño:** Modo claro · Glassmorphism · Paleta Deep Teal (#226D7A) + Soft Aqua (#B0E0E9), acento cálido ámbar puntual · Corporativo/moderno e institucional. Fuente de verdad de paleta, tipografía (Open Sans) y componentes: `DESIGN.md` (sistema ENE "Hydro-Clean Professional").
 
 **Estructura del sitio:**
 - Home (hero → misión + grid de verticales → teaser de metodología → equipo en chips + galería → banda CTA de membresía; sin video intro)
-- Metodología
+- Metodología (principios + procedimiento de gestión interna del vertical)
 - Eventos
-- Membresías
+- Membresías (planes Individual/Corporativa + manual de incorporación en línea de tiempo)
 - Publicaciones (feed filtrable, carga desde `publicaciones/index.json`; los papers viven en `publicaciones/<vertical>/`)
 - Verticales: Energía · RRHH · Salud · Marketing · Arquitectura · Derecho · Seguridad e Higiene · Relaciones Internacionales · Ciencias Económicas · Coaching · Real Estate (páginas en `verticales/`)
 
@@ -57,7 +57,8 @@ Sitio institucional de IA LAB — comunidad de innovación aplicada en inteligen
 - **Iconos:** Font Awesome 6.0.0-beta3 → usar `fab fa-twitter` y `fas fa-share-alt` (esta versión no incluye `fa-x-twitter` ni garantiza `fa-share-nodes`).
 
 ### Membresías
-- En `membresia.html` se muestran los dos planes (Individual / Corporativa) con sus beneficios. El botón **"Quiero inscribirme"** es un `<a class="btn-cta">` que abre el **Google Form de inscripción** en una pestaña nueva (`href` ~línea 907). No hay formulario embebido ni envío `fetch`.
+- En `membresia.html` se muestran los dos planes (Individual / Corporativa) con sus beneficios. El botón **"Quiero inscribirme"** es un `<a class="btn-cta">` que abre el **Google Form de inscripción** en una pestaña nueva (`href` ~línea 917). No hay formulario embebido ni envío `fetch`.
+- **Manual de incorporación:** debajo de los planes, `membresia.html` incluye el "Cómo es la incorporación" — una **línea de tiempo vertical** (`.flow-timeline`) de 7 pasos (del sitio web a las credenciales), más callouts, modalidades de participación y acceso por capas. CSS inline en el `<style>` de la página. Antes vivía en `metodologia.html` como un stepper clickeable; se movió acá y se rediseñó (jul 2026). En Metodología quedó solo el procedimiento de **gestión interna** (`#gestion`).
 - **Por qué el enlace directo:** el Google Form pide subir archivos (selfie Face ID + comprobante de pago). Google obliga a iniciar sesión en formularios con subida de archivos, y esos campos no se pueden completar por URL pre-llena ni por envío anónimo. Por eso la inscripción se delega al form de Google (el visitante necesita cuenta de Google).
 - Para cambiar a qué form apunta: editar el `href` del enlace "Quiero inscribirme".
 - **Migración de miembros previos:** archivo `Miembros_IA_LAB_v3.xlsx` en local (Downloads del usuario) con 18 miembros (10 individual, 8 corporativo), listo para importar al Sheet.
