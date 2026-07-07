@@ -187,8 +187,8 @@
             flex-shrink: 0;
         }
 
-        /* ── Right: links + CTA ── */
-        .nav-right {
+        /* ── Right: CTA + Login ── */
+        .nav-actions {
             display: flex;
             align-items: center;
             gap: 6px;
@@ -1051,12 +1051,28 @@
         }
 
         @media (max-width: 768px) {
-            nav { flex-wrap: wrap; gap: 8px; padding: 10px 16px; }
-            .nav-left { width: 100%; justify-content: center; }
-            .nav-right { width: 100%; justify-content: center; flex-wrap: wrap; gap: 10px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 8px; }
-            .nav-links a { font-size: 0.74rem; padding: 8px 12px; }
-            .nav-cta-btn, .nav-login-btn { font-size: 0.7rem; padding: 8px 14px; letter-spacing: 0.03em; gap: 6px; }
+            /* Nav en 2 filas: logo + botones arriba, links en una línea scrolleable abajo */
+            nav { flex-wrap: wrap; row-gap: 10px; padding: 10px 14px; }
+            .nav-left { width: auto; flex: 1; }
+            .nav-actions { gap: 8px; }
+            .nav-cta-btn, .nav-login-btn { font-size: 0.72rem; padding: 9px 14px; letter-spacing: 0.03em; gap: 6px; }
+            .nav-links {
+                width: 100%;
+                order: 3;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                gap: 8px;
+                /* overflow-x: auto fuerza overflow-y a auto → padding vertical para que
+                   el borde de los links no se recorte arriba/abajo */
+                padding: 8px 4px;
+                /* Centrados si entran; si desbordan cae a flex-start sin recortar el inicio */
+                justify-content: safe center;
+            }
+            .nav-links::-webkit-scrollbar { display: none; }
+            .nav-links li { flex-shrink: 0; }
+            .nav-links a { font-size: 0.8rem; padding: 8px 14px; white-space: nowrap; }
             /* En móvil (1 columna) el escalonado inline no aporta y retrasa la aparición */
             [style*="transition-delay"] { transition-delay: 0s !important; }
             .screen { padding: 86px 18px; }

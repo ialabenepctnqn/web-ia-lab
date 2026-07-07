@@ -138,6 +138,76 @@
 
         @media (max-width: 1200px) { .side-nav { display: none; } }
 
+        /* ── Video intro ── */
+        #video-intro {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            /* svh: altura estable en móvil — no cambia al colapsar la barra de URL,
+               así el destino del auto-scroll no se corre a mitad de animación */
+            height: 100svh;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #intro-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* CTA de la intro: cian neón centrado, estilo botón primario del sistema dark */
+        #skip-intro-btn {
+            position: absolute;
+            bottom: calc(36px + env(safe-area-inset-bottom, 0px));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: var(--accent-cyan);
+            border: none;
+            color: #001F25;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 14px 34px;
+            min-height: 48px; /* área táctil cómoda en móvil */
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 28px rgba(79,216,235,0.45);
+            transition: background 0.2s ease, box-shadow 0.25s ease, transform 0.2s ease;
+        }
+
+        #skip-intro-btn:hover {
+            background: var(--aqua);
+            box-shadow: 0 0 40px rgba(79,216,235,0.60);
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        /* Nav y side-nav ocultos mientras dura la intro */
+        nav { transition: opacity 0.3s ease; }
+        nav.hidden, .side-nav.hidden { opacity: 0; pointer-events: none; }
+
+        @media (max-width: 600px) {
+            #skip-intro-btn {
+                bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+                padding: 12px 26px;
+                font-size: 0.84rem;
+            }
+        }
+
+        /* Al aterrizar tras la intro, el nav móvil de 2 filas (~105px) se superpone
+           al hero: darle aire extra para que el contenido no quede debajo */
+        @media (max-width: 768px) {
+            #screen1 { padding-top: 130px; }
+        }
+
         
 
         
@@ -898,6 +968,15 @@
         <a href="#screen5-comunidad" class="side-nav-item"><span class="side-nav-dot"></span><span class="side-nav-label">Comunidad</span></a>
     </div>
 
+    <section id="video-intro">
+        <video id="intro-video" autoplay muted playsinline preload="auto" poster="imagenes/POLO3.webp">
+            <source src="imagenes/poloTetris.mp4" type="video/mp4">
+        </video>
+        <button id="skip-intro-btn">
+            Ver IA LAB <i class="fas fa-chevron-down"></i>
+        </button>
+    </section>
+
     <section id="screen1" class="screen">
         <div class="content-wrapper">
             <div class="section-shell">
@@ -1260,6 +1339,26 @@
     <script src="/js/layout.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Video intro
+            const introVideo = document.getElementById('intro-video');
+            const skipBtn    = document.getElementById('skip-intro-btn');
+
+            function scrollToMain() {
+                // Aterrizar justo donde termina el video: queda 100% fuera de la vista
+                // (el nav fijo translúcido se superpone al padding superior del hero)
+                const screen1 = document.getElementById('screen1');
+                window.scrollTo({ top: screen1.offsetTop, behavior: 'smooth' });
+            }
+
+            if (introVideo) {
+                introVideo.addEventListener('ended', scrollToMain);
+                skipBtn.addEventListener('click', scrollToMain);
+                // Si el navegador bloquea el autoplay (ahorro de energía, data saver),
+                // queda el poster con el botón Saltar y el hint de scroll.
+                const playPromise = introVideo.play();
+                if (playPromise) playPromise.catch(() => {});
+            }
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -1284,10 +1383,17 @@
 
             // Side-nav scroll-spy
             const mainNavEl = document.querySelector('nav');
+            const sideNavEl = document.querySelector('.side-nav');
+            const videoIntroEl = document.getElementById('video-intro');
             const sideNavSections = ['screen1','screen2','screen3','screen4-equipo','screen5-comunidad'];
             function updateSideNav() {
                 const scrollY = window.scrollY;
                 const navH = mainNavEl ? mainNavEl.offsetHeight : 0;
+
+                // Ocultar nav y side-nav mientras se está en la intro del video
+                const inVideo = videoIntroEl && scrollY < videoIntroEl.offsetHeight * 0.8;
+                if (sideNavEl) sideNavEl.classList.toggle('hidden', inVideo);
+                if (mainNavEl) mainNavEl.classList.toggle('hidden', inVideo);
 
                 let current = sideNavSections[0];
                 sideNavSections.forEach(id => {

@@ -11,13 +11,13 @@ function injectNav() {
                style="height:36px;width:auto;object-fit:contain;">
         </a>
       </div>
-      <div class="nav-right">
-        <ul class="nav-links">
-          <li><a href="/index.html#screen2-verticales" class="nav-link-page">Verticales</a></li>
-          <li><a href="/metodologia.html"   class="nav-link-page">Metodología</a></li>
-          <li><a href="/eventos.html"        class="nav-link-page">Eventos</a></li>
-          <li><a href="/publicaciones.html"  class="nav-link-page">Publicaciones</a></li>
-        </ul>
+      <ul class="nav-links">
+        <li><a href="/index.html#screen2-verticales" class="nav-link-page">Verticales</a></li>
+        <li><a href="/metodologia.html"   class="nav-link-page">Metodología</a></li>
+        <li><a href="/eventos.html"        class="nav-link-page">Eventos</a></li>
+        <li><a href="/publicaciones.html"  class="nav-link-page">Publicaciones</a></li>
+      </ul>
+      <div class="nav-actions">
         <a href="/membresia.html" class="nav-cta-btn">
           <i class="fas fa-users"></i> Sumate
         </a>
