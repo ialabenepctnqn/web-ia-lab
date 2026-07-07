@@ -776,6 +776,9 @@
         .manual-band .mb-item strong { color: var(--text-main); }
         .manual-band .mb-sep { width: 1px; height: 18px; background: var(--line-mid); }
 
+        /* Selector de plan: 2 columnas en escritorio (default de .membership-grid es 3) */
+        #plan-selector .membership-grid { grid-template-columns: repeat(2, 1fr); }
+
         /* ── Responsive ── */
         @media (max-width: 1024px) {
             .inner-section { padding: 60px 28px; }
@@ -787,6 +790,9 @@
             .page-hero .section-shell { padding: 44px 22px; }
             .inner-section { padding: 44px 18px; }
             .value-grid { grid-template-columns: 1fr; gap: 14px; }
+            #plan-selector .membership-grid { grid-template-columns: 1fr; gap: 18px; }
+            /* Anular el order:-1 de shared.css: acá va Individual primero, luego Corporativa */
+            #plan-selector .membership-card-featured { order: 0; }
             .contact-grid { grid-template-columns: 1fr; }
             .quote-block { padding: 36px 24px; }
             .quote-text { font-size: 1rem; }
@@ -873,7 +879,7 @@
             <div id="plan-selector">
                 <h2 class="section-title" style="margin-bottom: 8px;">Elegí tu membresía</h2>
                 <p class="section-subtitle" style="margin-bottom: 40px;">Ciclo 2026 · Mayo – Noviembre</p>
-                <div class="membership-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 860px; margin: 0 auto;">
+                <div class="membership-grid" style="max-width: 860px; margin: 0 auto;">
 
                     <div class="membership-card visible">
                         <div class="membership-tier-badge"><i class="fas fa-user"></i> Individual</div>
