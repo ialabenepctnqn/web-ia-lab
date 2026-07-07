@@ -202,6 +202,18 @@
             }
         }
 
+        /* Móvil: el video (16:9 apaisado) se ve ENTERO sin recorte. Las bandas
+           que quedan arriba/abajo usan el fondo azul-noche de marca, no negro. */
+        @media (max-width: 768px) {
+            #intro-video { object-fit: contain; }
+            #video-intro {
+                background:
+                    radial-gradient(circle at 50% 32%, rgba(79,216,235,0.12) 0, transparent 48%),
+                    radial-gradient(circle at 80% 85%, rgba(139,92,246,0.10) 0, transparent 46%),
+                    linear-gradient(180deg, #04080F 0%, #0A1220 100%);
+            }
+        }
+
         /* Al aterrizar tras la intro, el nav móvil de 2 filas (~105px) se superpone
            al hero: darle aire extra para que el contenido no quede debajo */
         @media (max-width: 768px) {
