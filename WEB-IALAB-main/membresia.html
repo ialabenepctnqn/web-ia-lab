@@ -22,7 +22,8 @@
     <meta name="twitter:title" content="Membresías – ENE IA LAB 2026" />
     <meta name="twitter:description" content="Sumate a ENE IA LAB. Conocé las membresías Individual y Corporativa de la comunidad de IA aplicada de Neuquén." />
     <meta name="twitter:image" content="https://ialab.eneneuquen.com.ar/imagenes/POLO3.webp" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#060B14" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css">
 
@@ -41,11 +42,11 @@
             text-align: center;
             padding: 72px 60px;
             background:
-                radial-gradient(ellipse 75% 55% at 50% 5%, rgba(6,182,212,0.26) 0, transparent 65%),
-                radial-gradient(ellipse 40% 30% at 90% 90%, rgba(139,92,246,0.20) 0, transparent 60%),
-                radial-gradient(ellipse 30% 25% at 8% 80%, rgba(6,182,212,0.14) 0, transparent 50%),
-                linear-gradient(180deg, rgba(16,18,22,0.93) 0%, rgba(8,9,11,0.98) 100%);
-            box-shadow: var(--shadow-strong), 0 0 80px rgba(6,182,212,0.05);
+                radial-gradient(ellipse 75% 55% at 50% 5%, rgba(79,216,235,0.2) 0, transparent 65%),
+                radial-gradient(ellipse 40% 30% at 90% 90%, rgba(79,216,235,0.14) 0, transparent 60%),
+                radial-gradient(ellipse 30% 25% at 8% 80%, rgba(79,216,235,0.09) 0, transparent 50%),
+                linear-gradient(165deg, rgba(13,22,38,0.94) 0%, rgba(16,26,44,0.90) 55%, rgba(6,11,20,0.96) 100%);
+            box-shadow: var(--shadow-strong);
             overflow: visible;
         }
 
@@ -53,11 +54,11 @@
             display: inline-block;
             padding: 8px 18px;
             border-radius: 999px;
-            background: rgba(6,182,212,0.08);
-            border: 1px solid rgba(6,182,212,0.30);
+            background: rgba(79,216,235,0.08);
+            border: 1px solid rgba(79,216,235,0.30);
             font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--accent-cyan);
             margin-bottom: 30px;
@@ -67,14 +68,13 @@
         .page-hero h1 {
             font-size: clamp(1.8rem, 4vw, 3.4rem);
             line-height: 1.0;
-            font-weight: 900;
+            font-weight: 800;
             margin-bottom: 24px;
-            text-shadow: 0 0 50px rgba(6,182,212,0.16);
         }
 
         .page-hero h1 span {
             display: inline-block;
-            background: linear-gradient(90deg, #ffffff 0%, #22d3ee 28%, #a78bfa 55%, #22d3ee 78%, #ffffff 100%);
+            background: linear-gradient(90deg, #4FD8EB 0%, #2E9BFF 28%, #A78BFA 55%, #2E9BFF 78%, #4FD8EB 100%);
             background-size: 200% auto;
             background-clip: text;
             -webkit-background-clip: text;
@@ -104,7 +104,7 @@
         }
 
         .value-card {
-            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
+            background: var(--surface-card);
             border: 1px solid var(--line-soft);
             border-radius: var(--radius-lg);
             padding: 32px 26px 28px 26px;
@@ -118,14 +118,14 @@
         }
 
         .value-card.visible { opacity: 1; transform: translateY(0); }
-        .value-card:hover { border-color: rgba(6,182,212,0.28); box-shadow: 0 0 20px rgba(6,182,212,0.11), var(--shadow-soft); }
+        .value-card:hover { border-color: rgba(79,216,235,0.28); box-shadow: 0 8px 28px rgba(79,216,235,0.14); }
 
         .value-card::before {
             content: '';
             position: absolute;
             left: 20px; right: 20px; top: 0;
             height: 3px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.04));
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(79,216,235,0.12));
             border-radius: 0 0 6px 6px;
         }
 
@@ -133,7 +133,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(6,182,212,0.06) 0, transparent 32%);
+            background: linear-gradient(135deg, rgba(79,216,235,0.07) 0, transparent 32%);
             pointer-events: none;
         }
 
@@ -143,9 +143,9 @@
 
         /* ── Quote institucional ── */
         .quote-block {
-            background: linear-gradient(135deg, rgba(6,182,212,0.08) 0%, rgba(139,92,246,0.05) 50%, transparent 70%),
-                        linear-gradient(180deg, rgba(22,25,29,0.98) 0%, rgba(14,16,19,0.99) 100%);
-            border: 1px solid rgba(6,182,212,0.25);
+            background: linear-gradient(135deg, rgba(79,216,235,0.1) 0%, rgba(79,216,235,0.05) 50%, transparent 70%),
+                        var(--surface-card);
+            border: 1px solid rgba(79,216,235,0.25);
             border-radius: var(--radius-xl);
             padding: 52px 60px;
             text-align: center;
@@ -163,7 +163,7 @@
             position: absolute;
             left: 40px; right: 40px; top: 0;
             height: 5px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--accent-violet), rgba(139,92,246,0.06));
+            background: linear-gradient(to right, var(--cyan-electric), var(--accent-violet), rgba(79,216,235,0.12));
             border-radius: 0 0 10px 10px;
         }
 
@@ -172,15 +172,15 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(circle at 15% 20%, rgba(6,182,212,0.10) 0, transparent 30%),
-                radial-gradient(circle at 85% 80%, rgba(139,92,246,0.08) 0, transparent 28%);
+                radial-gradient(circle at 15% 20%, rgba(79,216,235,0.1) 0, transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(79,216,235,0.06) 0, transparent 28%);
             pointer-events: none;
         }
 
-        .quote-mark { font-family: 'Montserrat', sans-serif; font-size: 5rem; line-height: 0.6; color: var(--cyan-electric); opacity: 0.25; display: block; margin-bottom: 20px; position: relative; z-index: 1; }
+        .quote-mark { font-family: 'Open Sans', sans-serif; font-size: 5rem; line-height: 0.6; color: var(--cyan-electric); opacity: 0.25; display: block; margin-bottom: 20px; position: relative; z-index: 1; }
 
         .quote-text {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: clamp(1.05rem, 2.2vw, 1.55rem);
             font-weight: 800;
             color: var(--text-main);
@@ -198,7 +198,7 @@
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
 
         .contact-card {
-            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
+            background: var(--surface-card);
             border: 1px solid var(--line-soft);
             border-radius: var(--radius-lg);
             padding: 36px 32px;
@@ -210,18 +210,18 @@
         }
 
         .contact-card.visible { opacity: 1; transform: translateY(0); }
-        .contact-card:hover { border-color: rgba(6,182,212,0.28); box-shadow: 0 0 20px rgba(6,182,212,0.10), var(--shadow-soft); }
+        .contact-card:hover { border-color: rgba(79,216,235,0.28); box-shadow: 0 8px 28px rgba(79,216,235,0.14); }
 
         .contact-card::before {
             content: '';
             position: absolute;
             left: 24px; right: 24px; top: 0;
             height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.05));
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(79,216,235,0.12));
             border-radius: 0 0 8px 8px;
         }
 
-        .contact-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.04) 0, transparent 28%); pointer-events: none; }
+        .contact-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(79,216,235,0.07) 0, transparent 28%); pointer-events: none; }
 
         .contact-icon { font-size: 2rem; color: var(--accent-cyan); margin-bottom: 16px; display: block; position: relative; z-index: 1; }
         .contact-card h4 { font-size: 0.98rem; color: var(--text-main); margin-bottom: 10px; position: relative; z-index: 1; }
@@ -254,7 +254,7 @@
         }
 
         .selector-card {
-            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
+            background: var(--surface-card);
             border: 1px solid var(--line-soft);
             border-radius: var(--radius-lg);
             padding: 36px 32px;
@@ -265,27 +265,27 @@
             transition: border-color 0.25s ease, box-shadow 0.35s ease, transform 0.22s ease;
         }
 
-        .selector-card:hover { border-color: rgba(6,182,212,0.32); box-shadow: 0 0 24px rgba(6,182,212,0.13), var(--shadow-soft); transform: translateY(-3px); }
+        .selector-card:hover { border-color: rgba(79,216,235,0.32); box-shadow: 0 8px 28px rgba(79,216,235,0.14); transform: translateY(-3px); }
 
         .selector-card::before {
             content: '';
             position: absolute;
             left: 24px; right: 24px; top: 0;
             height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.05));
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(79,216,235,0.12));
             border-radius: 0 0 8px 8px;
         }
 
-        .selector-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.04) 0, transparent 28%); pointer-events: none; }
+        .selector-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(79,216,235,0.07) 0, transparent 28%); pointer-events: none; }
 
         .selector-card-featured {
-            border-color: rgba(6,182,212,0.32);
-            box-shadow: 0 0 32px rgba(6,182,212,0.15), var(--shadow-strong);
-            background: linear-gradient(180deg, rgba(6,182,212,0.08) 0%, rgba(22,25,29,0.96) 18%, rgba(14,16,19,0.98) 100%);
+            border-color: rgba(79,216,235,0.32);
+            box-shadow: var(--shadow-strong);
+            background: linear-gradient(180deg, rgba(79,216,235,0.14) 0%, rgba(22,35,58,0.95) 18%, rgba(13,21,36,0.98) 100%);
         }
 
         .selector-card-featured::before { background: linear-gradient(to right, var(--accent-cyan), var(--accent-violet)); height: 5px; }
-        .selector-card-featured:hover { box-shadow: 0 0 44px rgba(6,182,212,0.24), var(--shadow-strong); }
+        .selector-card-featured:hover { box-shadow: 0 12px 40px rgba(79,216,235,0.18); }
 
         .selector-card-icon { font-size: 2rem; color: var(--accent-cyan); margin-bottom: 20px; display: block; position: relative; z-index: 1; }
 
@@ -303,9 +303,9 @@
         .selector-price { margin-bottom: 28px; position: relative; z-index: 1; }
 
         .price-display {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: clamp(1.8rem, 3vw, 2.6rem);
-            font-weight: 900;
+            font-weight: 800;
             color: var(--accent-cyan);
             letter-spacing: -0.04em;
             line-height: 1;
@@ -318,12 +318,12 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .price-period { display: block; font-size: 0.88rem; color: var(--text-muted); font-weight: 500; margin-top: 4px; font-family: 'Inter', sans-serif; }
+        .price-period { display: block; font-size: 0.88rem; color: var(--text-muted); font-weight: 400; margin-top: 4px; font-family: 'Open Sans', sans-serif; }
 
         .selector-btn { width: 100%; justify-content: center; position: relative; z-index: 1; }
         .btn-outline.selector-btn { background: none; }
 
-        .membership-tier-badge-featured { background: rgba(6,182,212,0.14) !important; border-color: rgba(6,182,212,0.42) !important; }
+        .membership-tier-badge-featured { background: rgba(79,216,235,0.14) !important; border-color: rgba(79,216,235,0.42) !important; }
 
         /* ── Navegación entre pasos ── */
         .step-nav {
@@ -341,18 +341,18 @@
             gap: 8px;
             padding: 10px 20px;
             border-radius: 999px;
-            background: rgba(255,255,255,0.04);
+            background: rgba(79,216,235,0.05);
             border: 1px solid var(--line-soft);
             color: var(--text-muted);
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.82rem;
             font-weight: 700;
-            letter-spacing: 0.07em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             transition: all 0.22s ease;
         }
 
-        .step-back-btn:hover { background: rgba(6,182,212,0.08); border-color: rgba(6,182,212,0.32); color: var(--accent-cyan); }
+        .step-back-btn:hover { background: rgba(79,216,235,0.08); border-color: rgba(79,216,235,0.32); color: var(--accent-cyan); }
 
         .step-indicator {
             display: inline-flex;
@@ -360,11 +360,11 @@
             gap: 8px;
             padding: 8px 18px;
             border-radius: 999px;
-            background: rgba(6,182,212,0.08);
-            border: 1px solid rgba(6,182,212,0.30);
+            background: rgba(79,216,235,0.08);
+            border: 1px solid rgba(79,216,235,0.30);
             font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--accent-cyan);
         }
@@ -372,7 +372,7 @@
         /* ── Glass shell compartido ── */
         .benefits-shell,
         .form-shell {
-            background: linear-gradient(180deg, rgba(13,15,18,0.74) 0%, rgba(8,10,12,0.80) 100%);
+            background: var(--surface-card);
             border: 1px solid var(--line-soft);
             border-radius: var(--radius-lg);
             padding: 44px 52px;
@@ -389,7 +389,7 @@
             position: absolute;
             left: 24px; right: 24px; top: 0;
             height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.06));
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(79,216,235,0.12));
             border-radius: 0 0 8px 8px;
         }
 
@@ -398,7 +398,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(6,182,212,0.06) 0, transparent 32%);
+            background: linear-gradient(135deg, rgba(79,216,235,0.07) 0, transparent 32%);
             pointer-events: none;
         }
 
@@ -440,10 +440,10 @@
         .form-group select {
             width: 100%;
             border: 1px solid var(--line-soft);
-            border-radius: 12px;
+            border-radius: var(--radius-btn);
             padding: 12px 16px;
             color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.95rem;
             line-height: 1.5;
             outline: none;
@@ -457,37 +457,37 @@
         .form-group input[type="email"],
         .form-group input[type="tel"],
         .form-group input[type="number"] {
-            background: rgba(255,255,255,0.04);
+            background: #101A2C;
         }
 
         .form-group input::placeholder { color: var(--text-muted); opacity: 0.55; }
 
         /* Select: fondo + flecha SVG */
         .form-group select {
-            background-color: rgba(255,255,255,0.04);
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%2398A0A8' fill='none' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-color: #101A2C;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%2393A5B8' fill='none' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 14px center;
             padding-right: 40px;
             cursor: pointer;
         }
 
-        .form-group select option { background: #0d0f12; color: var(--text-main); }
+        .form-group select option { background: #101A2C; color: var(--text-main); }
 
         /* Focus */
         .form-group input[type="text"]:focus,
         .form-group input[type="email"]:focus,
         .form-group input[type="tel"]:focus,
         .form-group input[type="number"]:focus {
-            background: rgba(6,182,212,0.03);
-            border-color: rgba(6,182,212,0.55);
-            box-shadow: 0 0 0 3px rgba(6,182,212,0.10);
+            background: #16233A;
+            border-color: rgba(79,216,235,0.55);
+            box-shadow: 0 0 0 3px rgba(79,216,235,0.12);
         }
 
         .form-group select:focus {
-            background-color: rgba(6,182,212,0.03);
-            border-color: rgba(6,182,212,0.55);
-            box-shadow: 0 0 0 3px rgba(6,182,212,0.10);
+            background-color: #16233A;
+            border-color: rgba(79,216,235,0.55);
+            box-shadow: 0 0 0 3px rgba(79,216,235,0.12);
         }
 
         /* Ocultar spinners en inputs numéricos */
@@ -498,11 +498,11 @@
         /* Error states */
         .form-group input.input-error,
         .form-group select.input-error {
-            border-color: rgba(239,68,68,0.60);
-            box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+            border-color: rgba(248,113,113,0.55);
+            box-shadow: 0 0 0 3px rgba(248,113,113,0.08);
         }
 
-        .field-error { display: block; font-size: 0.80rem; color: #f87171; margin-top: 5px; min-height: 16px; line-height: 1.4; }
+        .field-error { display: block; font-size: 0.80rem; color: #F87171; margin-top: 5px; min-height: 16px; line-height: 1.4; }
 
         /* ── Grupos de campos condicionales ── */
         .form-fields-conditional { display: none; }
@@ -542,8 +542,8 @@
             max-width: 620px;
             margin: 0 auto;
             padding: 64px 44px;
-            background: linear-gradient(180deg, rgba(6,182,212,0.07) 0%, rgba(13,15,18,0.80) 100%);
-            border: 1px solid rgba(6,182,212,0.22);
+            background: linear-gradient(180deg, rgba(79,216,235,0.13) 0%, rgba(13,21,36,0.96) 100%);
+            border: 1px solid rgba(79,216,235,0.22);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-soft);
             position: relative;
@@ -563,7 +563,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 0%, rgba(6,182,212,0.12) 0, transparent 50%);
+            background: radial-gradient(circle at 50% 0%, rgba(79,216,235,0.1) 0, transparent 50%);
             pointer-events: none;
         }
 
@@ -574,7 +574,6 @@
             margin-bottom: 24px;
             position: relative;
             z-index: 1;
-            filter: drop-shadow(0 0 20px rgba(6,182,212,0.40));
         }
 
         .success-shell h2 { font-size: 1.4rem; color: var(--text-main); margin-bottom: 16px; position: relative; z-index: 1; }
@@ -586,7 +585,7 @@
         .step-back-btn:focus-visible {
             outline: 2px solid var(--accent-cyan);
             outline-offset: 3px;
-            box-shadow: 0 0 0 4px rgba(6,182,212,0.20);
+            box-shadow: 0 0 0 4px rgba(79,216,235,0.20);
         }
 
         /* Precio en panel de beneficios: bloque separado del período */
@@ -597,80 +596,9 @@
 
         /* ── Toggle tipo de membresía ── */
         .type-toggle { display: flex; gap: 8px; margin-top: 8px; }
-        .type-btn { flex: 1; padding: 12px; border: 1px solid var(--line-soft); border-radius: 10px; background: transparent; color: var(--text-muted); font-size: 0.93rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
-        .type-btn.active { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(6,182,212,0.07); }
-        .type-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--text-main); }
-
-        /* ── Cómo funciona (flyers) ── */
-        .procedure-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            max-width: 980px;
-            margin: 40px auto 0;
-        }
-        .procedure-card {
-            margin: 0;
-            border: 1px solid var(--line-soft);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            cursor: pointer;
-            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
-            transition: border-color 0.25s ease, box-shadow 0.35s ease, transform 0.25s ease;
-        }
-        .procedure-card:hover {
-            border-color: rgba(6,182,212,0.32);
-            box-shadow: 0 0 16px rgba(6,182,212,0.10);
-            transform: translateY(-3px);
-        }
-        .procedure-card img {
-            display: block;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: contain;
-            background: #0b0d10;
-        }
-        .procedure-card figcaption {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 14px 18px;
-            border-top: 1px solid var(--line-soft);
-        }
-        .procedure-label { font-size: 0.95rem; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
-        .procedure-label i { color: var(--accent-cyan); }
-        .procedure-hint { font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; }
-
-        /* ── Lightbox ── */
-        .flyer-lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 2000;
-            background: rgba(0,0,0,0.92);
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            cursor: zoom-out;
-        }
-        .flyer-lightbox.open { display: flex; }
-        .flyer-lightbox img {
-            max-width: 95vw;
-            max-height: 92vh;
-            object-fit: contain;
-            border-radius: var(--radius-md);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-        }
-        .flyer-lightbox-close {
-            position: absolute;
-            top: 20px; right: 24px;
-            background: none; border: none;
-            color: #fff; font-size: 2rem;
-            cursor: pointer; line-height: 1;
-            opacity: 0.75; transition: opacity 0.2s;
-        }
-        .flyer-lightbox-close:hover { opacity: 1; }
+        .type-btn { flex: 1; padding: 12px; border: 1px solid var(--line-soft); border-radius: var(--radius-btn); background: transparent; color: var(--text-muted); font-size: 0.93rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+        .type-btn.active { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(79,216,235,0.07); }
+        .type-btn:hover:not(.active) { border-color: rgba(79,216,235,0.30); color: var(--text-main); }
 
         /* ── Próximamente ── */
         .coming-soon-shell {
@@ -678,8 +606,8 @@
             max-width: 620px;
             margin: 0 auto;
             padding: 64px 44px;
-            background: linear-gradient(180deg, rgba(6,182,212,0.06) 0%, rgba(13,15,18,0.80) 100%);
-            border: 1px solid rgba(6,182,212,0.20);
+            background: linear-gradient(180deg, rgba(79,216,235,0.11) 0%, rgba(13,21,36,0.96) 100%);
+            border: 1px solid rgba(79,216,235,0.20);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-soft);
             position: relative;
@@ -691,7 +619,7 @@
             position: absolute;
             left: 24px; right: 24px; top: 0;
             height: 4px;
-            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(139,92,246,0.06));
+            background: linear-gradient(to right, var(--cyan-electric), var(--violet-electric), rgba(79,216,235,0.12));
             border-radius: 0 0 8px 8px;
         }
 
@@ -699,7 +627,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 0%, rgba(6,182,212,0.10) 0, transparent 50%);
+            background: radial-gradient(circle at 50% 0%, rgba(79,216,235,0.09) 0, transparent 50%);
             pointer-events: none;
         }
 
@@ -733,6 +661,124 @@
 
         .coming-soon-shell .btn-cta { position: relative; z-index: 1; }
 
+        /* ════════════════════════════════════════════
+           MANUAL DE INCORPORACIÓN
+           ════════════════════════════════════════════ */
+
+        .manual-section {
+            --acc: #4FD8EB; --acc-strong: #4FD8EB;
+            --acc-08: rgba(79,216,235,0.08); --acc-12: rgba(79,216,235,0.12);
+            --acc-24: rgba(79,216,235,0.24); --acc-30: rgba(79,216,235,0.30); --acc-40: rgba(79,216,235,0.40);
+        }
+
+        .manual-head { text-align: center; margin-bottom: 40px; }
+        .manual-kicker {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 7px 16px; border-radius: 999px;
+            background: var(--acc-08);
+            border: 1px solid var(--acc-30);
+            font-size: 0.74rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+            color: var(--acc); margin-bottom: 18px;
+        }
+        .manual-head h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--text-main); margin-bottom: 10px; }
+        .manual-head p { font-size: 1rem; color: var(--text-muted); max-width: 640px; margin: 0 auto; }
+
+        /* ── Línea de tiempo vertical (7 pasos, siempre visibles) ── */
+        .flow-timeline { list-style: none; max-width: 720px; margin: 0 auto; padding: 0; }
+        .flow-step {
+            display: flex; gap: 20px; position: relative;
+            padding-bottom: 20px;
+        }
+        /* Conector vertical entre pasos */
+        .flow-step::before {
+            content: ''; position: absolute; left: 25px; top: 52px; bottom: -2px; width: 2px;
+            background: var(--line-soft); z-index: 0;
+        }
+        .flow-step:last-child { padding-bottom: 0; }
+        .flow-step:last-child::before { display: none; }
+        .flow-marker {
+            position: relative; z-index: 1; flex-shrink: 0;
+            width: 52px; height: 52px; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 1.15rem; color: #001F25;
+            background: linear-gradient(135deg, var(--acc-strong), var(--violet-electric));
+            box-shadow: 0 4px 14px var(--acc-24);
+        }
+        .flow-body {
+            flex: 1;
+            background: var(--surface-card);
+            border: 1px solid var(--line-soft); border-radius: var(--radius-md);
+            padding: 18px 22px;
+            transition: border-color 0.22s ease, box-shadow 0.3s ease;
+        }
+        .flow-body:hover { border-color: var(--acc-30); box-shadow: 0 6px 18px var(--acc-12); }
+        .flow-step-num {
+            display: inline-block;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--acc); margin-bottom: 4px;
+        }
+        .flow-body h3 { font-size: 1.08rem; color: var(--text-main); margin: 0 0 6px; }
+        .flow-body p { font-size: 0.94rem; color: var(--text-soft); margin: 0; line-height: 1.6; }
+
+        /* ── Callouts ── */
+        .manual-callout {
+            display: flex; gap: 16px; align-items: flex-start;
+            max-width: 760px; margin: 28px auto 0;
+            padding: 22px 26px; border-radius: var(--radius-md);
+            background: var(--acc-08);
+            border: 1px solid var(--acc-24);
+            border-left-width: 5px;
+        }
+        .manual-callout i { color: var(--acc); font-size: 1.3rem; margin-top: 2px; flex-shrink: 0; }
+        .manual-callout p { margin: 0; font-size: 0.94rem; color: var(--text-soft); line-height: 1.6; }
+        .manual-callout strong { color: var(--text-main); }
+        .manual-callout.is-warn { background: rgba(251,191,36,0.06); border-color: rgba(251,191,36,0.32); }
+        .manual-callout.is-warn i { color: #FBBF24; }
+
+        /* ── Sub-bloques (modalidades, capas) ── */
+        .manual-subtitle { text-align: center; font-size: 1.12rem; font-weight: 800; color: var(--text-main); margin: 52px 0 8px; }
+        .manual-subtitle-note { text-align: center; font-size: 0.86rem; color: var(--text-muted); margin: 0 auto 26px; max-width: 560px; }
+
+        .info-grid { display: grid; gap: 18px; max-width: 920px; margin: 0 auto; }
+        .info-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .info-grid.cols-2 { grid-template-columns: repeat(2, 1fr); max-width: 760px; }
+
+        .info-card {
+            background: var(--surface-card);
+            border: 1px solid var(--line-soft); border-radius: var(--radius-md);
+            padding: 24px 22px; position: relative; overflow: hidden;
+            transition: border-color 0.22s ease, box-shadow 0.3s ease;
+        }
+        .info-card:hover { border-color: var(--acc-30); box-shadow: 0 6px 18px var(--acc-12); }
+        .info-card .ic-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .info-card .ic-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+            background: var(--acc-12);
+            border: 1px solid var(--acc-30);
+            color: var(--acc); font-size: 1.05rem;
+        }
+        .info-card .ic-tag { font-family: 'Open Sans', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--acc); }
+        .info-card h4 { font-size: 1rem; color: var(--text-main); margin: 0; }
+        .info-card p { font-size: 0.9rem; color: var(--text-muted); margin: 0; line-height: 1.55; }
+
+        /* ── Banda inferior "Trabajo por verticales" ── */
+        .manual-band {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+            gap: 12px 26px; max-width: 920px; margin: 40px auto 0;
+            padding: 18px 26px; border-radius: 999px;
+            background: var(--acc-08);
+            border: 1px solid var(--acc-24);
+            text-align: center;
+        }
+        .manual-band .mb-item { display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--text-soft); }
+        .manual-band .mb-item i { color: var(--acc); }
+        .manual-band .mb-item strong { color: var(--text-main); }
+        .manual-band .mb-sep { width: 1px; height: 18px; background: var(--line-mid); }
+
+        /* Selector de plan: 2 columnas en escritorio (default de .membership-grid es 3) */
+        #plan-selector .membership-grid { grid-template-columns: repeat(2, 1fr); }
+
         /* ── Responsive ── */
         @media (max-width: 1024px) {
             .inner-section { padding: 60px 28px; }
@@ -744,13 +790,23 @@
             .page-hero .section-shell { padding: 44px 22px; }
             .inner-section { padding: 44px 18px; }
             .value-grid { grid-template-columns: 1fr; gap: 14px; }
+            #plan-selector .membership-grid { grid-template-columns: 1fr; gap: 18px; }
+            /* Anular el order:-1 de shared.css: acá va Individual primero, luego Corporativa */
+            #plan-selector .membership-card-featured { order: 0; }
             .contact-grid { grid-template-columns: 1fr; }
-            .procedure-grid { grid-template-columns: 1fr; gap: 16px; }
             .quote-block { padding: 36px 24px; }
             .quote-text { font-size: 1rem; }
             .coming-soon-shell { padding: 44px 24px; }
             .coming-soon-shell h2 { font-size: 1.2rem; }
+
+            .info-grid.cols-3, .info-grid.cols-2 { grid-template-columns: 1fr; }
+            .flow-step { gap: 14px; }
+            .flow-marker { width: 44px; height: 44px; font-size: 1rem; }
+            .flow-step::before { left: 21px; top: 46px; }
+            .manual-band { border-radius: var(--radius-md); flex-direction: column; gap: 12px; }
+            .manual-band .mb-sep { display: none; }
         }
+
     </style>
 </head>
 <body>
@@ -815,27 +871,6 @@
             </div>
         </div>
     </div>
-
-    <!-- ── CÓMO FUNCIONA ── -->
-    <div class="inner-section" style="padding-top: 0;">
-        <div class="content-wrapper">
-            <div class="section-shell">
-                <h2 class="section-title">¿Cómo funciona ENE IA LAB?</h2>
-                <p class="section-subtitle">El circuito de cada vertical y el camino para sumarte como miembro.</p>
-                <div class="procedure-grid">
-                    <figure class="procedure-card" onclick="abrirFlyer('imagenes/incorporacion-miembros-ialab.jpeg')">
-                        <img src="imagenes/incorporacion-miembros-ialab.jpeg" alt="Procedimiento de incorporación de miembros" loading="lazy">
-                        <figcaption><span class="procedure-label"><i class="fas fa-user-plus"></i> Incorporación de miembros</span><span class="procedure-hint">Click para ampliar</span></figcaption>
-                    </figure>
-                    <figure class="procedure-card" onclick="abrirFlyer('imagenes/gestion-interna-ialab.jpeg')">
-                        <img src="imagenes/gestion-interna-ialab.jpeg" alt="Procedimiento de gestión interna de los verticales" loading="lazy">
-                        <figcaption><span class="procedure-label"><i class="fas fa-sitemap"></i> Gestión interna de verticales</span><span class="procedure-hint">Click para ampliar</span></figcaption>
-                    </figure>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- ── INSCRIPCIONES ── -->
     <div id="membresias" class="inner-section" style="padding-top: 0;">
         <div class="content-wrapper">
@@ -844,7 +879,7 @@
             <div id="plan-selector">
                 <h2 class="section-title" style="margin-bottom: 8px;">Elegí tu membresía</h2>
                 <p class="section-subtitle" style="margin-bottom: 40px;">Ciclo 2026 · Mayo – Noviembre</p>
-                <div class="membership-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 860px; margin: 0 auto;">
+                <div class="membership-grid" style="max-width: 860px; margin: 0 auto;">
 
                     <div class="membership-card visible">
                         <div class="membership-tier-badge"><i class="fas fa-user"></i> Individual</div>
@@ -886,7 +921,7 @@
 
                 <div style="text-align: center; margin-top: 40px;">
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfKbQ0xR07_298QxKPhGown1UXUT-OD-1MMUlR9BYupf1YaJQ/viewform"
-                       target="_blank" rel="noopener" class="btn-cta">
+                       target="_blank" rel="noopener" class="btn-cta" data-form-postulacion>
                         <i class="fas fa-arrow-right"></i> Quiero inscribirme
                     </a>
                 </div>
@@ -894,6 +929,134 @@
 
         </div>
     </div>
+
+    <!-- ── MANUAL DE INCORPORACIÓN ── -->
+    <section class="inner-section manual-section" style="padding-top: 0;">
+        <div class="content-wrapper">
+            <div class="section-shell">
+                <div class="manual-head">
+                    <span class="manual-kicker"><i class="fas fa-user-plus"></i> Incorporación de miembros</span>
+                    <h2>Cómo es la incorporación</h2>
+                    <p>Del registro a la participación activa, paso a paso.</p>
+                </div>
+
+                <!-- Línea de tiempo vertical: 7 pasos siempre visibles -->
+                <ol class="flow-timeline">
+                    <li class="flow-step">
+                        <span class="flow-marker"><i class="fas fa-globe"></i></span>
+                        <div class="flow-body">
+                            <span class="flow-step-num">Paso 1</span>
+                            <h3>Sitio web oficial</h3>
+                            <p>Puerta de entrada única.</p>
+                        </div>
+                    </li>
+                    <li class="flow-step">
+                        <span class="flow-marker"><i class="fas fa-pen-to-square"></i></span>
+                        <div class="flow-body">
+                            <span class="flow-step-num">Paso 2</span>
+                            <h3>Formulario de postulación</h3>
+                            <p>Perfil + experiencia en IA + intención de participar. En este mismo formulario el postulante indica el tipo de membresía: Individual o Corporativa.</p>
+                        </div>
+                    </li>
+                    <li class="flow-step">
+                        <span class="flow-marker"><i class="fas fa-circle-check"></i></span>
+                        <div class="flow-body">
+                            <span class="flow-step-num">Paso 3</span>
+                            <h3>Confirmación automática</h3>
+                            <p>La postulación fue recibida.</p>
+                        </div>
+                    </li>
+                    <li class="flow-step">
+                        <span class="flow-marker"><i class="fas fa-magnifying-glass"></i></span>
+                        <div class="flow-body">
+                            <span class="flow-step-num">Paso 4</span>
+                            <h3>Evaluación interna</h3>
+                            <p>Perfil, vertical, experiencia, disponibilidad y necesidades.</p>
+                        </div>
+                    </li>
+                    <li class="flow-step">
+                        <span class="flow-marker"><i class="fas fa-id-card"></i></span>
+                        <div class="flow-body">
+                            <span class="flow-step-num">Paso 5</span>
+                            <h3>Elección de plan</h3>
+                            <p>Según lo indicado en el formulario, se define la membresía: Individual o Corporativa.</p>
+                        </div>
+                    </li>
+                    <li class="flow-step">
+                        <span class="flow-marker"><i class="fas fa-comment-dots"></i></span>
+                        <div class="flow-body">
+                            <span class="flow-step-num">Paso 6</span>
+                            <h3>Comunicación de aceptación</h3>
+                            <p>Se informa la modalidad de vinculación.</p>
+                        </div>
+                    </li>
+                    <li class="flow-step">
+                        <span class="flow-marker"><i class="fas fa-key"></i></span>
+                        <div class="flow-body">
+                            <span class="flow-step-num">Paso 7</span>
+                            <h3>Credenciales y acceso</h3>
+                            <p>Usuario, contraseña y permisos según categoría.</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <!-- Aclaración: dos ejes que conviven -->
+                <div class="manual-callout">
+                    <i class="fas fa-circle-info"></i>
+                    <p>El <strong>plan</strong> (Individual o Corporativa) es el tipo de membresía que contratás. La <strong>modalidad de participación</strong> (Experto activo / Experto conectado / No experto) describe tu nivel de involucramiento en el vertical. Son ejes distintos y se complementan.</p>
+                </div>
+
+                <!-- Importante -->
+                <div class="manual-callout is-warn">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    <p><strong>Importante:</strong> la confirmación inicial no implica incorporación definitiva ni asignación de vertical.</p>
+                </div>
+
+                <!-- Modalidades de participación -->
+                <h3 class="manual-subtitle">Modalidades de participación</h3>
+                <p class="manual-subtitle-note">Tu nivel de involucramiento dentro del vertical. Es información, no un test.</p>
+                <div class="info-grid cols-3">
+                    <div class="info-card">
+                        <div class="ic-head"><span class="ic-badge"><i class="fas fa-chart-line"></i></span><span class="ic-tag">A</span></div>
+                        <h4>Experto activo</h4>
+                        <p>Participa en encuentros internos, análisis de casos y líneas de investigación.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="ic-head"><span class="ic-badge"><i class="fas fa-rss"></i></span><span class="ic-tag">B</span></div>
+                        <h4>Experto conectado</h4>
+                        <p>Recibe contenidos, documentos y novedades de la comunidad.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="ic-head"><span class="ic-badge"><i class="fas fa-lock"></i></span><span class="ic-tag">C</span></div>
+                        <h4>No experto</h4>
+                        <p>Accede a información pública y actividades abiertas.</p>
+                    </div>
+                </div>
+
+                <!-- Acceso por capas -->
+                <h3 class="manual-subtitle">Acceso por capas</h3>
+                <div class="info-grid cols-2">
+                    <div class="info-card">
+                        <div class="ic-head"><span class="ic-badge"><i class="fas fa-globe"></i></span><h4>Capa pública</h4></div>
+                        <p>Identidad, objetivos, verticales, actividades abiertas, publicaciones y documentos públicos.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="ic-head"><span class="ic-badge"><i class="fas fa-folder"></i></span><h4>Capa privada por vertical</h4></div>
+                        <p>Agenda, novedades, investigación, documentos internos y materiales de referencia.</p>
+                    </div>
+                </div>
+
+                <!-- Banda inferior -->
+                <div class="manual-band">
+                    <span class="mb-item"><i class="fas fa-layer-group"></i> <strong>Trabajo por verticales</strong></span>
+                    <span class="mb-sep"></span>
+                    <span class="mb-item">12 comunidades organizadas por vertical</span>
+                    <span class="mb-sep"></span>
+                    <span class="mb-item">la asignación se define durante la evaluación interna</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ── MENSAJE INSTITUCIONAL ── -->
     <div class="inner-section" style="padding-top: 0;">
@@ -938,17 +1101,15 @@
         </div>
     </div>
 
-    <!-- ── Lightbox flyers ── -->
-    <div class="flyer-lightbox" id="flyer-lightbox">
-        <button type="button" class="flyer-lightbox-close" id="flyer-close" aria-label="Cerrar">&times;</button>
-        <img id="flyer-lightbox-img" src="" alt="Procedimiento ampliado">
-    </div>
-
     <div id="footer-root"></div>
 
     <script src="/js/layout.js"></script>
     <script>
         'use strict';
+
+        // ── Formulario único de postulación (Individual o Corporativa se eligen dentro) ──
+        const FORM_POSTULACION = "https://docs.google.com/forms/d/e/1FAIpQLSfKbQ0xR07_298QxKPhGown1UXUT-OD-1MMUlR9BYupf1YaJQ/viewform";
+        document.querySelectorAll('[data-form-postulacion]').forEach(a => { a.href = FORM_POSTULACION; });
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -959,24 +1120,6 @@
         document.querySelectorAll(
             '.section-title, .section-subtitle, .mission-box, .value-card, .contact-card, .quote-block'
         ).forEach(el => observer.observe(el));
-
-        // ── Lightbox de flyers ──
-        const flyerBox = document.getElementById('flyer-lightbox');
-        const flyerImg = document.getElementById('flyer-lightbox-img');
-
-        function abrirFlyer(src) {
-            flyerImg.src = src;
-            flyerBox.classList.add('open');
-        }
-        function cerrarFlyer() {
-            flyerBox.classList.remove('open');
-            flyerImg.src = '';
-        }
-        flyerBox.addEventListener('click', cerrarFlyer);
-        document.getElementById('flyer-close').addEventListener('click', cerrarFlyer);
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && flyerBox.classList.contains('open')) cerrarFlyer();
-        });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {

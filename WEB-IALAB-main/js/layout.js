@@ -8,15 +8,16 @@ function injectNav() {
       <div class="nav-left">
         <a href="/index.html" class="nav-logo">
           <img src="/imagenes/LOGOIALAB.png" alt="ENE IA LAB"
-               style="height:36px;width:auto;object-fit:contain;filter:invert(1);">
+               style="height:36px;width:auto;object-fit:contain;">
         </a>
       </div>
-      <div class="nav-right">
-        <ul class="nav-links">
-          <li><a href="/metodologia.html"   class="nav-link-page">Metodología</a></li>
-          <li><a href="/eventos.html"        class="nav-link-page">Eventos</a></li>
-          <li><a href="/publicaciones.html"  class="nav-link-page">Publicaciones</a></li>
-        </ul>
+      <ul class="nav-links">
+        <li><a href="/index.html#screen2-verticales" class="nav-link-page">Verticales</a></li>
+        <li><a href="/metodologia.html"   class="nav-link-page">Metodología</a></li>
+        <li><a href="/eventos.html"        class="nav-link-page">Eventos</a></li>
+        <li><a href="/publicaciones.html"  class="nav-link-page">Publicaciones</a></li>
+      </ul>
+      <div class="nav-actions">
         <a href="/membresia.html" class="nav-cta-btn">
           <i class="fas fa-users"></i> Sumate
         </a>
@@ -25,11 +26,6 @@ function injectNav() {
         </a>
       </div>
     </nav>`;
-
-  // Si hay video intro y estamos en el tope, empezar oculto sin flash de transición
-  if (document.getElementById('video-intro') && window.scrollY === 0) {
-    root.querySelector('nav').classList.add('hidden');
-  }
 
   // Marcar link activo según pathname
   const path = location.pathname;
@@ -48,7 +44,7 @@ function injectFooter() {
     <footer>
       <div class="footer-logo">
         <img src="/imagenes/LOGOIALAB.png" alt="IA LAB Logo"
-             style="height:38px;width:auto;object-fit:contain;filter:invert(1);">
+             style="height:38px;width:auto;object-fit:contain;">
         <span>2026</span>
       </div>
       <div class="footer-links">
@@ -66,7 +62,19 @@ function injectFooter() {
     </footer>`;
 }
 
+// Fondo global: foto del edificio ENE + velo oscuro (estilos en css/shared.css)
+function injectBackground() {
+  if (document.getElementById('bg-photo')) return; // index.html ya los trae en el HTML
+  const overlay = document.createElement('div');
+  overlay.id = 'bg-overlay';
+  document.body.prepend(overlay);
+  const photo = document.createElement('div');
+  photo.id = 'bg-photo';
+  document.body.prepend(photo);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  injectBackground();
   injectNav();
   injectFooter();
 });

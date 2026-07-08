@@ -22,7 +22,8 @@
     <meta name="twitter:title" content="Metodología – ENE IA LAB 2026" />
     <meta name="twitter:description" content="Cómo trabajamos en ENE IA LAB: la metodología del Laboratorio Vivo para llevar la IA a problemas reales." />
     <meta name="twitter:image" content="https://ialab.eneneuquen.com.ar/imagenes/POLO3.webp" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#060B14" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css">
 
@@ -39,22 +40,22 @@
             text-align: center;
             padding: 72px 60px;
             background:
-                radial-gradient(ellipse 70% 50% at 50% 5%, rgba(139,92,246,0.22) 0, transparent 65%),
-                radial-gradient(ellipse 40% 30% at 88% 88%, rgba(6,182,212,0.18) 0, transparent 60%),
-                radial-gradient(ellipse 28% 22% at 8% 75%, rgba(139,92,246,0.12) 0, transparent 50%),
-                linear-gradient(180deg, rgba(16,18,22,0.93) 0%, rgba(8,9,11,0.98) 100%);
-            box-shadow: var(--shadow-strong), 0 0 80px rgba(139,92,246,0.04);
+                radial-gradient(ellipse 70% 50% at 50% 5%, rgba(79,216,235,0.2) 0, transparent 65%),
+                radial-gradient(ellipse 40% 30% at 88% 88%, rgba(79,216,235,0.14) 0, transparent 60%),
+                radial-gradient(ellipse 28% 22% at 8% 75%, rgba(79,216,235,0.09) 0, transparent 50%),
+                linear-gradient(165deg, rgba(13,22,38,0.94) 0%, rgba(16,26,44,0.90) 55%, rgba(6,11,20,0.96) 100%);
+            box-shadow: var(--shadow-strong);
         }
 
         .page-kicker {
             display: inline-block;
             padding: 8px 18px;
             border-radius: 999px;
-            background: rgba(139,92,246,0.08);
-            border: 1px solid rgba(139,92,246,0.28);
+            background: rgba(79,216,235,0.08);
+            border: 1px solid rgba(79,216,235,0.28);
             font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--accent-violet);
             margin-bottom: 30px;
@@ -63,14 +64,13 @@
         .page-hero h1 {
             font-size: clamp(2.6rem, 6vw, 5.2rem);
             line-height: 1.0;
-            font-weight: 900;
+            font-weight: 800;
             margin-bottom: 24px;
-            text-shadow: 0 0 50px rgba(139,92,246,0.14);
         }
 
         .page-hero h1 span {
             display: inline-block;
-            background: linear-gradient(90deg, #ffffff 0%, #a78bfa 28%, #22d3ee 55%, #a78bfa 78%, #ffffff 100%);
+            background: linear-gradient(90deg, #4FD8EB 0%, #2E9BFF 28%, #A78BFA 55%, #2E9BFF 78%, #4FD8EB 100%);
             background-size: 200% auto;
             background-clip: text;
             -webkit-background-clip: text;
@@ -99,7 +99,7 @@
         }
 
         .principle-card {
-            background: linear-gradient(180deg, rgba(22,25,29,0.96) 0%, rgba(14,16,19,0.98) 100%);
+            background: var(--surface-card);
             border: 1px solid var(--line-soft);
             border-radius: var(--radius-lg);
             padding: 28px 22px;
@@ -114,8 +114,8 @@
         .principle-card.visible { opacity: 1; transform: translateY(0); }
 
         .principle-card:hover {
-            border-color: rgba(139,92,246,0.28);
-            box-shadow: 0 0 20px rgba(139,92,246,0.10), var(--shadow-soft);
+            border-color: rgba(79,216,235,0.28);
+            box-shadow: 0 8px 28px rgba(79,216,235,0.14);
         }
 
         .principle-card::before {
@@ -123,7 +123,7 @@
             position: absolute;
             left: 16px; right: 16px; top: 0;
             height: 3px;
-            background: linear-gradient(to right, var(--violet-electric), var(--cyan-electric), rgba(6,182,212,0.04));
+            background: linear-gradient(to right, var(--violet-electric), var(--cyan-electric), rgba(79,216,235,0.12));
             border-radius: 0 0 6px 6px;
         }
 
@@ -131,7 +131,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(139,92,246,0.06) 0, transparent 32%);
+            background: linear-gradient(135deg, rgba(79,216,235,0.07) 0, transparent 32%);
             pointer-events: none;
         }
 
@@ -171,22 +171,22 @@
             height: 36px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--cyan-electric), var(--violet-electric));
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
+            color: #001F25;
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.88rem;
-            font-weight: 900;
+            font-weight: 800;
             margin-bottom: 14px;
             position: relative;
             z-index: 1;
-            box-shadow: 0 0 14px rgba(6,182,212,0.30);
+            box-shadow: 0 2px 10px rgba(79,216,235,0.25);
         }
 
         /* ── Cierre ── */
         .closing-statement {
             background:
-                radial-gradient(circle at 20% 20%, rgba(139,92,246,0.12) 0, transparent 22%),
-                radial-gradient(circle at 80% 80%, rgba(6,182,212,0.10) 0, transparent 22%),
-                linear-gradient(180deg, rgba(24,27,32,0.98) 0%, rgba(10,12,14,0.99) 100%);
+                radial-gradient(circle at 20% 20%, rgba(79,216,235,0.11) 0, transparent 22%),
+                radial-gradient(circle at 80% 80%, rgba(79,216,235,0.07) 0, transparent 22%),
+                var(--surface-card);
             border: 1px solid var(--line-soft);
             border-radius: var(--radius-xl);
             padding: 56px;
@@ -205,7 +205,7 @@
             position: absolute;
             top: 0; left: 34px; right: 34px;
             height: 5px;
-            background: linear-gradient(to right, var(--violet-electric), var(--cyan-electric), rgba(6,182,212,0.08));
+            background: linear-gradient(to right, var(--violet-electric), var(--cyan-electric), rgba(79,216,235,0.12));
             border-radius: 0 0 10px 10px;
         }
 
@@ -213,7 +213,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(139,92,246,0.04) 0, transparent 30%);
+            background: linear-gradient(135deg, rgba(79,216,235,0.06) 0, transparent 30%);
             pointer-events: none;
         }
 
@@ -248,6 +248,153 @@
             .principles-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
             .closing-statement { padding: 34px 22px; }
             .closing-statement h3 { font-size: 1.6rem; }
+        }
+
+        /* ════════════════════════════════════════════
+           MANUAL INTERACTIVO (incorporación + gestión)
+           ════════════════════════════════════════════ */
+
+        /* Variable de acento por sección: cyan (incorporación) / violeta (gestión).
+           Tints explícitos (sin color-mix) para coherencia con el resto del sitio. */
+        .manual-section {
+            --acc: #4FD8EB; --acc-strong: #4FD8EB;
+            --acc-08: rgba(79,216,235,0.08); --acc-12: rgba(79,216,235,0.12);
+            --acc-24: rgba(79,216,235,0.24); --acc-30: rgba(79,216,235,0.30); --acc-40: rgba(79,216,235,0.40);
+            scroll-margin-top: 92px;
+        }
+        .manual-section.is-violet {
+            --acc: #38BFD6; --acc-strong: #21A8C4;
+            --acc-08: rgba(56,191,214,0.08); --acc-12: rgba(56,191,214,0.12);
+            --acc-24: rgba(56,191,214,0.24); --acc-30: rgba(56,191,214,0.30); --acc-40: rgba(56,191,214,0.40);
+        }
+
+        .manual-head { text-align: center; margin-bottom: 40px; }
+        .manual-kicker {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 7px 16px; border-radius: 999px;
+            background: var(--acc-08);
+            border: 1px solid var(--acc-30);
+            font-size: 0.74rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+            color: var(--acc); margin-bottom: 18px;
+        }
+        .manual-head h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--text-main); margin-bottom: 10px; }
+        .manual-head p { font-size: 1rem; color: var(--text-muted); max-width: 640px; margin: 0 auto; }
+
+        /* ── Callouts ── */
+        .manual-callout {
+            display: flex; gap: 16px; align-items: flex-start;
+            max-width: 880px; margin: 36px auto 0;
+            padding: 22px 26px; border-radius: var(--radius-md);
+            background: var(--acc-08);
+            border: 1px solid var(--acc-24);
+            border-left-width: 5px;
+        }
+        .manual-callout i { color: var(--acc); font-size: 1.3rem; margin-top: 2px; flex-shrink: 0; }
+        .manual-callout p { margin: 0; font-size: 0.94rem; color: var(--text-soft); line-height: 1.6; }
+        .manual-callout strong { color: var(--text-main); }
+        .manual-callout.is-warn { background: rgba(251,191,36,0.06); border-color: rgba(251,191,36,0.32); }
+        .manual-callout.is-warn i { color: #FBBF24; }
+
+        /* ── Banda inferior "Trabajo por verticales" ── */
+        .manual-band {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+            gap: 12px 26px; max-width: 920px; margin: 40px auto 0;
+            padding: 18px 26px; border-radius: 999px;
+            background: var(--acc-08);
+            border: 1px solid var(--acc-24);
+            text-align: center;
+        }
+        .manual-band .mb-item { display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--text-soft); }
+        .manual-band .mb-item i { color: var(--acc); }
+        .manual-band .mb-item strong { color: var(--text-main); }
+        .manual-band .mb-sep { width: 1px; height: 18px; background: var(--line-mid); }
+
+        /* ── Ciclo mensual (gestión) ── */
+        .cycle { max-width: 960px; margin: 0 auto; }
+        .cycle-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+        }
+        .cycle-node {
+            background: var(--surface-card);
+            border: 1px solid var(--line-soft); border-radius: var(--radius-md);
+            padding: 22px 20px; position: relative; overflow: hidden;
+            transition: border-color 0.22s ease, box-shadow 0.3s ease, transform 0.22s ease;
+        }
+        .cycle-node:hover { border-color: rgba(56,191,214,0.34); box-shadow: 0 6px 18px rgba(56,191,214,0.12); transform: translateY(-2px); }
+        .cycle-node .cn-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 50%; margin-bottom: 12px;
+            font-family: 'Open Sans', sans-serif; font-weight: 800; font-size: 0.9rem; color: #001F25;
+            background: linear-gradient(135deg, var(--violet-electric), var(--cyan-electric));
+            box-shadow: 0 2px 10px rgba(56,191,214,0.25);
+        }
+        .cycle-node h4 { font-size: 0.98rem; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .cycle-node h4 i { color: var(--accent-violet); font-size: 0.9rem; }
+        .cycle-node p { font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+        .cycle-restart {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            margin-top: 22px; padding: 16px 26px; border-radius: 999px;
+            background: rgba(56,191,214,0.07); border: 1px dashed rgba(56,191,214,0.4);
+            font-size: 0.9rem; color: var(--accent-violet); font-weight: 700;
+        }
+        .cycle-restart i { font-size: 1.2rem; animation: cycle-spin 6s linear infinite; }
+        @keyframes cycle-spin { to { transform: rotate(360deg); } }
+
+        /* ── Tres bloques (details) ── */
+        .manual-details { max-width: 880px; margin: 26px auto 0; display: flex; flex-direction: column; gap: 14px; }
+        .manual-det {
+            background: var(--surface-card);
+            border: 1px solid var(--line-soft); border-radius: var(--radius-md); overflow: hidden;
+        }
+        .manual-det[open] { border-color: rgba(56,191,214,0.30); }
+        .manual-det > summary {
+            list-style: none; cursor: pointer; padding: 20px 24px;
+            display: flex; align-items: center; gap: 14px;
+            font-family: 'Open Sans', sans-serif; font-weight: 800; font-size: 1.02rem; color: var(--text-main);
+        }
+        .manual-det > summary::-webkit-details-marker { display: none; }
+        .manual-det > summary i.det-ico { color: var(--accent-violet); font-size: 1.1rem; width: 22px; text-align: center; }
+        .manual-det > summary .det-chevron { margin-left: auto; color: var(--text-muted); transition: transform 0.25s ease; }
+        .manual-det[open] > summary .det-chevron { transform: rotate(180deg); }
+        .manual-det > summary:focus-visible { outline: 2px solid var(--accent-violet); outline-offset: -2px; }
+        .det-body { padding: 0 24px 22px; }
+        .det-body p { font-size: 0.92rem; color: var(--text-soft); margin: 0 0 10px; }
+        .pill-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 6px 0 0; list-style: none; }
+        .pill-list li {
+            font-size: 0.84rem; color: var(--text-soft); padding: 7px 14px; border-radius: 999px;
+            background: rgba(79,216,235,0.05); border: 1px solid var(--line-soft);
+        }
+        .det-inner { margin-top: 12px; border: 1px solid var(--line-soft); border-radius: 12px; overflow: hidden; background: rgba(79,216,235,0.03); }
+        .det-inner > summary {
+            list-style: none; cursor: pointer; padding: 14px 18px; font-size: 0.92rem; font-weight: 700; color: var(--text-soft);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .det-inner > summary::-webkit-details-marker { display: none; }
+        .det-inner > summary .det-chevron { margin-left: auto; color: var(--text-muted); transition: transform 0.25s ease; }
+        .det-inner[open] > summary .det-chevron { transform: rotate(180deg); }
+        .det-inner > summary:focus-visible { outline: 2px solid var(--accent-violet); outline-offset: -2px; }
+        .det-inner .det-body { padding: 0 18px 16px; }
+        .pub-spaces { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+        .pub-space {
+            padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line-soft);
+            background: rgba(79,216,235,0.04);
+        }
+        .pub-space .ps-num { font-family: 'Open Sans', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--accent-violet); }
+        .pub-space h5 { font-size: 0.92rem; color: var(--text-main); margin: 4px 0 0; }
+
+        /* ── Responsive manual ── */
+        @media (max-width: 1024px) {
+            .cycle-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .cycle-grid { grid-template-columns: 1fr; }
+            .pub-spaces { grid-template-columns: 1fr; }
+            .manual-band { border-radius: var(--radius-md); flex-direction: column; gap: 12px; }
+            .manual-band .mb-sep { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cycle-restart i { animation: none; }
         }
     </style>
 </head>
@@ -336,6 +483,147 @@
         </div>
     </div>
 
+    <!-- ════════════════════════════════════════════
+         MANUAL INTERACTIVO — cómo se trabaja por dentro
+         ════════════════════════════════════════════ -->
+
+    <!-- ── Intro ── -->
+    <div class="inner-section" style="padding-top: 0;">
+        <div class="content-wrapper">
+            <div class="section-shell">
+                <h2 class="section-title">¿Cómo funciona por dentro?</h2>
+                <p class="section-subtitle">El circuito mensual con el que trabaja cada vertical: del encuentro interno a la publicación de los resultados.</p>
+            </div>
+        </div>
+    </div>
+    <!-- ── #gestion ── -->
+    <section id="gestion" class="inner-section manual-section is-violet" style="padding-top: 0;">
+        <div class="content-wrapper">
+            <div class="section-shell">
+                <div class="manual-head">
+                    <span class="manual-kicker"><i class="fas fa-sitemap"></i> Gestión interna del vertical</span>
+                    <h2>Procedimiento de gestión interna</h2>
+                    <p>Cómo funciona el circuito mensual de cada vertical.</p>
+                </div>
+
+                <!-- Ciclo mensual de 7 pasos -->
+                <div class="cycle">
+                    <ol class="cycle-grid" style="list-style: none; padding: 0; margin: 0;">
+                        <li class="cycle-node">
+                            <span class="cn-num">1</span>
+                            <h4><i class="fas fa-bullhorn"></i> Convocatoria al encuentro interno</h4>
+                            <p>El responsable comunica fecha, horario y modalidad a los expertos activos.</p>
+                        </li>
+                        <li class="cycle-node">
+                            <span class="cn-num">2</span>
+                            <h4><i class="fas fa-users"></i> Realización del encuentro interno</h4>
+                            <p>El vertical desarrolla su reunión de investigación, análisis e intercambio.</p>
+                        </li>
+                        <li class="cycle-node">
+                            <span class="cn-num">3</span>
+                            <h4><i class="fas fa-clipboard-list"></i> Sistematización de la información</h4>
+                            <p>El responsable recopila y ordena lo trabajado durante el mes.</p>
+                        </li>
+                        <li class="cycle-node">
+                            <span class="cn-num">4</span>
+                            <h4><i class="fas fa-chart-line"></i> Presentación en reunión plenaria</h4>
+                            <p>Comparte la síntesis mensual con la coordinación y los demás verticales.</p>
+                        </li>
+                        <li class="cycle-node">
+                            <span class="cn-num">5</span>
+                            <h4><i class="fas fa-shield-halved"></i> Revisión y validación</h4>
+                            <p>Coordinación y responsables validan el contenido a publicar.</p>
+                        </li>
+                        <li class="cycle-node">
+                            <span class="cn-num">6</span>
+                            <h4><i class="fas fa-upload"></i> Publicación del documento</h4>
+                            <p>Se publica en el espacio interno del vertical y en la sección pública del sitio.</p>
+                        </li>
+                        <li class="cycle-node">
+                            <span class="cn-num">7</span>
+                            <h4><i class="fas fa-microphone"></i> Encuentro abierto mensual</h4>
+                            <p>Instancia abierta para comunicar avances a integrantes y, eventualmente, externos.</p>
+                        </li>
+                    </ol>
+                    <div class="cycle-restart"><i class="fas fa-arrows-rotate"></i> Y vuelve a empezar el mes siguiente</div>
+                </div>
+
+                <!-- Importante -->
+                <div class="manual-callout is-warn">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    <p><strong>Importante:</strong> el encuentro abierto es una instancia de comunicación y divulgación; no reemplaza la investigación interna del vertical.</p>
+                </div>
+
+                <!-- Tres bloques -->
+                <div class="manual-details">
+                    <details class="manual-det">
+                        <summary><i class="fas fa-user-tie det-ico"></i> Rol del responsable de vertical <i class="fas fa-chevron-down det-chevron"></i></summary>
+                        <div class="det-body">
+                            <ul class="pill-list">
+                                <li>Visualiza integrantes y modalidad de participación</li>
+                                <li>Ordena convocatorias</li>
+                                <li>Identifica perfiles estratégicos</li>
+                                <li>Sostiene comunicación permanente</li>
+                                <li>Articula con coordinación general</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="manual-det">
+                        <summary><i class="fas fa-comments det-ico"></i> Espacio de comunicación del vertical <i class="fas fa-chevron-down det-chevron"></i></summary>
+                        <div class="det-body">
+                            <ul class="pill-list">
+                                <li>Encuentros realizados</li>
+                                <li>Conclusiones preliminares</li>
+                                <li>Artículos de interés</li>
+                                <li>Materiales de referencia</li>
+                                <li>Novedades del sector</li>
+                                <li>Convocatorias</li>
+                                <li>Próximos encuentros</li>
+                                <li>Avances del vertical</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="manual-det">
+                        <summary><i class="fas fa-file-lines det-ico"></i> Documento público y publicación <i class="fas fa-chevron-down det-chevron"></i></summary>
+                        <div class="det-body">
+                            <details class="det-inner">
+                                <summary>El documento incluye <i class="fas fa-chevron-down det-chevron"></i></summary>
+                                <div class="det-body">
+                                    <ul class="pill-list">
+                                        <li>Nombre del vertical</li>
+                                        <li>Fecha</li>
+                                        <li>Tema principal</li>
+                                        <li>Descripción</li>
+                                        <li>Ideas principales</li>
+                                        <li>Conclusiones</li>
+                                        <li>Próximos pasos</li>
+                                        <li>Referencias y materiales</li>
+                                    </ul>
+                                </div>
+                            </details>
+                            <p style="margin-top: 16px;">Se publica en 2 espacios:</p>
+                            <div class="pub-spaces">
+                                <div class="pub-space"><span class="ps-num">01</span><h5>Espacio interno del vertical</h5></div>
+                                <div class="pub-space"><span class="ps-num">02</span><h5>Sección pública del sitio</h5></div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Banda inferior -->
+                <div class="manual-band">
+                    <span class="mb-item"><i class="fas fa-layer-group"></i> <strong>Trabajo por verticales</strong></span>
+                    <span class="mb-sep"></span>
+                    <span class="mb-item">12 comunidades organizadas por vertical</span>
+                    <span class="mb-sep"></span>
+                    <span class="mb-item">mínimo 1 encuentro interno mensual por vertical</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ── CÓMO COMPARTIMOS ── -->
     <div class="inner-section" style="padding-top: 0;">
         <div class="content-wrapper">
@@ -406,7 +694,7 @@
                 '.section-title, .section-subtitle, .principle-card, .timeline-item, .sharing-methods li, .milestone-card, .closing-statement'
             ).forEach(el => observer.observe(el));
 
-            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
