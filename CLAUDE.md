@@ -33,7 +33,7 @@ Sitio institucional de IA LAB — comunidad de innovación aplicada en inteligen
 - Eventos
 - Membresías (planes Individual/Corporativa + manual de incorporación en línea de tiempo)
 - Publicaciones (feed filtrable, carga desde `publicaciones/index.json`; los papers viven en `publicaciones/<vertical>/`)
-- Verticales: Energía · RRHH · Salud · Marketing · Arquitectura · Derecho · Seguridad e Higiene · Relaciones Internacionales · Ciencias Económicas · Coaching · Real Estate (páginas en `verticales/`)
+- Verticales: Energía · RRHH · Salud · Marketing · Arquitectura · Derecho · Seguridad e Higiene · Relaciones Institucionales · Ciencias Económicas · Coaching · Real Estate (páginas en `verticales/`)
 
 **Nav y footer:** inyectados en todas las páginas por `js/layout.js` (`#nav-root` / `#footer-root`). Links: Verticales (ancla a la home) · Metodología · Eventos · Publicaciones + botones "Sumate" (membresía) y "Login" (app externa).
 
