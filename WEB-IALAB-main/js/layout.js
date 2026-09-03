@@ -58,6 +58,17 @@ function injectFooter() {
           <i class="fab fa-linkedin"></i> ENE – Polo Tecnológico Neuquén
         </a>
       </div>
+      <div class="footer-allies">
+        <span class="footer-allies-title">Acompañan al IA LAB</span>
+        <div class="footer-allies-logos">
+          <div class="footer-ally-card">
+            <img src="/imagenes/aliados/logo-ifes.png" alt="IFES Educación Superior">
+          </div>
+          <div class="footer-ally-card">
+            <img src="/imagenes/aliados/logo-upatagonia.png" alt="Universidad Patagonia Argentina">
+          </div>
+        </div>
+      </div>
       <p class="footer-copy">© 2026 ENE IA LAB · Polo Tecnológico Neuquén · Edificio ENE</p>
     </footer>`;
 }

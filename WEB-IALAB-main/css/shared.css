@@ -728,6 +728,56 @@
             color: var(--text-muted);
         }
 
+        /* ── Footer: aliados institucionales ── */
+        .footer-allies {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .footer-allies-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .footer-allies-logos {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Fondo claro sutil: los logos tienen texto en gris oscuro que se pierde sobre el navy */
+        .footer-ally-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.92);
+            border: 1px solid var(--line-soft);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+            transition: border-color 0.22s ease, transform 0.22s ease;
+        }
+
+        .footer-ally-card:hover {
+            border-color: var(--line-mid);
+            transform: translateY(-1px);
+        }
+
+        .footer-ally-card img {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
         /* ── Vertical pages shared ── */
         .page-hero {
             min-height: 80vh;
@@ -1092,6 +1142,9 @@
             .milestones-grid { grid-template-columns: 1fr; gap: 16px; }
             footer { padding: 36px 18px 28px 18px; }
             .footer-links { gap: 10px; }
+            .footer-allies-logos { gap: 12px; }
+            .footer-ally-card { padding: 8px 14px; }
+            .footer-ally-card img { height: 26px; }
         }
 
         /* ── Accesibilidad: respetar preferencia de menos movimiento ── */
