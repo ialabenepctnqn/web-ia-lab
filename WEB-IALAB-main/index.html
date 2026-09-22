@@ -1403,16 +1403,18 @@
             // Side-nav scroll-spy
             const mainNavEl = document.querySelector('nav');
             const sideNavEl = document.querySelector('.side-nav');
+            const waFloatEl = document.querySelector('.whatsapp-float');
             const videoIntroEl = document.getElementById('video-intro');
             const sideNavSections = ['screen1','screen2','screen3','screen4-equipo','screen5-comunidad'];
             function updateSideNav() {
                 const scrollY = window.scrollY;
                 const navH = mainNavEl ? mainNavEl.offsetHeight : 0;
 
-                // Ocultar nav y side-nav mientras se está en la intro del video
+                // Ocultar nav, side-nav y el flotante de WhatsApp mientras se está en la intro del video
                 const inVideo = videoIntroEl && scrollY < videoIntroEl.offsetHeight * 0.8;
                 if (sideNavEl) sideNavEl.classList.toggle('hidden', inVideo);
                 if (mainNavEl) mainNavEl.classList.toggle('hidden', inVideo);
+                if (waFloatEl) waFloatEl.classList.toggle('hidden', inVideo);
 
                 let current = sideNavSections[0];
                 sideNavSections.forEach(id => {

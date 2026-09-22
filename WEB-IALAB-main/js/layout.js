@@ -1,4 +1,6 @@
 const LOGIN_URL = 'https://app.ialab.eneneuquen.com.ar/login';
+const WHATSAPP_NUMBER = '5492996044444';
+const WHATSAPP_MESSAGE = 'Hola, vengo de la web de IA LAB';
 
 function injectNav() {
   const root = document.getElementById('nav-root');
@@ -73,6 +75,21 @@ function injectFooter() {
     </footer>`;
 }
 
+// Botón flotante de contacto por WhatsApp (estilos en css/shared.css .whatsapp-float)
+function injectWhatsAppFloat() {
+  if (document.querySelector('.whatsapp-float')) return;
+  const link = document.createElement('a');
+  link.className = 'whatsapp-float';
+  link.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.setAttribute('aria-label', 'Contactar por WhatsApp');
+  link.innerHTML = `
+    <span class="whatsapp-float-icon"><i class="fab fa-whatsapp" aria-hidden="true"></i></span>
+    <span class="whatsapp-float-label">¿Tenés una consulta?</span>`;
+  document.body.appendChild(link);
+}
+
 // Fondo global: foto del edificio ENE + velo oscuro (estilos en css/shared.css)
 function injectBackground() {
   if (document.getElementById('bg-photo')) return; // index.html ya los trae en el HTML
@@ -88,4 +105,5 @@ document.addEventListener('DOMContentLoaded', () => {
   injectBackground();
   injectNav();
   injectFooter();
+  injectWhatsAppFloat();
 });
