@@ -85,7 +85,7 @@ Debajo de los planes, la página incluye el **manual de incorporación** ("Cómo
 | `verticales/recursos-humanos.html` | Recursos Humanos | Mariana Sobisch · Vanesa Villalobos · Belén Lombi |
 | `verticales/salud.html` | Salud | Vanesa Scholl |
 | `verticales/marketing.html` | Marketing y Comercialización | Rodrigo Bustos · Fernando Acuña |
-| `verticales/ciencias-economicas.html` | Ciencias Económicas | Matias Bacci · Pablo Serra |
+| `verticales/ciencias-economicas.html` | Ciencias Económicas | Matias Bacci · Pablo Fernández Sierra |
 | `verticales/arquitectura.html` | Arquitectura | A definir |
 | `verticales/derecho.html` | Derecho | Vanesa Ruiz |
 | `verticales/seguridad-higiene.html` | Seguridad (HSE) | Cristian Sanz · Ezequiel Weidermann |
