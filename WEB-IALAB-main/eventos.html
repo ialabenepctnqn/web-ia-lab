@@ -564,6 +564,7 @@
                 <button class="filter-btn" data-filter="pasado">Realizados</button>
             </div>
 
+            <p id="agenda-aviso" role="status" aria-live="polite"></p>
             <div class="events-grid" id="events-grid">
 
                 <!-- PRÓXIMO -->
@@ -611,7 +612,7 @@
                 </div>
 
                 <!-- PRÓXIMO -->
-                <div class="event-card" id="ev-final-ialab-2026-11" data-tipo="proximo" data-fecha="2026-11-30" style="transition-delay: 0.03s;">
+                <div class="event-card" id="ev-final-ialab-2026-11" data-tipo="proximo" style="transition-delay: 0.03s;">
                     <div class="event-card-header">
                         <span class="event-badge"><i class="fas fa-flag-checkered"></i> Evento de cierre</span>
                     </div>
@@ -691,8 +692,11 @@
     </div>
 
     <script src="/js/layout.js"></script>
+    <script src="/js/agenda-config.js"></script>
+    <script src="/js/agenda.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            await window.cargarAgendaIALAB();
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -705,7 +709,8 @@
             const eventCards = document.querySelectorAll('.event-card');
             const emptyMsg   = document.getElementById('events-empty');
 
-            const hoy = new Date();
+            const diaLocal = new Intl.DateTimeFormat('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }).format(new Date());
+            const hoy = new Date(diaLocal + 'T00:00:00');
             hoy.setHours(0, 0, 0, 0);
 
             // ── Próximo/Pasado automático según data-fecha ──
@@ -713,6 +718,7 @@
             // "Realizado") sin tocar el HTML. data-tipo manual queda solo como
             // fallback para cards sin data-fecha válida.
             eventCards.forEach(card => {
+                if (card.dataset.cancelado === 'true') return;
                 const iso = card.dataset.fecha;
                 if (!iso) return;
                 const fechaEvento = new Date(iso + 'T00:00:00');
@@ -765,6 +771,7 @@
             }
 
             eventCards.forEach(card => {
+                if (card.dataset.cancelado === 'true') return;
                 const iso = card.dataset.fecha;
                 if (!iso) return;
                 const fechaEvento = new Date(iso + 'T00:00:00');
@@ -887,6 +894,10 @@
                 if (e.key === 'ArrowLeft'  && current > 0)               showSlide(current - 1);
                 if (e.key === 'ArrowRight' && current < gallery.length - 1) showSlide(current + 1);
             });
+            if (location.hash) {
+                const destino = document.getElementById(location.hash.slice(1));
+                if (destino) destino.scrollIntoView({ block: 'start' });
+            }
         });
     </script>
 </body>
